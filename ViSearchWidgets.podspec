@@ -39,6 +39,10 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
+  s.resource_bundles = {
+      'com.visenze.icons' => ['ViSearchWidgets/ViSearchWidgets/**/*.xcassets'],
+      'com.visenze.fonts' => ['ViSearchWidgets/ViSearchWidgets/**/*.ttf']
+  }
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 

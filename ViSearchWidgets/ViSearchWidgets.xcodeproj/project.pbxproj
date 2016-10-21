@@ -13,6 +13,14 @@
 		BD7E96751DB9C1E700C497F7 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96741DB9C1E700C497F7 /* Kingfisher.framework */; };
 		BD7E967A1DB9C3A300C497F7 /* ViProductCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96791DB9C3A300C497F7 /* ViProductCard.swift */; };
 		BD7E967B1DB9C55800C497F7 /* ViSearchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96761DB9C20300C497F7 /* ViSearchSDK.framework */; };
+		BD7E96BD1DB9F56D00C497F7 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD7E96B81DB9F56D00C497F7 /* Roboto-Bold.ttf */; };
+		BD7E96BE1DB9F56D00C497F7 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD7E96B91DB9F56D00C497F7 /* Roboto-Light.ttf */; };
+		BD7E96BF1DB9F56D00C497F7 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD7E96BA1DB9F56D00C497F7 /* Roboto-Medium.ttf */; };
+		BD7E96C01DB9F56D00C497F7 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD7E96BB1DB9F56D00C497F7 /* Roboto-Regular.ttf */; };
+		BD7E96C11DB9F56D00C497F7 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD7E96BC1DB9F56D00C497F7 /* Roboto-Thin.ttf */; };
+		BD7E96C31DB9F62F00C497F7 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD7E96C21DB9F62F00C497F7 /* Icons.xcassets */; };
+		BD7E96C51DBA002F00C497F7 /* ViFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96C41DBA002F00C497F7 /* ViFont.swift */; };
+		BD7E96C81DBA03D000C497F7 /* UIColors+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96C71DBA03D000C497F7 /* UIColors+Visenze.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +43,14 @@
 		BD7E96741DB9C1E700C497F7 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = ../Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		BD7E96761DB9C20300C497F7 /* ViSearchSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViSearchSDK.framework; path = ../Carthage/Build/iOS/ViSearchSDK.framework; sourceTree = "<group>"; };
 		BD7E96791DB9C3A300C497F7 /* ViProductCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViProductCard.swift; sourceTree = "<group>"; };
+		BD7E96B81DB9F56D00C497F7 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		BD7E96B91DB9F56D00C497F7 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		BD7E96BA1DB9F56D00C497F7 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		BD7E96BB1DB9F56D00C497F7 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		BD7E96BC1DB9F56D00C497F7 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		BD7E96C21DB9F62F00C497F7 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
+		BD7E96C41DBA002F00C497F7 /* ViFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViFont.swift; sourceTree = "<group>"; };
+		BD7E96C71DBA03D000C497F7 /* UIColors+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColors+Visenze.swift"; path = "Extensions/UIColors+Visenze.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +96,9 @@
 		BD7E965B1DB9C19F00C497F7 /* ViSearchWidgets */ = {
 			isa = PBXGroup;
 			children = (
+				BD7E96C21DB9F62F00C497F7 /* Icons.xcassets */,
+				BD7E96B61DB9F56D00C497F7 /* Font */,
+				BD7E96C61DBA036500C497F7 /* Extensions */,
 				BD7E96791DB9C3A300C497F7 /* ViProductCard.swift */,
 				BD7E965C1DB9C19F00C497F7 /* ViSearchWidgets.h */,
 				BD7E965D1DB9C19F00C497F7 /* Info.plist */,
@@ -103,6 +122,35 @@
 				BD7E96741DB9C1E700C497F7 /* Kingfisher.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD7E96B61DB9F56D00C497F7 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				BD7E96B71DB9F56D00C497F7 /* Roboto */,
+				BD7E96C41DBA002F00C497F7 /* ViFont.swift */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		BD7E96B71DB9F56D00C497F7 /* Roboto */ = {
+			isa = PBXGroup;
+			children = (
+				BD7E96B81DB9F56D00C497F7 /* Roboto-Bold.ttf */,
+				BD7E96B91DB9F56D00C497F7 /* Roboto-Light.ttf */,
+				BD7E96BA1DB9F56D00C497F7 /* Roboto-Medium.ttf */,
+				BD7E96BB1DB9F56D00C497F7 /* Roboto-Regular.ttf */,
+				BD7E96BC1DB9F56D00C497F7 /* Roboto-Thin.ttf */,
+			);
+			path = Roboto;
+			sourceTree = "<group>";
+		};
+		BD7E96C61DBA036500C497F7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BD7E96C71DBA03D000C497F7 /* UIColors+Visenze.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +250,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD7E96BE1DB9F56D00C497F7 /* Roboto-Light.ttf in Resources */,
+				BD7E96BD1DB9F56D00C497F7 /* Roboto-Bold.ttf in Resources */,
+				BD7E96C01DB9F56D00C497F7 /* Roboto-Regular.ttf in Resources */,
+				BD7E96C11DB9F56D00C497F7 /* Roboto-Thin.ttf in Resources */,
+				BD7E96C31DB9F62F00C497F7 /* Icons.xcassets in Resources */,
+				BD7E96BF1DB9F56D00C497F7 /* Roboto-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +292,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD7E967A1DB9C3A300C497F7 /* ViProductCard.swift in Sources */,
+				BD7E96C81DBA03D000C497F7 /* UIColors+Visenze.swift in Sources */,
+				BD7E96C51DBA002F00C497F7 /* ViFont.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +505,7 @@
 				BD7E966F1DB9C19F00C497F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BD7E96701DB9C19F00C497F7 /* Build configuration list for PBXNativeTarget "ViSearchWidgetsTests" */ = {
 			isa = XCConfigurationList;
@@ -457,6 +514,7 @@
 				BD7E96721DB9C19F00C497F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

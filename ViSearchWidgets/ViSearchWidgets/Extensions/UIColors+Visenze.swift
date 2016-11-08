@@ -14,6 +14,7 @@ import UIKit
  - lighter color
  - darker color
  - color with modified brightness
+ - color with hex string
  */
 public extension UIColor {
  

@@ -15,6 +15,14 @@
 		BD7E969E1DB9C61200C497F7 /* WidgetsExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E969D1DB9C61200C497F7 /* WidgetsExampleTests.swift */; };
 		BD7E96B11DB9C63700C497F7 /* ViSearchWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96AE1DB9C62700C497F7 /* ViSearchWidgets.framework */; };
 		BD7E96B21DB9C63700C497F7 /* ViSearchWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96AE1DB9C62700C497F7 /* ViSearchWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BD7E96D91DBF830500C497F7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96D81DBF830500C497F7 /* SnapKit.framework */; };
+		BD7E96DA1DBF830500C497F7 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96D81DBF830500C497F7 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BD7E96DC1DBF833800C497F7 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96DB1DBF833800C497F7 /* Kingfisher.framework */; };
+		BD7E96DD1DBF833800C497F7 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96DB1DBF833800C497F7 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BD7E96DF1DBF840000C497F7 /* ViSearchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96DE1DBF840000C497F7 /* ViSearchSDK.framework */; };
+		BD7E96E01DBF840000C497F7 /* ViSearchSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96DE1DBF840000C497F7 /* ViSearchSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BDF03BFF1DD0142200861EC5 /* LayoutKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */; };
+		BDF03C001DD0142200861EC5 /* LayoutKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +63,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				BDF03C001DD0142200861EC5 /* LayoutKit.framework in Embed Frameworks */,
+				BD7E96E01DBF840000C497F7 /* ViSearchSDK.framework in Embed Frameworks */,
 				BD7E96B21DB9C63700C497F7 /* ViSearchWidgets.framework in Embed Frameworks */,
+				BD7E96DD1DBF833800C497F7 /* Kingfisher.framework in Embed Frameworks */,
+				BD7E96DA1DBF830500C497F7 /* SnapKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +86,10 @@
 		BD7E969D1DB9C61200C497F7 /* WidgetsExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsExampleTests.swift; sourceTree = "<group>"; };
 		BD7E969F1DB9C61200C497F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD7E96A81DB9C62700C497F7 /* ViSearchWidgets.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ViSearchWidgets.xcodeproj; path = ../ViSearchWidgets/ViSearchWidgets.xcodeproj; sourceTree = "<group>"; };
+		BD7E96D81DBF830500C497F7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = ../../Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		BD7E96DB1DBF833800C497F7 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = ../../Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		BD7E96DE1DBF840000C497F7 /* ViSearchSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViSearchSDK.framework; path = ../../Carthage/Build/iOS/ViSearchSDK.framework; sourceTree = "<group>"; };
+		BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayoutKit.framework; path = ../../Carthage/Build/iOS/LayoutKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +97,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDF03BFF1DD0142200861EC5 /* LayoutKit.framework in Frameworks */,
+				BD7E96DF1DBF840000C497F7 /* ViSearchSDK.framework in Frameworks */,
 				BD7E96B11DB9C63700C497F7 /* ViSearchWidgets.framework in Frameworks */,
+				BD7E96DC1DBF833800C497F7 /* Kingfisher.framework in Frameworks */,
+				BD7E96D91DBF830500C497F7 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +143,7 @@
 				BD7E968F1DB9C61100C497F7 /* Assets.xcassets */,
 				BD7E96911DB9C61100C497F7 /* LaunchScreen.storyboard */,
 				BD7E96941DB9C61100C497F7 /* Info.plist */,
+				BD7E96E11DBF841000C497F7 /* Frameworks */,
 			);
 			path = WidgetsExample;
 			sourceTree = "<group>";
@@ -145,6 +166,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BD7E96E11DBF841000C497F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */,
+				BD7E96DE1DBF840000C497F7 /* ViSearchSDK.framework */,
+				BD7E96DB1DBF833800C497F7 /* Kingfisher.framework */,
+				BD7E96D81DBF830500C497F7 /* SnapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -156,6 +188,7 @@
 				BD7E96821DB9C61100C497F7 /* Frameworks */,
 				BD7E96831DB9C61100C497F7 /* Resources */,
 				BD7E96B51DB9C63700C497F7 /* Embed Frameworks */,
+				BD7E96E21DBF843200C497F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -269,6 +302,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BD7E96E21DBF843200C497F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/ViSearchSDK.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/LayoutKit.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BD7E96811DB9C61100C497F7 /* Sources */ = {
@@ -420,11 +473,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NKN6QECX9M;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = WidgetsExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.WidgetsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -434,11 +488,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NKN6QECX9M;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = WidgetsExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.WidgetsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};
@@ -491,6 +546,7 @@
 				BD7E96A41DB9C61200C497F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BD7E96A51DB9C61200C497F7 /* Build configuration list for PBXNativeTarget "WidgetsExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +555,7 @@
 				BD7E96A71DB9C61200C497F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

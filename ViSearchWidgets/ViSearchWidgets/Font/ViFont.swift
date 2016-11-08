@@ -88,6 +88,25 @@ public class ViFont: NSObject {
         return UIFont.boldSystemFont(ofSize: size)
     }
     
+    /// Bold with size font. Will load custom font and fall back to system font if not available.
+    ///
+    /// - parameter size: font size
+    ///
+    /// - returns: UIFont
+    public static func bold(with size: CGFloat) -> UIFont {
+        ViFont.loadFontIfNeeded(name: "Roboto-Bold")
+        
+        if let f = UIFont(name: "Roboto-Bold", size: size) {
+            return f
+        }
+        
+        print("Unable to load Bold custom font")
+        
+        
+        return UIFont.boldSystemFont(ofSize: size)
+    }
+
+    
 
     /// Loads a given font if needed.
     ///

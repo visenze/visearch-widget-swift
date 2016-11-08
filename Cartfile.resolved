@@ -1,2 +1,4 @@
 github "onevcat/Kingfisher" "3.1.4"
+github "linkedin/LayoutKit" "3.1.0"
+github "SnapKit/SnapKit" "3.1.1"
 github "visenze/visearch-sdk-swift" "1.0"

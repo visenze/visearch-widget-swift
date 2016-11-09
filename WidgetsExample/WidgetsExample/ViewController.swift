@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // test single product card
         let productCardLayout = ViProductCardLayout(
             img_url: URL(string: "http://images.asos-media.com/inv/media/2/7/6/9/6739672/black/image1xl.jpg")!,
             img_size: CGSize(width: self.view.bounds.width / 2, height: 200),
@@ -26,23 +27,37 @@ class ViewController: UIViewController {
             discounted_price: 1799.99
         )
         
-        let productView = productCardLayout.arrangement( origin: CGPoint(x: 10, y: 80) ,
+//        ViLabelConfig.default_label_config = ViLabelConfig(font: ViFont.bold(with: 26.0))
+
+        
+        let productView = productCardLayout.arrangement( origin: CGPoint(x: 10, y: 20) ,
                                        width: self.view.bounds.width / 2 ).makeViews()
         
         productView.backgroundColor = UIColor.white
         
-        // test views
-//        for v in productView.subviews {
-//            print("\(v)")
-//        }
-        
         self.view.addSubview(productView)
-        
         self.view.backgroundColor = UIColor.blue
         
+        testRecController()
         
     }
-
+    
+    private func testRecController() {
+        
+        let prod = ViProduct(image: ViIcon.find_similar!, price: 3.0)
+        let products : [ViProduct] = [ViProduct](repeating: prod, count: 1000)
+        
+        let controller = RecommendationViewController()
+        controller.products = products
+        controller.itemSize = CGSize(width: self.view.bounds.width / 2.5, height: 250)
+        self.addChildViewController(controller)
+        controller.view.frame = CGRect(x: 0, y: 320, width: self.view.bounds.width, height: 260)
+        self.view.addSubview(controller.view)
+        controller.didMove(toParentViewController: self)
+        
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

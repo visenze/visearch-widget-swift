@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ViSearchSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +17,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // TODO: please copy and add the ViApiKeys.plist to the project
+        // after that fill in the access key and private key for this demo app
+        if let path = Bundle.main.path(forResource: "ViApiKeys", ofType: "plist") {
+            let dict = NSDictionary(contentsOfFile: path)
+        
+            let accessKey = dict!["accessKey"] as! String
+            let secret = dict!["secret"] as! String
+            
+//            print( "access key: \(accessKey), secret:\(secret)")
+            
+            // set up our search client
+            ViSearch.sharedInstance.setup(accessKey: accessKey, secret: secret)
+            
+        }
+        else {
+            print("Unable to load API keys plist. Please copy/add ViApiKeys.plist to the project and configure the API keys ")
+        }
+        
+        
+        
         return true
     }
 

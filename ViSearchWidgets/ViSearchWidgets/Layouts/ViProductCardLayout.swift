@@ -29,26 +29,72 @@ public enum ViProductCardTag : Int {
     
 }
 
+
+/// Layout for a single product card
 open class ViProductCardLayout: StackLayout<UIView> {
     
-    /// default regular font
-    open static var default_font : UIFont = ViFont.regular(with: 14.0)
+    public static var default_spacing : CGFloat = 6.0
     
-    /// default bold font
-    open static var default_bold_font    : UIFont = ViFont.medium(with: 14.0)
-    
-    /// default string format for discounted price
-    open static var default_discount_price_format : String = "Now $%.2f"
-    
-    /// default string format for price
-    open static var default_price_format : String = "$%.2f"
-    
-    /// default font for find similar button
-    open static var default_btn_font : UIFont = ViFont.regular(with: 12.0)
-    
-    /// default text color
-    open static var default_txt_color: UIColor = UIColor.black
-    
+    public convenience init(
+        imgUrl: URL, imageConfig: ViImageConfig,
+        heading: String? , headingConfig: ViLabelConfig = ViLabelConfig(),
+        label: String? = nil, labelConfig: ViLabelConfig = ViLabelConfig.default_label_config,
+        price: Float?, priceConfig: ViLabelConfig = ViLabelConfig.default_price_config,
+        discountPrice : Float?,
+        discountPriceConfig: ViLabelConfig = ViLabelConfig.default_discount_price_config,
+        hasSimilarBtn: Bool = true, similarBtnTxt: String = "", // default to empty similar
+        similarBtnConfig: ViButtonConfig = ViButtonConfig.default_btn_config ,
+        pricesHorizontalSpacing: CGFloat = ViProductCardLayout.default_spacing,
+        labelLeftPadding: CGFloat = ViProductCardLayout.default_spacing
+        ){
+        
+        self.init(
+            // image settings
+            img_url: imgUrl,
+            img_size: imageConfig.size,
+            img_contentMode: imageConfig.contentMode,
+            loading_img: imageConfig.loadingImg,
+            err_img: imageConfig.errImg,
+            
+            // label
+            label: label,
+            label_font: labelConfig.font,
+            label_text_color: labelConfig.textColor,
+            label_num_of_lines: labelConfig.numOfLines,
+            
+            // heading
+            heading: heading,
+            heading_font: headingConfig.font,
+            heading_text_color: headingConfig.textColor,
+            heading_num_of_lines: headingConfig.numOfLines,
+            
+            // price
+            price: price,
+            price_font : priceConfig.font,
+            price_text_color: priceConfig.textColor,
+            price_string_format: priceConfig.numberStringFormat,
+            price_strike_through: priceConfig.isStrikeThrough,
+            
+            // discount price
+            discounted_price : discountPrice,
+            discounted_price_font : discountPriceConfig.font,
+            discounted_price_text_color: discountPriceConfig.textColor,
+            discounted_price_string_format: discountPriceConfig.numberStringFormat,
+            discounted_price_strike_through: discountPriceConfig.isStrikeThrough,
+            
+            // similar button configuration
+            has_similar_btn: hasSimilarBtn,
+            similar_btn_txt: similarBtnTxt ,
+            similar_btn_font: similarBtnConfig.font,
+            similar_btn_size: similarBtnConfig.size,
+            similar_btn_background_color: similarBtnConfig.backgroundColor,
+            similar_btn_tint_color: similarBtnConfig.textColor,
+            
+            // spacing
+            prices_horizontal_spacing: pricesHorizontalSpacing,
+            label_left_padding: labelLeftPadding
+        )
+    }
     
     /// Constructor for productCard
     ///
@@ -77,7 +123,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
     ///   - discounted_price_string_format: string format to display discounted price, must include .f specifier e.g. %.2f
     ///   - discounted_price_strike_through: whether to strike through discounted price label, default to no
     ///   - has_similar_btn: whether to display similar button
-    ///   - similar_btn_txt: text for similar button, default to "Similar"
+    ///   - similar_btn_txt: text for similar button, default to empty
     ///   - similar_btn_font: font for similar button title text
     ///   - similar_btn_size: size for similar button
     ///   - similar_btn_background_color: background color for similar button
@@ -94,42 +140,42 @@ open class ViProductCardLayout: StackLayout<UIView> {
                     
                     // label
                     label: String? = nil,
-                    label_font: UIFont = default_bold_font,
-                    label_text_color: UIColor = UIColor.black,
+                    label_font: UIFont = ViTheme.sharedInstance.default_bold_font,
+                    label_text_color: UIColor = ViTheme.sharedInstance.default_txt_color,
                     label_num_of_lines: Int = 1,
                     
                     // heading
-                    heading: String,
-                    heading_font: UIFont = default_font,
-                    heading_text_color: UIColor = UIColor.black,
+                    heading: String? = nil,
+                    heading_font: UIFont = ViTheme.sharedInstance.default_font,
+                    heading_text_color: UIColor = ViTheme.sharedInstance.default_txt_color,
                     heading_num_of_lines: Int = 1,
                     
                     
                     // price
                     price: Float?,
-                    price_font : UIFont = default_font,
-                    price_text_color: UIColor = UIColor.black,
-                    price_string_format: String = default_price_format,
+                    price_font : UIFont = ViTheme.sharedInstance.default_font,
+                    price_text_color: UIColor = ViTheme.sharedInstance.default_txt_color,
+                    price_string_format: String = ViTheme.sharedInstance.default_price_format,
                     price_strike_through: Bool = false,
                     
                     // discount price
                     discounted_price : Float?,
-                    discounted_price_font : UIFont = default_font,
-                    discounted_price_text_color: UIColor = UIColor.red,
-                    discounted_price_string_format: String = default_discount_price_format,
+                    discounted_price_font : UIFont = ViTheme.sharedInstance.default_font,
+                    discounted_price_text_color: UIColor = ViTheme.sharedInstance.default_discounted_price_text_color,
+                    discounted_price_string_format: String = ViTheme.sharedInstance.default_discount_price_format,
                     discounted_price_strike_through: Bool = false,
                     
                     // similar button configuration
                     has_similar_btn: Bool = true,
-                    similar_btn_txt: String = "Similar" ,
-                    similar_btn_font: UIFont = default_btn_font,
-                    similar_btn_size: CGSize = CGSize(width: 70, height: 30),
-                    similar_btn_background_color: UIColor = UIColor.colorWithHexString("#F2F0F0", alpha: 1.0)!,
-                    similar_btn_tint_color: UIColor = UIColor.black,
+                    similar_btn_txt: String = "" , // default to empty
+                    similar_btn_font: UIFont = ViTheme.sharedInstance.default_btn_font,
+                    similar_btn_size: CGSize = ViTheme.sharedInstance.default_btn_size,
+                    similar_btn_background_color: UIColor = ViTheme.sharedInstance.default_btn_background_color,
+                    similar_btn_tint_color: UIColor = ViTheme.sharedInstance.default_txt_color,
                     
                     // spacing
-                    prices_horizontal_spacing: CGFloat = 8.0,
-                    label_left_padding: CGFloat = 8.0
+                    prices_horizontal_spacing: CGFloat = default_spacing,
+                    label_left_padding: CGFloat = default_spacing
                     
         )
     {
@@ -143,33 +189,8 @@ open class ViProductCardLayout: StackLayout<UIView> {
         // for label and find similar button
         var labelAndSimilarBtnLayouts : [Layout] = []
         
-        let productImg = SizeLayout<UIImageView>(
-            size: img_size,
-            viewReuseId: "prodImg",
-        
-            config: { imageView in
-
-                imageView.tag = ViProductCardTag.productImgTag.rawValue
-                imageView.contentMode = img_contentMode
-                imageView.kf.setImage(with: img_url, placeholder: loading_img , completionHandler: {
-                    (image, error, cacheType, imageUrl) in
-                    
-                    // image: Image? `nil` means failed
-                    // error: NSError? non-`nil` means failed
-                    if (image == nil || (error != nil) ) {
-                        if let err_img = err_img {
-                            imageView.image = err_img
-                        }
-                       
-                    }
-                })
-                imageView.clipsToBounds = true
-
-            }
-        )
+        let productImg = ViProductCardLayout.createProductImageLayout(img_url: img_url, img_size: img_size, img_contentMode: img_contentMode, loading_img: loading_img, err_img: err_img)
         layouts.append(productImg)
-        
-        
         
         if let label = label {
             let labelEl = LabelLayout(text: label,
@@ -183,129 +204,40 @@ open class ViProductCardLayout: StackLayout<UIView> {
                                       }
                 
             )
-            labelAndSimilarBtnLayouts.append(labelEl)
+            labelLayouts.append(labelEl)
         }
         
         
-        // find similar
-        if has_similar_btn {
-            let findSimilarBtnLayout =
-                SizeLayout<UIButton>(
-                width: similar_btn_size.width, height: similar_btn_size.height,
-                alignment: .centerTrailing,
-                flexibility: .inflexible,
-                viewReuseId: "findSimilarBtn",
-                config: { button in
-                    
-                    button.backgroundColor = similar_btn_background_color
-                    button.setTitle(similar_btn_txt, for: .normal)
-                    button.titleLabel?.font = similar_btn_font
-                    button.setTitleColor(similar_btn_tint_color, for: .normal)
-                    button.setImage(ViIcon.find_similar!, for: .normal)
-                    button.tintColor = similar_btn_tint_color
-                    button.imageEdgeInsets = UIEdgeInsetsMake( 0, 4, 0, 8)
-                    button.tag = ViProductCardTag.findSimilarBtnTag.rawValue
-                }
+        if let heading = heading {
+            let headingEl = LabelLayout(text: heading,
+                                        font: heading_font,
+                                        numberOfLines: heading_num_of_lines,
+                                        viewReuseId: "headingLabel",
+                                        config:  { (label: UILabel) in
+                                            label.textColor = heading_text_color
+                                            label.tag = ViProductCardTag.headingTag.rawValue
+                                        }
+                
             )
-            labelAndSimilarBtnLayouts.append(findSimilarBtnLayout)
+            labelLayouts.append(headingEl)
         }
-        
-        // check if either similar btn or label is available
-        if(labelAndSimilarBtnLayouts.count > 0) {
-            let labelAndSimilarBtnLayoutsContainer = StackLayout(
-                axis: .horizontal,
-                spacing: 4,
-                sublayouts: labelAndSimilarBtnLayouts
-            )
-            labelLayouts.append(labelAndSimilarBtnLayoutsContainer)
-        }
-        
-        let headingEl = LabelLayout(text: heading,
-                                    font: heading_font,
-                                    numberOfLines: heading_num_of_lines,
-                                    viewReuseId: "headingLabel",
-                                    config:  { (label: UILabel) in
-                                        label.textColor = heading_text_color
-                                        label.tag = ViProductCardTag.headingTag.rawValue
-                                    }
-            
-        )
-        labelLayouts.append(headingEl)
         
         // price layouts , TODO: should give option to layout the labels from left or from right
         var priceLayouts : [Layout] = []
         
         if let price = price {
             
-            if price_strike_through {
-                let attributedText = NSAttributedString(string: String(format: price_string_format, price) ,
-                                                        attributes: [
-                                                            NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSStrikethroughColorAttributeName: price_text_color]
-                )
-                
-                let priceEl = LabelLayout(attributedText: attributedText,
-                                          font: price_font,
-                                          numberOfLines: 1,
-                                          viewReuseId: "priceLabel",
-                                          config:  { (label: UILabel) in
-                                            label.textColor = price_text_color
-                                            label.tag = ViProductCardTag.priceTag.rawValue
-                }
-                )
-                
-                priceLayouts.append(priceEl)
-            }
-            else {
-                let priceEl = LabelLayout(text: String(format: price_string_format, price),
-                                          font: price_font,
-                                          numberOfLines: 1,
-                                          viewReuseId: "priceLabel",
-                                          config:  { (label: UILabel) in
-                                            label.textColor = price_text_color
-                                            label.tag = ViProductCardTag.priceTag.rawValue
-                }
-                )
-                
-                priceLayouts.append(priceEl)
-            }
+            let priceEl = ViProductCardLayout.createPriceLayout(price: price, price_font: price_font, price_text_color: price_text_color, price_string_format: price_string_format, price_strike_through: price_strike_through)
+            priceLayouts.append(priceEl)
+            
         }
         
         if let discounted_price = discounted_price {
             
-            if discounted_price_strike_through {
-                // strike through style
-                let attributedText = NSAttributedString(string: String(format: discounted_price_string_format, discounted_price) ,
-                                                        attributes: [
-                                                            NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSStrikethroughColorAttributeName: discounted_price_text_color]
-                )
-
-                
-                let priceEl = LabelLayout(attributedText: attributedText,
-                                          font: discounted_price_font,
-                                          numberOfLines: 1,
-                                          viewReuseId: "discountedPriceLabel",
-                                          config: { (label: UILabel) in
-                                            label.textColor = discounted_price_text_color
-                                            label.tag = ViProductCardTag.discountPriceTag.rawValue
-                                          }
-                )
-                priceLayouts.append(priceEl)
-            }
-            else {
-                let priceEl = LabelLayout(text: String(format: discounted_price_string_format, discounted_price),
-                                          font: discounted_price_font,
-                                          numberOfLines: 1,
-                                          viewReuseId: "discountedPriceLabel",
-                                          config: { (label: UILabel) in
-                                            label.textColor = discounted_price_text_color
-                                            label.tag = ViProductCardTag.discountPriceTag.rawValue
-                                          }
-                )
-                priceLayouts.append(priceEl)
-            }
+            let discountPriceEl = ViProductCardLayout.createDiscountPriceLayout(discounted_price: discounted_price, discounted_price_font: discounted_price_font, discounted_price_text_color: discounted_price_text_color, discounted_price_string_format: discounted_price_string_format, discounted_price_strike_through: discounted_price_strike_through)
+            priceLayouts.append(discountPriceEl)
+            
         }
-        
-        
         
         let pricesStackLayout = StackLayout(
             axis: .horizontal,
@@ -314,21 +246,181 @@ open class ViProductCardLayout: StackLayout<UIView> {
         )
         labelLayouts.append(pricesStackLayout)
         
-        let insetLayout =  InsetLayout(
-            insets: EdgeInsets(top: 4, left: label_left_padding, bottom: 4, right: label_left_padding),
-            sublayout: StackLayout(
+        if labelLayouts.count > 0 {
+            labelAndSimilarBtnLayouts.append(StackLayout(
                 axis: .vertical,
-                spacing: 0,
+                spacing: 2,
                 sublayouts: labelLayouts
+            ))
+        }
+        
+        // find similar
+        if has_similar_btn {
+            let findSimilarBtnLayout =
+                SizeLayout<UIButton>(
+                    width: similar_btn_size.width, height: similar_btn_size.height,
+                    alignment: .topTrailing,
+                    flexibility: .inflexible,
+                    // prevent recycling of buttons , will cause problem if set when scrolling in collectionview
+                    viewReuseId: nil,
+                    config: { button in
+                        button.backgroundColor = similar_btn_background_color
+                        
+                        button.setTitle(similar_btn_txt, for: .normal)
+                        button.setTitle(similar_btn_txt, for: .highlighted)
+                        
+                        button.titleLabel?.font = similar_btn_font
+                        
+                        button.setTitleColor(similar_btn_tint_color, for: .normal)
+                        button.setTitleColor(similar_btn_tint_color, for: .highlighted)
+                        
+                        button.setImage(ViIcon.find_similar!, for: .normal)
+                        button.setImage(ViIcon.find_similar!, for: .highlighted)
+                        
+                        button.tintColor = similar_btn_tint_color
+                        button.imageEdgeInsets = UIEdgeInsetsMake( 0, 4, 0, 4)
+                        button.tag = ViProductCardTag.findSimilarBtnTag.rawValue
+                        
+                }
             )
-        )
-        layouts.append(insetLayout)
+            labelAndSimilarBtnLayouts.append(findSimilarBtnLayout)
+        }
+        
+        if(labelAndSimilarBtnLayouts.count > 0) {
+            let labelAndSimilarBtnLayoutsContainer = StackLayout(
+                axis: .horizontal,
+                spacing: 4,
+                sublayouts: labelAndSimilarBtnLayouts
+            )
+            
+            let insetLayout =  InsetLayout(
+                insets: EdgeInsets(top: 2, left: label_left_padding, bottom: 4, right: label_left_padding),
+                sublayout: labelAndSimilarBtnLayoutsContainer
+            )
+            layouts.append(insetLayout)
+        }
 
         super.init(
             axis: .vertical,
-            spacing: 4,
+            spacing: 2,
             sublayouts: layouts
         )
         
+    }
+    
+    
+    // MARK : create layouts helpers
+    private static func createPriceLayout(
+        price: Float,
+        price_font : UIFont ,
+        price_text_color: UIColor ,
+        price_string_format: String ,
+        price_strike_through: Bool
+    ) -> LabelLayout<UILabel>
+    {
+        if price_strike_through {
+            let attributedText = NSAttributedString(string: String(format: price_string_format, price) ,
+                                                    attributes: [
+                                                        NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSStrikethroughColorAttributeName: price_text_color]
+            )
+            
+            return LabelLayout(attributedText: attributedText,
+                                      font: price_font,
+                                      numberOfLines: 1,
+                                      viewReuseId: "priceLabel",
+                                      config:  { (label: UILabel) in
+                                        label.textColor = price_text_color
+                                        label.tag = ViProductCardTag.priceTag.rawValue
+                                      }
+            )
+            
+
+        }
+        else {
+            return LabelLayout(text: String(format: price_string_format, price),
+                                      font: price_font,
+                                      numberOfLines: 1,
+                                      viewReuseId: "priceLabel",
+                                      config:  { (label: UILabel) in
+                                        label.textColor = price_text_color
+                                        label.tag = ViProductCardTag.priceTag.rawValue
+                                      }
+            )
+            
+        }
+    }
+    
+    private static func createDiscountPriceLayout(
+       discounted_price : Float,
+       discounted_price_font : UIFont ,
+       discounted_price_text_color: UIColor ,
+       discounted_price_string_format: String ,
+       discounted_price_strike_through: Bool ) -> LabelLayout<UILabel>{
+        
+        if discounted_price_strike_through {
+            // strike through style
+            let attributedText = NSAttributedString(string: String(format: discounted_price_string_format, discounted_price) ,
+                                                    attributes: [
+                                                        NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSStrikethroughColorAttributeName: discounted_price_text_color]
+            )
+            
+            
+            return LabelLayout(   attributedText: attributedText,
+                                  font: discounted_price_font,
+                                  numberOfLines: 1,
+                                  viewReuseId: "discountedPriceLabel",
+                                  config: { (label: UILabel) in
+                                    label.textColor = discounted_price_text_color
+                                    label.tag = ViProductCardTag.discountPriceTag.rawValue
+                                  }
+            )
+            
+        }
+        else {
+            return LabelLayout(   text: String(format: discounted_price_string_format, discounted_price),
+                                  font: discounted_price_font,
+                                  numberOfLines: 1,
+                                  viewReuseId: "discountedPriceLabel",
+                                  config: { (label: UILabel) in
+                                    label.textColor = discounted_price_text_color
+                                    label.tag = ViProductCardTag.discountPriceTag.rawValue
+                                  }
+            )
+            
+        }
+    }
+    
+    
+    private static func createProductImageLayout(img_url: URL,
+                                          img_size: CGSize,
+                                          img_contentMode: UIViewContentMode,
+                                          loading_img: UIImage? ,
+                                          err_img: UIImage? ) -> SizeLayout<UIImageView>{
+        return SizeLayout<UIImageView>(
+            size: img_size,
+            viewReuseId: "prodImg",
+            
+            config: { imageView in
+                
+                imageView.tag = ViProductCardTag.productImgTag.rawValue
+                imageView.contentMode = img_contentMode
+                
+                // TODO: configure animation effect for loading image, e.g. fading when load
+                imageView.kf.setImage(with: img_url, placeholder: loading_img , completionHandler: {
+                    (image, error, cacheType, imageUrl) in
+                    
+                    // image: Image? `nil` means failed
+                    // error: NSError? non-`nil` means failed
+                    if (image == nil || (error != nil) ) {
+                        if let err_img = err_img {
+                            imageView.image = err_img
+                        }
+                        
+                    }
+                })
+                imageView.clipsToBounds = true
+                
+            }
+        )
     }
 }

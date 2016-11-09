@@ -13,28 +13,22 @@ open class ViProduct: NSObject {
     // MARK: properties
     
     /// underlying image. This take precendence over image url. If set, image url will be ignored
-    public var image: UIImage?
+    public var image: UIImage? = nil
     
     /// image url to load
-    public var image_url : URL?
-    
-    /// placeholder image when image is loading
-    public var placeholder_image : UIImage?
-    
-    /// error image for failed loading
-    public var error_image: UIImage?
+    public var imageUrl : URL? = nil
     
     /// label e.g. for product brand
-    public var label : String?
+    public var label : String? = nil
     
     /// heading e.g. for product title
-    public var heading: String?
+    public var heading: String? = nil
     
     /// price
-    public var price: Float?
+    public var price: Float? = nil
     
     /// discounted price
-    public var discounted_price : Float?
+    public var discountPrice : Float? = nil
     
     // MARK: constructors
     public init(image: UIImage, price: Float?){
@@ -43,12 +37,12 @@ open class ViProduct: NSObject {
     }
     
     public init(url: URL, price: Float?){
-        self.image_url = url
+        self.imageUrl = url
         self.price = price
     }
     
-    public convenience init?(url_string: String, price: Float?){
-        if let url = URL(string: url_string) {
+    public convenience init?(urlString: String, price: Float?){
+        if let url = URL(string: urlString) {
             self.init (url: url, price: price)
         }
         else {

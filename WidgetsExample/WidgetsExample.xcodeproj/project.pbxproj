@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD3D1D731DD2F0E90053F1E8 /* ViApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3D1D721DD2F0E90053F1E8 /* ViApiKeys.plist */; };
 		BD7E96891DB9C61100C497F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96881DB9C61100C497F7 /* AppDelegate.swift */; };
 		BD7E968B1DB9C61100C497F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E968A1DB9C61100C497F7 /* ViewController.swift */; };
 		BD7E968E1DB9C61100C497F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD7E968C1DB9C61100C497F7 /* Main.storyboard */; };
@@ -75,6 +76,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BD3D1D721DD2F0E90053F1E8 /* ViApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ViApiKeys.plist; sourceTree = "<group>"; };
 		BD7E96851DB9C61100C497F7 /* WidgetsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WidgetsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD7E96881DB9C61100C497F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD7E968A1DB9C61100C497F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		BD7E96871DB9C61100C497F7 /* WidgetsExample */ = {
 			isa = PBXGroup;
 			children = (
+				BD3D1D721DD2F0E90053F1E8 /* ViApiKeys.plist */,
 				BD7E96881DB9C61100C497F7 /* AppDelegate.swift */,
 				BD7E968A1DB9C61100C497F7 /* ViewController.swift */,
 				BD7E968C1DB9C61100C497F7 /* Main.storyboard */,
@@ -290,6 +293,7 @@
 			files = (
 				BD7E96931DB9C61100C497F7 /* LaunchScreen.storyboard in Resources */,
 				BD7E96901DB9C61100C497F7 /* Assets.xcassets in Resources */,
+				BD3D1D731DD2F0E90053F1E8 /* ViApiKeys.plist in Resources */,
 				BD7E968E1DB9C61100C497F7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +479,7 @@
 				DEVELOPMENT_TEAM = NKN6QECX9M;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = WidgetsExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.WidgetsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -490,6 +495,7 @@
 				DEVELOPMENT_TEAM = NKN6QECX9M;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = WidgetsExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.WidgetsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -8,10 +8,41 @@
 
 import UIKit
 
+
+/// Theme for ViSenze widgets
+/// quick and easy way to configure various UI settings such as font/color in all the widgets
 public class ViTheme: NSObject {
 
-    public static let sharedInstance = ViTheme()
+    /// default regular font, used for 'heading' , 'price' labels in product card
+    public var default_font : UIFont = ViFont.regular(with: 12.0)
     
+    /// default bold font. Used as default for 'label' in product card
+    public var default_bold_font : UIFont = ViFont.medium(with: 12.0)
+    
+    /// default string format for discounted price
+    public var default_discount_price_format : String = "Now $%.2f"
+    
+    /// default string format for price
+    public var default_price_format : String = "$%.2f"
+    
+    /// default font for find similar button
+    public var default_btn_font : UIFont = ViFont.regular(with: 12.0)
+    
+    /// default text color
+    public var default_txt_color: UIColor = UIColor.black
+    
+    /// default color for discounted price label
+    public var default_discounted_price_text_color : UIColor = UIColor.red
+    
+    /// default button background color e.g. Find Similar button
+    public var default_btn_background_color: UIColor = UIColor.colorWithHexString("#F2F0F0", alpha: 1.0)!
+    
+    /// default button size e.g. Find Similar button size with icon on the left and text at the right
+    public var default_btn_size: CGSize = CGSize(width: 30, height: 30)
+    
+    /// singleton instance. Used this to configure the global theme settings
+    public static let sharedInstance : ViTheme = ViTheme()
+
     private override init(){
         super.init()
     }

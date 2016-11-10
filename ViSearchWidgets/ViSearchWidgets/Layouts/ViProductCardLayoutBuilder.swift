@@ -27,9 +27,12 @@ open class ViProductCardLayoutBuilder: NSObject {
     public var discountPriceConfig: ViLabelConfig = ViLabelConfig.default_discount_price_config
     
     public var hasSimilarBtn: Bool = true
+    public var similarBtnConfig: ViButtonConfig = ViButtonConfig.default_similar_btn_config
     
-    public var similarBtnTxt: String = ""
-    public var similarBtnConfig: ViButtonConfig = ViButtonConfig.default_btn_config
+    public var hasActionBtn: Bool = true
+    public var actionBtnConfig: ViButtonConfig = ViButtonConfig.default_action_btn_config
+    
+    
     public var pricesHorizontalSpacing: CGFloat = 6.0
     public var labelLeftPadding: CGFloat = 6.0
     
@@ -92,10 +95,9 @@ open class ViProductCardLayoutBuilder: NSObject {
         self.discountPrice = nil
     }
     
-    public func setSimilarBtn(similarBtnTxt: String = "",
-                              similarBtnConfig: ViButtonConfig = ViButtonConfig.default_btn_config) -> ViProductCardLayoutBuilder{
-        self.similarBtnTxt = similarBtnTxt
-        self.similarBtnConfig = similarBtnConfig
+    public func setSimilarBtn(config: ViButtonConfig = ViButtonConfig.default_similar_btn_config)
+        -> ViProductCardLayoutBuilder{
+        self.similarBtnConfig = config
         self.hasSimilarBtn = true
         
         return self
@@ -103,6 +105,20 @@ open class ViProductCardLayoutBuilder: NSObject {
     
     public func removeSimilarBtn() -> ViProductCardLayoutBuilder{
         self.hasSimilarBtn = false
+        return self
+    }
+    
+    public func setActionBtn(config: ViButtonConfig = ViButtonConfig.default_action_btn_config)
+        -> ViProductCardLayoutBuilder{
+        
+        self.actionBtnConfig = config
+        self.hasActionBtn = true
+            
+        return self
+    }
+    
+    public func removeActionBtn() -> ViProductCardLayoutBuilder{
+        self.hasActionBtn = false
         return self
     }
     
@@ -115,8 +131,8 @@ open class ViProductCardLayoutBuilder: NSObject {
                                    label: self.label, labelConfig: self.labelConfig,
                                    price: self.price, priceConfig: self.priceConfig,
                                    discountPrice: self.discountPrice, discountPriceConfig: self.discountPriceConfig,
-                                   hasSimilarBtn: self.hasSimilarBtn, similarBtnTxt: self.similarBtnTxt,
-                                   similarBtnConfig: self.similarBtnConfig,
+                                   hasSimilarBtn: self.hasSimilarBtn, similarBtnConfig: self.similarBtnConfig,
+                                   hasActionBtn: self.hasActionBtn , actionBtnConfig: self.actionBtnConfig,
                                    pricesHorizontalSpacing: self.pricesHorizontalSpacing, labelLeftPadding: self.labelLeftPadding)
         }
         

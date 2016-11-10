@@ -26,6 +26,7 @@ public enum ViProductCardTag : Int {
     case priceTag
     case discountPriceTag
     case findSimilarBtnTag
+    case actionBtnTag
     
 }
 
@@ -42,8 +43,10 @@ open class ViProductCardLayout: StackLayout<UIView> {
         price: Float?, priceConfig: ViLabelConfig = ViLabelConfig.default_price_config,
         discountPrice : Float?,
         discountPriceConfig: ViLabelConfig = ViLabelConfig.default_discount_price_config,
-        hasSimilarBtn: Bool = true, similarBtnTxt: String = "", // default to empty similar
-        similarBtnConfig: ViButtonConfig = ViButtonConfig.default_btn_config ,
+        hasSimilarBtn: Bool = true,
+        similarBtnConfig: ViButtonConfig = ViButtonConfig.default_similar_btn_config ,
+        hasActionBtn: Bool = true,
+        actionBtnConfig: ViButtonConfig = ViButtonConfig.default_action_btn_config ,
         pricesHorizontalSpacing: CGFloat = ViProductCardLayout.default_spacing,
         labelLeftPadding: CGFloat = ViProductCardLayout.default_spacing
         ){
@@ -84,11 +87,22 @@ open class ViProductCardLayout: StackLayout<UIView> {
             
             // similar button configuration
             has_similar_btn: hasSimilarBtn,
-            similar_btn_txt: similarBtnTxt ,
+            similar_btn_icon: similarBtnConfig.icon,
+            similar_btn_txt : similarBtnConfig.text ,
             similar_btn_font: similarBtnConfig.font,
             similar_btn_size: similarBtnConfig.size,
             similar_btn_background_color: similarBtnConfig.backgroundColor,
-            similar_btn_tint_color: similarBtnConfig.textColor,
+            similar_btn_tint_color: similarBtnConfig.tintColor,
+            
+            // action button configuration
+            has_action_btn: hasActionBtn,
+            action_btn_icon: actionBtnConfig.icon,
+            action_btn_txt: actionBtnConfig.text , // default to empty
+            action_btn_font: actionBtnConfig.font,
+            action_btn_size: actionBtnConfig.size,
+            action_btn_background_color: actionBtnConfig.backgroundColor,
+            action_btn_tint_color: actionBtnConfig.tintColor,
+
             
             // spacing
             prices_horizontal_spacing: pricesHorizontalSpacing,
@@ -124,10 +138,18 @@ open class ViProductCardLayout: StackLayout<UIView> {
     ///   - discounted_price_strike_through: whether to strike through discounted price label, default to no
     ///   - has_similar_btn: whether to display similar button
     ///   - similar_btn_txt: text for similar button, default to empty
+    ///   - similar_btn_icon: icon for similar button
     ///   - similar_btn_font: font for similar button title text
     ///   - similar_btn_size: size for similar button
     ///   - similar_btn_background_color: background color for similar button
     ///   - similar_btn_tint_color: tint color for similar button i.e. text color and image color
+    ///   - has_action_btn: whether to display action button
+    ///   - action_btn_txt: text for action button, default to empty
+    ///   - action_btn_icon: icon for action button
+    ///   - action_btn_font: font for action button title text
+    ///   - action_btn_size: size for action button
+    ///   - action_btn_background_color: background color for action button
+    ///   - action_btn_tint_color: tint color for action button i.e. text color and image color
     ///   - prices_horizontal_spacing: spacing between price and discounted price label
     ///   - label_left_padding: padding of labels from parent left
     public init(
@@ -167,12 +189,22 @@ open class ViProductCardLayout: StackLayout<UIView> {
                     
                     // similar button configuration
                     has_similar_btn: Bool = true,
-                    similar_btn_txt: String = "" , // default to empty
-                    similar_btn_font: UIFont = ViTheme.sharedInstance.default_btn_font,
-                    similar_btn_size: CGSize = ViTheme.sharedInstance.default_btn_size,
-                    similar_btn_background_color: UIColor = ViTheme.sharedInstance.default_btn_background_color,
-                    similar_btn_tint_color: UIColor = ViTheme.sharedInstance.default_txt_color,
+                    similar_btn_icon: UIImage? = ViButtonConfig.default_similar_btn_config.icon,
+                    similar_btn_txt: String = ViButtonConfig.default_similar_btn_config.text , // default to empty
+                    similar_btn_font: UIFont = ViButtonConfig.default_similar_btn_config.font,
+                    similar_btn_size: CGSize = ViButtonConfig.default_similar_btn_config.size,
+                    similar_btn_background_color: UIColor = ViButtonConfig.default_similar_btn_config.backgroundColor,
+                    similar_btn_tint_color: UIColor = ViButtonConfig.default_similar_btn_config.tintColor,
                     
+                    // action button configuration e.g. like icon
+                    has_action_btn: Bool = true,
+                    action_btn_icon: UIImage? = ViButtonConfig.default_action_btn_config.icon,
+                    action_btn_txt: String =  ViButtonConfig.default_action_btn_config.text , // default to empty
+                    action_btn_font: UIFont = ViButtonConfig.default_action_btn_config.font,
+                    action_btn_size: CGSize = ViButtonConfig.default_action_btn_config.size,
+                    action_btn_background_color: UIColor = ViButtonConfig.default_action_btn_config.backgroundColor,
+                    action_btn_tint_color: UIColor = ViButtonConfig.default_action_btn_config.tintColor,
+        
                     // spacing
                     prices_horizontal_spacing: CGFloat = default_spacing,
                     label_left_padding: CGFloat = default_spacing
@@ -189,7 +221,21 @@ open class ViProductCardLayout: StackLayout<UIView> {
         // for label and find similar button
         var labelAndSimilarBtnLayouts : [Layout] = []
         
-        let productImg = ViProductCardLayout.createProductImageLayout(img_url: img_url, img_size: img_size, img_contentMode: img_contentMode, loading_img: loading_img, err_img: err_img)
+        let productImg = ViProductCardLayout.createProductImageLayout(
+            img_url: img_url, img_size: img_size,
+            img_contentMode: img_contentMode,
+            loading_img: loading_img, err_img: err_img ,
+            
+            has_action_btn: has_action_btn,
+            action_btn_icon: action_btn_icon,
+            action_btn_txt: action_btn_txt ,
+            action_btn_font: action_btn_font,
+            action_btn_size: action_btn_size,
+            action_btn_background_color: action_btn_background_color,
+            action_btn_tint_color: action_btn_tint_color
+
+            )
+        
         layouts.append(productImg)
         
         if let label = label {
@@ -274,8 +320,8 @@ open class ViProductCardLayout: StackLayout<UIView> {
                         button.setTitleColor(similar_btn_tint_color, for: .normal)
                         button.setTitleColor(similar_btn_tint_color, for: .highlighted)
                         
-                        button.setImage(ViIcon.find_similar!, for: .normal)
-                        button.setImage(ViIcon.find_similar!, for: .highlighted)
+                        button.setImage(similar_btn_icon, for: .normal)
+                        button.setImage(similar_btn_icon, for: .highlighted)
                         
                         button.tintColor = similar_btn_tint_color
                         button.imageEdgeInsets = UIEdgeInsetsMake( 0, 4, 0, 4)
@@ -391,34 +437,81 @@ open class ViProductCardLayout: StackLayout<UIView> {
     }
     
     
-    private static func createProductImageLayout(img_url: URL,
-                                          img_size: CGSize,
-                                          img_contentMode: UIViewContentMode,
-                                          loading_img: UIImage? ,
-                                          err_img: UIImage? ) -> SizeLayout<UIImageView>{
-        return SizeLayout<UIImageView>(
-            size: img_size,
-            viewReuseId: "prodImg",
+    private static func createProductImageLayout(
+          img_url: URL,
+          img_size: CGSize,
+          img_contentMode: UIViewContentMode,
+          loading_img: UIImage? ,
+          err_img: UIImage?,
+          
+            // action button configuration e.g. like icon
+            has_action_btn: Bool = true,
+            action_btn_icon: UIImage? = ViIcon.like,
+            action_btn_txt: String = "" , // default to empty
+            action_btn_font: UIFont = ViTheme.sharedInstance.default_btn_font,
+            action_btn_size: CGSize = ViTheme.sharedInstance.default_btn_size,
+            action_btn_background_color: UIColor = ViTheme.sharedInstance.default_action_btn_background_color,
+            action_btn_tint_color: UIColor = ViTheme.sharedInstance.default_txt_color
+        
+        
+        )
+        -> SizeLayout<ViImageView>{
             
-            config: { imageView in
+            
+        
+        return SizeLayout<ViImageView>(
+            size: img_size,
+            viewReuseId: nil,
+            
+            config: { viImageView in
+                viImageView.tag = ViProductCardTag.productImgTag.rawValue
                 
-                imageView.tag = ViProductCardTag.productImgTag.rawValue
-                imageView.contentMode = img_contentMode
-                
-                // TODO: configure animation effect for loading image, e.g. fading when load
-                imageView.kf.setImage(with: img_url, placeholder: loading_img , completionHandler: {
-                    (image, error, cacheType, imageUrl) in
+                if let imageView = viImageView.imageView {
+                    imageView.contentMode = img_contentMode
                     
-                    // image: Image? `nil` means failed
-                    // error: NSError? non-`nil` means failed
-                    if (image == nil || (error != nil) ) {
-                        if let err_img = err_img {
-                            imageView.image = err_img
-                        }
+                    // TODO: configure animation effect for loading image, e.g. fading when load
+                    imageView.kf.setImage(with: img_url, placeholder: loading_img , completionHandler: {
+                        (image, error, cacheType, imageUrl) in
                         
+                        // image: Image? `nil` means failed
+                        // error: NSError? non-`nil` means failed
+                        if (image == nil || (error != nil) ) {
+                            if let err_img = err_img {
+                                imageView.image = err_img
+                            }
+                            
+                        }
+                    })
+                    imageView.clipsToBounds = true
+                    
+                    // configure the action btn
+                    if has_action_btn {
+                        if let button = viImageView.actionBtn {
+                            button.isHidden = false
+                            viImageView.actionBtnSize = action_btn_size
+                            button.backgroundColor = action_btn_background_color
+                            
+                            button.setTitle(action_btn_txt, for: .normal)
+                            button.setTitle(action_btn_txt, for: .highlighted)
+                            
+                            button.titleLabel?.font = action_btn_font
+                            
+                            button.setTitleColor(action_btn_tint_color, for: .normal)
+                            button.setTitleColor(action_btn_tint_color, for: .highlighted)
+                            
+                            button.setImage(action_btn_icon, for: .normal)
+                            button.setImage(action_btn_icon, for: .highlighted)
+                            
+                            button.tintColor = action_btn_tint_color
+                            button.imageEdgeInsets = UIEdgeInsetsMake( 0, 4, 0, 4)
+                            button.tag = ViProductCardTag.actionBtnTag.rawValue
+                            
+                        }
                     }
-                })
-                imageView.clipsToBounds = true
+                    else {
+                        viImageView.actionBtn?.isHidden = true
+                    }
+                }
                 
             }
         )

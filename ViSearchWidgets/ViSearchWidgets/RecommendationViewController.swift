@@ -66,6 +66,8 @@ open class RecommendationViewController: UICollectionViewController , UICollecti
         
 //        let product = products[indexPath.row]
         
+        ViButtonConfig.default_action_btn_config.tintColor = UIColor.red
+        
         // testing
         let productCardLayout = ViProductCardLayout(
             img_url: URL(string: "http://images.asos-media.com/inv/media/2/7/6/9/6739672/black/image1xl.jpg")!,

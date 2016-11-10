@@ -37,6 +37,10 @@ public class ViTheme: NSObject {
     /// default button background color e.g. Find Similar button
     public var default_btn_background_color: UIColor = UIColor.colorWithHexString("#F2F0F0", alpha: 1.0)!
     
+    /// default action button background color i.e. clear or no background
+    public var default_action_btn_background_color: UIColor = UIColor.clear
+    
+    
     /// default button size e.g. Find Similar button size with icon on the left and text at the right
     public var default_btn_size: CGSize = CGSize(width: 30, height: 30)
     

@@ -37,5 +37,8 @@ public struct ViIcon{
     
     public static let find_similar = ViIcon.icon("find_similar")
     
+    // TODO: change this image later
+    public static let like = ViIcon.icon("find_similar")
+    
 
 }

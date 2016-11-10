@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     private func testRecController() {
         
         
-        let controller = RecommendationViewController()
+        let controller = ViRecommendationViewController()
         
 
         controller.imageConfig.size = CGSize(width: self.view.bounds.width / 2.5, height: (self.view.bounds.width / 2.5) * 1.2 )
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
         controller.schemaMapping.discountPrice = "price"
         controller.priceConfig.isStrikeThrough = true
         
-//        controller.backgroundColor = UIColor.black
+//        controller.backgroundColor = UIColor.clear
         
         // must be called last after schema mapping as we calculate based on whether the field is available
         controller.itemSize = controller.estimateItemSize()

@@ -1,8 +1,8 @@
 //
-//  RecommendationViewController.swift
+//  BaseSearchViewController.swift
 //  ViSearchWidgets
 //
-//  Created by Hung on 8/11/16.
+//  Created by Hung on 10/11/16.
 //  Copyright © 2016 Visenze. All rights reserved.
 //
 
@@ -11,20 +11,28 @@ import ViSearchSDK
 
 private let reuseIdentifier = "ViProductCardLayoutCell"
 
-public protocol RecommendationViewControllerDelegate: class {
+public protocol ViSearchViewControllerDelegate: class {
     func numOfProducts(controller: UIViewController ) -> Int
     func product(photoController: UIViewController, index: Int) -> ViProduct
 }
 
+// subclass implementation
+public protocol ViSearchViewControllerProtocol: class {
+    // configure the flow layout
+    func reloadLayout() -> Void
+    
+    // call Visearch API and refresh data
+    func refreshData() -> Void
+}
 
-open class RecommendationViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout{
-
+open class ViBaseSearchViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol {
+    
     /// last known successful request Id to Visenze API
     public var reqId : String? = ""
     
     /// search parameters
     public var searchParams: ViSearchParams? = nil
-
+    
     /// schema mappings to UI elements
     public var schemaMapping: ViProductSchemaMapping = ViProductSchemaMapping()
     
@@ -86,21 +94,21 @@ open class RecommendationViewController: UICollectionViewController , UICollecti
         
         reloadLayout()
     }
-
+    
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-   
+    
     // MARK: UICollectionViewDataSource
     override open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
     }
-
+    
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
@@ -115,7 +123,7 @@ open class RecommendationViewController: UICollectionViewController , UICollecti
                 hasSimilarBtn: self.hasSimilarBtn, similarBtnConfig: self.similarBtnConfig,
                 hasActionBtn: self.hasActionBtn, actionBtnConfig: self.actionBtnConfig,
                 pricesHorizontalSpacing: ViProductCardLayout.default_spacing, labelLeftPadding: ViProductCardLayout.default_spacing)
-           
+            
             let productView = productCardLayout.arrangement( origin: .zero ,
                                                              width:  itemSize.width ,
                                                              height: itemSize.height).makeViews(in: cell.contentView)
@@ -125,22 +133,10 @@ open class RecommendationViewController: UICollectionViewController , UICollecti
         return cell
     }
     
-    /// reload layout
-    open func reloadLayout(){
-        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
-        
-        layout.minimumInteritemSpacing = itemSpacing
-        layout.headerReferenceSize = .zero
-        layout.footerReferenceSize = .zero
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
-        self.collectionView?.backgroundColor = backgroundColor
-        layout.itemSize = itemSize
-        
-    }
+    // MARK : important methods
     
     /// estimate product card item size based on image size in image config
+    /// override if necessary
     open func estimateItemSize() -> CGSize{
         
         let productCardLayout = ViProductCardLayout(
@@ -156,57 +152,12 @@ open class RecommendationViewController: UICollectionViewController , UICollecti
         return productCardLayout.arrangement(origin: .zero, width: self.imageConfig.size.width).frame.size
     }
     
-    /// call ViSearch API and refresh the views
-    open func refreshData() {
-        if let searchParams = searchParams {
-            
-            // construct the fl based on schema mappings
-            // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
-            let metaArr = self.schemaMapping.getMetaArrForSearch()
-            let combinedArr = searchParams.fl + metaArr
-            let flSet = Set(combinedArr)
-            searchParams.fl = Array(flSet)
-            
-            ViSearch.sharedInstance.recommendation(
-                params: searchParams,
-                successHandler: {
-                    (data : ViResponseData?) -> Void in
-                    // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
-                    if let data = data {
-                        if data.hasError {
-                            let errMsgs =  data.error.joined(separator: ",")
-                            print("Recommendation API error: \(errMsgs)")
-                            
-                            // TODO: display system busy message here
-                            
-                        }
-                        else {
-                            // display and refresh here
-                            self.reqId = data.reqId
-                            self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
-                            
-                            DispatchQueue.main.async {
-                                self.collectionView?.reloadData()
-                            }
-                            
-                        }
-                    }
-
-            },
-                failureHandler: {
-                    (err) -> Void in
-                    // Do something when request fails e.g. due to network error
-                    print ("error: \\(err.localizedDescription)")
-                    // TODO: display error message and tap to try again
-            })
-        }
-        else {
-            
-            print("\(type(of: self)).\(#function)[line:\(#line)] - error: Please setup search parameters to refresh data.")
-            
-        }
-    }
-
-
+    
+    /// to be implemented by subclasses
+    open func reloadLayout(){}
+    
+    /// to be implemented by subclasses
+    open func refreshData(){}
+    
 
 }

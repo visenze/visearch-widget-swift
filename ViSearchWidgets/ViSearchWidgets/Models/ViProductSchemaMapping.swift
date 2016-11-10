@@ -26,8 +26,35 @@ public struct ViProductSchemaMapping {
     /// mapping for discount price field
     public var discountPrice: String? = nil
     
+    /// constructor
     public init(){
         
     }
     
+    /// construct fl meta array to be passed to search API
+    /// the meta data will then be returned in search API result
+    public func getMetaArrForSearch() -> [String] {
+        var fl : [String] = []
+        
+        fl.append(productUrl)
+        
+        if let val = heading {
+            fl.append(val)
+        }
+        
+        if let val = label {
+            fl.append(val)
+        }
+        
+        if let val = price {
+            fl.append(val)
+        }
+        
+        if let val = discountPrice {
+            fl.append(val)
+        }
+        
+        return fl
+    }
+
 }

@@ -37,7 +37,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
     public static var default_spacing : CGFloat = 6.0
     
     public convenience init(
-        imgUrl: URL, imageConfig: ViImageConfig,
+        imgUrl: URL?, imageConfig: ViImageConfig,
         heading: String? , headingConfig: ViLabelConfig = ViLabelConfig(),
         label: String? = nil, labelConfig: ViLabelConfig = ViLabelConfig.default_label_config,
         price: Float?, priceConfig: ViLabelConfig = ViLabelConfig.default_price_config,
@@ -154,9 +154,9 @@ open class ViProductCardLayout: StackLayout<UIView> {
     ///   - label_left_padding: padding of labels from parent left
     public init(
                     // image settings
-                    img_url: URL,
+                    img_url: URL?,
                     img_size: CGSize,
-                    img_contentMode: UIViewContentMode = .scaleToFill,
+                    img_contentMode: UIViewContentMode = ViImageConfig.default_content_mode,
                     loading_img: UIImage? = nil,
                     err_img: UIImage? = nil,
                     
@@ -438,7 +438,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
     
     
     private static func createProductImageLayout(
-          img_url: URL,
+          img_url: URL?,
           img_size: CGSize,
           img_contentMode: UIViewContentMode,
           loading_img: UIImage? ,
@@ -470,18 +470,20 @@ open class ViProductCardLayout: StackLayout<UIView> {
                     imageView.contentMode = img_contentMode
                     
                     // TODO: configure animation effect for loading image, e.g. fading when load
-                    imageView.kf.setImage(with: img_url, placeholder: loading_img , completionHandler: {
-                        (image, error, cacheType, imageUrl) in
-                        
-                        // image: Image? `nil` means failed
-                        // error: NSError? non-`nil` means failed
-                        if (image == nil || (error != nil) ) {
-                            if let err_img = err_img {
-                                imageView.image = err_img
-                            }
+                    if let img_url = img_url {
+                        imageView.kf.setImage(with: img_url, placeholder: loading_img , completionHandler: {
+                            (image, error, cacheType, imageUrl) in
                             
-                        }
-                    })
+                            // image: Image? `nil` means failed
+                            // error: NSError? non-`nil` means failed
+                            if (image == nil || (error != nil) ) {
+                                if let err_img = err_img {
+                                    imageView.image = err_img
+                                }
+                                
+                            }
+                        })
+                    }
                     imageView.clipsToBounds = true
                     
                     // configure the action btn

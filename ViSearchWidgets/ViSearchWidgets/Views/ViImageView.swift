@@ -32,7 +32,7 @@ open class ViImageView: UIView {
     
     func setup() {
         imageView = UIImageView(frame: self.bounds)
-        imageView?.contentMode = .scaleAspectFill // default
+        imageView?.contentMode = ViImageConfig.default_content_mode // default
         imageView?.clipsToBounds = true
         imageView?.autoresizingMask = [.flexibleWidth , .flexibleHeight ]
         self.addSubview(imageView!)

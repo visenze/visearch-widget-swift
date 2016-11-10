@@ -32,8 +32,8 @@ public struct ViImageConfig {
     ///   - contentMode: content mode for uiimageview
     ///   - loadingImg: loading image
     ///   - errImg: error image
-    public init( size: CGSize,
-                 contentMode: UIViewContentMode = .scaleToFill,
+    public init( size: CGSize = CGSize(width: 150 , height: 240),
+                 contentMode: UIViewContentMode = ViImageConfig.default_content_mode,
                  loadingImg: UIImage? = nil,
                  errImg: UIImage? = nil){
        
@@ -42,5 +42,7 @@ public struct ViImageConfig {
         self.loadingImg = loadingImg
         self.errImg = errImg
     }
+    
+    public static var default_content_mode : UIViewContentMode = .scaleToFill
 }
 

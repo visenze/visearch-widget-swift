@@ -8,6 +8,7 @@
 
 import UIKit
 import ViSearchWidgets
+import ViSearchSDK
 
 class ViewController: UIViewController {
 
@@ -27,9 +28,6 @@ class ViewController: UIViewController {
             discounted_price: 1799.99
         )
         
-//        ViLabelConfig.default_label_config = ViLabelConfig(font: ViFont.bold(with: 26.0))
-
-        
         let productView = productCardLayout.arrangement( origin: CGPoint(x: 10, y: 20) ,
                                        width: self.view.bounds.width / 2 ).makeViews()
         
@@ -44,16 +42,39 @@ class ViewController: UIViewController {
     
     private func testRecController() {
         
-        let prod = ViProduct(image: ViIcon.find_similar!, price: 3.0)
-        let products : [ViProduct] = [ViProduct](repeating: prod, count: 1000)
         
         let controller = RecommendationViewController()
-        controller.products = products
-        controller.itemSize = CGSize(width: self.view.bounds.width / 2.5, height: 250)
+        
+
+        controller.imageConfig.size = CGSize(width: self.view.bounds.width / 2.5, height: (self.view.bounds.width / 2.5) * 1.2 )
+        controller.imageConfig.contentMode = .scaleToFill
+        
+        // optional: set item size
+        // controller.itemSize = CGSize(width: self.view.bounds.width / 2.5, height: 250)
+        controller.searchParams = ViSearchParams(imName: "HouseOfFraser-211740291")
+        controller.searchParams?.fl = ["im_cate"]
+        controller.searchParams?.queryInfo = true
+        
+        controller.schemaMapping.heading = "im_title"
+        controller.schemaMapping.label = "brand"
+        controller.schemaMapping.price = "price"
+        
+        controller.schemaMapping.discountPrice = "price"
+        controller.priceConfig.isStrikeThrough = true
+        
+//        controller.backgroundColor = UIColor.black
+        
+        // must be called last after schema mapping as we calculate based on whether the field is available
+        controller.itemSize = controller.estimateItemSize()
+        
+        controller.view.frame = CGRect(x: 0, y: 320, width: self.view.bounds.width, height: controller.itemSize.height )
+        
+        
         self.addChildViewController(controller)
-        controller.view.frame = CGRect(x: 0, y: 320, width: self.view.bounds.width, height: 260)
         self.view.addSubview(controller.view)
         controller.didMove(toParentViewController: self)
+        
+        controller.refreshData()
         
     }
     

@@ -15,7 +15,7 @@ open class ViProductCardLayoutBuilder: NSObject {
     public var imageConfig: ViImageConfig
     
     public var heading: String?
-    public var headingConfig: ViLabelConfig = ViLabelConfig()
+    public var headingConfig: ViLabelConfig = ViLabelConfig.default_heading_config
     
     public var label: String? = nil
     public var labelConfig: ViLabelConfig = ViLabelConfig.default_label_config

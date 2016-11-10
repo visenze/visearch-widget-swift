@@ -14,10 +14,10 @@ import UIKit
 public class ViTheme: NSObject {
 
     /// default regular font, used for 'heading' , 'price' labels in product card
-    public var default_font : UIFont = ViFont.regular(with: 12.0)
+    public var default_font : UIFont = ViFont.regular(with: 11.0)
     
     /// default bold font. Used as default for 'label' in product card
-    public var default_bold_font : UIFont = ViFont.medium(with: 12.0)
+    public var default_bold_font : UIFont = ViFont.medium(with: 11.0)
     
     /// default string format for discounted price
     public var default_discount_price_format : String = "Now $%.2f"
@@ -26,7 +26,7 @@ public class ViTheme: NSObject {
     public var default_price_format : String = "$%.2f"
     
     /// default font for find similar button
-    public var default_btn_font : UIFont = ViFont.regular(with: 12.0)
+    public var default_btn_font : UIFont = ViFont.regular(with: 11.0)
     
     /// default text color
     public var default_txt_color: UIColor = UIColor.black
@@ -40,13 +40,15 @@ public class ViTheme: NSObject {
     /// default action button background color i.e. clear or no background
     public var default_action_btn_background_color: UIColor = UIColor.clear
     
-    
     /// default button size e.g. Find Similar button size with icon on the left and text at the right
     public var default_btn_size: CGSize = CGSize(width: 30, height: 30)
     
+    /// default product card background color
+    public var default_product_card_background_color = UIColor.white
+    
     /// singleton instance. Used this to configure the global theme settings
     public static let sharedInstance : ViTheme = ViTheme()
-
+    
     private override init(){
         super.init()
     }

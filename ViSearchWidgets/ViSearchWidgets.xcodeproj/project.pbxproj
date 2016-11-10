@@ -16,6 +16,7 @@
 		BD3D1D751DD2FC470053F1E8 /* ViButtonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D741DD2FC470053F1E8 /* ViButtonConfig.swift */; };
 		BD3D1D771DD3221E0053F1E8 /* ViProductCardLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D761DD3221E0053F1E8 /* ViProductCardLayoutBuilder.swift */; };
 		BD3D1D791DD418F00053F1E8 /* ViImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D781DD418F00053F1E8 /* ViImageView.swift */; };
+		BD3D1D7E1DD450F00053F1E8 /* ViSchemaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D7D1DD450F00053F1E8 /* ViSchemaHelper.swift */; };
 		BD7E96631DB9C19F00C497F7 /* ViSearchWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96591DB9C19F00C497F7 /* ViSearchWidgets.framework */; };
 		BD7E96681DB9C19F00C497F7 /* ViSearchWidgetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96671DB9C19F00C497F7 /* ViSearchWidgetsTests.swift */; };
 		BD7E966A1DB9C19F00C497F7 /* ViSearchWidgets.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7E965C1DB9C19F00C497F7 /* ViSearchWidgets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -59,6 +60,7 @@
 		BD3D1D741DD2FC470053F1E8 /* ViButtonConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViButtonConfig.swift; path = Models/ViButtonConfig.swift; sourceTree = "<group>"; };
 		BD3D1D761DD3221E0053F1E8 /* ViProductCardLayoutBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCardLayoutBuilder.swift; path = Layouts/ViProductCardLayoutBuilder.swift; sourceTree = "<group>"; };
 		BD3D1D781DD418F00053F1E8 /* ViImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViImageView.swift; path = Views/ViImageView.swift; sourceTree = "<group>"; };
+		BD3D1D7D1DD450F00053F1E8 /* ViSchemaHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViSchemaHelper.swift; path = Helper/ViSchemaHelper.swift; sourceTree = "<group>"; };
 		BD7E96591DB9C19F00C497F7 /* ViSearchWidgets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ViSearchWidgets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD7E965C1DB9C19F00C497F7 /* ViSearchWidgets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViSearchWidgets.h; sourceTree = "<group>"; };
 		BD7E965D1DB9C19F00C497F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +135,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		BD3D1D7C1DD450890053F1E8 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BD3D1D7D1DD450F00053F1E8 /* ViSchemaHelper.swift */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
 		BD7E964F1DB9C19F00C497F7 = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				BD7E96C21DB9F62F00C497F7 /* Icons.xcassets */,
+				BD3D1D7C1DD450890053F1E8 /* Helper */,
 				BD3D1D5C1DD164590053F1E8 /* Icons */,
 				BD7E96B61DB9F56D00C497F7 /* Font */,
 				BD7E96C61DBA036500C497F7 /* Extensions */,
@@ -394,6 +405,7 @@
 				BD3D1D751DD2FC470053F1E8 /* ViButtonConfig.swift in Sources */,
 				BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */,
 				BD3D1D621DD1AC5F0053F1E8 /* RecommendationViewController.swift in Sources */,
+				BD3D1D7E1DD450F00053F1E8 /* ViSchemaHelper.swift in Sources */,
 				BD3D1D6D1DD2D3590053F1E8 /* ViImageConfig.swift in Sources */,
 				BD7E96CA1DBA082E00C497F7 /* String+Visenze.swift in Sources */,
 				BD7E96C81DBA03D000C497F7 /* UIColors+Visenze.swift in Sources */,

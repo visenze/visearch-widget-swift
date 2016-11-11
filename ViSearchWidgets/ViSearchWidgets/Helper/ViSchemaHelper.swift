@@ -59,10 +59,11 @@ public class ViSchemaHelper: NSObject {
                 }
             }
             
-            if let url = url, let product = ViProduct(urlString: url, price: price) {
+            if let url = url, let product = ViProduct(im_name: imageResult.im_name, urlString: url, price: price) {
                 product.heading = heading
                 product.label = label
                 product.discountPrice = discountPrice
+                product.metadataDict = imageResult.metadataDict
                 
                 arr.append(product)
             }

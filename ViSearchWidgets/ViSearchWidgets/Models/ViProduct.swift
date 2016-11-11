@@ -12,6 +12,9 @@ open class ViProduct: NSObject {
 
     // MARK: properties
     
+    /// im_name for image, identify this image in ViSenze API
+    public var im_name: String
+    
     /// underlying image. This take precendence over image url. If set, image url will be ignored
     public var image: UIImage? = nil
     
@@ -30,20 +33,19 @@ open class ViProduct: NSObject {
     /// discounted price
     public var discountPrice : Float? = nil
     
-    // MARK: constructors
-    public init(image: UIImage, price: Float?){
-        self.image = image
-        self.price = price
-    }
+    /// meta data dictionary retrieved from visenze API
+    public var metadataDict: [String : Any]? = nil
     
-    public init(url: URL, price: Float?){
+    // MARK: constructors
+    public init(im_name: String, url: URL, price: Float?){
         self.imageUrl = url
         self.price = price
+        self.im_name = im_name
     }
     
-    public convenience init?(urlString: String, price: Float?){
+    public convenience init?(im_name: String, urlString: String, price: Float?){
         if let url = URL(string: urlString) {
-            self.init (url: url, price: price)
+            self.init (im_name: im_name, url: url, price: price)
         }
         else {
             return nil;

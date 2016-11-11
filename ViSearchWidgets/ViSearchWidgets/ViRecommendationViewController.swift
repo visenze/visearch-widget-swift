@@ -11,18 +11,16 @@ import ViSearchSDK
 
 open class ViRecommendationViewController: ViBaseSearchViewController{
 
-    /// reload layout
+    /// reload layout.. configure this as a horizontal layout
     open override func reloadLayout(){
+        super.reloadLayout()
+        
         let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
-        
-        layout.minimumInteritemSpacing = itemSpacing
-        layout.headerReferenceSize = .zero
-        layout.footerReferenceSize = .zero
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        self.collectionView?.backgroundColor = backgroundColor
-        layout.itemSize = itemSize
+        if let delegate = delegate {
+            delegate.configureLayout(layout: layout)
+        }
         
     }
     
@@ -45,7 +43,7 @@ open class ViRecommendationViewController: ViBaseSearchViewController{
                     if let data = data {
                         if data.hasError {
                             let errMsgs =  data.error.joined(separator: ",")
-                            print("Recommendation API error: \(errMsgs)")
+                            print("API error: \(errMsgs)")
                             
                             // TODO: display system busy message here
                             

@@ -12,8 +12,22 @@ import ViSearchSDK
 private let reuseIdentifier = "ViProductCardLayoutCell"
 
 public protocol ViSearchViewControllerDelegate: class {
-    func numOfProducts(controller: UIViewController ) -> Int
-    func product(photoController: UIViewController, index: Int) -> ViProduct
+    
+    /// configure the collectionview cell before displaying
+    func configureCell(collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell)
+    
+    /// configure the layout if necessary
+    func configureLayout(layout: UICollectionViewFlowLayout)
+    
+    /// product selection notification
+    func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+}
+
+// make all method optional
+public extension ViSearchViewControllerDelegate{
+    func configureCell(collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell) {}
+    func configureLayout(layout: UICollectionViewFlowLayout) {}
+    func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
 }
 
 // subclass implementation
@@ -26,6 +40,8 @@ public protocol ViSearchViewControllerProtocol: class {
 }
 
 open class ViBaseSearchViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol {
+    
+    public weak var delegate: ViSearchViewControllerDelegate?
     
     /// last known successful request Id to Visenze API
     public var reqId : String? = ""
@@ -130,7 +146,19 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
             
             productView.backgroundColor = self.productCardBackgroundColor
         }
+        
+        if let delegate = delegate {
+            delegate.configureCell(collectionView: collectionView, indexPath: indexPath, cell: cell)
+        }
+        
         return cell
+    }
+    
+    override open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let delegate = delegate {
+            let product = products[indexPath.row]
+            delegate.didSelectProduct(collectionView: collectionView, indexPath: indexPath, product: product)
+        }
     }
     
     // MARK : important methods
@@ -153,8 +181,18 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
     }
     
     
-    /// to be implemented by subclasses
-    open func reloadLayout(){}
+    
+    /// to be override by subclasses. Subclass must call delegate configureLayout to allow further customatization
+    open func reloadLayout(){
+        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
+        
+        layout.minimumInteritemSpacing = itemSpacing
+        layout.headerReferenceSize = .zero
+        layout.footerReferenceSize = .zero
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.collectionView?.backgroundColor = backgroundColor
+        layout.itemSize = itemSize
+    }
     
     /// to be implemented by subclasses
     open func refreshData(){}

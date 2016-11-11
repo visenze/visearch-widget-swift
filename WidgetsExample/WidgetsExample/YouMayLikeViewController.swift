@@ -10,7 +10,7 @@ import UIKit
 import ViSearchSDK
 import ViSearchWidgets
 
-class YouMayLikeViewController: UIViewController {
+class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate {
 
     public var im_name : String?
     
@@ -30,6 +30,8 @@ class YouMayLikeViewController: UIViewController {
             
             if let im_name = self.im_name {
                 let controller = segue.destination as! ViRecommendationViewController
+                
+                controller.delegate = self
                 
                 let imageWidth = self.view.bounds.width / 2.5
                 let imageHeight = imageWidth * 1.2
@@ -71,6 +73,12 @@ class YouMayLikeViewController: UIViewController {
             }
             
         }
+        
+    }
+    
+    // MARK: ViSearchViewControllerDelegate
+    func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct) {
+        alert(message: "select product with im_name: \(product.im_name)" )
     }
     
 

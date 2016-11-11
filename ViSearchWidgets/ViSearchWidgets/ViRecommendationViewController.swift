@@ -51,6 +51,7 @@ open class ViRecommendationViewController: ViBaseSearchViewController{
                             
                         }
                         else {
+                            
                             // display and refresh here
                             self.reqId = data.reqId
                             self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)

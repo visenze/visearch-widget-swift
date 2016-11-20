@@ -75,6 +75,7 @@ class HomeTableTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "startRecSegue" {
+            // load im_name for recommendation from plist file
             let controller = segue.destination as! YouMayLikeViewController
             controller.im_name = self.loadImNameForRecommendation()!
             

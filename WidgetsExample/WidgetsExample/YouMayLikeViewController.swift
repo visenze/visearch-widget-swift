@@ -81,5 +81,16 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         alert(message: "select product with im_name: \(product.im_name)" )
     }
     
+    func actionBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
+        alert(message: "action button tapped , product im_name: \(product.im_name)" )
+        
+    }
+    
+    func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
+        alert(message: "similar button tapped , product im_name: \(product.im_name)" )
+        
+    }
+
+    
 
 }

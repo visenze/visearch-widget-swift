@@ -21,6 +21,13 @@ public protocol ViSearchViewControllerDelegate: class {
     
     /// product selection notification
     func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    
+    /// action button tapped
+    func actionBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    
+    /// find similar button tapped
+    func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    
 }
 
 // make all method optional
@@ -28,6 +35,8 @@ public extension ViSearchViewControllerDelegate{
     func configureCell(collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell) {}
     func configureLayout(layout: UICollectionViewFlowLayout) {}
     func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    func actionBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
 }
 
 // subclass implementation
@@ -39,7 +48,7 @@ public protocol ViSearchViewControllerProtocol: class {
     func refreshData() -> Void
 }
 
-open class ViBaseSearchViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol {
+open class ViBaseSearchViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol, ViProductCellDelegate {
     
     public weak var delegate: ViSearchViewControllerDelegate?
     
@@ -106,7 +115,7 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
         super.viewDidLoad()
         
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(ViProductCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         reloadLayout()
     }
@@ -126,7 +135,7 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
     }
     
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ViProductCollectionViewCell
         
         let product = products[indexPath.row]
         if let url =  product.imageUrl {
@@ -145,6 +154,24 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
                                                              height: itemSize.height).makeViews(in: cell.contentView)
             
             productView.backgroundColor = self.productCardBackgroundColor
+            cell.delegate = self
+            
+            if self.hasSimilarBtn {
+                // wire up similar button action
+                if let similarBtn = productView.viewWithTag(ViProductCardTag.findSimilarBtnTag.rawValue) as? UIButton {
+                    // add event
+                    similarBtn.addTarget(cell, action: #selector(ViProductCollectionViewCell.similarBtnTapped(sender:)), for: .touchUpInside)
+                }
+            }
+            
+            if self.hasActionBtn {
+                // wire up similar button action
+                if let actionBtn = productView.viewWithTag(ViProductCardTag.actionBtnTag.rawValue) as? UIButton {
+                    // add event
+                    actionBtn.addTarget(cell, action: #selector(ViProductCollectionViewCell.actionBtnTapped(sender:)), for: .touchUpInside)
+                }
+            }
+            
         }
         
         if let delegate = delegate {
@@ -196,6 +223,23 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
     
     /// to be implemented by subclasses
     open func refreshData(){}
+    
+    /// MARK: action buttons
+    
+    @IBAction open func similarBtnTapped(_ cell: ViProductCollectionViewCell) {
+        if let indexPath = self.collectionView?.indexPath(for: cell) {
+            let product = products[indexPath.row]
+            delegate?.similarBtnTapped(collectionView: self.collectionView!, indexPath: indexPath, product: product)
+            
+        }
+    }
+    
+    @IBAction open func actionBtnTapped(_ cell: ViProductCollectionViewCell) {
+        if let indexPath = self.collectionView?.indexPath(for: cell) {
+            let product = products[indexPath.row]
+            delegate?.actionBtnTapped(collectionView: self.collectionView!, indexPath: indexPath, product: product)
+        }
+    }
     
 
 }

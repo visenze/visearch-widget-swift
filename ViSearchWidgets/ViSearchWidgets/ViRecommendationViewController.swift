@@ -9,21 +9,14 @@
 import UIKit
 import ViSearchSDK
 
-open class ViRecommendationViewController: ViBaseSearchViewController{
+/// you may also like default to horizontal scroll view
+open class ViRecommendationViewController: ViHorizontalSearchViewController{
 
-    /// reload layout.. configure this as a horizontal layout
-    open override func reloadLayout(){
-        super.reloadLayout()
-        
-        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.scrollDirection = .horizontal
-        
-        if let delegate = delegate {
-            delegate.configureLayout(layout: layout)
-        }
-        
+    open override func setup(){
+        super.setup()
+        self.title = "You May Also Like"
     }
-    
+
     /// call ViSearch API and refresh the views
     open override func refreshData() {
         if let searchParams = searchParams {
@@ -46,13 +39,16 @@ open class ViRecommendationViewController: ViBaseSearchViewController{
                             print("API error: \(errMsgs)")
                             
                             // TODO: display system busy message here
-                            
+                            self.delegate?.searchFailed(err: nil, apiErrors: data.error)
                         }
                         else {
                             
                             // display and refresh here
                             self.reqId = data.reqId
                             self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
+                            
+                            
+                            self.delegate?.searchSuccess(searchType: ViAPIEndPoints.REC_SEARCH, reqId: data.reqId, products: self.products)
                             
                             DispatchQueue.main.async {
                                 self.collectionView?.reloadData()
@@ -65,8 +61,10 @@ open class ViRecommendationViewController: ViBaseSearchViewController{
                 failureHandler: {
                     (err) -> Void in
                     // Do something when request fails e.g. due to network error
-                    print ("error: \\(err.localizedDescription)")
+                    // print ("error: \\(err.localizedDescription)")
                     // TODO: display error message and tap to try again
+                    self.delegate?.searchFailed(err: err, apiErrors: [])
+                    
             })
         }
         else {

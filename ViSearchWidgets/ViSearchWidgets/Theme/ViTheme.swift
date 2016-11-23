@@ -19,6 +19,9 @@ public class ViTheme: NSObject {
     /// default bold font. Used as default for 'label' in product card
     public var default_bold_font : UIFont = ViFont.medium(with: 11.0)
     
+    /// default font for widget title
+    public var default_widget_title_font : UIFont = ViFont.medium(with: 16.0)
+    
     /// default string format for discounted price
     public var default_discount_price_format : String = "Now $%.2f"
     
@@ -33,6 +36,9 @@ public class ViTheme: NSObject {
     
     /// default color for discounted price label
     public var default_discounted_price_text_color : UIColor = UIColor.red
+    
+    /// default text color
+    public var default_btn_tint_color: UIColor = UIColor.colorWithHexString("#777777", alpha: 1.0)!
     
     /// default button background color e.g. Find Similar button
     public var default_btn_background_color: UIColor = UIColor.colorWithHexString("#F2F0F0", alpha: 1.0)!

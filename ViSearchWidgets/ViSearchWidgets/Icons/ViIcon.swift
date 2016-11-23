@@ -31,8 +31,8 @@ public struct ViIcon{
     }
     
     /// Get the icon by the file name.
-    public static func icon(_ name: String) -> UIImage? {
-        return UIImage(named: name, in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    public static func icon(_ name: String, _ renderMode : UIImageRenderingMode = .alwaysTemplate) -> UIImage? {
+        return UIImage(named: name, in: bundle, compatibleWith: nil)?.withRenderingMode(renderMode)
     }
     
     public static let find_similar = ViIcon.icon("find_similar")
@@ -40,5 +40,6 @@ public struct ViIcon{
     // TODO: change this image later
     public static let like = ViIcon.icon("find_similar")
     
-
+    public static let power_visenze = ViIcon.icon("power_visenze", .alwaysOriginal)
+    
 }

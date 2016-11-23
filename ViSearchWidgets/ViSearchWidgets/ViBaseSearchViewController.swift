@@ -28,6 +28,12 @@ public protocol ViSearchViewControllerDelegate: class {
     /// find similar button tapped
     func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
+    /// successful search
+    func searchSuccess( searchType: ViAPIEndPoints, reqId: String? , products: [ViProduct])
+    
+    /// failure search handler
+    func searchFailed(err: Error?, apiErrors: [String])
+    
 }
 
 // make all method optional
@@ -37,6 +43,8 @@ public extension ViSearchViewControllerDelegate{
     func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
     func actionBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
     func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    func searchSuccess( searchType: ViAPIEndPoints, reqId: String? , products: [ViProduct]){}
+    func searchFailed(err: Error?, apiErrors: [String]){}
 }
 
 // subclass implementation
@@ -46,9 +54,29 @@ public protocol ViSearchViewControllerProtocol: class {
     
     // call Visearch API and refresh data
     func refreshData() -> Void
+    
+    // return custom footer view if necessary
+    func footerView() -> UIView?
+    
+    // return custom header view if necessary
+    func headerView() -> UIView?
+    
 }
 
-open class ViBaseSearchViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol, ViProductCellDelegate {
+open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol, ViProductCellDelegate {
+    
+    public var collectionView : UICollectionView? {
+        let resultsView = self.view as! ViSearchResultsView
+        return resultsView.collectionView
+    }
+    
+    public var collectionViewLayout: UICollectionViewLayout {
+        let resultsView = self.view as! ViSearchResultsView
+        return resultsView.collectionViewLayout
+    }
+    
+    // for the title of the widget .. will be shown in header view
+    public var titleLabel : UILabel?
     
     public weak var delegate: ViSearchViewControllerDelegate?
     
@@ -78,10 +106,16 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
     
     public var productCardBackgroundColor: UIColor = ViTheme.sharedInstance.default_product_card_background_color
     
+    // whether to enable Power by Visenze logo
+    public var showPowerByViSenze : Bool = true
+    
     // actual data
     public var products: [ViProduct] = [] {
         didSet {
-            reloadLayout()
+            // make sure that this is run on ui thread
+            DispatchQueue.main.async {
+                self.reloadLayout()
+            }
         }
     }
     
@@ -102,17 +136,36 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
     /// background color
     public var backgroundColor  : UIColor = UIColor.white
     
+  
+    
     /// MARK: init methods
     public init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        super.init(nibName: nil, bundle: nil)
+        self.setup()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.setup()
+    }
+    
+    // MARK : setup method, can be override by subclass to do init
+    open func setup(){
+        self.titleLabel = UILabel()
+        self.titleLabel?.textAlignment = .left
+        self.titleLabel?.font = ViTheme.sharedInstance.default_widget_title_font
+    }
+    
+    open override func loadView() {
+        let searchResultsView = ViSearchResultsView(frame: .zero)
+        self.view = searchResultsView
     }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.collectionView!.delegate = self
+        self.collectionView!.dataSource = self
         
         // Register cell classes
         self.collectionView!.register(ViProductCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -126,15 +179,15 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
     }
     
     // MARK: UICollectionViewDataSource
-    override open func numberOfSections(in collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
     }
     
-    override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ViProductCollectionViewCell
         
         let product = products[indexPath.row]
@@ -177,11 +230,11 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
         if let delegate = delegate {
             delegate.configureCell(collectionView: collectionView, indexPath: indexPath, cell: cell)
         }
-        
+      
         return cell
     }
     
-    override open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate {
             let product = products[indexPath.row]
             delegate.didSelectProduct(collectionView: collectionView, indexPath: indexPath, product: product)
@@ -211,18 +264,97 @@ open class ViBaseSearchViewController: UICollectionViewController , UICollection
     
     /// to be override by subclasses. Subclass must call delegate configureLayout to allow further customatization
     open func reloadLayout(){
+       
         let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
         
         layout.minimumInteritemSpacing = itemSpacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.headerReferenceSize = .zero
         layout.footerReferenceSize = .zero
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.collectionView?.backgroundColor = backgroundColor
         layout.itemSize = itemSize
+        
+        
+        let searchResultsView = self.view as! ViSearchResultsView
+        
+        // static header
+        if self.headerSize.height > 0 {
+            if let headerView = self.headerView() {
+                searchResultsView.setHeader(headerView)
+            }
+        }
+        searchResultsView.headerHeight = self.headerSize.height
+        
+        // static footer
+        if self.footerSize.height > 0 {
+            if let footerView = self.footerView() {
+                searchResultsView.setFooter(footerView)
+            }
+        }
+        searchResultsView.footerHeight = self.footerSize.height
+          
     }
     
     /// to be implemented by subclasses
     open func refreshData(){}
+    
+   
+    /// MARK: header
+    
+    open var headerSize : CGSize {
+        if self.title != nil {
+            return CGSize(width: self.view.bounds.width, height: ViTheme.sharedInstance.default_widget_title_font.lineHeight + 4)
+        }
+        return .zero
+    }
+    
+    open func headerView() -> UIView? {
+        if let title = self.title, let label = self.titleLabel {
+            label.text = title
+            label.sizeToFit()
+            
+            return label
+        }
+        return nil
+    }
+    
+    
+    /// MARK: footer - Power by ViSenze
+    open func footerView() -> UIView? {
+        
+        if !showPowerByViSenze {
+            return nil
+        }
+        
+        let powerImgView = UIImageView(image: ViIcon.power_visenze)
+        
+        var width = footerSize.width
+        var height = footerSize.height
+        
+        if let img = ViIcon.power_visenze {
+            width = min(width, img.size.width)
+            height = min(height, img.size.height)
+        }
+        
+        powerImgView.frame = CGRect(x: (self.view.bounds.width - width ), y: 4 , width: width, height: height )
+        powerImgView.backgroundColor = ViTheme.sharedInstance.default_btn_background_color
+        
+        return powerImgView
+    }
+    
+    open var footerSize : CGSize {
+        
+        if !showPowerByViSenze {
+            return CGSize.zero
+        }
+        
+        // hide footer if there is no product
+        if self.products.count == 0 {
+            return CGSize.zero
+        }
+        return CGSize(width: 100, height: 25)
+    }
+
     
     /// MARK: action buttons
     

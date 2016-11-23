@@ -38,7 +38,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 
                 // configure product image size
                 controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
-                controller.imageConfig.contentMode = .scaleToFill
+                controller.imageConfig.contentMode = .scaleAspectFill
                 
                 // configure search parameter
                 controller.searchParams = ViSearchParams(imName: im_name)
@@ -57,16 +57,17 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 
     //            controller.backgroundColor = UIColor.black
                 
-                // IMPORTANT: this must be called last after schema mapping as we calculate based on whether a field is available
-                // e.g. if label is nil in the mapping, then it will not be included in the calculation
+                // IMPORTANT: this must be called last after schema mapping as we calculate the item size based on whether a field is available
+                // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
                 controller.itemSize = controller.estimateItemSize()
                 
-                controller.collectionView?.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: controller.itemSize.height )
+                controller.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: controller.itemSize.height + controller.footerSize.height )
                 
                 // update constraint to fit container view to the collection view exactly
                 containerHeightConstraint.constant = controller.itemSize.height
                 
                 controller.refreshData()
+                
             }
             else {
                 alert(message: "Please set up im_name in SampleData.plist")

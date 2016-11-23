@@ -30,7 +30,7 @@ public struct ViButtonConfig {
     
     public init(text : String = "",
                 font: UIFont = ViTheme.sharedInstance.default_font,
-                tint_color: UIColor = ViTheme.sharedInstance.default_txt_color,
+                tint_color: UIColor = ViTheme.sharedInstance.default_btn_tint_color,
                 size: CGSize = ViTheme.sharedInstance.default_btn_size,
                 backgroundColor: UIColor = ViTheme.sharedInstance.default_btn_background_color,
                 icon: UIImage? = nil

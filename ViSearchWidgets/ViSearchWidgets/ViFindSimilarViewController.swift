@@ -1,22 +1,21 @@
 //
-//  RecommendationViewController.swift
+//  ViFindSimilarViewController.swift
 //  ViSearchWidgets
 //
-//  Created by Hung on 8/11/16.
+//  Created by Hung on 24/11/16.
 //  Copyright © 2016 Visenze. All rights reserved.
 //
 
 import UIKit
 import ViSearchSDK
 
-/// you may also like default to horizontal scroll view
-open class ViRecommendationViewController: ViHorizontalSearchViewController{
+open class ViFindSimilarViewController: ViGridSearchViewController {
 
     open override func setup(){
         super.setup()
-        self.title = "You May Also Like"
+        self.title = "Similar Products"
     }
-
+    
     /// call ViSearch API and refresh the views
     open override func refreshData() {
         if let searchParams = searchParams {
@@ -28,7 +27,7 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
             let flSet = Set(combinedArr)
             searchParams.fl = Array(flSet)
             
-            ViSearch.sharedInstance.recommendation(
+            ViSearch.sharedInstance.findSimilar(
                 params: searchParams,
                 successHandler: {
                     (data : ViResponseData?) -> Void in
@@ -48,7 +47,7 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                             self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
                             
                             
-                            self.delegate?.searchSuccess(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , reqId: data.reqId, products: self.products)
+                            self.delegate?.searchSuccess(searchType: ViSearchType.FIND_SIMILAR , reqId: data.reqId, products: self.products)
                             
                             DispatchQueue.main.async {
                                 self.collectionView?.reloadData()
@@ -56,7 +55,7 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                             
                         }
                     }
-
+                    
             },
                 failureHandler: {
                     (err) -> Void in
@@ -74,6 +73,7 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
         }
     }
 
+   
 
-
+   
 }

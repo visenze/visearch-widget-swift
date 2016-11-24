@@ -110,9 +110,9 @@
                                 </constraints>
                             </stackView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZN9-gf-KHw">
-                                <rect key="frame" x="0.0" y="338" width="375" height="310"/>
+                                <rect key="frame" x="0.0" y="338" width="375" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="310" id="21l-yk-7X5"/>
+                                    <constraint firstAttribute="height" constant="300" id="21l-yk-7X5"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="48z-y2-m7x" kind="embed" identifier="embedRecSegue" id="zV2-5b-Ris"/>
@@ -130,9 +130,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="You May Also Like Demo" id="S4E-DW-BuS"/>
-                    <connections>
-                        <outlet property="containerHeightConstraint" destination="21l-yk-7X5" id="CqF-Ec-A0T"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMs-DF-ekr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -161,7 +158,7 @@
             <objects>
                 <viewController id="48z-y2-m7x" customClass="ViRecommendationViewController" customModule="ViSearchWidgets" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SQi-B3-Yu9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="310"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

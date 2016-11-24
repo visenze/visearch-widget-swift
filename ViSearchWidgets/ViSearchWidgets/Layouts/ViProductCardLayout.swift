@@ -467,6 +467,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
                 viImageView.tag = ViProductCardTag.productImgTag.rawValue
                 
                 if let imageView = viImageView.imageView {
+                    
                     imageView.contentMode = img_contentMode
                     
                     // TODO: configure animation effect for loading image, e.g. fading when load

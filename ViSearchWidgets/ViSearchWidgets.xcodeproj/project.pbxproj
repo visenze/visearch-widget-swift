@@ -40,6 +40,8 @@
 		BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */; };
 		BDCF955B1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF955A1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift */; };
 		BDCF955F1DE546C500412FF4 /* ViSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF955E1DE546C500412FF4 /* ViSearchResultsView.swift */; };
+		BDCF95621DE6859C00412FF4 /* ViGridSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95611DE6859C00412FF4 /* ViGridSearchViewController.swift */; };
+		BDCF95641DE6988F00412FF4 /* ViFindSimilarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95631DE6988F00412FF4 /* ViFindSimilarViewController.swift */; };
 		BDF03BFB1DCC720200861EC5 /* UILabel+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF03BFA1DCC720200861EC5 /* UILabel+Visenze.swift */; };
 		BDF03BFD1DD013B800861EC5 /* LayoutKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF03BFC1DD013B800861EC5 /* LayoutKit.framework */; };
 /* End PBXBuildFile section */
@@ -91,6 +93,8 @@
 		BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCollectionViewCell.swift; path = Views/ViProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		BDCF955A1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViHorizontalSearchViewController.swift; sourceTree = "<group>"; };
 		BDCF955E1DE546C500412FF4 /* ViSearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViSearchResultsView.swift; path = Views/ViSearchResultsView.swift; sourceTree = "<group>"; };
+		BDCF95611DE6859C00412FF4 /* ViGridSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViGridSearchViewController.swift; sourceTree = "<group>"; };
+		BDCF95631DE6988F00412FF4 /* ViFindSimilarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViFindSimilarViewController.swift; sourceTree = "<group>"; };
 		BDF03BFA1DCC720200861EC5 /* UILabel+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UILabel+Visenze.swift"; path = "Extensions/UILabel+Visenze.swift"; sourceTree = "<group>"; };
 		BDF03BFC1DD013B800861EC5 /* LayoutKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayoutKit.framework; path = ../Carthage/Build/iOS/LayoutKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,7 +190,9 @@
 				BD3D1D5B1DD1641D0053F1E8 /* Layouts */,
 				BD3D1D7F1DD48C380053F1E8 /* ViBaseSearchViewController.swift */,
 				BDCF955A1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift */,
+				BDCF95611DE6859C00412FF4 /* ViGridSearchViewController.swift */,
 				BD3D1D611DD1AC5F0053F1E8 /* ViRecommendationViewController.swift */,
+				BDCF95631DE6988F00412FF4 /* ViFindSimilarViewController.swift */,
 				BD7E965C1DB9C19F00C497F7 /* ViSearchWidgets.h */,
 				BD7E965D1DB9C19F00C497F7 /* Info.plist */,
 			);
@@ -417,6 +423,8 @@
 				BD3D1D801DD48C380053F1E8 /* ViBaseSearchViewController.swift in Sources */,
 				BD3D1D711DD2DD700053F1E8 /* ViProductSchemaMapping.swift in Sources */,
 				BD7E96D51DBF597800C497F7 /* ViProduct.swift in Sources */,
+				BDCF95621DE6859C00412FF4 /* ViGridSearchViewController.swift in Sources */,
+				BDCF95641DE6988F00412FF4 /* ViFindSimilarViewController.swift in Sources */,
 				BD3D1D751DD2FC470053F1E8 /* ViButtonConfig.swift in Sources */,
 				BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */,
 				BD3D1D621DD1AC5F0053F1E8 /* ViRecommendationViewController.swift in Sources */,

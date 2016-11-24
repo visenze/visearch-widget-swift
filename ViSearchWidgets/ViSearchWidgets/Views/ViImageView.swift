@@ -36,7 +36,7 @@ open class ViImageView: UIView {
         imageView?.clipsToBounds = true
         imageView?.autoresizingMask = [.flexibleWidth , .flexibleHeight ]
         self.addSubview(imageView!)
-        
+                
         // add action btn if necessary
         actionBtn = UIButton(type: .custom)
         self.addSubview(actionBtn!)

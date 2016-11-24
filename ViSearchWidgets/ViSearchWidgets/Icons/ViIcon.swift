@@ -42,4 +42,6 @@ public struct ViIcon{
     
     public static let power_visenze = ViIcon.icon("power_visenze", .alwaysOriginal)
     
+    public static let back = ViIcon.icon("back_icon")
+    
 }

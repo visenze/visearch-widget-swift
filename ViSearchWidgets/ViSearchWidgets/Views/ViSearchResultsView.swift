@@ -15,7 +15,7 @@ import UIKit
 open class ViSearchResultsView: UIView {
     
     // left padding for this view
-    public var paddingLeft: CGFloat = 8.0
+    public var paddingLeft: CGFloat = 0.0
     public var paddingRight: CGFloat = 0.0
     
     
@@ -30,20 +30,8 @@ open class ViSearchResultsView: UIView {
     /// container for footer
     public var footerViewContainer: UIView = UIView()
     
-    public var headerHeight : CGFloat = 0 {
-        didSet {
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
-        }
-    }
-    
-    public var footerHeight : CGFloat = 0 {
-        didSet {
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
-        }
-    }
-    
+    public var headerHeight : CGFloat = 0
+    public var footerHeight : CGFloat = 0
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,23 +53,29 @@ open class ViSearchResultsView: UIView {
         
         self.addSubview(self.headerViewContainer)
         self.addSubview(self.footerViewContainer)
+        
     }
     
     override open func layoutSubviews() {
         super.layoutSubviews()
         
+        let headerViewHeight = max(headerHeight, 0)
+        let footerViewHeight = max(footerHeight , 0)
+        
         self.headerViewContainer.frame = CGRect(x: self.paddingLeft, y: 0,
                                         width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
-                                        height: headerHeight)
+                                        height: headerViewHeight  )
+        
         self.collectionView?.frame = CGRect(x: self.paddingLeft,
-                                            y: self.headerViewContainer.frame.origin.y + self.headerViewContainer.frame.height,
+                                            y: self.headerViewContainer.frame.origin.y + headerViewHeight,
                                             width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
-                                            height: self.collectionViewLayout.itemSize.height 
-                                        )
+                                            height: self.bounds.size.height - headerViewHeight - footerViewHeight
+        )
+
         self.footerViewContainer.frame = CGRect(x: self.paddingLeft,
                                                 y: self.collectionView!.frame.origin.y + self.collectionView!.frame.size.height ,
                                                 width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
-                                                height: footerHeight)
+                                                height: footerViewHeight)
         
     }
     

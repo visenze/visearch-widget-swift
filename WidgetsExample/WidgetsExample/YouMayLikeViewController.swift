@@ -13,9 +13,7 @@ import ViSearchWidgets
 class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate {
 
     public var im_name : String?
-    
-    @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,8 +30,10 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 let controller = segue.destination as! ViRecommendationViewController
                 
                 controller.delegate = self
+                let containerWidth = self.view.bounds.width
                 
-                let imageWidth = self.view.bounds.width / 2.5
+                // this will let 2.5 images appear on screen
+                let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
                 let imageHeight = imageWidth * 1.2
                 
                 // configure product image size
@@ -56,15 +56,11 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 controller.priceConfig.isStrikeThrough = true
                 
     //            controller.backgroundColor = UIColor.black
+                controller.paddingLeft = 8.0
                 
                 // IMPORTANT: this must be called last after schema mapping as we calculate the item size based on whether a field is available
                 // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
                 controller.itemSize = controller.estimateItemSize()
-                
-                controller.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: controller.itemSize.height + controller.footerSize.height )
-                
-                // update constraint to fit container view to the collection view exactly
-                containerHeightConstraint.constant = controller.itemSize.height
                 
                 controller.refreshData()
                 
@@ -78,20 +74,33 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
     }
     
     // MARK: ViSearchViewControllerDelegate
-    func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct) {
+    func didSelectProduct(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct) {
         alert(message: "select product with im_name: \(product.im_name)" )
     }
     
-    func actionBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
+    func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
         alert(message: "action button tapped , product im_name: \(product.im_name)" )
         
     }
     
-    func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
-        alert(message: "similar button tapped , product im_name: \(product.im_name)" )
+    func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
+        print("similar button tapped , product im_name: \(product.im_name)")
         
     }
 
+    func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
+        
+        // set border for find similar
+        controller.productCardBorderWidth = 0.5
+        controller.productCardBorderColor = UIColor.lightGray
+       
+        controller.itemSpacing = 0
+        // must recalculate item width
+        controller.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
+        
+        controller.rowSpacing = 0
+        
+    }
     
 
 }

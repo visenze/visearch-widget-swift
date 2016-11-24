@@ -11,25 +11,40 @@ import ViSearchSDK
 
 private let reuseIdentifier = "ViProductCardLayoutCell"
 
+public enum ViSearchType : Int {
+    
+    case FIND_SIMILAR
+    
+    case YOU_MAY_ALSO_LIKE
+    
+    case SEARCH_BY_IMAGE
+    
+    case SEARCH_BY_COLOR
+    
+}
+
 public protocol ViSearchViewControllerDelegate: class {
     
     /// configure the collectionview cell before displaying
-    func configureCell(collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell)
+    func configureCell(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell)
     
     /// configure the layout if necessary
-    func configureLayout(layout: UICollectionViewFlowLayout)
+    func configureLayout(sender: AnyObject, layout: UICollectionViewFlowLayout)
     
     /// product selection notification
-    func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    func didSelectProduct(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
     /// action button tapped
-    func actionBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    
+    /// allow configuration of the FindSimilar controller when similar button is tapped
+    func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
     /// find similar button tapped
-    func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
     /// successful search
-    func searchSuccess( searchType: ViAPIEndPoints, reqId: String? , products: [ViProduct])
+    func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct])
     
     /// failure search handler
     func searchFailed(err: Error?, apiErrors: [String])
@@ -38,13 +53,16 @@ public protocol ViSearchViewControllerDelegate: class {
 
 // make all method optional
 public extension ViSearchViewControllerDelegate{
-    func configureCell(collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell) {}
-    func configureLayout(layout: UICollectionViewFlowLayout) {}
-    func didSelectProduct(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
-    func actionBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
-    func similarBtnTapped(collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
-    func searchSuccess( searchType: ViAPIEndPoints, reqId: String? , products: [ViProduct]){}
+    func configureCell(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell) {}
+    func configureLayout(sender: AnyObject, layout: UICollectionViewFlowLayout) {}
+    func didSelectProduct(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    
+    func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct]){}
     func searchFailed(err: Error?, apiErrors: [String]){}
+    
 }
 
 // subclass implementation
@@ -77,6 +95,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     
     // for the title of the widget .. will be shown in header view
     public var titleLabel : UILabel?
+    public var showTitleHeader: Bool = true
     
     public weak var delegate: ViSearchViewControllerDelegate?
     
@@ -105,6 +124,9 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     public var actionBtnConfig: ViButtonConfig = ViButtonConfig.default_action_btn_config
     
     public var productCardBackgroundColor: UIColor = ViTheme.sharedInstance.default_product_card_background_color
+    public var productCardBorderColor: UIColor? = nil
+    public var productCardBorderWidth : CGFloat = 0
+    
     
     // whether to enable Power by Visenze logo
     public var showPowerByViSenze : Bool = true
@@ -120,13 +142,13 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     }
     
     /// product card size
-    public var itemSize: CGSize = CGSize(width: 10, height: 10) {
+    public var itemSize: CGSize = CGSize(width: 1, height: 1) {
         didSet {
             reloadLayout()
         }
     }
     
-    /// spacing between items on same row
+    /// spacing between items on same row.. item size may need to be re-calculated if this change
     public var itemSpacing  : CGFloat = 4.0 {
         didSet{
             reloadLayout()
@@ -136,9 +158,19 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     /// background color
     public var backgroundColor  : UIColor = UIColor.white
     
-  
-    
-    /// MARK: init methods
+    public var paddingLeft: CGFloat = 0 {
+        didSet{
+            reloadLayout()
+        }
+    }
+
+    public var paddingRight: CGFloat = 0 {
+        didSet{
+            reloadLayout()
+        }
+    }
+
+    // MARK: init methods
     public init() {
         super.init(nibName: nil, bundle: nil)
         self.setup()
@@ -207,6 +239,12 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                                                              height: itemSize.height).makeViews(in: cell.contentView)
             
             productView.backgroundColor = self.productCardBackgroundColor
+            
+            if let borderColor = self.productCardBorderColor {
+                productView.layer.borderColor = borderColor.cgColor
+                productView.layer.borderWidth = self.productCardBorderWidth
+            }
+            
             cell.delegate = self
             
             if self.hasSimilarBtn {
@@ -228,16 +266,16 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         }
         
         if let delegate = delegate {
-            delegate.configureCell(collectionView: collectionView, indexPath: indexPath, cell: cell)
+            delegate.configureCell(sender: self, collectionView: collectionView, indexPath: indexPath, cell: cell)
         }
-      
+        
         return cell
     }
     
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate {
             let product = products[indexPath.row]
-            delegate.didSelectProduct(collectionView: collectionView, indexPath: indexPath, product: product)
+            delegate.didSelectProduct(sender: self, collectionView: collectionView, indexPath: indexPath, product: product)
         }
     }
     
@@ -246,6 +284,11 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     /// estimate product card item size based on image size in image config
     /// override if necessary
     open func estimateItemSize() -> CGSize{
+        return self.estimateItemSize(constrainedToWidth: self.imageConfig.size.width)
+    }
+    
+    /// estimate product card item size for a max width of width
+    open func estimateItemSize(constrainedToWidth maxWidth: CGFloat) -> CGSize{
         
         let productCardLayout = ViProductCardLayout(
             imgUrl: nil, imageConfig: self.imageConfig,
@@ -257,25 +300,31 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
             hasActionBtn: self.hasActionBtn, actionBtnConfig: self.actionBtnConfig,
             pricesHorizontalSpacing: ViProductCardLayout.default_spacing, labelLeftPadding: ViProductCardLayout.default_spacing)
         
-        return productCardLayout.arrangement(origin: .zero, width: self.imageConfig.size.width).frame.size
+        return productCardLayout.arrangement(origin: .zero, width: maxWidth).frame.size
     }
-    
-    
     
     /// to be override by subclasses. Subclass must call delegate configureLayout to allow further customatization
     open func reloadLayout(){
        
-        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
+        // initial setup will skeep this
+        if self.itemSize.width < 2 {
+            return
+        }
         
+        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.minimumLineSpacing = itemSpacing
         layout.minimumInteritemSpacing = itemSpacing
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.headerReferenceSize = .zero
         layout.footerReferenceSize = .zero
         self.collectionView?.backgroundColor = backgroundColor
+        self.view.backgroundColor = backgroundColor
         layout.itemSize = itemSize
         
-        
         let searchResultsView = self.view as! ViSearchResultsView
+        
+        searchResultsView.paddingLeft = paddingLeft
+        searchResultsView.paddingRight = paddingRight
         
         // static header
         if self.headerSize.height > 0 {
@@ -292,6 +341,9 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
             }
         }
         searchResultsView.footerHeight = self.footerSize.height
+        
+        searchResultsView.setNeedsLayout()
+        searchResultsView.layoutIfNeeded()
           
     }
     
@@ -299,9 +351,13 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     open func refreshData(){}
     
    
-    /// MARK: header
+    // MARK: header
     
     open var headerSize : CGSize {
+        if !showTitleHeader {
+            return .zero
+        }
+        
         if self.title != nil {
             return CGSize(width: self.view.bounds.width, height: ViTheme.sharedInstance.default_widget_title_font.lineHeight + 4)
         }
@@ -309,6 +365,10 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     }
     
     open func headerView() -> UIView? {
+        if !showTitleHeader {
+            return nil
+        }
+        
         if let title = self.title, let label = self.titleLabel {
             label.text = title
             label.sizeToFit()
@@ -319,7 +379,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     }
     
     
-    /// MARK: footer - Power by ViSenze
+    // MARK: footer - Power by ViSenze
     open func footerView() -> UIView? {
         
         if !showPowerByViSenze {
@@ -336,7 +396,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
             height = min(height, img.size.height)
         }
         
-        powerImgView.frame = CGRect(x: (self.view.bounds.width - width ), y: 4 , width: width, height: height )
+        powerImgView.frame = CGRect(x: (self.view.bounds.width - width - 2), y: 4 , width: width, height: height )
         powerImgView.backgroundColor = ViTheme.sharedInstance.default_btn_background_color
         
         return powerImgView
@@ -356,21 +416,102 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     }
 
     
-    /// MARK: action buttons
+    // MARK: action buttons
     
     @IBAction open func similarBtnTapped(_ cell: ViProductCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
             let product = products[indexPath.row]
-            delegate?.similarBtnTapped(collectionView: self.collectionView!, indexPath: indexPath, product: product)
             
+            // go to similar button page
+            if let params = ViSearchParams(imName: product.im_name) , let curParams = self.searchParams {
+            
+                let similarController = ViFindSimilarViewController()
+                
+                // copy parameters over
+                
+                // copy all the parameters over from original query
+                params.fl = curParams.fl
+                params.fq = curParams.fq
+                params.detection = curParams.detection
+                params.getAllFl = curParams.getAllFl
+                params.limit = 16
+                
+                similarController.searchParams = params
+                
+                // copy other settings
+                similarController.schemaMapping = self.schemaMapping
+                
+                similarController.imageConfig = self.imageConfig
+                
+                similarController.labelConfig = self.labelConfig
+                similarController.headingConfig = self.headingConfig
+                similarController.priceConfig = self.priceConfig
+                similarController.discountPriceConfig = self.discountPriceConfig
+                similarController.hasActionBtn = self.hasActionBtn
+                similarController.actionBtnConfig = self.actionBtnConfig
+                similarController.hasSimilarBtn = self.hasSimilarBtn
+                similarController.similarBtnConfig = self.similarBtnConfig
+                similarController.showPowerByViSenze = self.showPowerByViSenze
+                similarController.productCardBackgroundColor = self.productCardBackgroundColor
+                similarController.backgroundColor = self.backgroundColor
+                
+                similarController.productCardBorderColor = self.productCardBorderColor
+                similarController.productCardBorderWidth = self.productCardBorderWidth
+                
+                let width = similarController.estimateItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
+                // make sure image width is less than item width
+                similarController.imageConfig.size.width = min(width, similarController.imageConfig.size.width)
+                let similarItemSize = CGSize(width: width, height: self.itemSize.height )
+                
+                similarController.itemSize = similarItemSize
+                
+                similarController.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
+                similarController.showTitleHeader = false
+                
+                // set to same delegate
+                similarController.delegate = self.delegate
+                
+                // present this controller as modal view controller wrapped in navigation controller
+                if(self.navigationController == nil) {
+                    let backItem = UIBarButtonItem(image: ViIcon.back, style: .plain, target: self, action: #selector(dimissSimilarController))
+                    similarController.navigationItem.leftBarButtonItem = backItem
+                    
+                    let navController = UINavigationController(rootViewController: similarController)
+                    navController.modalPresentationStyle = .fullScreen
+                    navController.modalTransitionStyle = .coverVertical
+                    
+                    delegate?.willShowSimilarControler(sender: self, controller: similarController, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+                    
+                    // TODO: test this flow when navigation controller is not available
+                    self.show(navController, sender: self)
+                }
+                else {
+                    
+                     self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style: .plain, target:nil, action:nil)
+                    
+                    delegate?.willShowSimilarControler(sender: self, controller: similarController, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+                    
+                    self.navigationController?.pushViewController(similarController, animated: true)
+                }
+                
+                
+                similarController.refreshData()
+                
+            }
+            
+            delegate?.similarBtnTapped(sender: self, collectionView: self.collectionView!, indexPath: indexPath, product: product)
         }
     }
     
     @IBAction open func actionBtnTapped(_ cell: ViProductCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
             let product = products[indexPath.row]
-            delegate?.actionBtnTapped(collectionView: self.collectionView!, indexPath: indexPath, product: product)
+            delegate?.actionBtnTapped(sender: self, collectionView: self.collectionView!, indexPath: indexPath, product: product)
         }
+    }
+    
+    open func dimissSimilarController() {
+        self.dismiss(animated: true, completion: nil)
     }
     
 

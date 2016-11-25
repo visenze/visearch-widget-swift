@@ -20,18 +20,18 @@ import Kingfisher
 /// - discountPriceTag: tag for discount price
 public enum ViProductCardTag : Int {
     
-    case productImgTag
-    case labelTag
-    case headingTag
-    case priceTag
-    case discountPriceTag
-    case findSimilarBtnTag
-    case actionBtnTag
+    case productImgTag = 10
+    case labelTag = 11
+    case headingTag = 12
+    case priceTag = 13
+    case discountPriceTag = 14
+    case findSimilarBtnTag = 15
+    case actionBtnTag = 16
     
-    case filterBtnTag
-    case colorPickBtnTag
-    case cameraBtnTag
-    case galleryBtnTag
+    case filterBtnTag = 17
+    case colorPickBtnTag = 18
+    case cameraBtnTag = 19
+    case galleryBtnTag = 20
     
 }
 
@@ -231,7 +231,8 @@ open class ViProductCardLayout: StackLayout<UIView> {
             img_contentMode: img_contentMode,
             loading_img: loading_img, err_img: err_img ,
             
-            has_action_btn: has_action_btn,
+            // NOTE: move action button out of imageview and into our product card
+            has_action_btn: false,
             action_btn_icon: action_btn_icon,
             action_btn_txt: action_btn_txt ,
             action_btn_font: action_btn_font,
@@ -332,8 +333,8 @@ open class ViProductCardLayout: StackLayout<UIView> {
                         button.imageEdgeInsets = UIEdgeInsetsMake( 0, 4, 0, 4)
                         button.tag = ViProductCardTag.findSimilarBtnTag.rawValue
                         
-                }
-            )
+                    }
+                )
             labelAndSimilarBtnLayouts.append(findSimilarBtnLayout)
         }
         
@@ -354,7 +355,39 @@ open class ViProductCardLayout: StackLayout<UIView> {
         super.init(
             axis: .vertical,
             spacing: 2,
-            sublayouts: layouts
+            sublayouts: layouts,
+            config: { view in
+                // add action button here instead of to the image
+                if has_action_btn {
+                    let button = UIButton(type: .custom)
+                    let buttonPading = label_left_padding / 2
+                    button.frame = button.isHidden ? .zero :
+                        CGRect(x: view.bounds.size.width - buttonPading - action_btn_size.width,
+                               y: buttonPading,
+                               width: action_btn_size.width,
+                               height: action_btn_size.height)
+                    
+                    button.backgroundColor = action_btn_background_color
+                    
+                    button.setTitle(action_btn_txt, for: .normal)
+                    button.setTitle(action_btn_txt, for: .highlighted)
+                    
+                    button.titleLabel?.font = action_btn_font
+                    
+                    button.setTitleColor(action_btn_tint_color, for: .normal)
+                    button.setTitleColor(action_btn_tint_color, for: .highlighted)
+                    
+                    button.setImage(action_btn_icon, for: .normal)
+                    button.setImage(action_btn_icon, for: .highlighted)
+                    
+                    button.tintColor = action_btn_tint_color
+
+                    view.addSubview(button)
+                    button.tag = ViProductCardTag.actionBtnTag.rawValue
+                    // ensure the button is at the top of view
+                    button.layer.zPosition = 1
+                }
+            }
         )
         
     }
@@ -450,7 +483,8 @@ open class ViProductCardLayout: StackLayout<UIView> {
           err_img: UIImage?,
           
             // action button configuration e.g. like icon
-            has_action_btn: Bool = true,
+            // NOTE: this is no longer in use as we move action button to be together with parent view
+            has_action_btn: Bool = false,
             action_btn_icon: UIImage? = ViIcon.like,
             action_btn_txt: String = "" , // default to empty
             action_btn_font: UIFont = ViTheme.sharedInstance.default_btn_font,

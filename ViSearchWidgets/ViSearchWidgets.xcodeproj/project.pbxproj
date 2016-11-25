@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD1181A01DE8215600139BD5 /* ViColorSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11819F1DE8215600139BD5 /* ViColorSearchViewController.swift */; };
+		BD1181A21DE8350A00139BD5 /* ViColorPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1181A11DE8350A00139BD5 /* ViColorPickerModalViewController.swift */; };
 		BD3D1D5A1DD164140053F1E8 /* ViProductCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D591DD164140053F1E8 /* ViProductCardLayout.swift */; };
 		BD3D1D5E1DD1647D0053F1E8 /* ViIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D5D1DD1647D0053F1E8 /* ViIcon.swift */; };
 		BD3D1D621DD1AC5F0053F1E8 /* ViRecommendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D611DD1AC5F0053F1E8 /* ViRecommendationViewController.swift */; };
@@ -59,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD11819F1DE8215600139BD5 /* ViColorSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViColorSearchViewController.swift; sourceTree = "<group>"; };
+		BD1181A11DE8350A00139BD5 /* ViColorPickerModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViColorPickerModalViewController.swift; sourceTree = "<group>"; };
 		BD3D1D591DD164140053F1E8 /* ViProductCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCardLayout.swift; path = Layouts/ViProductCardLayout.swift; sourceTree = "<group>"; };
 		BD3D1D5D1DD1647D0053F1E8 /* ViIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViIcon.swift; path = Icons/ViIcon.swift; sourceTree = "<group>"; };
 		BD3D1D611DD1AC5F0053F1E8 /* ViRecommendationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViRecommendationViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 				BDCF95611DE6859C00412FF4 /* ViGridSearchViewController.swift */,
 				BD3D1D611DD1AC5F0053F1E8 /* ViRecommendationViewController.swift */,
 				BDCF95631DE6988F00412FF4 /* ViFindSimilarViewController.swift */,
+				BD11819F1DE8215600139BD5 /* ViColorSearchViewController.swift */,
+				BD1181A11DE8350A00139BD5 /* ViColorPickerModalViewController.swift */,
 				BD7E965C1DB9C19F00C497F7 /* ViSearchWidgets.h */,
 				BD7E965D1DB9C19F00C497F7 /* Info.plist */,
 			);
@@ -429,11 +435,13 @@
 				BD3D1D801DD48C380053F1E8 /* ViBaseSearchViewController.swift in Sources */,
 				BD3D1D711DD2DD700053F1E8 /* ViProductSchemaMapping.swift in Sources */,
 				BD7E96D51DBF597800C497F7 /* ViProduct.swift in Sources */,
+				BD1181A01DE8215600139BD5 /* ViColorSearchViewController.swift in Sources */,
 				BDCF95621DE6859C00412FF4 /* ViGridSearchViewController.swift in Sources */,
 				BDCF95641DE6988F00412FF4 /* ViFindSimilarViewController.swift in Sources */,
 				BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */,
 				BD3D1D751DD2FC470053F1E8 /* ViButtonConfig.swift in Sources */,
 				BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */,
+				BD1181A21DE8350A00139BD5 /* ViColorPickerModalViewController.swift in Sources */,
 				BD3D1D621DD1AC5F0053F1E8 /* ViRecommendationViewController.swift in Sources */,
 				BD3D1D7E1DD450F00053F1E8 /* ViSchemaHelper.swift in Sources */,
 				BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */,

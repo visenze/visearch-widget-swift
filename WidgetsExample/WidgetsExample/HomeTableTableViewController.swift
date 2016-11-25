@@ -59,7 +59,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         else if demoItems[indexPath.row] == HomeTableTableViewController.YOU_MAY_ALSO_LIKE_SEARCH {
             
             // prevent going to segue if demo im_name is not setup
-            if let im_name = self.loadImNameForRecommendation() {
+            if self.loadImNameForRecommendation() != nil {
                 self.performSegue(withIdentifier: "startRecSegue", sender: tableView.cellForRow(at: indexPath) )
             }
             else {
@@ -68,7 +68,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         }
         else if demoItems[indexPath.row] == HomeTableTableViewController.FIND_SIMILAR_SEARCH {
             //find_similar_im_name
-            if let im_name = self.loadImName(key: "find_similar_im_name") {
+            if let im_name = self.loadKey(key: "find_similar_im_name") {
                 // load similar
                 self.showSimilarController(im_name)
             }
@@ -76,6 +76,14 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
                 alert(message: "Please configure the sample im_name in SampleData.plist")
             }
 
+        }
+        else if demoItems[indexPath.row] == HomeTableTableViewController.COLOR_SEARCH {
+            if let color = self.loadKey(key: "color") {
+                self.showColorSearchController(color)
+            }
+            else {
+                alert(message: "Please configure the sample color in SampleData.plist")
+            }
         }
     }
     
@@ -101,10 +109,12 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             similarController.imageConfig.contentMode = .scaleAspectFill
             similarController.priceConfig.isStrikeThrough = true
             
-            similarController.itemSize = similarController.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
+            similarController.productCardBorderColor = UIColor.lightGray
+            similarController.productCardBorderWidth = 0.7
+            similarController.itemSpacing = 0
+            similarController.rowSpacing = 0
             
-//            similarController.productCardBorderColor = UIColor.lightGray
-//            similarController.productCardBorderWidth = 0.5
+            similarController.itemSize = similarController.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
             
             // set to same delegate
             similarController.delegate = self
@@ -114,6 +124,44 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             
         }
 
+    }
+    
+    func showColorSearchController(_ color: String) {
+        if let params = ViColorSearchParams(color: color){
+            let controller = ViColorSearchViewController()
+            params.limit = 16
+            
+            controller.searchParams = params
+            
+            // copy other settings
+            controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
+            let containerWidth = self.view.bounds.width
+            
+            let imageWidth = containerWidth / 2.5
+            let imageHeight = imageWidth * 1.2
+            
+            // configure product image size
+            controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+            controller.imageConfig.contentMode = .scaleAspectFill
+            controller.priceConfig.isStrikeThrough = true
+            
+            controller.productCardBorderColor = UIColor.lightGray
+            controller.productCardBorderWidth = 0.7
+            controller.itemSpacing = 0
+            controller.rowSpacing = 0
+            
+            controller.itemSize = controller.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
+            
+            // set to same delegate
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+            
+            controller.refreshData()
+        }
+        else {
+            // color is probably invald
+            alert(message: "Invalid color code. Please check value in SampleData.plist")
+        }
     }
     
     
@@ -127,40 +175,22 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             controller.im_name = self.loadImNameForRecommendation()!
             
             // Get the cell that generated this segue.
-            if let selectedCell = sender as? UITableViewCell {
-                
-//                let indexPath = tableView.indexPath(for: selectedCell)!
-//                let demoItem = demoItems[indexPath.row]
-                
-//                if demoItem == HomeTableViewController.COLOR_SEARCH {
-//                    searchController.demoApi = ViAPIEndPoints.COLOR_SEARCH
-//                }
-//                else if demoItem == HomeTableViewController.FIND_SIMILAR_SEARCH {
-//                    searchController.demoApi = ViAPIEndPoints.ID_SEARCH
-//                }
-//                else if demoItem == HomeTableViewController.YOU_MAY_ALSO_LIKE_SEARCH {
-//                    searchController.demoApi = ViAPIEndPoints.REC_SEARCH
-//                }
-//                
-//                searchController.navigationItem.title = demoItem
-                
-            }
+//            if let selectedCell = sender as? UITableViewCell {   
+//            }
         }
        
-        
         // hide the back label in the next controller
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-        
         
     }
     
     // MARK: load sample data
     public func loadImNameForRecommendation() -> String? {
-        return self.loadImName(key: "you_may_like_im_name")
+        return self.loadKey(key: "you_may_like_im_name")
     }
     
     // find_similar_im_name
-    public func loadImName(key: String) -> String? {
+    public func loadKey(key: String) -> String? {
         if let path = Bundle.main.path(forResource: "SampleData", ofType: "plist") {
             let dict = NSDictionary(contentsOfFile: path)
             

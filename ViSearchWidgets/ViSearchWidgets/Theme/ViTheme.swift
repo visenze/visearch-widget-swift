@@ -49,6 +49,12 @@ public class ViTheme: NSObject {
     /// tint color for filter button
     public var filter_btn_tint_color: UIColor = UIColor.white
     
+    /// background color for color picker button
+    public var color_pick_btn_background_color: UIColor = UIColor.colorWithHexString("#999898", alpha: 1.0)!
+    
+    /// tint color for color picker button
+    public var color_pick_btn_tint_color: UIColor = UIColor.white
+    
     /// default action button background color i.e. clear or no background
     public var default_action_btn_background_color: UIColor = UIColor.clear
     

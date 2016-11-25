@@ -46,4 +46,9 @@ public struct ViIcon{
     
     public static let filter = ViIcon.icon("filter")
     
+    public static let color_pick = ViIcon.icon("color_pick")
+    
+    public static let tick = ViIcon.icon("tick")
+    
+    
 }

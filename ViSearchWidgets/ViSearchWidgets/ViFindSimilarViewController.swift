@@ -12,7 +12,6 @@ import LayoutKit
 
 open class ViFindSimilarViewController: ViGridSearchViewController {
 
-    
     public var queryImageConfig = ViImageConfig()
     
     /// whethere to show query product
@@ -33,7 +32,7 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
     }
     
     /// layout for header that contains query product and filter
-    open var headerLayout : Layout? {
+    open override var headerLayout : Layout? {
         var allLayouts : [Layout] = []
         
         if let queryProduct = queryProduct {
@@ -52,31 +51,12 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                 productLogoLayouts.append(productLayout)
                 
                 if showPowerByViSenze {
-                    let scaleRatio :CGFloat = 1.1
-                    let powerByLayout = SizeLayout<UIImageView>(
-                        width: ViIcon.power_visenze!.width / scaleRatio, height: ViIcon.power_visenze!.height / scaleRatio,
-                        alignment: .topLeading ,
-                        flexibility: .inflexible,
-                        viewReuseId: nil,
-                        config: { img in
-                            img.image = ViIcon.power_visenze
-                            img.backgroundColor = ViTheme.sharedInstance.default_btn_background_color
-                            img.clipsToBounds = true
-                    }
-                        
-                    )
+                    let powerByLayout = self.getPowerByVisenzeLayout()
                     productLogoLayouts.append(powerByLayout)
-                    
                 }
                 
                 // add in the border view at bottom
-                let divider = SizeLayout<UIView>(height: 0.5,
-                                                 alignment: .fill,
-                                                 flexibility: .flexible,
-                                                 config: { v in
-                                                    v.backgroundColor = UIColor.lightGray
-                                                 }
-                )
+                let divider = self.getDividerLayout()
                 productLogoLayouts.append(divider)
                 
                 let productAndLogoStackLayout = StackLayout(
@@ -119,25 +99,6 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
         return super.footerSize
     }
     
-    open override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
-        
-        if let layout = headerLayout {
-            return layout.arrangement(origin: .zero, width: self.view.bounds.width ).frame.size
-        }
-        
-        return CGSize.zero
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier, for: indexPath)
-        
-        if let layout = headerLayout {
-            layout.arrangement( origin: .zero , width:  self.view.bounds.width ).makeViews(in: view)
-        }
-        
-        return view!
-    }
-    
     open override func setup(){
         super.setup()
         self.title = "Similar Products"
@@ -147,57 +108,60 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
     
     /// call ViSearch API and refresh the views
     open override func refreshData() {
-        if let searchParams = searchParams {
-            
-            // construct the fl based on schema mappings
-            // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
-            let metaArr = self.schemaMapping.getMetaArrForSearch()
-            let combinedArr = searchParams.fl + metaArr
-            let flSet = Set(combinedArr)
-            searchParams.fl = Array(flSet)
-            
-            ViSearch.sharedInstance.findSimilar(
-                params: searchParams,
-                successHandler: {
-                    (data : ViResponseData?) -> Void in
-                    // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
-                    if let data = data {
-                        if data.hasError {
-                            let errMsgs =  data.error.joined(separator: ",")
-                            print("API error: \(errMsgs)")
-                            
-                            // TODO: display system busy message here
-                            self.delegate?.searchFailed(err: nil, apiErrors: data.error)
-                        }
-                        else {
-                            
-                            // display and refresh here
-                            self.reqId = data.reqId
-                            self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
-                            
-                            
-                            self.delegate?.searchSuccess(searchType: ViSearchType.FIND_SIMILAR , reqId: data.reqId, products: self.products)
-                            
-                            DispatchQueue.main.async {
-                                self.collectionView?.reloadData()
+        if( searchParams != nil && (searchParams is ViSearchParams) ) {
+        
+            if let searchParams = searchParams {
+                
+                // construct the fl based on schema mappings
+                // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
+                let metaArr = self.schemaMapping.getMetaArrForSearch()
+                let combinedArr = searchParams.fl + metaArr
+                let flSet = Set(combinedArr)
+                searchParams.fl = Array(flSet)
+                
+                ViSearch.sharedInstance.findSimilar(
+                    params: searchParams as! ViSearchParams,
+                    successHandler: {
+                        (data : ViResponseData?) -> Void in
+                        // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
+                        if let data = data {
+                            if data.hasError {
+                                let errMsgs =  data.error.joined(separator: ",")
+                                print("API error: \(errMsgs)")
+                                
+                                // TODO: display system busy message here
+                                self.delegate?.searchFailed(err: nil, apiErrors: data.error)
                             }
-                            
+                            else {
+                                
+                                // display and refresh here
+                                self.reqId = data.reqId
+                                self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
+                                
+                                
+                                self.delegate?.searchSuccess(searchType: ViSearchType.FIND_SIMILAR , reqId: data.reqId, products: self.products)
+                                
+                                DispatchQueue.main.async {
+                                    self.collectionView?.reloadData()
+                                }
+                                
+                            }
                         }
-                    }
-                    
-            },
-                failureHandler: {
-                    (err) -> Void in
-                    // Do something when request fails e.g. due to network error
-                    // print ("error: \\(err.localizedDescription)")
-                    // TODO: display error message and tap to try again
-                    self.delegate?.searchFailed(err: err, apiErrors: [])
-                    
-            })
+                        
+                },
+                    failureHandler: {
+                        (err) -> Void in
+                        // Do something when request fails e.g. due to network error
+                        // print ("error: \\(err.localizedDescription)")
+                        // TODO: display error message and tap to try again
+                        self.delegate?.searchFailed(err: err, apiErrors: [])
+                        
+                })
+            }
         }
         else {
             
-            print("\(type(of: self)).\(#function)[line:\(#line)] - error: Please setup search parameters to refresh data.")
+            print("\(type(of: self)).\(#function)[line:\(#line)] - error: Search parameter must be ViSearchParams type and is not nil.")
             
         }
     }

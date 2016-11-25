@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>color</key>
+	<string>5F90AF</string>
 	<key>heading_schema_mapping</key>
 	<string>im_title</string>
 	<key>label_schema_mapping</key>

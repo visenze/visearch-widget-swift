@@ -11,6 +11,10 @@ import LayoutKit
 
 open class ViGridSearchViewController: ViBaseSearchViewController {
 
+    open var headerLayout : Layout? {
+        return nil
+    }
+    
     public override var itemSize: CGSize {
         didSet {
             // make sure image config width cannot exceed item width
@@ -96,9 +100,58 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
         
     }
     
+    open override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+        
+        if let layout = self.headerLayout {
+            return layout.arrangement( origin: .zero , width: self.view.bounds.width ).frame.size
+        }
+        return CGSize.zero
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier, for: indexPath)
+        
+        if let layout = self.headerLayout {
+            layout.arrangement( origin: .zero , width:  self.view.bounds.width ).makeViews(in: view)
+        }
+        
+        return view!
+    }
+    
+    // MARK: layout helper methods
+    public func getPowerByVisenzeLayout() -> Layout {
+        let scaleRatio :CGFloat = 1.1
+        let powerByLayout = SizeLayout<UIImageView>(
+            width: ViIcon.power_visenze!.width / scaleRatio, height: ViIcon.power_visenze!.height / scaleRatio,
+            alignment: .topLeading ,
+            flexibility: .inflexible,
+            viewReuseId: nil,
+            config: { img in
+                img.image = ViIcon.power_visenze
+                img.backgroundColor = ViTheme.sharedInstance.default_btn_background_color
+                img.clipsToBounds = true
+            }
+            
+        )
+        
+        return powerByLayout
+    }
+    
+    public func getDividerLayout() -> Layout {
+        let divider = SizeLayout<UIView>(height: 0.5,
+                                         alignment: .fill,
+                                         flexibility: .flexible,
+                                         config: { v in
+                                            v.backgroundColor = UIColor.lightGray
+                                        }
+        )
+
+        return divider
+    }
+    
     /// generate the layout for number of products and filter button
-    open func getLabelAndFilterLayout(emptyProductsTxt: String = "Similar Products",
-                                      displayStringFormat: String = "%d Similar Products Found"   ) -> Layout{
+    open func getLabelAndFilterLayout(emptyProductsTxt: String = "Products Found",
+                                      displayStringFormat: String = "%d Products Found"   ) -> Layout{
         var displayTxt = emptyProductsTxt
         
         if self.products.count > 0 {
@@ -136,7 +189,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
                 button.tag = ViProductCardTag.filterBtnTag.rawValue
                 
                 // TODO: add event handler for filter button click here
-        }
+            }
             
         )
         

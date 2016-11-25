@@ -112,7 +112,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     public var reqId : String? = ""
     
     /// search parameters
-    public var searchParams: ViSearchParams? = nil
+    public var searchParams: ViBaseSearchParams? = nil
     
     /// schema mappings to UI elements
     public var schemaMapping: ViProductSchemaMapping = ViProductSchemaMapping()

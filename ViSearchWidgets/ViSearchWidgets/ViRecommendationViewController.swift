@@ -19,57 +19,61 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
 
     /// call ViSearch API and refresh the views
     open override func refreshData() {
-        if let searchParams = searchParams {
+        
+        if( searchParams != nil && (searchParams is ViSearchParams) ) {
             
-            // construct the fl based on schema mappings
-            // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
-            let metaArr = self.schemaMapping.getMetaArrForSearch()
-            let combinedArr = searchParams.fl + metaArr
-            let flSet = Set(combinedArr)
-            searchParams.fl = Array(flSet)
-            
-            ViSearch.sharedInstance.recommendation(
-                params: searchParams,
-                successHandler: {
-                    (data : ViResponseData?) -> Void in
-                    // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
-                    if let data = data {
-                        if data.hasError {
-                            let errMsgs =  data.error.joined(separator: ",")
-                            print("API error: \(errMsgs)")
-                            
-                            // TODO: display system busy message here
-                            self.delegate?.searchFailed(err: nil, apiErrors: data.error)
-                        }
-                        else {
-                            
-                            // display and refresh here
-                            self.reqId = data.reqId
-                            self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
-                            
-                            
-                            self.delegate?.searchSuccess(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , reqId: data.reqId, products: self.products)
-                            
-                            DispatchQueue.main.async {
-                                self.collectionView?.reloadData()
+            if let searchParams = searchParams {
+                
+                // construct the fl based on schema mappings
+                // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
+                let metaArr = self.schemaMapping.getMetaArrForSearch()
+                let combinedArr = searchParams.fl + metaArr
+                let flSet = Set(combinedArr)
+                searchParams.fl = Array(flSet)
+                
+                ViSearch.sharedInstance.recommendation(
+                    params: searchParams as! ViSearchParams,
+                    successHandler: {
+                        (data : ViResponseData?) -> Void in
+                        // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
+                        if let data = data {
+                            if data.hasError {
+                                let errMsgs =  data.error.joined(separator: ",")
+                                print("API error: \(errMsgs)")
+                                
+                                // TODO: display system busy message here
+                                self.delegate?.searchFailed(err: nil, apiErrors: data.error)
                             }
-                            
+                            else {
+                                
+                                // display and refresh here
+                                self.reqId = data.reqId
+                                self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
+                                
+                                
+                                self.delegate?.searchSuccess(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , reqId: data.reqId, products: self.products)
+                                
+                                DispatchQueue.main.async {
+                                    self.collectionView?.reloadData()
+                                }
+                                
+                            }
                         }
-                    }
 
-            },
-                failureHandler: {
-                    (err) -> Void in
-                    // Do something when request fails e.g. due to network error
-                    // print ("error: \\(err.localizedDescription)")
-                    // TODO: display error message and tap to try again
-                    self.delegate?.searchFailed(err: err, apiErrors: [])
-                    
-            })
+                },
+                    failureHandler: {
+                        (err) -> Void in
+                        // Do something when request fails e.g. due to network error
+                        // print ("error: \\(err.localizedDescription)")
+                        // TODO: display error message and tap to try again
+                        self.delegate?.searchFailed(err: err, apiErrors: [])
+                        
+                })
+            }
         }
         else {
             
-            print("\(type(of: self)).\(#function)[line:\(#line)] - error: Please setup search parameters to refresh data.")
+            print("\(type(of: self)).\(#function)[line:\(#line)] - error: Search parameter must be ViSearchParams type and is not nil.")
             
         }
     }

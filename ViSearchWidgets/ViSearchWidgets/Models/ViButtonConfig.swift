@@ -46,5 +46,5 @@ public struct ViButtonConfig {
     
     public static var default_btn_config = ViButtonConfig()
     public static var default_similar_btn_config = ViButtonConfig(icon: ViIcon.find_similar)
-    public static var default_action_btn_config = ViButtonConfig(backgroundColor: ViTheme.sharedInstance.default_action_btn_background_color, icon: ViIcon.like)
+    public static var default_action_btn_config = ViButtonConfig(tint_color: ViTheme.sharedInstance.default_action_btn_tint_color,backgroundColor: ViTheme.sharedInstance.default_action_btn_background_color, icon: ViIcon.like)
 }

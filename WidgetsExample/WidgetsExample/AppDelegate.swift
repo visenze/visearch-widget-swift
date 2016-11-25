@@ -8,6 +8,7 @@
 
 import UIKit
 import ViSearchSDK
+import ViSearchWidgets
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -63,6 +64,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    public static func loadSampleSchemaMappingFromPlist() -> ViProductSchemaMapping{
+        var mapping = ViProductSchemaMapping()
+        
+        if let path = Bundle.main.path(forResource: "SampleData", ofType: "plist") {
+            let dict = NSDictionary(contentsOfFile: path)
+            
+            mapping.heading = dict!["heading_schema_mapping"] as? String
+            mapping.label = dict!["label_schema_mapping"] as? String
+            mapping.price = dict!["price_schema_mapping"] as? String
+            mapping.discountPrice = dict!["discount_price_schema_mapping"] as? String
+        }
+        else {
+            print("Unable to load SampleData keys plist. Please copy/add SampleData.plist to the project and configure the sample im_names ")
+        }
+        
+        return mapping
+    }
 
 }
 

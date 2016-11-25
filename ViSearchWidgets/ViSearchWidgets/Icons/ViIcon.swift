@@ -38,10 +38,12 @@ public struct ViIcon{
     public static let find_similar = ViIcon.icon("find_similar")
     
     // TODO: change this image later
-    public static let like = ViIcon.icon("find_similar")
+    public static let like = ViIcon.icon("heart")
     
     public static let power_visenze = ViIcon.icon("power_visenze", .alwaysOriginal)
     
     public static let back = ViIcon.icon("back_icon")
+    
+    public static let filter = ViIcon.icon("filter")
     
 }

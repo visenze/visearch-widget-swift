@@ -47,9 +47,12 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
     //            controller.searchParams?.fl = ["category"]
                 
                 // configure schema mapping to product UI elements
-                controller.schemaMapping.heading = "im_title"
-                controller.schemaMapping.label = "brand"
-                controller.schemaMapping.price = "price"
+                
+//                controller.schemaMapping.heading = "im_title"
+//                controller.schemaMapping.label = "brand"
+//                controller.schemaMapping.price = "price"
+                
+                controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
 
                 // configure discount price if necessary
                 controller.schemaMapping.discountPrice = "price"
@@ -91,14 +94,16 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
     func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
         
         // set border for find similar
-        controller.productCardBorderWidth = 0.5
-        controller.productCardBorderColor = UIColor.lightGray
-       
-        controller.itemSpacing = 0
-        // must recalculate item width
-        controller.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
+//        controller.productCardBorderWidth = 0.7
+//        controller.productCardBorderColor = UIColor.lightGray
+//        controller.productBorderStyles = [.BOTTOM, .RIGHT]
         
-        controller.rowSpacing = 0
+//        controller.itemSpacing = 0
+        // must recalculate item width
+//        controller.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
+        controller.hasActionBtn = false
+//        controller.rowSpacing = 0
+//        controller.showQueryProduct = false
         
     }
     

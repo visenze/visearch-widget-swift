@@ -59,6 +59,15 @@ open class ViSearchResultsView: UIView {
     override open func layoutSubviews() {
         super.layoutSubviews()
         
+        // view has not been init
+        if(self.bounds.height == 0)
+        {
+            self.headerViewContainer.frame = .zero
+            self.collectionView?.frame = .zero
+            self.footerViewContainer.frame = .zero
+            return
+        }
+        
         let headerViewHeight = max(headerHeight, 0)
         let footerViewHeight = max(footerHeight , 0)
         
@@ -76,13 +85,13 @@ open class ViSearchResultsView: UIView {
                                                 y: self.collectionView!.frame.origin.y + self.collectionView!.frame.size.height ,
                                                 width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
                                                 height: footerViewHeight)
-        
     }
     
     public func setHeader(_ headerView: UIView) {
         for view in self.headerViewContainer.subviews{
             view.removeFromSuperview()
         }
+        
         self.headerViewContainer.addSubview(headerView)
     }
     

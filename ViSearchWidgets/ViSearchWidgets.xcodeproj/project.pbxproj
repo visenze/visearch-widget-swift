@@ -37,6 +37,8 @@
 		BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96D11DBA0BEB00C497F7 /* UIFont+Visenze.swift */; };
 		BD7E96D51DBF597800C497F7 /* ViProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96D41DBF597800C497F7 /* ViProduct.swift */; };
 		BD7E96D71DBF60AC00C497F7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96D61DBF60AC00C497F7 /* SnapKit.framework */; };
+		BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */; };
+		BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */; };
 		BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */; };
 		BDCF955B1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF955A1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift */; };
 		BDCF955F1DE546C500412FF4 /* ViSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF955E1DE546C500412FF4 /* ViSearchResultsView.swift */; };
@@ -90,6 +92,8 @@
 		BD7E96D11DBA0BEB00C497F7 /* UIFont+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIFont+Visenze.swift"; path = "Extensions/UIFont+Visenze.swift"; sourceTree = "<group>"; };
 		BD7E96D41DBF597800C497F7 /* ViProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProduct.swift; path = Models/ViProduct.swift; sourceTree = "<group>"; };
 		BD7E96D61DBF60AC00C497F7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = ../Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Visenze.swift"; path = "Extensions/UIView+Visenze.swift"; sourceTree = "<group>"; };
+		BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViQueryProductLayout.swift; path = Layouts/ViQueryProductLayout.swift; sourceTree = "<group>"; };
 		BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCollectionViewCell.swift; path = Views/ViProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		BDCF955A1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViHorizontalSearchViewController.swift; sourceTree = "<group>"; };
 		BDCF955E1DE546C500412FF4 /* ViSearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViSearchResultsView.swift; path = Views/ViSearchResultsView.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			children = (
 				BD3D1D591DD164140053F1E8 /* ViProductCardLayout.swift */,
 				BD3D1D761DD3221E0053F1E8 /* ViProductCardLayoutBuilder.swift */,
+				BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				BD7E96CF1DBA09E000C497F7 /* UIImage+Visenze.swift */,
 				BD7E96D11DBA0BEB00C497F7 /* UIFont+Visenze.swift */,
 				BDF03BFA1DCC720200861EC5 /* UILabel+Visenze.swift */,
+				BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -425,11 +431,13 @@
 				BD7E96D51DBF597800C497F7 /* ViProduct.swift in Sources */,
 				BDCF95621DE6859C00412FF4 /* ViGridSearchViewController.swift in Sources */,
 				BDCF95641DE6988F00412FF4 /* ViFindSimilarViewController.swift in Sources */,
+				BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */,
 				BD3D1D751DD2FC470053F1E8 /* ViButtonConfig.swift in Sources */,
 				BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */,
 				BD3D1D621DD1AC5F0053F1E8 /* ViRecommendationViewController.swift in Sources */,
 				BD3D1D7E1DD450F00053F1E8 /* ViSchemaHelper.swift in Sources */,
 				BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */,
+				BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */,
 				BD3D1D6D1DD2D3590053F1E8 /* ViImageConfig.swift in Sources */,
 				BD7E96CA1DBA082E00C497F7 /* String+Visenze.swift in Sources */,
 				BD7E96C81DBA03D000C497F7 /* UIColors+Visenze.swift in Sources */,

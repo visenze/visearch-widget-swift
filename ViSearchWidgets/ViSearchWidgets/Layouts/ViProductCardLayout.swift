@@ -28,6 +28,8 @@ public enum ViProductCardTag : Int {
     case findSimilarBtnTag
     case actionBtnTag
     
+    case filterBtnTag
+    
 }
 
 
@@ -356,7 +358,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
     
     
     // MARK : create layouts helpers
-    private static func createPriceLayout(
+    internal static func createPriceLayout(
         price: Float,
         price_font : UIFont ,
         price_text_color: UIColor ,
@@ -396,7 +398,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
         }
     }
     
-    private static func createDiscountPriceLayout(
+    internal static func createDiscountPriceLayout(
        discounted_price : Float,
        discounted_price_font : UIFont ,
        discounted_price_text_color: UIColor ,
@@ -437,7 +439,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
     }
     
     
-    private static func createProductImageLayout(
+    internal static func createProductImageLayout(
           img_url: URL?,
           img_size: CGSize,
           img_contentMode: UIViewContentMode,
@@ -451,7 +453,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
             action_btn_font: UIFont = ViTheme.sharedInstance.default_btn_font,
             action_btn_size: CGSize = ViTheme.sharedInstance.default_btn_size,
             action_btn_background_color: UIColor = ViTheme.sharedInstance.default_action_btn_background_color,
-            action_btn_tint_color: UIColor = ViTheme.sharedInstance.default_txt_color
+            action_btn_tint_color: UIColor = ViTheme.sharedInstance.default_action_btn_tint_color
         
         
         )

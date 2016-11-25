@@ -7,9 +7,17 @@
 //
 
 import UIKit
+import LayoutKit
 
 open class ViGridSearchViewController: ViBaseSearchViewController {
 
+    public override var itemSize: CGSize {
+        didSet {
+            // make sure image config width cannot exceed item width
+            self.imageConfig.size.width = min(itemSize.width, self.imageConfig.size.width)
+        }
+    }
+    
     public func setItemWidth(numOfColumns : Int) {
         self.setItemWidth(numOfColumns: numOfColumns, containerWidth: self.view.bounds.width)
     }
@@ -20,7 +28,6 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
             let itemWidth = self.estimateItemWidth(numOfColumns: numOfColumns, containerWidth: containerWidth )
             
             // make sure image width is less than item width
-            self.imageConfig.size.width = min(itemWidth, self.imageConfig.size.width)
             self.itemSize.width = itemWidth
         }
         else {
@@ -67,6 +74,13 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
         return self.estimateItemWidth(numOfColumns: numOfColumns, containerWidth: self.view.bounds.width)
     }
     
+    open func estimateItemSize(numOfColumns: Int, containerWidth: CGFloat ) -> CGSize {
+        let width = self.estimateItemWidth(numOfColumns: 2, containerWidth: containerWidth)
+        let constrainWidth = min(width, self.imageConfig.size.width )
+        let height = self.estimateItemSize(constrainedToWidth: constrainWidth ).height
+        return CGSize(width: width, height: height)
+    }
+    
     /// reload layout.. configure this as a horizontal layout
     open override func reloadLayout(){
 
@@ -80,6 +94,59 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
             delegate.configureLayout(sender: self, layout: layout)
         }
         
+    }
+    
+    /// generate the layout for number of products and filter button
+    open func getLabelAndFilterLayout(emptyProductsTxt: String = "Similar Products",
+                                      displayStringFormat: String = "%d Similar Products Found"   ) -> Layout{
+        var displayTxt = emptyProductsTxt
+        
+        if self.products.count > 0 {
+            displayTxt = String(format: displayStringFormat, self.products.count)
+        }
+        
+        let labelEl = LabelLayout(text: displayTxt,
+                                  font: ViFont.medium(with: 16.0),
+                                  numberOfLines: 1,
+                                  alignment: .centerLeading ,
+                                  viewReuseId: nil ,
+                                  config:  { (label: UILabel) in
+                                    
+                                    label.textColor = self.headingConfig.textColor
+                                    // label.tag = ViProductCardTag.labelTag.rawValue
+                                 }
+            
+        )
+        
+        
+        let filterEl = SizeLayout<UIButton>(
+            width: ViIcon.filter!.width + 8, height: ViIcon.filter!.height + 8,
+            alignment: .centerTrailing ,
+            flexibility: .inflexible,
+            viewReuseId: nil,
+            config: { button in
+                
+                button.backgroundColor = ViTheme.sharedInstance.filter_btn_background_color
+                
+                button.setImage(ViIcon.filter, for: .normal)
+                button.setImage(ViIcon.filter, for: .highlighted)
+                
+                button.tintColor = ViTheme.sharedInstance.filter_btn_tint_color
+                button.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
+                button.tag = ViProductCardTag.filterBtnTag.rawValue
+                
+                // TODO: add event handler for filter button click here
+        }
+            
+        )
+        
+        let labelAndFilterLayout = StackLayout(
+            axis: .horizontal,
+            spacing: 0,
+            sublayouts: [ labelEl, filterEl ]
+        )
+        
+        return labelAndFilterLayout
     }
    
     

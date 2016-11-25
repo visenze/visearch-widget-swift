@@ -8,12 +8,141 @@
 
 import UIKit
 import ViSearchSDK
+import LayoutKit
 
 open class ViFindSimilarViewController: ViGridSearchViewController {
 
+    
+    public var queryImageConfig = ViImageConfig()
+    
+    /// whethere to show query product
+    open var showQueryProduct : Bool = false
+
+    open var queryProduct: ViProduct? = nil
+    
+    /// generate the query image config from product card config, scale down by scale factor
+    open func generateQueryImageConfig(scale: CGFloat) -> ViImageConfig {
+        var config = ViImageConfig()
+        
+        config.contentMode = self.imageConfig.contentMode
+        config.errImg = self.imageConfig.errImg
+        config.loadingImg = self.imageConfig.loadingImg
+        config.size = CGSize(width: (self.imageConfig.size.width * scale) , height: (self.imageConfig.size.height * scale) )
+        
+        return config
+    }
+    
+    /// layout for header that contains query product and filter
+    open var headerLayout : Layout? {
+        var allLayouts : [Layout] = []
+        
+        if let queryProduct = queryProduct {
+            
+            if showQueryProduct {
+                var productLogoLayouts : [Layout] = []
+                
+                let productLayout = ViQueryProductLayout(imgUrl: queryProduct.imageUrl, imageConfig: self.queryImageConfig,
+                                                         heading: queryProduct.heading, headingConfig: self.headingConfig,
+                                                         label: queryProduct.label, labelConfig: self.labelConfig,
+                                                         price: queryProduct.price, priceConfig: self.priceConfig,
+                                                         discountPrice: queryProduct.discountPrice, discountPriceConfig: self.discountPriceConfig,
+                                                         pricesHorizontalSpacing: ViProductCardLayout.default_spacing, labelLeftPadding: ViProductCardLayout.default_spacing)
+
+                
+                productLogoLayouts.append(productLayout)
+                
+                if showPowerByViSenze {
+                    let scaleRatio :CGFloat = 1.1
+                    let powerByLayout = SizeLayout<UIImageView>(
+                        width: ViIcon.power_visenze!.width / scaleRatio, height: ViIcon.power_visenze!.height / scaleRatio,
+                        alignment: .topLeading ,
+                        flexibility: .inflexible,
+                        viewReuseId: nil,
+                        config: { img in
+                            img.image = ViIcon.power_visenze
+                            img.backgroundColor = ViTheme.sharedInstance.default_btn_background_color
+                            img.clipsToBounds = true
+                    }
+                        
+                    )
+                    productLogoLayouts.append(powerByLayout)
+                    
+                }
+                
+                // add in the border view at bottom
+                let divider = SizeLayout<UIView>(height: 0.5,
+                                                 alignment: .fill,
+                                                 flexibility: .flexible,
+                                                 config: { v in
+                                                    v.backgroundColor = UIColor.lightGray
+                                                 }
+                )
+                productLogoLayouts.append(divider)
+                
+                let productAndLogoStackLayout = StackLayout(
+                    axis: .vertical,
+                    spacing: 2,
+                    sublayouts: productLogoLayouts
+                )
+                
+                allLayouts.append(productAndLogoStackLayout)
+            }
+
+        }
+        
+        // label and filter layout
+        let labelAndFilterLayout = self.getLabelAndFilterLayout(emptyProductsTxt: "Similar Products", displayStringFormat: "%d Similar Products Found")
+        allLayouts.append(labelAndFilterLayout)
+        
+        let allStackLayout = StackLayout(
+            axis: .vertical,
+            spacing: 4,
+            sublayouts: allLayouts
+        )
+        
+        let insetLayout =  InsetLayout(
+            insets: EdgeInsets(top: 8, left: 8, bottom: 8, right: 8),
+            sublayout: allStackLayout
+        )
+        
+        
+        return insetLayout
+        
+    }
+    
+    /// since we show the logo below the query product, this is not necessary to show again
+    open override var footerSize : CGSize {
+        if showQueryProduct {
+            return CGSize.zero
+        }
+        
+        return super.footerSize
+    }
+    
+    open override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+        
+        if let layout = headerLayout {
+            return layout.arrangement(origin: .zero, width: self.view.bounds.width ).frame.size
+        }
+        
+        return CGSize.zero
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier, for: indexPath)
+        
+        if let layout = headerLayout {
+            layout.arrangement( origin: .zero , width:  self.view.bounds.width ).makeViews(in: view)
+        }
+        
+        return view!
+    }
+    
     open override func setup(){
         super.setup()
         self.title = "Similar Products"
+        // hide this as we will use the query product card and filter header instead
+        self.showTitleHeader = false
     }
     
     /// call ViSearch API and refresh the views

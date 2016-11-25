@@ -23,6 +23,13 @@ public enum ViSearchType : Int {
     
 }
 
+public enum ViBorderType : Int {
+    case TOP
+    case BOTTOM
+    case LEFT
+    case RIGHT
+}
+
 public protocol ViSearchViewControllerDelegate: class {
     
     /// configure the collectionview cell before displaying
@@ -83,6 +90,8 @@ public protocol ViSearchViewControllerProtocol: class {
 
 open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol, ViProductCellDelegate {
     
+    public let headerCollectionViewCellReuseIdentifier = "ViHeaderReuseCellId"
+    
     public var collectionView : UICollectionView? {
         let resultsView = self.view as! ViSearchResultsView
         return resultsView.collectionView
@@ -126,6 +135,8 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     public var productCardBackgroundColor: UIColor = ViTheme.sharedInstance.default_product_card_background_color
     public var productCardBorderColor: UIColor? = nil
     public var productCardBorderWidth : CGFloat = 0
+    /// default draw all borders
+    public var productBorderStyles : [ViBorderType] = [.LEFT , .RIGHT , .BOTTOM , .TOP]
     
     
     // whether to enable Power by Visenze logo
@@ -186,6 +197,9 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         self.titleLabel = UILabel()
         self.titleLabel?.textAlignment = .left
         self.titleLabel?.font = ViTheme.sharedInstance.default_widget_title_font
+        
+        // Important: without this the header above collection view will appear behind the navigation bar
+        self.edgesForExtendedLayout = []
     }
     
     open override func loadView() {
@@ -201,6 +215,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         
         // Register cell classes
         self.collectionView!.register(ViProductCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier)
         
         reloadLayout()
     }
@@ -211,6 +226,12 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     }
     
     // MARK: UICollectionViewDataSource
+    
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+        
+        return .zero
+    }
+    
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -241,8 +262,28 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
             productView.backgroundColor = self.productCardBackgroundColor
             
             if let borderColor = self.productCardBorderColor {
-                productView.layer.borderColor = borderColor.cgColor
-                productView.layer.borderWidth = self.productCardBorderWidth
+                if self.productBorderStyles.count == 4 {
+                    productView.addBorder(width: self.productCardBorderWidth, color: borderColor)
+                }
+                else {
+                    for style in self.productBorderStyles {
+                        switch style {
+                            case .BOTTOM:
+                                productView.addBorderBottom(size: self.productCardBorderWidth, color: borderColor)
+                            
+                            case .LEFT:
+                                productView.addBorderLeft(size: self.productCardBorderWidth, color: borderColor)
+                            
+                            case .RIGHT:
+                                productView.addBorderRight(size: self.productCardBorderWidth, color: borderColor)
+                            
+                            case .TOP:
+                                productView.addBorderTop(size: self.productCardBorderWidth, color: borderColor)
+                            
+                        }
+                    }
+                }
+
             }
             
             cell.delegate = self
@@ -315,7 +356,6 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         layout.minimumLineSpacing = itemSpacing
         layout.minimumInteritemSpacing = itemSpacing
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.headerReferenceSize = .zero
         layout.footerReferenceSize = .zero
         self.collectionView?.backgroundColor = backgroundColor
         self.view.backgroundColor = backgroundColor
@@ -467,6 +507,10 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 
                 similarController.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
                 similarController.showTitleHeader = false
+                similarController.queryProduct = product
+                
+                similarController.queryImageConfig = similarController.generateQueryImageConfig(scale: 0.7)
+                similarController.showQueryProduct = true
                 
                 // set to same delegate
                 similarController.delegate = self.delegate
@@ -499,14 +543,14 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 
             }
             
-            delegate?.similarBtnTapped(sender: self, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+            delegate?.similarBtnTapped(sender: cell, collectionView: self.collectionView!, indexPath: indexPath, product: product)
         }
     }
     
     @IBAction open func actionBtnTapped(_ cell: ViProductCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
             let product = products[indexPath.row]
-            delegate?.actionBtnTapped(sender: self, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+            delegate?.actionBtnTapped(sender: cell, collectionView: self.collectionView!, indexPath: indexPath, product: product)
         }
     }
     

@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>heading_schema_mapping</key>
+	<string>im_title</string>
+	<key>label_schema_mapping</key>
+	<string>brand</string>
+	<key>price_schema_mapping</key>
+	<string>price</string>
+	<key>discount_price_schema_mapping</key>
+	<string>price</string>
+	<key>find_similar_im_name</key>
+	<string>matchesfashion-WOWT4D870003BKP531</string>
 	<key>you_may_like_im_name</key>
 	<string>bluefly-341848601</string>
 </dict>

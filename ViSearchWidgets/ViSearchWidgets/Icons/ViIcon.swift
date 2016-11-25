@@ -50,5 +50,19 @@ public struct ViIcon{
     
     public static let tick = ViIcon.icon("tick")
     
+    // choose from gallery
+    public static let gallery = ViIcon.icon("album")
+    
+    public static let info = ViIcon.icon("info")
+    
+    public static let lights = ViIcon.icon("lights")
+    
+    public static let reverse = ViIcon.icon("reverse")
+   
+    public static let crop = ViIcon.icon("crop")
+    
+    public static let camera = ViIcon.icon("camera")
+   
+    public static let big_camera = ViIcon.icon("big_camera")
     
 }

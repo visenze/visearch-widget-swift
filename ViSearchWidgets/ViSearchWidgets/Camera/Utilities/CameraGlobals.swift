@@ -9,6 +9,7 @@ public class CameraGlobals {
     public static let shared = CameraGlobals()
     
     public var bundle = Bundle(for: CameraViewController.self)
+    
     public var stringsTable = "ViSearchWidgets"
     
     public var photoLibraryThumbnailSize : CGSize {

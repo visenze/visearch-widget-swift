@@ -4,12 +4,13 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmViewController" customModule="ALCameraViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmViewController" customModule="ViSearchWidgets" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="yRi-ES-LfN" id="PUm-mc-H7R"/>
                 <outlet property="centeringView" destination="KYd-D9-K5d" id="CmX-BA-VtZ"/>
@@ -33,7 +34,6 @@
                         <constraint firstAttribute="height" constant="64" id="J7n-mn-Ebe"/>
                         <constraint firstAttribute="width" constant="64" id="YWt-e6-Bvy"/>
                     </constraints>
-                    <state key="normal" image="confirmButton"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRi-ES-LfN">
                     <rect key="frame" x="328" y="526" width="44" height="44"/>
@@ -41,13 +41,12 @@
                         <constraint firstAttribute="height" constant="64" id="FdJ-mW-Tx6"/>
                         <constraint firstAttribute="width" constant="64" id="urS-JS-i1S"/>
                     </constraints>
-                    <state key="normal" image="retakeButton"/>
                 </button>
                 <view hidden="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KYd-D9-K5d">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="CropOverlay" customModule="ALCameraViewController" customModuleProvider="target">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-tb-Sap" customClass="CropOverlay" customModule="ViSearchWidgets" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -202,8 +201,4 @@
             </variation>
         </view>
     </objects>
-    <resources>
-        <image name="confirmButton" width="44" height="44"/>
-        <image name="retakeButton" width="44" height="44"/>
-    </resources>
 </document>

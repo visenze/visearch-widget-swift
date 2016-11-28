@@ -29,11 +29,25 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     public init(asset: PHAsset, allowsCropping: Bool) {
         self.allowsCropping = allowsCropping
         self.asset = asset
-        super.init(nibName: "ConfirmViewController", bundle: CameraGlobals.shared.bundle)
+        
+        var bundle = Bundle(for: CameraViewController.self)
+        
+        let identifier = bundle.bundleIdentifier
+        if  (true == identifier?.hasPrefix("org.cocoapods") ) {
+            let path = (bundle.bundlePath as NSString).appendingPathComponent("com.visenze.ui.bundle")
+            bundle = Bundle(path: path)!
+        }
+        
+        super.init(nibName: "ConfirmViewController", bundle: bundle)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    public func loadImages() {
+        self.confirmButton.setImage(ViIcon.confirmButton, for: .normal)
+        self.cancelButton.setImage(ViIcon.retakeButton, for: .normal)
     }
     
     public override var prefersStatusBarHidden: Bool {
@@ -75,6 +89,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
                 self.hideSpinner(spinner)
             }
             .fetch()
+        
+        self.loadImages()
     }
     
     public override func viewWillLayoutSubviews() {

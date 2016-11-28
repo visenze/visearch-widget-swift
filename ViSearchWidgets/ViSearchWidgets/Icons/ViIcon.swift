@@ -78,6 +78,7 @@ public struct ViIcon{
     public static let retakeButton = ViIcon.icon("retakeButton" , .alwaysOriginal)
     public static let permissionsIcon = ViIcon.icon("permissionsIcon" , .alwaysOriginal)
     public static let libraryCancel = ViIcon.icon("libraryCancel" , .alwaysOriginal)
+    public static let confirmButton = ViIcon.icon("confirmBtn" , .alwaysOriginal)
     
     
     

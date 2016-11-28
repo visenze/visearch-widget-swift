@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   
-  s.name         = "ViSearchWidgets.podspec"
+  s.name         = "ViSearchWidgets"
   s.version      = "0.1"
   s.summary      = "ViSenze mobile widgets"
 

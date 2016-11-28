@@ -21,7 +21,8 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         "ff00ff" , "a665a7" , "e0b0ff" ,
         "f773bd" , "f77866" , "7a2f04" ,
         "cc9c33" , "618fca" , "79c753" ,
-        "228622" , "4987ec" , "2abab3"
+        "228622" , "4987ec" , "2abab3" ,
+        "ffffff"
     ]
     
     open override func setup(){
@@ -129,6 +130,12 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         controller.paddingLeft = 8
         controller.paddingRight = 8
         controller.preferredContentSize = CGSize(width: self.view.bounds.width, height: 300)
+        
+        if( searchParams != nil && (searchParams is ViColorSearchParams) ) {
+            if let colorParams = searchParams as? ViColorSearchParams {
+                controller.selectedColor = colorParams.color
+            }
+        }
         
         if let popoverController = controller.popoverPresentationController {
             popoverController.sourceView = self.view

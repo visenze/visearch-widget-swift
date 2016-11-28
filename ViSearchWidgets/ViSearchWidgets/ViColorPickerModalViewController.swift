@@ -17,7 +17,11 @@ public protocol ViColorPickerDelegate: class {
 
 open class ViColorPickerModalViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    /// list of color strings in hex format e.g. #123456 or 123456. The hex is optional
     open var colorList: [String] = []
+    
+    /// current selector color.. will be indicated with a tick
+    open var selectedColor : String? = nil;
     
     public var collectionView : UICollectionView? {
         let resultsView = self.view as! ViSearchResultsView
@@ -127,6 +131,36 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
         let color = colorList[indexPath.row]
         cell.contentView.backgroundColor = UIColor.colorWithHexString(color, alpha: 1.0)
         
+        var tickView = cell.contentView.viewWithTag(99) as? UIImageView;
+        
+        if(tickView == nil){
+            // create
+            tickView = UIImageView(image: ViIcon.tick)
+            tickView?.clipsToBounds = true
+            // center the image
+            tickView?.frame = CGRect(x: ( (self.itemSize.width - 36) / 2 )  , y: ( (self.itemSize.height - 36) / 2 ) , width: 36, height: 36)
+            cell.contentView.addSubview(tickView!)
+        }
+        
+        tickView?.isHidden = true
+        tickView?.tintColor = UIColor.white
+        
+        
+        /// if selected view, then we need to add in the tick
+        if let selectedColor = self.selectedColor {
+            if selectedColor == color {
+                tickView?.isHidden = false
+                
+                // if white then need to change tick to black
+                if selectedColor == "ffffff" || selectedColor == "#ffffff" {
+                    tickView?.tintColor = UIColor.black
+                }
+            }
+            
+        }
+        
+        cell.contentView.addBorder(width: 0.5, color: UIColor.lightGray)
+        
         return cell
     
     }
@@ -134,6 +168,7 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate {
             let color = colorList[indexPath.row]
+            self.selectedColor = color
             delegate.didPickColor(sender: self, color: color)
         }
     }

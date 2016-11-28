@@ -39,6 +39,29 @@
 		BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96D11DBA0BEB00C497F7 /* UIFont+Visenze.swift */; };
 		BD7E96D51DBF597800C497F7 /* ViProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96D41DBF597800C497F7 /* ViProduct.swift */; };
 		BD7E96D71DBF60AC00C497F7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96D61DBF60AC00C497F7 /* SnapKit.framework */; };
+		BDA5B1571DEBDC750008C168 /* ViSearchWidgets.strings in Resources */ = {isa = PBXBuildFile; fileRef = BDA5B1561DEBDC750008C168 /* ViSearchWidgets.strings */; };
+		BDA5B16F1DEBDC950008C168 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15A1DEBDC950008C168 /* CameraGlobals.swift */; };
+		BDA5B1701DEBDC950008C168 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15B1DEBDC950008C168 /* CameraShot.swift */; };
+		BDA5B1711DEBDC950008C168 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15C1DEBDC950008C168 /* ImageFetcher.swift */; };
+		BDA5B1721DEBDC950008C168 /* PhotoLibraryAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15D1DEBDC950008C168 /* PhotoLibraryAuthorizer.swift */; };
+		BDA5B1731DEBDC950008C168 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15E1DEBDC950008C168 /* SingleImageFetcher.swift */; };
+		BDA5B1741DEBDC950008C168 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15F1DEBDC950008C168 /* SingleImageSaver.swift */; };
+		BDA5B1751DEBDC950008C168 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1601DEBDC950008C168 /* UIButtonExtensions.swift */; };
+		BDA5B1771DEBDC950008C168 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1621DEBDC950008C168 /* Utilities.swift */; };
+		BDA5B1781DEBDC950008C168 /* VolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1631DEBDC950008C168 /* VolumeControl.swift */; };
+		BDA5B1791DEBDC950008C168 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1651DEBDC950008C168 /* CameraViewController.swift */; };
+		BDA5B17A1DEBDC950008C168 /* CameraViewControllerConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1661DEBDC950008C168 /* CameraViewControllerConstraint.swift */; };
+		BDA5B17B1DEBDC950008C168 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1671DEBDC950008C168 /* ConfirmViewController.swift */; };
+		BDA5B17C1DEBDC950008C168 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDA5B1681DEBDC950008C168 /* ConfirmViewController.xib */; };
+		BDA5B17D1DEBDC950008C168 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1691DEBDC950008C168 /* PhotoLibraryViewController.swift */; };
+		BDA5B17E1DEBDC950008C168 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B16B1DEBDC950008C168 /* CameraView.swift */; };
+		BDA5B17F1DEBDC950008C168 /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B16C1DEBDC950008C168 /* CropOverlay.swift */; };
+		BDA5B1801DEBDC950008C168 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B16D1DEBDC950008C168 /* ImageCell.swift */; };
+		BDA5B1811DEBDC950008C168 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B16E1DEBDC950008C168 /* PermissionsView.swift */; };
+		BDA5B1831DEBDCD90008C168 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5B1821DEBDCD90008C168 /* AVFoundation.framework */; };
+		BDA5B1891DEBDD1B0008C168 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5B1881DEBDD1B0008C168 /* Photos.framework */; };
+		BDA5B18B1DEBDD630008C168 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5B18A1DEBDD630008C168 /* MediaPlayer.framework */; };
+		BDA5B1921DEBE9CB0008C168 /* ViSearchImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1911DEBE9CB0008C168 /* ViSearchImageViewController.swift */; };
 		BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */; };
 		BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */; };
 		BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */; };
@@ -96,6 +119,29 @@
 		BD7E96D11DBA0BEB00C497F7 /* UIFont+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIFont+Visenze.swift"; path = "Extensions/UIFont+Visenze.swift"; sourceTree = "<group>"; };
 		BD7E96D41DBF597800C497F7 /* ViProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProduct.swift; path = Models/ViProduct.swift; sourceTree = "<group>"; };
 		BD7E96D61DBF60AC00C497F7 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = ../Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		BDA5B1561DEBDC750008C168 /* ViSearchWidgets.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ViSearchWidgets.strings; sourceTree = "<group>"; };
+		BDA5B15A1DEBDC950008C168 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
+		BDA5B15B1DEBDC950008C168 /* CameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraShot.swift; sourceTree = "<group>"; };
+		BDA5B15C1DEBDC950008C168 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		BDA5B15D1DEBDC950008C168 /* PhotoLibraryAuthorizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizer.swift; sourceTree = "<group>"; };
+		BDA5B15E1DEBDC950008C168 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
+		BDA5B15F1DEBDC950008C168 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
+		BDA5B1601DEBDC950008C168 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		BDA5B1621DEBDC950008C168 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		BDA5B1631DEBDC950008C168 /* VolumeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeControl.swift; sourceTree = "<group>"; };
+		BDA5B1651DEBDC950008C168 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		BDA5B1661DEBDC950008C168 /* CameraViewControllerConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewControllerConstraint.swift; sourceTree = "<group>"; };
+		BDA5B1671DEBDC950008C168 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
+		BDA5B1681DEBDC950008C168 /* ConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
+		BDA5B1691DEBDC950008C168 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
+		BDA5B16B1DEBDC950008C168 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		BDA5B16C1DEBDC950008C168 /* CropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
+		BDA5B16D1DEBDC950008C168 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		BDA5B16E1DEBDC950008C168 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		BDA5B1821DEBDCD90008C168 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BDA5B1881DEBDD1B0008C168 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		BDA5B18A1DEBDD630008C168 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		BDA5B1911DEBE9CB0008C168 /* ViSearchImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViSearchImageViewController.swift; sourceTree = "<group>"; };
 		BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Visenze.swift"; path = "Extensions/UIView+Visenze.swift"; sourceTree = "<group>"; };
 		BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViQueryProductLayout.swift; path = Layouts/ViQueryProductLayout.swift; sourceTree = "<group>"; };
 		BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCollectionViewCell.swift; path = Views/ViProductCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -112,6 +158,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA5B18B1DEBDD630008C168 /* MediaPlayer.framework in Frameworks */,
+				BDA5B1891DEBDD1B0008C168 /* Photos.framework in Frameworks */,
+				BDA5B1831DEBDCD90008C168 /* AVFoundation.framework in Frameworks */,
 				BDF03BFD1DD013B800861EC5 /* LayoutKit.framework in Frameworks */,
 				BD7E96D71DBF60AC00C497F7 /* SnapKit.framework in Frameworks */,
 				BD7E967B1DB9C55800C497F7 /* ViSearchSDK.framework in Frameworks */,
@@ -189,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				BD7E96C21DB9F62F00C497F7 /* Icons.xcassets */,
+				BDA5B1581DEBDC950008C168 /* Camera */,
+				BDA5B1551DEBDC750008C168 /* String */,
 				BD3D1D7C1DD450890053F1E8 /* Helper */,
 				BD3D1D5C1DD164590053F1E8 /* Icons */,
 				BD7E96B61DB9F56D00C497F7 /* Font */,
@@ -204,6 +255,7 @@
 				BDCF95631DE6988F00412FF4 /* ViFindSimilarViewController.swift */,
 				BD11819F1DE8215600139BD5 /* ViColorSearchViewController.swift */,
 				BD1181A11DE8350A00139BD5 /* ViColorPickerModalViewController.swift */,
+				BDA5B1911DEBE9CB0008C168 /* ViSearchImageViewController.swift */,
 				BD7E965C1DB9C19F00C497F7 /* ViSearchWidgets.h */,
 				BD7E965D1DB9C19F00C497F7 /* Info.plist */,
 			);
@@ -222,6 +274,9 @@
 		BD7E96731DB9C1E700C497F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BDA5B18A1DEBDD630008C168 /* MediaPlayer.framework */,
+				BDA5B1881DEBDD1B0008C168 /* Photos.framework */,
+				BDA5B1821DEBDCD90008C168 /* AVFoundation.framework */,
 				BDF03BFC1DD013B800861EC5 /* LayoutKit.framework */,
 				BD7E96D61DBF60AC00C497F7 /* SnapKit.framework */,
 				BD7E96761DB9C20300C497F7 /* ViSearchSDK.framework */,
@@ -282,6 +337,63 @@
 				BD3D1D701DD2DD700053F1E8 /* ViProductSchemaMapping.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		BDA5B1551DEBDC750008C168 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				BDA5B1561DEBDC750008C168 /* ViSearchWidgets.strings */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		BDA5B1581DEBDC950008C168 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				BDA5B1591DEBDC950008C168 /* Utilities */,
+				BDA5B1641DEBDC950008C168 /* ViewController */,
+				BDA5B16A1DEBDC950008C168 /* Views */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		BDA5B1591DEBDC950008C168 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BDA5B15A1DEBDC950008C168 /* CameraGlobals.swift */,
+				BDA5B15B1DEBDC950008C168 /* CameraShot.swift */,
+				BDA5B15C1DEBDC950008C168 /* ImageFetcher.swift */,
+				BDA5B15D1DEBDC950008C168 /* PhotoLibraryAuthorizer.swift */,
+				BDA5B15E1DEBDC950008C168 /* SingleImageFetcher.swift */,
+				BDA5B15F1DEBDC950008C168 /* SingleImageSaver.swift */,
+				BDA5B1601DEBDC950008C168 /* UIButtonExtensions.swift */,
+				BDA5B1621DEBDC950008C168 /* Utilities.swift */,
+				BDA5B1631DEBDC950008C168 /* VolumeControl.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		BDA5B1641DEBDC950008C168 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BDA5B1651DEBDC950008C168 /* CameraViewController.swift */,
+				BDA5B1661DEBDC950008C168 /* CameraViewControllerConstraint.swift */,
+				BDA5B1671DEBDC950008C168 /* ConfirmViewController.swift */,
+				BDA5B1681DEBDC950008C168 /* ConfirmViewController.xib */,
+				BDA5B1691DEBDC950008C168 /* PhotoLibraryViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BDA5B16A1DEBDC950008C168 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BDA5B16B1DEBDC950008C168 /* CameraView.swift */,
+				BDA5B16C1DEBDC950008C168 /* CropOverlay.swift */,
+				BDA5B16D1DEBDC950008C168 /* ImageCell.swift */,
+				BDA5B16E1DEBDC950008C168 /* PermissionsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,7 +498,9 @@
 				BD7E96C01DB9F56D00C497F7 /* Roboto-Regular.ttf in Resources */,
 				BD7E96C11DB9F56D00C497F7 /* Roboto-Thin.ttf in Resources */,
 				BD7E96C31DB9F62F00C497F7 /* Icons.xcassets in Resources */,
+				BDA5B1571DEBDC750008C168 /* ViSearchWidgets.strings in Resources */,
 				BD7E96BF1DB9F56D00C497F7 /* Roboto-Medium.ttf in Resources */,
+				BDA5B17C1DEBDC950008C168 /* ConfirmViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,20 +539,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD3D1D791DD418F00053F1E8 /* ViImageView.swift in Sources */,
+				BDA5B1731DEBDC950008C168 /* SingleImageFetcher.swift in Sources */,
+				BDA5B17F1DEBDC950008C168 /* CropOverlay.swift in Sources */,
 				BD7E96CD1DBA08DA00C497F7 /* ViTheme.swift in Sources */,
+				BDA5B1781DEBDC950008C168 /* VolumeControl.swift in Sources */,
+				BDA5B17A1DEBDC950008C168 /* CameraViewControllerConstraint.swift in Sources */,
 				BDF03BFB1DCC720200861EC5 /* UILabel+Visenze.swift in Sources */,
+				BDA5B1721DEBDC950008C168 /* PhotoLibraryAuthorizer.swift in Sources */,
 				BD3D1D6F1DD2D4F00053F1E8 /* ViLabelConfig.swift in Sources */,
 				BDCF955F1DE546C500412FF4 /* ViSearchResultsView.swift in Sources */,
 				BDCF955B1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift in Sources */,
+				BDA5B17B1DEBDC950008C168 /* ConfirmViewController.swift in Sources */,
 				BD3D1D5A1DD164140053F1E8 /* ViProductCardLayout.swift in Sources */,
+				BDA5B1921DEBE9CB0008C168 /* ViSearchImageViewController.swift in Sources */,
 				BD3D1D771DD3221E0053F1E8 /* ViProductCardLayoutBuilder.swift in Sources */,
 				BD3D1D801DD48C380053F1E8 /* ViBaseSearchViewController.swift in Sources */,
 				BD3D1D711DD2DD700053F1E8 /* ViProductSchemaMapping.swift in Sources */,
+				BDA5B1701DEBDC950008C168 /* CameraShot.swift in Sources */,
+				BDA5B16F1DEBDC950008C168 /* CameraGlobals.swift in Sources */,
 				BD7E96D51DBF597800C497F7 /* ViProduct.swift in Sources */,
 				BD1181A01DE8215600139BD5 /* ViColorSearchViewController.swift in Sources */,
+				BDA5B1791DEBDC950008C168 /* CameraViewController.swift in Sources */,
+				BDA5B1771DEBDC950008C168 /* Utilities.swift in Sources */,
 				BDCF95621DE6859C00412FF4 /* ViGridSearchViewController.swift in Sources */,
+				BDA5B1741DEBDC950008C168 /* SingleImageSaver.swift in Sources */,
 				BDCF95641DE6988F00412FF4 /* ViFindSimilarViewController.swift in Sources */,
 				BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */,
+				BDA5B1751DEBDC950008C168 /* UIButtonExtensions.swift in Sources */,
+				BDA5B17D1DEBDC950008C168 /* PhotoLibraryViewController.swift in Sources */,
+				BDA5B1711DEBDC950008C168 /* ImageFetcher.swift in Sources */,
+				BDA5B1801DEBDC950008C168 /* ImageCell.swift in Sources */,
+				BDA5B17E1DEBDC950008C168 /* CameraView.swift in Sources */,
 				BD3D1D751DD2FC470053F1E8 /* ViButtonConfig.swift in Sources */,
 				BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */,
 				BD1181A21DE8350A00139BD5 /* ViColorPickerModalViewController.swift in Sources */,
@@ -449,6 +580,7 @@
 				BD3D1D6D1DD2D3590053F1E8 /* ViImageConfig.swift in Sources */,
 				BD7E96CA1DBA082E00C497F7 /* String+Visenze.swift in Sources */,
 				BD7E96C81DBA03D000C497F7 /* UIColors+Visenze.swift in Sources */,
+				BDA5B1811DEBDC950008C168 /* PermissionsView.swift in Sources */,
 				BD3D1D5E1DD1647D0053F1E8 /* ViIcon.swift in Sources */,
 				BD7E96D01DBA09E000C497F7 /* UIImage+Visenze.swift in Sources */,
 				BD7E96C51DBA002F00C497F7 /* ViFont.swift in Sources */,

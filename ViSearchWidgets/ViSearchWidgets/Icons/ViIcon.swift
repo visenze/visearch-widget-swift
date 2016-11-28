@@ -65,4 +65,34 @@ public struct ViIcon{
    
     public static let big_camera = ViIcon.icon("big_camera")
     
+    // camera related icons
+    public static let placeholder = ViIcon.icon("placeholder" , .alwaysOriginal)
+    public static let cameraButton = ViIcon.icon("cameraButton" , .alwaysOriginal)
+    public static let cameraButtonHighlighted = ViIcon.icon("cameraButtonHighlighted" , .alwaysOriginal)
+    public static let closeButton = ViIcon.icon("closeButton" , .alwaysOriginal)
+    public static let swapButton = ViIcon.icon("swapButton" , .alwaysOriginal)
+    public static let libraryButton = ViIcon.icon("libraryButton" , .alwaysOriginal)
+    public static let flashAutoIcon = ViIcon.icon("flashAutoIcon" , .alwaysOriginal)
+    public static let flashOnIcon = ViIcon.icon("flashOnIcon" , .alwaysOriginal)
+    public static let flashOffIcon = ViIcon.icon("flashOffIcon" , .alwaysOriginal)
+    public static let retakeButton = ViIcon.icon("retakeButton" , .alwaysOriginal)
+    public static let permissionsIcon = ViIcon.icon("permissionsIcon" , .alwaysOriginal)
+    public static let libraryCancel = ViIcon.icon("libraryCancel" , .alwaysOriginal)
+    
+    
+    
+    public static func getFlashIcon(name: String) -> UIImage? {
+        if name == "flashOnIcon" {
+            return ViIcon.flashOnIcon
+        }
+        if name == "flashOffIcon" {
+            return ViIcon.flashOffIcon
+        }
+        
+        return ViIcon.flashAutoIcon
+        
+    }
+    
+    
+    
 }

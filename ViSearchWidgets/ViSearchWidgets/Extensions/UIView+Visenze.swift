@@ -57,5 +57,11 @@ extension UIView {
         border.frame = CGRect(x: x, y: y, width: width, height: height)
         layer.addSublayer(border)
     }
+    
+    public func autoRemoveConstraint(_ constraint : NSLayoutConstraint?) {
+        if constraint != nil {
+            self.removeConstraint(constraint!)
+        }
+    }
    
 }

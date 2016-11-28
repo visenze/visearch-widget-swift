@@ -41,13 +41,17 @@ Pod::Spec.new do |s|
   # s.resources = "Resources/*.png"
   s.resource_bundles = {
       'com.visenze.icons' => ['ViSearchWidgets/ViSearchWidgets/**/*.xcassets'],
-      'com.visenze.fonts' => ['ViSearchWidgets/ViSearchWidgets/**/*.ttf']
+      'com.visenze.fonts' => ['ViSearchWidgets/ViSearchWidgets/**/*.ttf'],
+      'com.visenze.string' => ['ViSearchWidgets/ViSearchWidgets/String/*.strings'] ,
+      'com.visenze.ui' => ['ViSearchWidgets/ViSearchWidgets/**/*.xib']
+      
+
   }
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 
-  s.framework = "CFNetwork"
+  s.frameworks = "Photos" , "AVFoundation", "MediaPlayer"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"

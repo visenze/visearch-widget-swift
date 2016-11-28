@@ -8,24 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WidgetsExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1062" y="899"/>
-        </scene>
         <!--HomeTableViewController-->
         <scene sceneID="yHV-oH-SsB">
             <objects>
@@ -140,7 +122,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DWU-DV-181" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gaZ-6e-QZy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gaZ-6e-QZy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -157,6 +139,10 @@
         <scene sceneID="7QT-lZ-ixK">
             <objects>
                 <viewController id="48z-y2-m7x" customClass="ViRecommendationViewController" customModule="ViSearchWidgets" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ciP-kx-Uwk"/>
+                        <viewControllerLayoutGuide type="bottom" id="dbg-us-MpL"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SQi-B3-Yu9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

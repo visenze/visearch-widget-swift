@@ -54,7 +54,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if demoItems[indexPath.row] == HomeTableTableViewController.IMAGE_SEARCH {
-//            self.performSegue(withIdentifier: "showImageSearch", sender: self)
+            self.showSearchImageController()
         }
         else if demoItems[indexPath.row] == HomeTableTableViewController.YOU_MAY_ALSO_LIKE_SEARCH {
             
@@ -85,6 +85,52 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
                 alert(message: "Please configure the sample color in SampleData.plist")
             }
         }
+    }
+    
+    func showSearchImageController() {
+        let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
+
+            
+            self?.dismiss(animated: true, completion: nil)
+            
+            // user cancel photo taking
+            if( image == nil) {
+                return
+            }
+            
+            let controller = ViSearchImageViewController()
+            
+            let params = ViUploadSearchParams(image: image!)
+            params.limit = 16
+            controller.searchParams = params
+            
+            // copy other settings
+            controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
+            let containerWidth = self!.view.bounds.width
+            
+            let imageWidth = containerWidth / 2.5
+            let imageHeight = imageWidth * 1.2
+            
+            // configure product image size
+            controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+            controller.imageConfig.contentMode = .scaleAspectFill
+            controller.priceConfig.isStrikeThrough = true
+            
+            controller.productCardBorderColor = UIColor.lightGray
+            controller.productCardBorderWidth = 0.7
+            controller.itemSpacing = 0
+            controller.rowSpacing = 0
+            
+            controller.itemSize = controller.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
+            
+            // set to same delegate
+            controller.delegate = self
+            self?.navigationController?.pushViewController(controller, animated: true)
+            
+            controller.refreshData()
+        }
+        
+        present(cameraViewController, animated: true, completion: nil)
     }
     
     // MARK: - Navigation

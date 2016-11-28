@@ -14,8 +14,15 @@ internal func radians(_ degrees: Double) -> Double {
 }
 
 internal func localizedString(_ key: String) -> String {
-    // TODO: test that this will work with Pod
-    return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: CameraGlobals.shared.bundle, comment: key)
+    var bundle = Bundle(for: CameraViewController.self)
+    
+    let identifier = bundle.bundleIdentifier
+    if  (true == identifier?.hasPrefix("org.cocoapods") ) {
+        let path = (bundle.bundlePath as NSString).appendingPathComponent("com.visenze.string.bundle")
+        bundle = Bundle(path: path)!
+    }
+    
+    return NSLocalizedString(key, tableName: CameraGlobals.shared.stringsTable, bundle: bundle, comment: key)
 }
 
 internal func currentRotation(_ oldOrientation: UIInterfaceOrientation, newOrientation: UIInterfaceOrientation) -> Double {

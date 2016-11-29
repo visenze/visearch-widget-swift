@@ -92,18 +92,6 @@ internal func normalizedRect(_ rect: CGRect, orientation: UIImageOrientation) ->
     return normalizedRect
 }
 
-internal func flashImage(_ mode: AVCaptureFlashMode) -> String {
-    let image: String
-    switch mode {
-    case .auto:
-        image = "flashAutoIcon"
-    case .on:
-        image = "flashOnIcon"
-    case .off:
-        image = "flashOffIcon"
-    }
-    return image
-}
 
 struct ScreenSize {
     static let SCREEN_WIDTH         = UIScreen.main.bounds.size.width

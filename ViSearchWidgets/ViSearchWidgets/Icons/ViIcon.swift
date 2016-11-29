@@ -51,48 +51,31 @@ public struct ViIcon{
     public static let tick = ViIcon.icon("tick")
     
     // choose from gallery
-    public static let gallery = ViIcon.icon("album")
+    public static let gallery = ViIcon.icon("album" , .alwaysOriginal)
     
-    public static let info = ViIcon.icon("info")
+    public static let info = ViIcon.icon("info" , .alwaysOriginal)
     
-    public static let lights = ViIcon.icon("lights")
+    public static let lights = ViIcon.icon("lights" , .alwaysOriginal)
+    public static let lights_sel = ViIcon.icon("lights" )
     
-    public static let reverse = ViIcon.icon("reverse")
+    
+    public static let reverse = ViIcon.icon("reverse" , .alwaysOriginal)
    
     public static let crop = ViIcon.icon("crop")
     
     public static let camera = ViIcon.icon("camera")
    
-    public static let big_camera = ViIcon.icon("big_camera")
+    public static let big_camera = ViIcon.icon("big_camera" , .alwaysOriginal)
+    public static let big_camera_empty = ViIcon.icon("big_camera_empty", .alwaysOriginal)
     
     // camera related icons
     public static let placeholder = ViIcon.icon("placeholder" , .alwaysOriginal)
-    public static let cameraButton = ViIcon.icon("cameraButton" , .alwaysOriginal)
-    public static let cameraButtonHighlighted = ViIcon.icon("cameraButtonHighlighted" , .alwaysOriginal)
     public static let closeButton = ViIcon.icon("closeButton" , .alwaysOriginal)
     public static let swapButton = ViIcon.icon("swapButton" , .alwaysOriginal)
-    public static let libraryButton = ViIcon.icon("libraryButton" , .alwaysOriginal)
-    public static let flashAutoIcon = ViIcon.icon("flashAutoIcon" , .alwaysOriginal)
-    public static let flashOnIcon = ViIcon.icon("flashOnIcon" , .alwaysOriginal)
-    public static let flashOffIcon = ViIcon.icon("flashOffIcon" , .alwaysOriginal)
     public static let retakeButton = ViIcon.icon("retakeButton" , .alwaysOriginal)
     public static let permissionsIcon = ViIcon.icon("permissionsIcon" , .alwaysOriginal)
     public static let libraryCancel = ViIcon.icon("libraryCancel" , .alwaysOriginal)
     public static let confirmButton = ViIcon.icon("confirmBtn" , .alwaysOriginal)
-    
-    
-    
-    public static func getFlashIcon(name: String) -> UIImage? {
-        if name == "flashOnIcon" {
-            return ViIcon.flashOnIcon
-        }
-        if name == "flashOffIcon" {
-            return ViIcon.flashOffIcon
-        }
-        
-        return ViIcon.flashAutoIcon
-        
-    }
     
     
     

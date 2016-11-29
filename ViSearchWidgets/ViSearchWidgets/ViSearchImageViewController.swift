@@ -35,6 +35,9 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             flexibility: .inflexible,
             config: { v in
                 
+                v.contentMode = .scaleAspectFill
+                v.clipsToBounds = true
+                
                 if let params = self.searchParams as? ViUploadSearchParams {
                     v.image = params.image
                 }
@@ -51,7 +54,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             viewReuseId: nil,
             config: { button in
                 
-                button.backgroundColor = ViTheme.sharedInstance.color_pick_btn_tint_color
+                button.backgroundColor = ViTheme.sharedInstance.color_pick_btn_background_color
                 
                 button.setImage(ViIcon.camera, for: .normal)
                 button.setImage(ViIcon.camera, for: .highlighted)
@@ -66,10 +69,41 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             
         )
         
+        let cropEl = SizeLayout<UIButton>(
+            width: ViIcon.crop!.width + 8, height: ViIcon.crop!.height + 8,
+            alignment: .bottomTrailing ,
+            flexibility: .inflexible,
+            viewReuseId: nil,
+            config: { button in
+                
+                button.backgroundColor = ViTheme.sharedInstance.color_pick_btn_background_color
+                
+                button.setImage(ViIcon.crop, for: .normal)
+                button.setImage(ViIcon.crop, for: .highlighted)
+                
+                button.tintColor = ViTheme.sharedInstance.color_pick_btn_tint_color
+                button.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
+                button.tag = ViProductCardTag.cameraBtnTag.rawValue
+                
+                button.addTarget(self, action: #selector(self.cropImg), for: .touchUpInside)
+                
+            }
+            
+        )
+        
+        let cropAndCameraLayout = StackLayout(
+            axis: .vertical,
+            spacing: 2,
+            alignment: .bottomTrailing ,
+            sublayouts: [ cropEl, cameraEl]
+        )
+        
+
+        
         let imgPreviewAndPickerLayout = StackLayout(
             axis: .horizontal,
             spacing: 2,
-            sublayouts: [imagePreviewLayout , cameraEl]
+            sublayouts: [imagePreviewLayout , cropAndCameraLayout ]
         )
         
         imgLogoLayouts.append(imgPreviewAndPickerLayout)
@@ -113,8 +147,33 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         
     }
     
+    
     public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
-        // TODO: open camera view here
+        let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true)
+        { [weak self] image, asset in
+            
+            
+            self?.dismiss(animated: true, completion: nil)
+            
+            // user cancel photo taking
+            if( image == nil) {
+                return
+            }
+            
+            if let searchParams = self?.searchParams as? ViUploadSearchParams {
+                searchParams.image = image
+                self?.refreshData()
+            }
+            
+            
+        }
+        
+        present(cameraViewController, animated: true, completion: nil)
+        
+    }
+    
+    public func cropImg(sender: UIButton, forEvent event: UIEvent) {
+        // TODO: open crop here
         
     }
     

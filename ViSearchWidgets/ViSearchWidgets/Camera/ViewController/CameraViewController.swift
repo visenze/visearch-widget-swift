@@ -1,10 +1,3 @@
-//
-//  CameraViewController.swift
-//  CameraViewController
-//
-//  Created by Alex Littlejohn.
-//  Copyright (c) 2016 zero. All rights reserved.
-//
 
 import UIKit
 import AVFoundation
@@ -42,7 +35,10 @@ public extension CameraViewController {
     }
 }
 
-public class CameraViewController: UIViewController {
+public class CameraViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+    
+    let buttonSize : CGFloat = 52
+    let spacingBtn : CGFloat = 10
     
     var didUpdateViews = false
     var allowCropping = false
@@ -61,28 +57,42 @@ public class CameraViewController: UIViewController {
     
     var closeButtonEdgeConstraint: NSLayoutConstraint?
     var closeButtonGravityConstraint: NSLayoutConstraint?
+    var closeWidthConstraint: NSLayoutConstraint?
+    var closeHeightConstraint: NSLayoutConstraint?
     
-    var containerButtonsEdgeOneConstraint: NSLayoutConstraint?
-    var containerButtonsEdgeTwoConstraint: NSLayoutConstraint?
-    var containerButtonsGravityConstraint: NSLayoutConstraint?
-    
-    var swapButtonEdgeOneConstraint: NSLayoutConstraint?
-    var swapButtonEdgeTwoConstraint: NSLayoutConstraint?
+    var swapButtonEdgeConstraint: NSLayoutConstraint?
     var swapButtonGravityConstraint: NSLayoutConstraint?
+    var swapWidthConstraint: NSLayoutConstraint?
+    var swapHeightConstraint: NSLayoutConstraint?
     
-    var libraryButtonEdgeOneConstraint: NSLayoutConstraint?
-    var libraryButtonEdgeTwoConstraint: NSLayoutConstraint?
+    var infoButtonEdgeConstraint: NSLayoutConstraint?
+    var infoButtonGravityConstraint: NSLayoutConstraint?
+    var infoWidthConstraint: NSLayoutConstraint?
+    var infoHeightConstraint: NSLayoutConstraint?
+    
+    var libraryButtonEdgeConstraint: NSLayoutConstraint?
     var libraryButtonGravityConstraint: NSLayoutConstraint?
+    var libraryWidthConstraint: NSLayoutConstraint?
+    var libraryHeightConstraint: NSLayoutConstraint?
     
     var flashButtonEdgeConstraint: NSLayoutConstraint?
     var flashButtonGravityConstraint: NSLayoutConstraint?
+    var flashWidthConstraint: NSLayoutConstraint?
+    var flashHeightConstraint: NSLayoutConstraint?
     
     var cameraOverlayEdgeOneConstraint: NSLayoutConstraint?
     var cameraOverlayEdgeTwoConstraint: NSLayoutConstraint?
     var cameraOverlayWidthConstraint: NSLayoutConstraint?
     var cameraOverlayCenterConstraint: NSLayoutConstraint?
     
-    let cameraView : CameraView = {
+    public var showPowerByViSenze : Bool = true
+    var powerEdgeConstraint: NSLayoutConstraint?
+    var powerGravityConstraint: NSLayoutConstraint?
+    var powerWidthConstraint: NSLayoutConstraint?
+    var powerHeightConstraint: NSLayoutConstraint?
+    
+    
+    public let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         return cameraView
@@ -94,49 +104,61 @@ public class CameraViewController: UIViewController {
         return cameraOverlay
     }()
     
-    let cameraButton : UIButton = {
+    public let cameraButton : UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
-        button.setImage( ViIcon.cameraButton, for: .normal)
-        button.setImage( ViIcon.cameraButtonHighlighted, for: .highlighted)
+        button.setImage( ViIcon.big_camera_empty, for: .normal)
+        button.setImage( ViIcon.big_camera, for: .highlighted)
         return button
     }()
     
-    let closeButton : UIButton = {
+    public let closeButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(ViIcon.closeButton, for: .normal)
+        button.setImage(ViIcon.back, for: .normal)
+        button.backgroundColor = ViTheme.sharedInstance.back_btn_background_color
+        button.tintColor = ViTheme.sharedInstance.back_btn_tint_color
+        button.clipsToBounds = true
         return button
     }()
     
-    let swapButton : UIButton = {
+    public let infoButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(ViIcon.swapButton, for: .normal)
+        button.setImage(ViIcon.info, for: .normal)
         return button
     }()
     
-    let libraryButton : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(ViIcon.libraryButton, for: .normal)
-        return button
-    }()
-    
-    let flashButton : UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(ViIcon.flashAutoIcon, for: .normal)
-        return button
-    }()
-    
-    let containerSwapLibraryButton : UIView = {
-        let view = UIView()
+    public let powerView : UIImageView = {
+        let view = UIImageView(image: ViIcon.power_visenze)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-  
+    
+    public let swapButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(ViIcon.reverse, for: .normal)
+        return button
+    }()
+    
+    public let libraryButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(ViIcon.gallery, for: .normal)
+        return button
+    }()
+    
+    public let flashButton : UIButton = {
+        // the frame has no effect here as it will be override by constrain
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(ViIcon.lights, for: .normal)
+        return button
+    }()
+    
+    
     public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: @escaping CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
@@ -175,8 +197,12 @@ public class CameraViewController: UIViewController {
             cameraButton,
             closeButton,
             flashButton,
-            containerSwapLibraryButton].forEach({ self.view.addSubview($0) })
-        [swapButton, libraryButton].forEach({ containerSwapLibraryButton.addSubview($0) })
+            swapButton,
+            libraryButton,
+            infoButton,
+            powerView].forEach({ self.view.addSubview($0) })
+        
+        powerView.isHidden = !self.showPowerByViSenze
         view.setNeedsUpdateConstraints()
     }
     
@@ -204,21 +230,27 @@ public class CameraViewController: UIViewController {
         removeCloseButtonConstraints()
         configCloseButtonEdgeConstraint(statusBarOrientation)
         configCloseButtonGravityConstraint(statusBarOrientation)
+        configCloseButtonSize(statusBarOrientation)
         
-        removeContainerConstraints()
-        configContainerEdgeConstraint(statusBarOrientation)
-        configContainerGravityConstraint(statusBarOrientation)
+        removeInfoButtonConstraints()
+        configInfoButtonConstraint(statusBarOrientation)
+        
+        removePowerViewConstraints()
+        configPowerConstraint(statusBarOrientation)
         
         removeSwapButtonConstraints()
+        configSwapButtonSize(statusBarOrientation)
         configSwapButtonEdgeConstraint(statusBarOrientation)
-        configSwapButtonGravityConstraint(portrait)
+        configSwapButtonGravityConstraint(statusBarOrientation)
 
         removeLibraryButtonConstraints()
         configLibraryEdgeButtonConstraint(statusBarOrientation)
-        configLibraryGravityButtonConstraint(portrait)
+        configLibraryGravityButtonConstraint(statusBarOrientation)
+        configLibraryButtonSize(statusBarOrientation)
         
         configFlashEdgeButtonConstraint(statusBarOrientation)
         configFlashGravityButtonConstraint(statusBarOrientation)
+        configFlashButtonSize(statusBarOrientation)
         
         let padding : CGFloat = portrait ? 16.0 : -16.0
         removeCameraOverlayEdgesConstraints()
@@ -333,6 +365,8 @@ public class CameraViewController: UIViewController {
      * layout.
      */
     private func setupActions() {
+        infoButton.action = { [weak self] in self?.showInfo() }
+        
         cameraButton.action = { [weak self] in self?.capturePhoto() }
         swapButton.action = { [weak self] in self?.swapCamera() }
         libraryButton.action = { [weak self] in self?.showLibrary() }
@@ -509,13 +543,53 @@ public class CameraViewController: UIViewController {
             return
         }
   
-        let image = ViIcon.getFlashIcon(name: flashImage(device.flashMode))            
+        let image = device.flashMode == .on ?  ViIcon.lights_sel : ViIcon.lights
         flashButton.setImage(image, for: .normal)
+        if device.flashMode == .on {
+            flashButton.tintColor = UIColor.white
+        }
+        
     }
     
     internal func swapCamera() {
         cameraView.swapCameraInput()
         flashButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
+        infoButton.isHidden = cameraView.currentPosition == AVCaptureDevicePosition.front
+    }
+    
+    internal func showInfo() {
+        let controller = UIViewController()
+        controller.modalPresentationStyle = .popover
+        controller.preferredContentSize = CGSize(width: self.view.bounds.width, height: 300)
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 6, width: self.view.bounds.width - 20, height: 30))
+        label.text = "How to Use"
+        label.textAlignment = .center
+        label.font = ViFont.medium(with: 20)
+        label.textColor = UIColor.white
+        controller.view.addSubview(label)
+        
+        let textview = UITextView()
+        textview.frame = CGRect(x: 10, y: (label.frame.origin.y + label.frame.size.height ),
+                                width: self.view.bounds.width - 20,
+                                height: 250)
+        textview.isEditable = false
+        textview.text = "How to use instruction"
+        textview.font = ViFont.regular(with: 14)
+        textview.textColor = UIColor.white
+        textview.backgroundColor = UIColor.clear
+        
+        controller.view.addSubview(textview)
+        
+        if let popoverController = controller.popoverPresentationController {
+            popoverController.backgroundColor = UIColor.colorWithHexString("000000", alpha: 0.6)
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = self.infoButton.frame
+            popoverController.permittedArrowDirections = UIPopoverArrowDirection.any
+            popoverController.delegate = self
+        }
+        
+        self.present(controller, animated: false, completion: nil)
     }
     
     internal func layoutCameraResult(asset: PHAsset) {
@@ -536,5 +610,12 @@ public class CameraViewController: UIViewController {
         confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(confirmViewController, animated: true, completion: nil)
     }
+    
+    // important - this is needed so that a popover will be shown instead of fullscreen
+    public func adaptivePresentationStyle(for controller: UIPresentationController,
+                                          traitCollection: UITraitCollection) -> UIModalPresentationStyle{
+        return .none
+    }
+
     
 }

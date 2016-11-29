@@ -10,6 +10,40 @@ import UIKit
 
 /// add border and corner
 extension UIView {
+    
+    public var x: CGFloat {
+        get {
+            return self.frame.origin.x
+        } set(value) {
+            self.frame = CGRect(x: value, y: self.y, width: self.w, height: self.h)
+        }
+    }
+    
+    public var y: CGFloat {
+        get {
+            return self.frame.origin.y
+        } set(value) {
+            self.frame = CGRect(x: self.x, y: value, width: self.w, height: self.h)
+        }
+    }
+
+    
+    public var w: CGFloat {
+        get {
+            return self.frame.size.width
+        } set(value) {
+            self.frame = CGRect(x: self.x, y: self.y, width: value, height: self.h)
+        }
+    }
+    
+    public var h: CGFloat {
+        get {
+            return self.frame.size.height
+        } set(value) {
+            self.frame = CGRect(x: self.x, y: self.y, width: self.w, height: value)
+        }
+    }
+    
     public func setCornerRadius(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
@@ -62,6 +96,27 @@ extension UIView {
         if constraint != nil {
             self.removeConstraint(constraint!)
         }
+    }
+    
+    public func drawCircle(fillColor: UIColor, strokeColor: UIColor, strokeWidth: CGFloat) {
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w/2)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = fillColor.cgColor
+        shapeLayer.strokeColor = strokeColor.cgColor
+        shapeLayer.lineWidth = strokeWidth
+        self.layer.addSublayer(shapeLayer)
+    }
+    
+    public func drawStroke(width: CGFloat, color: UIColor) {
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w/2)
+        let shapeLayer = CAShapeLayer ()
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = color.cgColor
+        shapeLayer.lineWidth = width
+        self.layer.addSublayer(shapeLayer)
+        
     }
    
 }

@@ -196,9 +196,12 @@ public class CameraView: UIView {
             try device.lockForConfiguration()
             if device.flashMode == .on {
                 device.flashMode = .off
-            } else if device.flashMode == .off {
-                device.flashMode = .auto
-            } else {
+            }
+            // disable auto flash mode
+//            else if device.flashMode == .off {
+//                device.flashMode = .auto
+//            }
+            else {
                 device.flashMode = .on
             }
             device.unlockForConfiguration()

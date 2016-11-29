@@ -70,12 +70,7 @@ public struct ViIcon{
     
     // camera related icons
     public static let placeholder = ViIcon.icon("placeholder" , .alwaysOriginal)
-    public static let closeButton = ViIcon.icon("closeButton" , .alwaysOriginal)
-    public static let swapButton = ViIcon.icon("swapButton" , .alwaysOriginal)
-    public static let retakeButton = ViIcon.icon("retakeButton" , .alwaysOriginal)
     public static let permissionsIcon = ViIcon.icon("permissionsIcon" , .alwaysOriginal)
-    public static let libraryCancel = ViIcon.icon("libraryCancel" , .alwaysOriginal)
-    public static let confirmButton = ViIcon.icon("confirmBtn" , .alwaysOriginal)
     
     
     

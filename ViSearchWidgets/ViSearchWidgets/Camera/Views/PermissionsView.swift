@@ -30,7 +30,7 @@ internal class PermissionsView: UIView {
     }
     
     func configureInView(_ view: UIView, title: String, descriptiom: String, completion: @escaping ButtonAction) {
-        let closeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        let closeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44 , height: 44 ))
         
         view.addSubview(self)
         addSubview(closeButton)
@@ -39,13 +39,12 @@ internal class PermissionsView: UIView {
         descriptionLabel.text = descriptiom
         
         closeButton.action = completion
-        closeButton.setImage(ViIcon.retakeButton, for: UIControlState())
-        closeButton.sizeToFit()
+        closeButton.setImage(ViIcon.back, for: .normal)
+        closeButton.backgroundColor = UIColor.colorWithHexString("#00000", alpha: 0.7)!
+        closeButton.tintColor = UIColor.white
         
-        let size = view.frame.size
-        let closeSize = closeButton.frame.size
-        let closeX = horizontalPadding
-        let closeY = size.height - (closeSize.height + verticalPadding)
+        let closeX = 10
+        let closeY = 10
         
         closeButton.frame.origin = CGPoint(x: closeX, y: closeY)
     }

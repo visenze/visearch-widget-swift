@@ -107,43 +107,54 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         scrollView.zoomScale = scale
         centerScrollViewContents()
         centerImageViewOnRotate()
+        
     }
     
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        let scale = calculateMinimumScale(size)
-        var frame = view.bounds
-        
-        if allowsCropping {
-            frame = cropOverlay.frame
-            let centeringFrame = centeringView.frame
-            var origin: CGPoint
-            
-            if size.width > size.height { // landscape
-                let offset = (size.width - centeringFrame.height)
-                let expectedX = (centeringFrame.height/2 - frame.height/2) + offset
-                origin = CGPoint(x: expectedX, y: frame.origin.x)
-            } else {
-                let expectedY = (centeringFrame.width/2 - frame.width/2)
-                origin = CGPoint(x: frame.origin.y, y: expectedY)
-            }
-            
-            frame.origin = origin
-        } else {
-            frame.size = size
-        }
-        
-        
-//        print("to size: \(size) , new frame: \(frame) ")
+        // before rotation
         
         coordinator.animate(alongsideTransition: { context in
+            
+            // during rotate
+            let scale = self.calculateMinimumScale(size)
+            var frame = self.view.bounds
+            
+            if self.allowsCropping {
+                
+                frame = self.cropOverlay.frame
+                let centeringFrame = self.centeringView.frame
+                var origin: CGPoint
+                
+                if size.width > size.height { // landscape
+                    let offset = (size.width - centeringFrame.height)
+                    let expectedX = (centeringFrame.height/2 - frame.height/2) + offset
+                    origin = CGPoint(x: expectedX, y: frame.origin.x)
+                } else {
+                    let expectedY = (centeringFrame.width/2 - frame.width/2)
+                    origin = CGPoint(x: frame.origin.y, y: expectedY)
+                }
+                
+                frame.origin = origin
+            } else {
+                frame.size = size
+            }
+            
             self.scrollView.contentInset = self.calculateScrollViewInsets(frame)
             self.scrollView.minimumZoomScale = scale
             self.scrollView.zoomScale = scale
             self.centerScrollViewContents()
             self.centerImageViewOnRotate()
-            }, completion: nil)
+            
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+            
+        }, completion: { context in
+            
+            // after rotate
+            
+        })
     }
     
     private func configureWithImage(_ image: UIImage) {
@@ -195,6 +206,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     private func centerImageViewOnRotate() {
         if allowsCropping {
             let size = allowsCropping ? cropOverlay.frame.size : scrollView.frame.size
+            
             let scrollInsets = scrollView.contentInset
             let imageSize = imageView.frame.size
             var contentOffset = CGPoint(x: -scrollInsets.left, y: -scrollInsets.top)

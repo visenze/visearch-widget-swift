@@ -40,6 +40,12 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     let buttonSize : CGFloat = 52
     let spacingBtn : CGFloat = 10
     
+    public var infoTitle : String = "How to Use"
+    public var infoTxt : String = "Snap a photo of an item you'd like to find, and we'll search our store to find a match or something very similar."
+    public var infoCameraTxt : String = "Photograph the item straight-on in bright lighting for the best search results."
+    public var infoFlashTxt : String = "Use the flash if there isn't enough light"
+    
+    
     var didUpdateViews = false
     var allowCropping = false
     var animationRunning = false
@@ -108,7 +114,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
-        button.setImage( ViIcon.big_camera_empty, for: .normal)
+        button.setImage( ViIcon.big_camera, for: .normal)
         button.setImage( ViIcon.big_camera, for: .highlighted)
         return button
     }()
@@ -311,6 +317,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
          lastInterfaceOrientation = UIApplication.shared.statusBarOrientation
+        
         if animationRunning {
             return
         }
@@ -318,6 +325,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         CATransaction.setDisableActions(true)
         coordinator.animate(alongsideTransition: { animation in
             self.view.setNeedsUpdateConstraints()
+            
             }, completion: { _ in
                 CATransaction.commit()
         })
@@ -534,7 +542,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     }
     
     
-    
+    // MARK: buttons actions
     internal func showLibrary() {
         let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { image, asset in
 
@@ -578,31 +586,78 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     internal func showInfo() {
         let controller = UIViewController()
         controller.modalPresentationStyle = .popover
-        controller.preferredContentSize = CGSize(width: self.view.bounds.width, height: 300)
         
-        let label = UILabel(frame: CGRect(x: 0, y: 6, width: self.view.bounds.width - 20, height: 30))
-        label.text = "How to Use"
+        let deviceWidth =  min( UIScreen.main.bounds.size.width , UIScreen.main.bounds.size.height)
+        
+        controller.preferredContentSize = CGSize(width: deviceWidth, height: 250)
+        
+        let label = UILabel(frame: CGRect(x: 10, y: 6, width: deviceWidth - 20, height: 30))
+        label.text = self.infoTitle
         label.textAlignment = .center
         label.font = ViFont.medium(with: 20)
         label.textColor = UIColor.white
         controller.view.addSubview(label)
         
+        let txtFont = ViFont.regular(with: 14)
         let textview = UITextView()
         textview.frame = CGRect(x: 10, y: (label.frame.origin.y + label.frame.size.height ),
-                                width: self.view.bounds.width - 20,
-                                height: 250)
+                                width: deviceWidth - 20,
+                                height: 80)
         textview.isEditable = false
-        textview.text = "How to use instruction"
-        textview.font = ViFont.regular(with: 14)
+        textview.text = self.infoTxt
+        textview.font = txtFont
         textview.textColor = UIColor.white
         textview.backgroundColor = UIColor.clear
+        textview.sizeToFit()
         
         controller.view.addSubview(textview)
         
+        // add camera icon
+        let cameraIconView = UIImageView(image: ViIcon.big_camera)
+        cameraIconView.clipsToBounds = true
+        cameraIconView.frame = CGRect(x: textview.frame.origin.x,
+                                      y: textview.frame.origin.y + textview.frame.size.height + 4,
+                                      width: 40, height: 40)
+        controller.view.addSubview(cameraIconView)
+        
+        // camera text
+        let cameraLabelX : CGFloat = cameraIconView.frame.origin.x + cameraIconView.frame.size.width + 8
+        let cameraLabel = UILabel(frame: CGRect(x: cameraLabelX ,
+                                                y: cameraIconView.frame.origin.y,
+                                                width: textview.frame.size.width - cameraIconView.frame.size.width - 8,
+                                                height: 40 ))
+        cameraLabel.text = self.infoCameraTxt
+        cameraLabel.textAlignment = .left
+        cameraLabel.numberOfLines = 2
+        cameraLabel.font = txtFont
+        cameraLabel.textColor = UIColor.white
+        controller.view.addSubview(cameraLabel)
+        
+        // add flash
+        let flashIconView = UIImageView(image: ViIcon.lights)
+        flashIconView.clipsToBounds = true
+        flashIconView.frame = CGRect(x: cameraIconView.frame.origin.x,
+                                      y: cameraIconView.frame.origin.y + cameraIconView.frame.size.height + 8,
+                                      width: 40, height: 40)
+//        flashIconView.tintColor = UIColor.white
+        controller.view.addSubview(flashIconView)
+        
+        let flashLabelX : CGFloat = flashIconView.frame.origin.x + flashIconView.frame.size.width + 8
+        let flashLabel = UILabel(frame: CGRect(x: flashLabelX ,
+                                                y: flashIconView.frame.origin.y,
+                                                width: textview.frame.size.width - flashIconView.frame.size.width - 8,
+                                                height: 40 ))
+        flashLabel.text = self.infoFlashTxt
+        flashLabel.textAlignment = .left
+        flashLabel.numberOfLines = 2
+        flashLabel.font = txtFont
+        flashLabel.textColor = UIColor.white
+        controller.view.addSubview(flashLabel)
+        
         if let popoverController = controller.popoverPresentationController {
             popoverController.backgroundColor = UIColor.colorWithHexString("000000", alpha: 0.6)
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = self.infoButton.frame
+            popoverController.sourceView = self.infoButton
+            popoverController.sourceRect = self.infoButton.bounds
             popoverController.permittedArrowDirections = UIPopoverArrowDirection.any
             popoverController.delegate = self
         }

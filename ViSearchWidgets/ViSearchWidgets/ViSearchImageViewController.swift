@@ -12,6 +12,9 @@ import LayoutKit
 
 open class ViSearchImageViewController: ViGridSearchViewController {
 
+    open var croppingEnabled : Bool = true
+    open var allowsLibraryAccess : Bool = true
+    
     var queryImageView : UIImageView? = nil
     
     open override func setup(){
@@ -149,7 +152,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
     
     
     public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
-        let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true)
+        let cameraViewController = CameraViewController(croppingEnabled: self.croppingEnabled, allowsLibraryAccess: self.allowsLibraryAccess)
         { [weak self] image, asset in
             
             

@@ -1,11 +1,3 @@
-//
-//  CameraViewControllerConstraint.swift
-//  CameraViewControllerConstraint
-//
-//  Created by Pedro Paulo de Amorim.
-//  Copyright (c) 2016 zero. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 

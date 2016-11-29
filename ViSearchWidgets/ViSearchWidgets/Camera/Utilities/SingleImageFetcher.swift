@@ -1,11 +1,3 @@
-//
-//  SingleImageFetcher.swift
-//  ALCameraViewController
-//
-//  Created by Alex Littlejohn on 2016/02/16.
-//  Copyright © 2016 zero. All rights reserved.
-//
-
 import UIKit
 import Photos
 
@@ -79,9 +71,11 @@ public class SingleImageFetcher {
             
             let targetWidth = floor(CGFloat(asset.pixelWidth) * cropRect.width)
             let targetHeight = floor(CGFloat(asset.pixelHeight) * cropRect.height)
-            let dimension = max(min(targetHeight, targetWidth), 1024 * CameraGlobals.shared.scale)
             
-            targetSize = CGSize(width: dimension, height: dimension)
+//            let dimension = max(min(targetHeight, targetWidth), 1024 * CameraGlobals.shared.scale)
+//            targetSize = CGSize(width: dimension, height: dimension)
+            
+            targetSize = CGSize(width: targetWidth, height: targetHeight)
         }
         
         PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in

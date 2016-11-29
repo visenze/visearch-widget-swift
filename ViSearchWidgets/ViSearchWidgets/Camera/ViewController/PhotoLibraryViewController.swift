@@ -1,11 +1,3 @@
-//
-//  ALImagePickerViewController.swift
-//  ALImagePickerViewController
-//
-//  Created by Alex Littlejohn on 2015/06/09.
-//  Copyright (c) 2015 zero. All rights reserved.
-//
-
 import UIKit
 import Photos
 
@@ -38,14 +30,21 @@ public class PhotoLibraryViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Select photo"
+        
         setNeedsStatusBarAppearanceUpdate()
         
-        let buttonImage = ViIcon.libraryCancel
+        let buttonImage = ViIcon.back
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: buttonImage,
-                                                           style: UIBarButtonItemStyle.plain,
-                                                           target: self,
-                                                           action: #selector(dismissLibrary))
+       
+        let barBtnItem = UIBarButtonItem(image: buttonImage,
+                                         style: UIBarButtonItemStyle.plain,
+                                         target: self,
+                                         action: #selector(dismissLibrary))
+
+        barBtnItem.tintColor = UIColor.white
+        
+        navigationItem.leftBarButtonItem = barBtnItem
         
         view.backgroundColor = UIColor(white: 0.2, alpha: 1)
         view.addSubview(collectionView)

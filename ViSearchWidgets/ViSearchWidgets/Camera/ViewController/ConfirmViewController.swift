@@ -1,18 +1,12 @@
-//
-//  ALConfirmViewController.swift
-//  ALCameraViewController
-//
-//  Created by Alex Littlejohn on 2015/06/30.
-//  Copyright (c) 2015 zero. All rights reserved.
-//
-
 import UIKit
 import Photos
 
 public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     let imageView = UIImageView()
+    
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var powerBy: UIImageView!
     @IBOutlet weak var cropOverlay: CropOverlay!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
@@ -45,9 +39,19 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    public func loadImages() {
-        self.confirmButton.setImage(ViIcon.confirmButton, for: .normal)
-        self.cancelButton.setImage(ViIcon.retakeButton, for: .normal)
+    public func loadButtons() {
+        self.confirmButton.backgroundColor = UIColor.clear
+        self.cancelButton.backgroundColor = UIColor.colorWithHexString("#343434", alpha: 1.0)!
+        self.cancelButton.tintColor = UIColor.white
+        self.cancelButton.setImage(ViIcon.back, for: .normal)
+        
+        self.confirmButton.setBackgroundImage(ViIcon.big_camera_empty, for: .normal)
+        self.confirmButton.setTitle("OK", for: .normal)
+        self.confirmButton.setTitleColor(UIColor.black, for: .normal)
+        self.confirmButton.titleLabel?.font = ViFont.medium(with: 24)
+        self.confirmButton.titleEdgeInsets = UIEdgeInsetsMake(-4, -4, 0, 0)
+        
+        powerBy.image = ViIcon.power_visenze
     }
     
     public override var prefersStatusBarHidden: Bool {
@@ -90,7 +94,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             }
             .fetch()
         
-        self.loadImages()
+        self.loadButtons()
     }
     
     public override func viewWillLayoutSubviews() {
@@ -129,6 +133,9 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         } else {
             frame.size = size
         }
+        
+        
+//        print("to size: \(size) , new frame: \(frame) ")
         
         coordinator.animate(alongsideTransition: { context in
             self.scrollView.contentInset = self.calculateScrollViewInsets(frame)

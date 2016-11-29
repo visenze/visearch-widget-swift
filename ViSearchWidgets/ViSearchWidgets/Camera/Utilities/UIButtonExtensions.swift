@@ -1,11 +1,3 @@
-//
-//  UIButtonExtensions.swift
-//  ALCameraViewController
-//
-//  Created by Alex Littlejohn on 2016/03/26.
-//  Copyright © 2016 zero. All rights reserved.
-//
-
 import UIKit
 
 typealias ButtonAction = () -> Void

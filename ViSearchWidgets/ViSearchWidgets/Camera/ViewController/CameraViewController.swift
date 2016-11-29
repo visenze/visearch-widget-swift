@@ -163,7 +163,10 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
         allowCropping = croppingEnabled
-        cameraOverlay.isHidden = !allowCropping
+        
+//        cameraOverlay.isHidden = !allowCropping
+        cameraOverlay.isHidden = true
+        
         libraryButton.isEnabled = allowsLibraryAccess
         libraryButton.isHidden = !allowsLibraryAccess
     }
@@ -501,14 +504,20 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     }
     
     internal func saveImage(image: UIImage) {
+        let spinner = showSpinner()
+        cameraView.preview.isHidden = true
+        
         _ = SingleImageSaver()
             .setImage(image)
             .onSuccess { asset in
+                self.hideSpinner(spinner)
                 self.layoutCameraResult(asset: asset)
             }
             .onFailure { error in
+                 self.hideSpinner(spinner)
                 self.toggleButtons(enabled: true)
                 self.showNoPermissionsView(library: true)
+                self.cameraView.preview.isHidden = false
             }
             .save()
     }
@@ -516,6 +525,8 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     internal func close() {
         onCompletion?(nil, nil)
     }
+    
+    
     
     internal func showLibrary() {
         let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { image, asset in
@@ -615,6 +626,23 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     public func adaptivePresentationStyle(for controller: UIPresentationController,
                                           traitCollection: UITraitCollection) -> UIModalPresentationStyle{
         return .none
+    }
+    
+    private func showSpinner() -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView()
+        spinner.activityIndicatorViewStyle = .white
+        spinner.center = view.center
+        spinner.startAnimating()
+        
+        view.addSubview(spinner)
+        view.bringSubview(toFront: spinner)
+        
+        return spinner
+    }
+    
+    private func hideSpinner(_ spinner: UIActivityIndicatorView) {
+        spinner.stopAnimating()
+        spinner.removeFromSuperview()
     }
 
     

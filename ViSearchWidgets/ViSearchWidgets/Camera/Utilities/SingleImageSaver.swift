@@ -1,11 +1,3 @@
-//
-//  SingleImageSavingInteractor.swift
-//  ALCameraViewController
-//
-//  Created by Alex Littlejohn on 2016/02/16.
-//  Copyright © 2016 zero. All rights reserved.
-//
-
 import UIKit
 import Photos
 

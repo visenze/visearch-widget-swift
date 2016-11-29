@@ -19,8 +19,6 @@
 		BD7E969E1DB9C61200C497F7 /* WidgetsExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E969D1DB9C61200C497F7 /* WidgetsExampleTests.swift */; };
 		BD7E96B11DB9C63700C497F7 /* ViSearchWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96AE1DB9C62700C497F7 /* ViSearchWidgets.framework */; };
 		BD7E96B21DB9C63700C497F7 /* ViSearchWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96AE1DB9C62700C497F7 /* ViSearchWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BD7E96D91DBF830500C497F7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96D81DBF830500C497F7 /* SnapKit.framework */; };
-		BD7E96DA1DBF830500C497F7 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96D81DBF830500C497F7 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BD7E96DC1DBF833800C497F7 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96DB1DBF833800C497F7 /* Kingfisher.framework */; };
 		BD7E96DD1DBF833800C497F7 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96DB1DBF833800C497F7 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BD7E96DF1DBF840000C497F7 /* ViSearchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96DE1DBF840000C497F7 /* ViSearchSDK.framework */; };
@@ -74,7 +72,6 @@
 				BD7E96E01DBF840000C497F7 /* ViSearchSDK.framework in Embed Frameworks */,
 				BD7E96B21DB9C63700C497F7 /* ViSearchWidgets.framework in Embed Frameworks */,
 				BD7E96DD1DBF833800C497F7 /* Kingfisher.framework in Embed Frameworks */,
-				BD7E96DA1DBF830500C497F7 /* SnapKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,7 +115,6 @@
 				BD7E96DF1DBF840000C497F7 /* ViSearchSDK.framework in Frameworks */,
 				BD7E96B11DB9C63700C497F7 /* ViSearchWidgets.framework in Frameworks */,
 				BD7E96DC1DBF833800C497F7 /* Kingfisher.framework in Frameworks */,
-				BD7E96D91DBF830500C497F7 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

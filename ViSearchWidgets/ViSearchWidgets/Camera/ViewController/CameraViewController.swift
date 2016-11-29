@@ -510,11 +510,18 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         _ = SingleImageSaver()
             .setImage(image)
             .onSuccess { asset in
-                self.hideSpinner(spinner)
+                
+                DispatchQueue.main.async {
+                    self.hideSpinner(spinner)
+                }
+                
                 self.layoutCameraResult(asset: asset)
             }
             .onFailure { error in
-                 self.hideSpinner(spinner)
+                DispatchQueue.main.async {
+                    self.hideSpinner(spinner)
+                }
+                
                 self.toggleButtons(enabled: true)
                 self.showNoPermissionsView(library: true)
                 self.cameraView.preview.isHidden = false

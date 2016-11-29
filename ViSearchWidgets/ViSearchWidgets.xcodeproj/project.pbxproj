@@ -38,7 +38,6 @@
 		BD7E96D01DBA09E000C497F7 /* UIImage+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96CF1DBA09E000C497F7 /* UIImage+Visenze.swift */; };
 		BD7E96D21DBA0BEB00C497F7 /* UIFont+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96D11DBA0BEB00C497F7 /* UIFont+Visenze.swift */; };
 		BD7E96D51DBF597800C497F7 /* ViProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E96D41DBF597800C497F7 /* ViProduct.swift */; };
-		BD7E96D71DBF60AC00C497F7 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96D61DBF60AC00C497F7 /* SnapKit.framework */; };
 		BDA5B1571DEBDC750008C168 /* ViSearchWidgets.strings in Resources */ = {isa = PBXBuildFile; fileRef = BDA5B1561DEBDC750008C168 /* ViSearchWidgets.strings */; };
 		BDA5B16F1DEBDC950008C168 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15A1DEBDC950008C168 /* CameraGlobals.swift */; };
 		BDA5B1701DEBDC950008C168 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B15B1DEBDC950008C168 /* CameraShot.swift */; };
@@ -162,7 +161,6 @@
 				BDA5B1891DEBDD1B0008C168 /* Photos.framework in Frameworks */,
 				BDA5B1831DEBDCD90008C168 /* AVFoundation.framework in Frameworks */,
 				BDF03BFD1DD013B800861EC5 /* LayoutKit.framework in Frameworks */,
-				BD7E96D71DBF60AC00C497F7 /* SnapKit.framework in Frameworks */,
 				BD7E967B1DB9C55800C497F7 /* ViSearchSDK.framework in Frameworks */,
 				BD7E96751DB9C1E700C497F7 /* Kingfisher.framework in Frameworks */,
 			);

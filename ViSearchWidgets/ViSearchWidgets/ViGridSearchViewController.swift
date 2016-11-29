@@ -109,6 +109,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
     }
     
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
         let view = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier, for: indexPath)
         
         if let layout = self.headerLayout {

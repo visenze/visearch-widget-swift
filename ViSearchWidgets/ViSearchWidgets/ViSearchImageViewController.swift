@@ -9,13 +9,17 @@
 import UIKit
 import ViSearchSDK
 import LayoutKit
+import Photos
 
 open class ViSearchImageViewController: ViGridSearchViewController {
 
+    // most recent photo asset
+    public var asset: PHAsset? = nil
     open var croppingEnabled : Bool = true
     open var allowsLibraryAccess : Bool = true
     
     var queryImageView : UIImageView? = nil
+    var cropBtn : UIButton? = nil
     
     open override func setup(){
         super.setup()
@@ -86,9 +90,14 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                 
                 button.tintColor = ViTheme.sharedInstance.color_pick_btn_tint_color
                 button.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
-                button.tag = ViProductCardTag.cameraBtnTag.rawValue
+                button.tag = ViProductCardTag.cropBtnTag.rawValue
                 
                 button.addTarget(self, action: #selector(self.cropImg), for: .touchUpInside)
+                
+                self.cropBtn = button
+                
+                // hide this button initially, should be set only when asset is passed
+                self.cropBtn?.isHidden = !(self.croppingEnabled && (self.asset != nil) )
                 
             }
             
@@ -101,7 +110,6 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             sublayouts: [ cropEl, cameraEl]
         )
         
-
         
         let imgPreviewAndPickerLayout = StackLayout(
             axis: .horizontal,
@@ -150,9 +158,10 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         
     }
     
-    
+   
     public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
-        let cameraViewController = CameraViewController(croppingEnabled: self.croppingEnabled, allowsLibraryAccess: self.allowsLibraryAccess)
+        // move cropping to the the later stage where we click on the crop button
+        let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: self.allowsLibraryAccess)
         { [weak self] image, asset in
             
             
@@ -162,6 +171,8 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             if( image == nil) {
                 return
             }
+            
+            self?.asset = asset
             
             if let searchParams = self?.searchParams as? ViUploadSearchParams {
                 searchParams.image = image
@@ -176,7 +187,30 @@ open class ViSearchImageViewController: ViGridSearchViewController {
     }
     
     public func cropImg(sender: UIButton, forEvent event: UIEvent) {
-        // TODO: open crop here
+        
+        if let curAsset = self.asset {
+            let confirmViewController = ConfirmViewController(asset: curAsset, allowsCropping: true)
+            confirmViewController.onComplete = { image, asset in
+                
+                self.dismiss(animated: true, completion: nil)
+                
+                if let image = image, let asset = asset {
+                    // save image here
+                    if let searchParams = self.searchParams as? ViUploadSearchParams {
+                        searchParams.image = image
+                        self.refreshData()
+                    }
+                    
+                } else {
+                    // user cancel
+                }
+            }
+            confirmViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            present(confirmViewController, animated: true, completion: nil)
+        }
+        else {
+            print("\(type(of: self)).\(#function)[line:\(#line)] - error: unable to find recent photo for cropping")
+        }
         
     }
     
@@ -223,7 +257,9 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                                 self.delegate?.searchSuccess(searchType: ViSearchType.SEARCH_BY_IMAGE , reqId: data.reqId, products: self.products)
                                 
                                 DispatchQueue.main.async {
+                                    
                                     self.collectionView?.reloadData()
+                                    self.cropBtn?.isHidden = !(self.croppingEnabled && (self.asset != nil) )
                                 }
                                 
                             }
@@ -248,6 +284,11 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         }
     }
 
-   
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.cropBtn?.isHidden = !(self.croppingEnabled && (self.asset != nil) )
+        
+    }
 
 }

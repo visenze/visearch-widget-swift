@@ -68,7 +68,7 @@ Pod::Spec.new do |s|
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency "ViSearchSDK", "~> 1.0"
   s.dependency "Kingfisher", "~> 3.1"
-  s.dependency "SnapKit", "~> 3.0.2"
+  #s.dependency "SnapKit", "~> 3.0.2"
   s.dependency "LayoutKit", "~> 3.1.0"
   s.xcconfig    = { 'SWIFT_VERSION' => '3.0.1' }
  

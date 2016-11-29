@@ -32,6 +32,8 @@ public enum ViProductCardTag : Int {
     case colorPickBtnTag = 18
     case cameraBtnTag = 19
     case galleryBtnTag = 20
+    case cropBtnTag = 21
+
     
 }
 

@@ -89,10 +89,8 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     
     func showSearchImageController() {
         
-        let croppingEnabled = true
-        let allowLibraryAccess = true
         
-        let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled, allowsLibraryAccess: allowLibraryAccess) { [weak self] image, asset in
+        let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
 
             
             self?.dismiss(animated: true, completion: nil)
@@ -104,12 +102,15 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             
             let controller = ViSearchImageViewController()
             
+            // save recent photo
+            controller.asset = asset
+            
             let params = ViUploadSearchParams(image: image!)
             params.limit = 16
             controller.searchParams = params
             
-            controller.croppingEnabled = croppingEnabled
-            controller.allowsLibraryAccess = allowLibraryAccess
+            controller.croppingEnabled = true
+            controller.allowsLibraryAccess = true
             
             // copy other settings
             controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()

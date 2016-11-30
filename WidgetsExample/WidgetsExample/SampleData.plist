@@ -24,7 +24,7 @@
 			<key>min</key>
 			<integer>0</integer>
 			<key>max</key>
-			<integer>100</integer>
+			<integer>500</integer>
 		</dict>
 	</array>
 	<key>color</key>

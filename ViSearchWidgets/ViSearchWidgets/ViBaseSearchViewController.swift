@@ -454,6 +454,9 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         powerImgView.frame = CGRect(x: (self.view.bounds.width - width - 2), y: 4 , width: width, height: height )
         powerImgView.backgroundColor = ViTheme.sharedInstance.default_btn_background_color
         
+        // fix rotation issue
+        powerImgView.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
+        
         return powerImgView
     }
     

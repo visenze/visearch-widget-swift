@@ -151,6 +151,9 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
                                          flexibility: .flexible,
                                          config: { v in
                                             v.backgroundColor = UIColor.lightGray
+                                            
+                                            v.autoresizingMask = [ .flexibleWidth ]
+                                            
                                         }
         )
 
@@ -198,6 +201,9 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
                 
                 button.addTarget(self, action: #selector(self.filterBtnTap), for: .touchUpInside)
                 button.isHidden = (self.filterItems.count == 0)
+                
+                // fix rotation issue
+                button.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
                 
                 self.filterBtn = button
             }

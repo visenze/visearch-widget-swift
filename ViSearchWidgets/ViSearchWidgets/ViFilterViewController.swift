@@ -32,6 +32,11 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 9.0, *) {
+            self.tableView.cellLayoutMarginsFollowReadableWidth = false
+        }
+        
 
         let resetBarItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetBtnTap(sender:)))
         self.navigationItem.leftBarButtonItem = resetBarItem
@@ -61,11 +66,6 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
         delegate?.applyFilter()
     }
     
-    override open func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
 
     override open func numberOfSections(in tableView: UITableView) -> Int {
@@ -77,7 +77,15 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
     }
 
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        
+        let item = self.filterItems[indexPath.row]
+        
+        if(item.filterType == .RANGE ) {
+            return 84.0
+        }
+        
         return 44.0
+        
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,21 +107,41 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
         var cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifer)
         
         if (cell == nil) {
-            cell = UITableViewCell(style: .value1, reuseIdentifier: reuseIdentifer)
+            if(item.filterType == .RANGE) {
+                let rangeCell : ViRangeTableViewCell = ViRangeTableViewCell(style: .default, reuseIdentifier: reuseIdentifer)
+                rangeCell.rangeSlider?.trackHighlightTintColor = ViTheme.sharedInstance.default_filter_track_color
+                
+                // configure thumb as square
+                rangeCell.rangeSlider?.curvaceousness = 0.0
+                
+                cell = rangeCell
+            }
+            else {
+                cell = UITableViewCell(style: .value1, reuseIdentifier: reuseIdentifer)
+                cell!.textLabel?.font = ViTheme.sharedInstance.default_filter_row_title_font
+                cell!.detailTextLabel?.font = ViTheme.sharedInstance.default_filter_row_desc_font
+            }
         }
         
         if let cell = cell {
-            cell.textLabel?.text = item.title
             
+            if(item.filterType == .RANGE ) {
+                
+                let rangeCell = cell as! ViRangeTableViewCell
+                let rangeItem = item as! ViFilterItemRange
+                
+                rangeCell.filterItem = rangeItem
+                
+            }
+            else {
+                cell.textLabel?.text = item.title
+            }
+        
             if(item.filterType == ViFilterItemType.CATEGORY) {
                 if let catItem = item as? ViFilterItemCategory {
                     cell.detailTextLabel?.text = catItem.isAllSelected() ? "All" : catItem.getSelectedString()
                 }
                 
-            }
-            
-            
-            if(item.filterType == ViFilterItemType.CATEGORY) {
                 cell.accessoryType = .disclosureIndicator
             }
             else {

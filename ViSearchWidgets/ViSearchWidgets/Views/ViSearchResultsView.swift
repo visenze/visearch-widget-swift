@@ -85,6 +85,8 @@ open class ViSearchResultsView: UIView {
                                                 y: self.collectionView!.frame.origin.y + self.collectionView!.frame.size.height ,
                                                 width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
                                                 height: footerViewHeight)
+        
+        
     }
     
     public func setHeader(_ headerView: UIView) {

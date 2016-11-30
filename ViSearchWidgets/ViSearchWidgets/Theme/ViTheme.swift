@@ -19,6 +19,12 @@ public class ViTheme: NSObject {
     /// default bold font. Used as default for 'label' in product card
     public var default_bold_font : UIFont = ViFont.medium(with: 11.0)
     
+    public var default_filter_row_title_font : UIFont = ViFont.medium(with: 16.0)
+    
+    public var default_filter_row_desc_font : UIFont = ViFont.regular(with: 14.0)
+    
+    public var default_filter_track_color : UIColor = UIColor.colorWithHexString("#B66C6C", alpha: 1.0)!
+    
     /// default font for widget title
     public var default_widget_title_font : UIFont = ViFont.medium(with: 16.0)
     

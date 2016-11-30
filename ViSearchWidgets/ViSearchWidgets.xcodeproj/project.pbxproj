@@ -65,6 +65,8 @@
 		BDA5B1CD1DEE77560008C168 /* ViFilterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1CC1DEE77560008C168 /* ViFilterItem.swift */; };
 		BDA5B1CF1DEE80810008C168 /* ViFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1CE1DEE80810008C168 /* ViFilterViewController.swift */; };
 		BDA5B1D11DEEA3520008C168 /* ViFilterCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D01DEEA3510008C168 /* ViFilterCategoryViewController.swift */; };
+		BDA5B1D31DEEBD250008C168 /* ViRangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D21DEEBD250008C168 /* ViRangeSlider.swift */; };
+		BDA5B1D51DEECDDA0008C168 /* ViRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D41DEECDDA0008C168 /* ViRangeTableViewCell.swift */; };
 		BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */; };
 		BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */; };
 		BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */; };
@@ -149,6 +151,8 @@
 		BDA5B1CC1DEE77560008C168 /* ViFilterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViFilterItem.swift; path = Models/ViFilterItem.swift; sourceTree = "<group>"; };
 		BDA5B1CE1DEE80810008C168 /* ViFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViFilterViewController.swift; sourceTree = "<group>"; };
 		BDA5B1D01DEEA3510008C168 /* ViFilterCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViFilterCategoryViewController.swift; sourceTree = "<group>"; };
+		BDA5B1D21DEEBD250008C168 /* ViRangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViRangeSlider.swift; path = Views/ViRangeSlider.swift; sourceTree = "<group>"; };
+		BDA5B1D41DEECDDA0008C168 /* ViRangeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViRangeTableViewCell.swift; path = Views/ViRangeTableViewCell.swift; sourceTree = "<group>"; };
 		BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Visenze.swift"; path = "Extensions/UIView+Visenze.swift"; sourceTree = "<group>"; };
 		BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViQueryProductLayout.swift; path = Layouts/ViQueryProductLayout.swift; sourceTree = "<group>"; };
 		BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCollectionViewCell.swift; path = Views/ViProductCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -209,6 +213,8 @@
 				BD3D1D781DD418F00053F1E8 /* ViImageView.swift */,
 				BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */,
 				BDCF955E1DE546C500412FF4 /* ViSearchResultsView.swift */,
+				BDA5B1D21DEEBD250008C168 /* ViRangeSlider.swift */,
+				BDA5B1D41DEECDDA0008C168 /* ViRangeTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -548,6 +554,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA5B1D31DEEBD250008C168 /* ViRangeSlider.swift in Sources */,
 				BD3D1D791DD418F00053F1E8 /* ViImageView.swift in Sources */,
 				BDA5B1731DEBDC950008C168 /* SingleImageFetcher.swift in Sources */,
 				BDA5B17F1DEBDC950008C168 /* CropOverlay.swift in Sources */,
@@ -591,6 +598,7 @@
 				BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */,
 				BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */,
 				BD3D1D6D1DD2D3590053F1E8 /* ViImageConfig.swift in Sources */,
+				BDA5B1D51DEECDDA0008C168 /* ViRangeTableViewCell.swift in Sources */,
 				BDA5B1CF1DEE80810008C168 /* ViFilterViewController.swift in Sources */,
 				BD7E96CA1DBA082E00C497F7 /* String+Visenze.swift in Sources */,
 				BD7E96C81DBA03D000C497F7 /* UIColors+Visenze.swift in Sources */,

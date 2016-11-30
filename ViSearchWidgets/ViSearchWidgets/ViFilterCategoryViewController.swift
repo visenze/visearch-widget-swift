@@ -78,15 +78,7 @@ open class ViFilterCategoryViewController: UITableViewController {
                 cell.textLabel?.text = item.option
                 
                 // check whether selected
-                var selected : Bool = false
-                
-                for selectedOption in filterItem.selectedOptions {
-                    if selectedOption.value == item.value {
-                        selected = true
-                        break
-                    }
-                }
-                
+                let (selected , _ ) = self.isSelected(item, filterItem)
                 
                 cell.accessoryType = selected ? .checkmark : .none
                 
@@ -105,17 +97,7 @@ open class ViFilterCategoryViewController: UITableViewController {
             
             let item = filterItem.options[indexPath.row]
             
-            // check whether selected
-            var selected : Bool = false
-            var selectedIndex : Int = -1
-            
-            for (index, selectedOption) in filterItem.selectedOptions.enumerated() {
-                if selectedOption.value == item.value {
-                    selected = true
-                    selectedIndex = index
-                    break
-                }
-            }
+            let (selected , selectedIndex ) = self.isSelected(item, filterItem)
             
             if selected {
                 // remove from option
@@ -130,6 +112,22 @@ open class ViFilterCategoryViewController: UITableViewController {
             self.tableView.reloadData()
             
         }
+    }
+    
+    // check whether this option is currently selected
+    private func isSelected(_ curOption : ViFilterItemCategoryOption  , _ filterItem: ViFilterItemCategory) -> (Bool , Int) {
+        var selected : Bool = false
+        var selectedIndex : Int = -1
+        
+        for (index, selectedOption) in filterItem.selectedOptions.enumerated() {
+            if selectedOption.value == curOption.value {
+                selected = true
+                selectedIndex = index
+                break
+            }
+        }
+        
+        return (selected , selectedIndex )
     }
     
 

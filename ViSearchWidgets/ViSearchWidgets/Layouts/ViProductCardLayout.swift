@@ -362,7 +362,9 @@ open class ViProductCardLayout: StackLayout<UIView> {
                 // add action button here instead of to the image
                 if has_action_btn {
                     let button = UIButton(type: .custom)
-                    let buttonPading = label_left_padding / 2
+//                    let buttonPading = label_left_padding / 2
+                    let buttonPading : CGFloat = 0
+                    
                     button.frame = button.isHidden ? .zero :
                         CGRect(x: view.bounds.size.width - buttonPading - action_btn_size.width,
                                y: buttonPading,

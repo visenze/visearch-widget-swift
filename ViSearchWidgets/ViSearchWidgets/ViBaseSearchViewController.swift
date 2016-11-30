@@ -316,6 +316,16 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate {
             let product = products[indexPath.row]
+            
+            if let reqId = self.reqId {
+                let params = ViTrackParams(reqId: reqId, action: ViDefaultTrackingAction.CLICK.rawValue)
+                params?.imName = product.im_name
+                
+                ViSearch.sharedInstance.track(params: params!) { (success, error) in
+                    
+                }
+            }
+            
             delegate.didSelectProduct(sender: self, collectionView: collectionView, indexPath: indexPath, product: product)
         }
     }
@@ -555,6 +565,16 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     @IBAction open func actionBtnTapped(_ cell: ViProductCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
             let product = products[indexPath.row]
+            
+            if let reqId = self.reqId, let action = self.actionBtnConfig.actionToRecord {
+                let params = ViTrackParams(reqId: reqId, action: action)
+                params?.imName = product.im_name
+                
+                ViSearch.sharedInstance.track(params: params!) { (success, error) in
+                    
+                }
+            }
+            
             delegate?.actionBtnTapped(sender: cell, collectionView: self.collectionView!, indexPath: indexPath, product: product)
         }
     }

@@ -70,6 +70,9 @@ public class ViTheme: NSObject {
     /// default button size e.g. Find Similar button size with icon on the left and text at the right
     public var default_btn_size: CGSize = CGSize(width: 30, height: 30)
     
+    /// default action button size
+    public var default_action_btn_size: CGSize = CGSize(width: 40, height: 40)
+    
     /// default product card background color
     public var default_product_card_background_color = UIColor.white
     

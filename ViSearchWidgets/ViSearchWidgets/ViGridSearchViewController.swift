@@ -11,6 +11,8 @@ import LayoutKit
 
 open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterViewControllerDelegate {
 
+    public var headerLayoutHeight : CGFloat = 0
+    
     // filter will be available only if filter option is set
     open var filterItems : [ViFilterItem] = []
     
@@ -297,6 +299,14 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         super.viewWillAppear(animated)
         
         self.filterBtn?.isHidden = (self.filterItems.count == 0)
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+      
+        // for later computation in scrolling
+        self.headerLayoutHeight = self.collectionView(self.collectionView!, layout: self.collectionViewLayout, referenceSizeForHeaderInSection: 0).height
+        
     }
 
 }

@@ -12,6 +12,8 @@ import LayoutKit
 
 open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPresentationControllerDelegate, ViColorPickerDelegate {
 
+    let floatViewTag : Int = 999
+    
     // default list of colors
     open var colorList: [String] = [
         "000000" , "555555" , "9896a4" ,
@@ -122,6 +124,87 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         
     }
     
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.checkHeaderGone(scrollView)
+    }
+
+    open func scrollViewDidEndDragging(_ scrollView: UIScrollView,
+                                           willDecelerate decelerate: Bool)
+    {
+        self.checkHeaderGone(scrollView)
+    }
+    
+    public func getFloatingView() -> UIView {
+        var floatView = UIView()
+        floatView.tag = self.floatViewTag
+        floatView.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
+        
+        let btnWidth = ViIcon.color_pick!.width + 12
+        var floatWidth = btnWidth
+        
+        let button = UIButton(type: .custom)
+        button.backgroundColor = ViTheme.sharedInstance.filter_btn_floating_background_color
+        
+        button.setImage(ViIcon.color_pick, for: .normal)
+        button.setImage(ViIcon.color_pick, for: .highlighted)
+        
+        button.tintColor = ViTheme.sharedInstance.color_pick_btn_tint_color
+        button.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
+        button.tag = ViProductCardTag.colorPickBtnTag.rawValue
+        
+        button.frame = CGRect(x: 0, y: 0, width: btnWidth, height: btnWidth)
+        
+        
+        button.addTarget(self, action: #selector(self.openColorPicker), for: .touchUpInside)
+        floatView.addSubview(button)
+        
+        if false == self.filterBtn?.isHidden {
+            // filter
+            let filterButton = UIButton(type: .custom)
+            
+            filterButton.backgroundColor = ViTheme.sharedInstance.filter_btn_floating_background_color
+            
+            filterButton.setImage(ViIcon.filter, for: .normal)
+            filterButton.setImage(ViIcon.filter, for: .highlighted)
+            
+            filterButton.tintColor = ViTheme.sharedInstance.filter_btn_tint_color
+            filterButton.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
+            filterButton.tag = ViProductCardTag.filterBtnTag.rawValue
+            
+            filterButton.addTarget(self, action: #selector(self.filterBtnTap), for: .touchUpInside)
+            filterButton.frame = CGRect(x: btnWidth + 8, y: 0, width: btnWidth, height: btnWidth)
+            floatWidth = filterButton.frame.origin.x + btnWidth
+            
+            floatView.addSubview(filterButton)
+        }
+        
+        floatView.frame = CGRect(x: self.view.bounds.width - floatWidth - 8 , y: 0 , width: floatWidth , height: btnWidth )
+        
+        return floatView
+    }
+    
+    // if gone , then overlay filter + color on top
+    open func checkHeaderGone(_ scrollView: UIScrollView) {
+        if self.headerLayoutHeight == 0 {
+            return
+        }
+        
+        var floatView : UIView? = self.view.viewWithTag(self.floatViewTag)
+        if  floatView == nil {
+            floatView = self.getFloatingView()
+            floatView?.isHidden = true
+            self.view.addSubview(floatView!)
+            self.view.bringSubview(toFront: floatView!)
+        }
+        
+        if scrollView.contentOffset.y > self.headerLayoutHeight {
+            floatView?.isHidden = false
+        }
+        else {
+            floatView?.isHidden = true
+        }
+    }
+    
     public func openColorPicker(sender: UIButton, forEvent event: UIEvent) {
         let controller = ViColorPickerModalViewController()
         controller.modalPresentationStyle = .popover
@@ -138,8 +221,8 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         }
         
         if let popoverController = controller.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = sender.frame
+            popoverController.sourceView = sender
+            popoverController.sourceRect = sender.bounds
             popoverController.permittedArrowDirections = UIPopoverArrowDirection.any
             popoverController.delegate = self 
             

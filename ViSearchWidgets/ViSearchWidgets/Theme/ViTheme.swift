@@ -52,6 +52,8 @@ public class ViTheme: NSObject {
     /// background color for filter button
     public var filter_btn_background_color: UIColor = UIColor.colorWithHexString("#999898", alpha: 1.0)!
     
+    public var filter_btn_floating_background_color: UIColor = UIColor.colorWithHexString("#000000", alpha: 0.7)!
+    
     /// tint color for filter button
     public var filter_btn_tint_color: UIColor = UIColor.white
     

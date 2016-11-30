@@ -50,6 +50,9 @@ public protocol ViSearchViewControllerDelegate: class {
     /// find similar button tapped
     func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
+    /// allow configuration of the filter controller before showing
+    func willShowFilterControler(sender: AnyObject, controller: ViFilterViewController)
+    
     /// successful search
     func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct])
     
@@ -66,6 +69,8 @@ public extension ViSearchViewControllerDelegate{
     func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
     func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
     func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    
+    func willShowFilterControler(sender: AnyObject, controller: ViFilterViewController){}
     
     func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct]){}
     func searchFailed(err: Error?, apiErrors: [String]){}

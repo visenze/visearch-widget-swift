@@ -9,8 +9,15 @@
 import UIKit
 import LayoutKit
 
-open class ViGridSearchViewController: ViBaseSearchViewController {
+open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterViewControllerDelegate {
 
+    // filter will be available only if filter option is set
+    open var filterItems : [ViFilterItem] = []
+    
+    open var filterBtn : UIButton? = nil
+    
+    open var filterControllerTitle : String = "Filter by"
+    
     open var headerLayout : Layout? {
         return nil
     }
@@ -189,7 +196,10 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
                 button.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
                 button.tag = ViProductCardTag.filterBtnTag.rawValue
                 
-                // TODO: add event handler for filter button click here
+                button.addTarget(self, action: #selector(self.filterBtnTap), for: .touchUpInside)
+                button.isHidden = (self.filterItems.count == 0)
+                
+                self.filterBtn = button
             }
             
         )
@@ -202,6 +212,65 @@ open class ViGridSearchViewController: ViBaseSearchViewController {
         
         return labelAndFilterLayout
     }
-   
     
+    
+    
+    // MARK : filter methods
+    open func filterBtnTap(sender: UIButton, forEvent event: UIEvent) {
+        // open filter controller here
+        let controller = ViFilterViewController()
+        controller.title = self.filterControllerTitle
+        controller.filterItems = self.filterItems
+        controller.delegate = self
+        
+        // present this controller as modal view controller wrapped in navigation controller
+        if(self.navigationController == nil) {
+            
+            let navController = UINavigationController(rootViewController: controller)
+            navController.modalPresentationStyle = .fullScreen
+            navController.modalTransitionStyle = .coverVertical
+            
+            self.delegate?.willShowFilterControler(sender: self, controller: controller)
+            
+            self.show(navController, sender: self)
+        }
+        else {
+            
+            self.delegate?.willShowFilterControler(sender: self, controller: controller)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+
+    }
+    
+    // need to be implemented by subclass
+    open func applyFilter(){
+        // default just dismiss controller
+        if(self.navigationController == nil) {
+             self.dismiss(animated: true, completion: nil)
+        }
+        else {
+            self.navigationController?.popViewController(animated: true)
+        }
+       
+    }
+    
+    open func resetFilter(){
+        
+        // default just dismiss controller
+        if(self.navigationController == nil) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    
+    }
+    
+    // MARK : viewWillAppear
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.filterBtn?.isHidden = (self.filterItems.count == 0)
+    }
+
 }

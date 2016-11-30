@@ -2,6 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>filterItems</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>Brand</string>
+			<key>schemaMapping</key>
+			<string>brand</string>
+			<key>filterType</key>
+			<integer>1</integer>
+			<key>filterOptions</key>
+			<string>Claremont,Chic Home,Cosabella,Hillsdale Furniture,Sheridan</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>Price Range ($)</string>
+			<key>schemaMapping</key>
+			<string>price</string>
+			<key>filterType</key>
+			<integer>2</integer>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>100</integer>
+		</dict>
+	</array>
 	<key>color</key>
 	<string>5F90AF</string>
 	<key>heading_schema_mapping</key>

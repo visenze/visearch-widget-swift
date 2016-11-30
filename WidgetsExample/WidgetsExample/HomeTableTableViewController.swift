@@ -189,6 +189,9 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             
             // copy other settings
             controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
+            
+            controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
+            
             let containerWidth = self.view.bounds.width
             
             let imageWidth = containerWidth / 2.5

@@ -62,6 +62,9 @@
 		BDA5B18B1DEBDD630008C168 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5B18A1DEBDD630008C168 /* MediaPlayer.framework */; };
 		BDA5B1921DEBE9CB0008C168 /* ViSearchImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1911DEBE9CB0008C168 /* ViSearchImageViewController.swift */; };
 		BDA5B1CB1DEE69480008C168 /* ViDefaultTrackingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1CA1DEE69480008C168 /* ViDefaultTrackingAction.swift */; };
+		BDA5B1CD1DEE77560008C168 /* ViFilterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1CC1DEE77560008C168 /* ViFilterItem.swift */; };
+		BDA5B1CF1DEE80810008C168 /* ViFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1CE1DEE80810008C168 /* ViFilterViewController.swift */; };
+		BDA5B1D11DEEA3520008C168 /* ViFilterCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D01DEEA3510008C168 /* ViFilterCategoryViewController.swift */; };
 		BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */; };
 		BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */; };
 		BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */; };
@@ -143,6 +146,9 @@
 		BDA5B18A1DEBDD630008C168 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BDA5B1911DEBE9CB0008C168 /* ViSearchImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViSearchImageViewController.swift; sourceTree = "<group>"; };
 		BDA5B1CA1DEE69480008C168 /* ViDefaultTrackingAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViDefaultTrackingAction.swift; path = Models/ViDefaultTrackingAction.swift; sourceTree = "<group>"; };
+		BDA5B1CC1DEE77560008C168 /* ViFilterItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViFilterItem.swift; path = Models/ViFilterItem.swift; sourceTree = "<group>"; };
+		BDA5B1CE1DEE80810008C168 /* ViFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViFilterViewController.swift; sourceTree = "<group>"; };
+		BDA5B1D01DEEA3510008C168 /* ViFilterCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViFilterCategoryViewController.swift; sourceTree = "<group>"; };
 		BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Visenze.swift"; path = "Extensions/UIView+Visenze.swift"; sourceTree = "<group>"; };
 		BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViQueryProductLayout.swift; path = Layouts/ViQueryProductLayout.swift; sourceTree = "<group>"; };
 		BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCollectionViewCell.swift; path = Views/ViProductCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -251,6 +257,8 @@
 				BD3D1D7F1DD48C380053F1E8 /* ViBaseSearchViewController.swift */,
 				BDCF955A1DE29A2600412FF4 /* ViHorizontalSearchViewController.swift */,
 				BDCF95611DE6859C00412FF4 /* ViGridSearchViewController.swift */,
+				BDA5B1CE1DEE80810008C168 /* ViFilterViewController.swift */,
+				BDA5B1D01DEEA3510008C168 /* ViFilterCategoryViewController.swift */,
 				BD3D1D611DD1AC5F0053F1E8 /* ViRecommendationViewController.swift */,
 				BDCF95631DE6988F00412FF4 /* ViFindSimilarViewController.swift */,
 				BD11819F1DE8215600139BD5 /* ViColorSearchViewController.swift */,
@@ -336,6 +344,7 @@
 				BD3D1D741DD2FC470053F1E8 /* ViButtonConfig.swift */,
 				BD3D1D701DD2DD700053F1E8 /* ViProductSchemaMapping.swift */,
 				BDA5B1CA1DEE69480008C168 /* ViDefaultTrackingAction.swift */,
+				BDA5B1CC1DEE77560008C168 /* ViFilterItem.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -556,6 +565,7 @@
 				BD3D1D771DD3221E0053F1E8 /* ViProductCardLayoutBuilder.swift in Sources */,
 				BD3D1D801DD48C380053F1E8 /* ViBaseSearchViewController.swift in Sources */,
 				BD3D1D711DD2DD700053F1E8 /* ViProductSchemaMapping.swift in Sources */,
+				BDA5B1CD1DEE77560008C168 /* ViFilterItem.swift in Sources */,
 				BDA5B1CB1DEE69480008C168 /* ViDefaultTrackingAction.swift in Sources */,
 				BDA5B1701DEBDC950008C168 /* CameraShot.swift in Sources */,
 				BDA5B16F1DEBDC950008C168 /* CameraGlobals.swift in Sources */,
@@ -565,6 +575,7 @@
 				BDA5B1771DEBDC950008C168 /* Utilities.swift in Sources */,
 				BDCF95621DE6859C00412FF4 /* ViGridSearchViewController.swift in Sources */,
 				BDA5B1741DEBDC950008C168 /* SingleImageSaver.swift in Sources */,
+				BDA5B1D11DEEA3520008C168 /* ViFilterCategoryViewController.swift in Sources */,
 				BDCF95641DE6988F00412FF4 /* ViFindSimilarViewController.swift in Sources */,
 				BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */,
 				BDA5B1751DEBDC950008C168 /* UIButtonExtensions.swift in Sources */,
@@ -580,6 +591,7 @@
 				BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */,
 				BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */,
 				BD3D1D6D1DD2D3590053F1E8 /* ViImageConfig.swift in Sources */,
+				BDA5B1CF1DEE80810008C168 /* ViFilterViewController.swift in Sources */,
 				BD7E96CA1DBA082E00C497F7 /* String+Visenze.swift in Sources */,
 				BD7E96C81DBA03D000C497F7 /* UIColors+Visenze.swift in Sources */,
 				BDA5B1811DEBDC950008C168 /* PermissionsView.swift in Sources */,

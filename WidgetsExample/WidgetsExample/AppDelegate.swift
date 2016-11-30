@@ -81,6 +81,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return mapping
     }
+    
+    public static func loadFilterItemsFromPlist() -> [ViFilterItem]{
+        // filterItems
+        var items : [ViFilterItem] = []
+        
+        if let path = Bundle.main.path(forResource: "SampleData", ofType: "plist") {
+            if let dict = NSDictionary(contentsOfFile: path) {
+                if let arr = dict["filterItems"] as? Array<Dictionary<String, Any>> {
+                    
+                    for d in arr {
+                        let title = d["title"] as! String
+                        let schemaMapping = d["schemaMapping"] as! String
+                        let filterTypeRaw = d["filterType"] as! Int
+                        
+                        let filterType = ViFilterItemType(rawValue: filterTypeRaw)
+                        if (filterType == ViFilterItemType.CATEGORY) {
+                            let optionString = d["filterOptions"] as! String
+                            let options = optionString.components(separatedBy: ",")
+                            
+                            var optionArr : [ViFilterItemCategoryOption] = []
+                            
+                            for o in options {
+                                optionArr.append( ViFilterItemCategoryOption(option: o) )
+                            }
+                            
+                            let item = ViFilterItemCategory(title: title, schemaMapping: schemaMapping, options: optionArr)
+                            items.append(item)
+                        }
+                        else if (filterType == ViFilterItemType.RANGE) {
+                            let min = d["min"] as! Int
+                            let max = d["max"] as! Int
+                            
+                            let item = ViFilterItemRange(title: title, schemaMapping: schemaMapping, min: min, max: max)
+                            items.append(item)
+                        }
+                        
+                    }
+                    
+                }
+            }
+            
+        }
+        else {
+            print("Unable to load SampleData keys plist. Please copy/add SampleData.plist to the project and configure the sample im_names ")
+        }
+        
+        return items
+
+    }
 
 }
 

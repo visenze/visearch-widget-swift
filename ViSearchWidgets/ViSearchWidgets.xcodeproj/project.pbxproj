@@ -67,6 +67,7 @@
 		BDA5B1D11DEEA3520008C168 /* ViFilterCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D01DEEA3510008C168 /* ViFilterCategoryViewController.swift */; };
 		BDA5B1D31DEEBD250008C168 /* ViRangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D21DEEBD250008C168 /* ViRangeSlider.swift */; };
 		BDA5B1D51DEECDDA0008C168 /* ViRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D41DEECDDA0008C168 /* ViRangeTableViewCell.swift */; };
+		BDA5B1D71DEF28370008C168 /* ViFilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D61DEF28370008C168 /* ViFilterTableView.swift */; };
 		BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */; };
 		BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */; };
 		BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */; };
@@ -153,6 +154,7 @@
 		BDA5B1D01DEEA3510008C168 /* ViFilterCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViFilterCategoryViewController.swift; sourceTree = "<group>"; };
 		BDA5B1D21DEEBD250008C168 /* ViRangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViRangeSlider.swift; path = Views/ViRangeSlider.swift; sourceTree = "<group>"; };
 		BDA5B1D41DEECDDA0008C168 /* ViRangeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViRangeTableViewCell.swift; path = Views/ViRangeTableViewCell.swift; sourceTree = "<group>"; };
+		BDA5B1D61DEF28370008C168 /* ViFilterTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViFilterTableView.swift; path = Views/ViFilterTableView.swift; sourceTree = "<group>"; };
 		BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Visenze.swift"; path = "Extensions/UIView+Visenze.swift"; sourceTree = "<group>"; };
 		BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViQueryProductLayout.swift; path = Layouts/ViQueryProductLayout.swift; sourceTree = "<group>"; };
 		BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCollectionViewCell.swift; path = Views/ViProductCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				BDCF955E1DE546C500412FF4 /* ViSearchResultsView.swift */,
 				BDA5B1D21DEEBD250008C168 /* ViRangeSlider.swift */,
 				BDA5B1D41DEECDDA0008C168 /* ViRangeTableViewCell.swift */,
+				BDA5B1D61DEF28370008C168 /* ViFilterTableView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				BD1181A01DE8215600139BD5 /* ViColorSearchViewController.swift in Sources */,
 				BDA5B1791DEBDC950008C168 /* CameraViewController.swift in Sources */,
 				BDA5B1771DEBDC950008C168 /* Utilities.swift in Sources */,
+				BDA5B1D71DEF28370008C168 /* ViFilterTableView.swift in Sources */,
 				BDCF95621DE6859C00412FF4 /* ViGridSearchViewController.swift in Sources */,
 				BDA5B1741DEBDC950008C168 /* SingleImageSaver.swift in Sources */,
 				BDA5B1D11DEEA3520008C168 /* ViFilterCategoryViewController.swift in Sources */,

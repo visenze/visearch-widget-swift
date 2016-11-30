@@ -24,31 +24,55 @@ public extension ViFilterViewControllerDelegate{
     func resetFilter(){}
 }
 
-open class ViFilterViewController: UITableViewController , ViFilterCategoryViewControllerDelegate {
+open class ViFilterViewController: UIViewController , UITableViewDelegate, UITableViewDataSource ,ViFilterCategoryViewControllerDelegate {
 
+    public var tableView : UITableView {
+        let resultsView = self.view as! ViFilterTableView
+        return resultsView.tableView!
+    }
+    
+    // whether to enable Power by Visenze logo
+    public var showPowerByViSenze : Bool = true
+    
     open var filterItems : [ViFilterItem] = []
     
     public var delegate: ViFilterViewControllerDelegate? = nil
     
+    open override func loadView() {
+        self.view = ViFilterTableView(frame: .zero)
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        let filterTableView = self.view as! ViFilterTableView
+        filterTableView.powerImgView.isHidden = !self.showPowerByViSenze
         
         if #available(iOS 9.0, *) {
             self.tableView.cellLayoutMarginsFollowReadableWidth = false
         }
         
 
-        let resetBarItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetBtnTap(sender:)))
-        self.navigationItem.leftBarButtonItem = resetBarItem
+        filterTableView.okBtn.addTarget(self, action: #selector(self.okBtnTap(sender:forEvent:) ), for: .touchUpInside)
         
-        let applyBtnItem = UIBarButtonItem(title: "Apply", style: .done, target: self, action: #selector(applyBtnTap(sender:)) )
-        self.navigationItem.rightBarButtonItem = applyBtnItem
+        let resetBarItem = UIBarButtonItem(title: "Clear All", style: .plain, target: self, action: #selector(resetBtnTap(sender:)))
+        self.navigationItem.rightBarButtonItem = resetBarItem
+        
+//        let applyBtnItem = UIBarButtonItem(title: "Apply", style: .done, target: self, action: #selector(applyBtnTap(sender:)) )
+//        self.navigationItem.rightBarButtonItem = applyBtnItem
         
 //        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseDefaultIdentifer)
 //        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseCategoryIdentifer)
 //        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseRangeIdentifer)
         
         
+    }
+    
+    public func okBtnTap(sender: UIButton, forEvent event: UIEvent) {
+        delegate?.applyFilter()
     }
     
     open func resetBtnTap(sender: UIBarButtonItem) {
@@ -68,15 +92,15 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
     
     // MARK: - Table view data source
 
-    override open func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.filterItems.count
     }
 
-    override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+    open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         
         let item = self.filterItems[indexPath.row]
         
@@ -88,7 +112,7 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
         
     }
     
-    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.filterItems[indexPath.row]
         
         let reuseIdentifer : String = {
@@ -152,7 +176,7 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
         return cell!
     }
     
-    override open func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
+    open func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
         let item = self.filterItems[indexPath.row]
         
         // only if item is category filter, allow user to select
@@ -163,11 +187,12 @@ open class ViFilterViewController: UITableViewController , ViFilterCategoryViewC
         return nil
     }
     
-    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let item = self.filterItems[indexPath.row]
         if(item.filterType == ViFilterItemType.CATEGORY) {
             // go to category filter
             let controller = ViFilterCategoryViewController()
+            controller.showPowerByViSenze = self.showPowerByViSenze
             controller.filterItem = item as? ViFilterItemCategory
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)

@@ -242,7 +242,11 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         }
         else {
             
+            // hide back item
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style: .plain, target:nil, action:nil)
+            
             self.delegate?.willShowFilterControler(sender: self, controller: controller)
+            
             self.navigationController?.pushViewController(controller, animated: true)
         }
 
@@ -263,17 +267,6 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
     
     open func resetFilter(){
         
-        // default just dismiss controller
-        if(self.navigationController == nil) {
-            self.dismiss(animated: true, completion: nil)
-        }
-        else {
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        // refresh data
-        self.refreshData()
-    
     }
     
     open func setFilterQueryParamsForSearch() {

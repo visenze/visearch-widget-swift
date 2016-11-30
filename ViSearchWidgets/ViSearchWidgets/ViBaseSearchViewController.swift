@@ -567,7 +567,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 }
                 else {
                     
-                     self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style: .plain, target:nil, action:nil)
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style: .plain, target:nil, action:nil)
                     
                     delegate?.willShowSimilarControler(sender: self, controller: similarController, collectionView: self.collectionView!, indexPath: indexPath, product: product)
                     

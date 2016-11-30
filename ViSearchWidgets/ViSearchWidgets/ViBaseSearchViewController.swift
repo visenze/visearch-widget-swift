@@ -402,6 +402,19 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
           
     }
     
+    open func setMetaQueryParamsForSearch() {
+        
+        if let searchParams = self.searchParams {
+            // construct the fl based on schema mappings
+            // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
+            let metaArr = self.schemaMapping.getMetaArrForSearch()
+            let combinedArr = searchParams.fl + metaArr
+            let flSet = Set(combinedArr)
+            searchParams.fl = Array(flSet)
+        }
+        
+    }
+    
     /// to be implemented by subclasses
     open func refreshData(){}
     

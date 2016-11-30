@@ -42,7 +42,18 @@ open class ViFilterItem: NSObject {
     }
     
     /// reset filter. To be implemented by subclass
-    public func reset() {}
+    open func reset() {}
+    
+    // checking whether this filter is currently reset
+    // if this is the case, it will be ignored. Needs to be overrided by subclass
+    open func isReset() -> Bool {
+        return false
+    }
+    
+    /// generate the fq value for filtering for this item. Need to be overrided by subclass
+    open func getFilterQueryValue() -> String {
+        return ""
+    }
 
 }
 
@@ -100,9 +111,20 @@ open class ViFilterItemCategory : ViFilterItem {
         return arr.joined(separator: ", ")
     }
     
-    public override func reset() {
+    open override func reset() {
         self.selectedOptions.removeAll()
     }
+    
+    open override func isReset() -> Bool {
+        return self.isAllSelected()
+    }
+    
+    open override func getFilterQueryValue() -> String {
+        let arr : [String] = self.selectedOptions.map { String(format: "\"%@\"", $0.value ) }
+        
+        return arr.joined(separator: " OR ")
+    }
+
 }
 
 open class ViFilterItemRange : ViFilterItem {
@@ -134,11 +156,17 @@ open class ViFilterItemRange : ViFilterItem {
         self.selectedMax = self.max
     }
     
-    public override func reset() {
+    open override func reset() {
         self.selectedMin = self.min
         self.selectedMax = self.max
     }
     
+    open override func isReset() -> Bool {
+        return (self.selectedMin == self.min) && (self.selectedMax == self.max )
+    }
     
+    open override func getFilterQueryValue() -> String {
+        return String(format: "%d,%d", self.selectedMin, self.selectedMax)
+    }
 }
 

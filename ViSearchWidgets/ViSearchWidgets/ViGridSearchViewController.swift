@@ -258,6 +258,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
             self.navigationController?.popViewController(animated: true)
         }
        
+        self.refreshData()
     }
     
     open func resetFilter(){
@@ -269,7 +270,33 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         else {
             self.navigationController?.popViewController(animated: true)
         }
+        
+        // refresh data
+        self.refreshData()
     
+    }
+    
+    open func setFilterQueryParamsForSearch() {
+        
+        if let searchParams = self.searchParams {
+            if self.filterItems.count > 0 {
+                
+                var fq : [String: String] = [:]
+                
+                // construct filter items items
+                for filterItem in self.filterItems {
+                    if !filterItem.isReset() {
+                        fq[filterItem.schemaMapping] = filterItem.getFilterQueryValue()
+                    }
+                }
+                
+                searchParams.fq = fq
+            }
+            else {
+                searchParams.fq.removeAll()
+            }
+        }
+
     }
     
     // MARK : viewWillAppear

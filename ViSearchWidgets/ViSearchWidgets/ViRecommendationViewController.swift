@@ -24,12 +24,7 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
             
             if let searchParams = searchParams {
                 
-                // construct the fl based on schema mappings
-                // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
-                let metaArr = self.schemaMapping.getMetaArrForSearch()
-                let combinedArr = searchParams.fl + metaArr
-                let flSet = Set(combinedArr)
-                searchParams.fl = Array(flSet)
+                self.setMetaQueryParamsForSearch()
                 
                 ViSearch.sharedInstance.recommendation(
                     params: searchParams as! ViSearchParams,

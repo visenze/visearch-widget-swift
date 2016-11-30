@@ -112,12 +112,11 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
         
             if let searchParams = searchParams {
                 
-                // construct the fl based on schema mappings
-                // need to merge the array to make sure that the returned data contain the relevant meta data in mapping
-                let metaArr = self.schemaMapping.getMetaArrForSearch()
-                let combinedArr = searchParams.fl + metaArr
-                let flSet = Set(combinedArr)
-                searchParams.fl = Array(flSet)
+                self.setMetaQueryParamsForSearch()
+                
+                // check whether filter set to apply the filter
+                self.setFilterQueryParamsForSearch()
+                
                 
                 ViSearch.sharedInstance.findSimilar(
                     params: searchParams as! ViSearchParams,

@@ -30,8 +30,31 @@ class LayoutArrangementTests: XCTestCase {
         XCTAssertEqual(view.subviews[1].frame, CGRect(x: 80, y: 10, width: 50, height: 50))
     }
 
-    func testAnimation() {
+    func testSubviewOrderIsStable() {
+        // Forces the SizeLayout to produce a view.
+        let forceViewConfig: (View) -> Void = { _ in }
+        let top = SizeLayout(width: 5, height: 10, config: forceViewConfig)
+        let middle = SizeLayout(width: 5, height: 20, viewReuseId: "middle", config: forceViewConfig)
+        let bottom = SizeLayout(width: 5, height: 30, config: forceViewConfig)
 
+        let stack = StackLayout(axis: .vertical, sublayouts: [top, middle, bottom])
+        let container = View()
+
+        stack.arrangement().makeViews(in: container)
+        XCTAssertEqual(container.subviews[0].frame, CGRect(x: 0, y: 0, width: 5, height: 10))
+        XCTAssertEqual(container.subviews[1].frame, CGRect(x: 0, y: 10, width: 5, height: 20))
+        XCTAssertEqual(container.subviews[2].frame, CGRect(x: 0, y: 30, width: 5, height: 30))
+
+        // Make sure that if we apply the same layout again that the views stay in the same order
+        // even if some views are reused and others are not.
+        stack.arrangement().makeViews(in: container)
+        XCTAssertEqual(container.subviews[0].frame, CGRect(x: 0, y: 0, width: 5, height: 10))
+        XCTAssertEqual(container.subviews[1].frame, CGRect(x: 0, y: 10, width: 5, height: 20))
+        XCTAssertEqual(container.subviews[2].frame, CGRect(x: 0, y: 30, width: 5, height: 30))
+    }
+
+    func testAnimation() {
+        let forceViewConfig: (View) -> Void = { _ in }
         var redSquare: View? = nil
 
         let before = InsetLayout(
@@ -53,13 +76,15 @@ class LayoutArrangementTests: XCTestCase {
                             config: { view in
                                 redSquare = view
                             }
-                        )
+                        ),
+                        config: forceViewConfig
                     ),
                     SizeLayout<View>(
                         width: 80,
                         height: 80,
                         alignment: .bottomTrailing,
-                        viewReuseId: "littleSquare"
+                        viewReuseId: "littleSquare",
+                        config: forceViewConfig
                     )
                 ]
             )
@@ -76,7 +101,8 @@ class LayoutArrangementTests: XCTestCase {
                         width: 100,
                         height: 100,
                         alignment: .topLeading,
-                        viewReuseId: "bigSquare"
+                        viewReuseId: "bigSquare",
+                        config: forceViewConfig
                     ),
                     SizeLayout<View>(
                         width: 50,
@@ -91,7 +117,8 @@ class LayoutArrangementTests: XCTestCase {
                             config: { view in
                                 redSquare = view
                             }
-                        )
+                        ),
+                        config: forceViewConfig
                     )
                 ]
             )

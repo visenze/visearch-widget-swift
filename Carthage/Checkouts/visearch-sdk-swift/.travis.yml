@@ -1,0 +1,5 @@
+osx_image: xcode8
+language: objective-c
+script:
+- killall 'iOS Simulator' || true
+- set -o pipefail && xcodebuild test -project ViSearchSDK/ViSearchSDK.xcodeproj -scheme ViSearchSDK -configuration Debug -sdk iphonesimulator10.0 -destination 'name=iPhone 7 Plus,OS=10.0' ONLY_ACTIVE_ARCH=NO | xcpretty

@@ -27,7 +27,7 @@ open class BaseLayout<V: View> {
     open let config: ((V) -> Void)?
 
     open var needsView: Bool {
-        return viewReuseId != nil || config != nil
+        return config != nil
     }
 
     public init(alignment: Alignment, flexibility: Flexibility, viewReuseId: String? = nil, config: ((V) -> Void)?) {
@@ -39,5 +39,9 @@ open class BaseLayout<V: View> {
 
     open func configure(view: V) {
         config?(view)
+    }
+
+    open func makeView() -> View {
+        return V()
     }
 }

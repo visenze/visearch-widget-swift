@@ -4,9 +4,10 @@ This page is an overview of how to build UIs using LayoutKit.
 
 ## Basic layouts
 
-LayoutKit provides a four basic layouts:
+LayoutKit provides some basic layouts:
 
 - [LabelLayout](https://github.com/linkedin/LayoutKit/blob/master/LayoutKit/Layouts/LabelLayout.swift): A layout for a UILabel.
+- [ButtonLayout](https://github.com/linkedin/LayoutKit/blob/master/LayoutKit/Layouts/LabelLayout.swift): A layout for a UIButton.
 - [SizeLayout](https://github.com/linkedin/LayoutKit/blob/master/LayoutKit/Layouts/SizeLayout.swift): A layout for a specific size (e.g. UIImageView).
 - [InsetLayout](https://github.com/linkedin/LayoutKit/blob/master/LayoutKit/Layouts/InsetLayout.swift): A layout that insets its child layout (i.e. padding).
 - [StackLayout](https://github.com/linkedin/LayoutKit/blob/master/LayoutKit/Layouts/StackLayout.swift): A layout that stacks its child layouts horizontally or vertically.
@@ -19,7 +20,7 @@ If you are already using UIStackView (or any other Auto Layout based stack) and 
 
 It is easy to compose layouts into reusable components.
 
-Here is an example of a reusable [MiniProfileLayout](https://github.com/linkedin/LayoutKit/blob/master/LayoutKitExampleLayouts/MiniProfileLayout.swift):
+Here is an example of a reusable [MiniProfileLayout](https://github.com/linkedin/LayoutKit/blob/master/ExampleLayouts/MiniProfileLayout.swift):
 
 ```swift
 import UIKit
@@ -91,7 +92,7 @@ sergeiProfile.arrangement().makeViews()
 
 ![Sergei's profile](img/sergei.png)
 
-More examples can be found in [LayoutKitExampleLayouts](https://github.com/linkedin/LayoutKit/blob/master/LayoutKitExampleLayouts).
+More examples can be found in [ExampleLayouts](https://github.com/linkedin/LayoutKit/blob/master/ExampleLayouts).
 
 ## View configuration
 

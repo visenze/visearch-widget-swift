@@ -37,6 +37,9 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
     public var timeoutInterval : TimeInterval = 10 // how long to timeout request
     public var requestSerialization: ViRequestSerialization
     
+    public var userAgent : String = "ViSenze-Swift-SDK/1.0.1"
+    private static let userAgentHeader : String = "X-Requested-With"
+    
  
     // MARK: constructors
     public init?(baseUrl: String, accessKey: String , secret: String) {
@@ -101,6 +104,7 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
         
         let boundary = ViMultipartFormData.randomBoundary()
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
         request.httpBody = ViMultipartFormData.encode(imageData: imageData, boundary: boundary);
         
         // make tracking call to record the action
@@ -157,6 +161,7 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
         
         let deviceUid = UidHelper.uniqueDeviceUid()
         request.addValue("uid=\(deviceUid)", forHTTPHeaderField: "Cookie")
+        request.addValue(getUserAgentValue() , forHTTPHeaderField: ViSearchClient.userAgentHeader )
         
         session.dataTask(with: request as URLRequest, completionHandler:{
             (data, response, error) in
@@ -236,6 +241,8 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
                                               successHandler: @escaping SuccessHandler,
                                               failureHandler: @escaping FailureHandler) -> URLSessionTask
     {
+        request.addValue(getUserAgentValue() , forHTTPHeaderField: ViSearchClient.userAgentHeader )
+        
         let task = session.dataTask(with: request as URLRequest , completionHandler:{
             (data, response, error) in
             if (error != nil) {
@@ -253,6 +260,10 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
         })
         
         return task
+    }
+    
+    private func getUserAgentValue() -> String{
+        return userAgent ;
     }
     
     

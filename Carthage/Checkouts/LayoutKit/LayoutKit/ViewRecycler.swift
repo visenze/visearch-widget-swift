@@ -15,13 +15,13 @@ import ObjectiveC
  Call `makeView(layoutId:)` to recycle or create a view of the desired type and id.
  Call `purgeViews()` to remove all unrecycled views from the view hierarchy.
  */
-open class ViewRecycler {
+class ViewRecycler {
 
     private var viewsById = [String: View]()
     private var unidentifiedViews = Set<View>()
 
     /// Retains all subviews of rootView for recycling.
-    public init(rootView: View?) {
+    init(rootView: View?) {
         rootView?.walkSubviews { (view) in
             if let viewReuseId = view.viewReuseId {
                 self.viewsById[viewReuseId] = view
@@ -31,31 +31,30 @@ open class ViewRecycler {
         }
     }
 
-    /// Marks a view as recycled so that `purgeViews()` doesn't remove it from the view hierarchy.
-    /// It is only necessary to call this if a view is reused without calling `makeView(layoutId:)`.
-    open func markViewAsRecycled(_ view: View) {
-        if let viewReuseId = view.viewReuseId {
-            viewsById[viewReuseId] = nil
-        } else {
-            unidentifiedViews.remove(view)
-        }
-    }
-
-    /// Creates or recycles a view of the desired type and id.
-    open func makeView<V: View>(viewReuseId: String?) -> V {
+    /**
+     Returns a view for the layout.
+     It may recycle an existing view or create a new view.
+     */
+    func makeOrRecycleView(havingViewReuseId viewReuseId: String?, viewProvider: () -> View) -> View? {
         // If we have a recyclable view that matches type and id, then reuse it.
-        if let viewReuseId = viewReuseId, let view = viewsById[viewReuseId] as? V {
+        if let viewReuseId = viewReuseId, let view = viewsById[viewReuseId] {
             viewsById[viewReuseId] = nil
             return view
         }
+        let providedView = viewProvider()
 
-        let v = V()
-        v.viewReuseId = viewReuseId
-        return v
+        // Remove the provided view from the list of cached views.
+        if let viewReuseId = providedView.viewReuseId, let oldView = viewsById[viewReuseId], oldView == providedView {
+            viewsById[viewReuseId] = nil
+        } else {
+            unidentifiedViews.remove(providedView)
+        }
+        providedView.viewReuseId = viewReuseId
+        return providedView
     }
 
     /// Removes all unrecycled views from the view hierarchy.
-    open func purgeViews() {
+    func purgeViews() {
         for view in viewsById.values {
             view.removeFromSuperview()
         }

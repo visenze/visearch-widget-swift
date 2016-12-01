@@ -13,11 +13,11 @@ import UIKit
  */
 open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
 
-    open let textType: LabelLayoutTextType
+    open let text: Text
     open let font: UIFont
     open let numberOfLines: Int
 
-    public init(textType: LabelLayoutTextType,
+    public init(text: Text,
                 font: UIFont = defaultFont,
                 numberOfLines: Int = defaultNumberOfLines,
                 alignment: Alignment = defaultAlignment,
@@ -25,7 +25,7 @@ open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
                 viewReuseId: String? = nil,
                 config: ((Label) -> Void)? = nil) {
         
-        self.textType = textType
+        self.text = text
         self.numberOfLines = numberOfLines
         self.font = font
         super.init(alignment: alignment, flexibility: flexibility, viewReuseId: viewReuseId, config: config)
@@ -41,7 +41,7 @@ open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
                             viewReuseId: String? = nil,
                             config: ((Label) -> Void)? = nil) {
 
-        self.init(textType: .unattributed(text),
+        self.init(text: .unattributed(text),
                   font: font,
                   numberOfLines: numberOfLines,
                   alignment: alignment,
@@ -58,7 +58,7 @@ open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
                             viewReuseId: String? = nil,
                             config: ((Label) -> Void)? = nil) {
 
-        self.init(textType: .attributed(attributedText),
+        self.init(text: .attributed(attributedText),
                   font: font,
                   numberOfLines: numberOfLines,
                   alignment: alignment,
@@ -80,7 +80,7 @@ open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
         ]
 
         var size: CGSize
-        switch textType {
+        switch text {
         case .attributed(let attributedText):
             if attributedText.length == 0 {
                 return .zero
@@ -109,28 +109,15 @@ open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
         }
         // boundingRectWithSize returns size to a precision of hundredths of a point,
         // but UILabel only returns sizes with a point precision of 1/screenDensity.
-        size.height = roundUpToFractionalPoint(size.height)
-        size.width = roundUpToFractionalPoint(size.width)
+        size.height = size.height.roundedUpToFractionalPoint
+        size.width = size.width.roundedUpToFractionalPoint
         if numberOfLines > 0 {
-            let maxHeight = roundUpToFractionalPoint(CGFloat(numberOfLines) * font.lineHeight)
+            let maxHeight = (CGFloat(numberOfLines) * font.lineHeight).roundedUpToFractionalPoint
             if size.height > maxHeight {
                 size = CGSize(width: maxSize.width, height: maxHeight)
             }
         }
         return size
-    }
-
-    private func roundUpToFractionalPoint(_ point: CGFloat) -> CGFloat {
-        if point <= 0 {
-            return 0
-        }
-        let scale: CGFloat = UIScreen.main.scale
-        // The smallest precision in points (aka the number of points per hardware pixel).
-        let pointPrecision = 1.0 / scale
-        if point <= pointPrecision {
-            return pointPrecision
-        }
-        return ceil(point * scale) / scale
     }
 
     open func arrangement(within rect: CGRect, measurement: LayoutMeasurement) -> LayoutArrangement {
@@ -142,7 +129,7 @@ open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
         config?(label)
         label.numberOfLines = numberOfLines
         label.font = font
-        switch textType {
+        switch text {
         case .unattributed(let text):
             label.text = text
         case .attributed(let attributedText):
@@ -156,14 +143,7 @@ open class LabelLayout<Label: UILabel>: BaseLayout<Label>, ConfigurableLayout {
 }
 
 // MARK: - Things that belong in LabelLayout but aren't because LabelLayout is generic.
-// "Type 'TextType' nested in generic type 'LabelLayout' is not allowed"
 // "Static stored properties not yet supported in generic types"
-
-/// The types of text that a UILabel can display.
-public enum LabelLayoutTextType {
-    case unattributed(String)
-    case attributed(NSAttributedString)
-}
 
 private let defaultNumberOfLines = 0
 private let defaultFont = UILabel().font ?? UIFont.systemFont(ofSize: 17)

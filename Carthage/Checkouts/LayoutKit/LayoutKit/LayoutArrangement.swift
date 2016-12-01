@@ -119,7 +119,7 @@ public struct LayoutArrangement {
             return sublayout.makeSubviews(from: recycler, prepareAnimation: prepareAnimation)
         })
         // If we are preparing an animation, then we don't want to update frames or configure views.
-        if let view = layout.makeView(from: recycler) {
+        if layout.needsView, let view = recycler.makeOrRecycleView(havingViewReuseId: layout.viewReuseId, viewProvider: layout.makeView) {
             if !prepareAnimation {
                 view.frame = frame
                 layout.configure(baseTypeView: view)
@@ -146,13 +146,8 @@ extension View {
     /**
      Similar to `addSubview()` except if `maintainCoordinates` is true, then the view's frame
      will be adjusted so that its absolute position on the screen does not change.
-     
-     It doesn't do anything of view is already a subview.
      */
     fileprivate func addSubview(_ view: View, maintainCoordinates: Bool) {
-        if view.superview == self {
-            return
-        }
         if maintainCoordinates {
             let frame = view.convertToAbsoluteCoordinates(view.frame)
             addSubview(view)

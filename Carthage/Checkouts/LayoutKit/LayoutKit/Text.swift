@@ -6,18 +6,10 @@
 // software distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
-import UIKit
-import PlaygroundSupport
-import LayoutKit
-import ExampleLayouts
+import Foundation
 
-// REMINDER: you need to manually build ExampleLayouts on the simulator for changes to be reflected in this playground.
-
-let helloWorld = HelloWorldLayout()
-
-helloWorld.arrangement().makeViews()
-
-helloWorld.arrangement(width: 250).makeViews()
-
-helloWorld.arrangement().makeViews(direction: .rightToLeft) // just for testing; RTL happens automatically for RTL languages.
-
+/// An attributed or unattributed string.
+public enum Text {
+    case unattributed(String)
+    case attributed(NSAttributedString)
+}

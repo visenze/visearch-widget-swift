@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0BCB757B1D8721370065E02A"
-               BuildableName = "LayoutKit.framework"
-               BlueprintName = "LayoutKit-tvOS"
+               BlueprintIdentifier = "0BCB75B51D8723B30065E02A"
+               BuildableName = "ExampleLayouts.framework"
+               BlueprintName = "ExampleLayouts-iOS"
                ReferencedContainer = "container:LayoutKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0BCB75831D8721370065E02A"
-               BuildableName = "LayoutKit-tvOSTests.xctest"
-               BlueprintName = "LayoutKit-tvOSTests"
-               ReferencedContainer = "container:LayoutKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0BCB757B1D8721370065E02A"
-            BuildableName = "LayoutKit.framework"
-            BlueprintName = "LayoutKit-tvOS"
-            ReferencedContainer = "container:LayoutKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0BCB757B1D8721370065E02A"
-            BuildableName = "LayoutKit.framework"
-            BlueprintName = "LayoutKit-tvOS"
+            BlueprintIdentifier = "0BCB75B51D8723B30065E02A"
+            BuildableName = "ExampleLayouts.framework"
+            BlueprintName = "ExampleLayouts-iOS"
             ReferencedContainer = "container:LayoutKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0BCB757B1D8721370065E02A"
-            BuildableName = "LayoutKit.framework"
-            BlueprintName = "LayoutKit-tvOS"
+            BlueprintIdentifier = "0BCB75B51D8723B30065E02A"
+            BuildableName = "ExampleLayouts.framework"
+            BlueprintName = "ExampleLayouts-iOS"
             ReferencedContainer = "container:LayoutKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

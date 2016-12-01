@@ -8,17 +8,18 @@
 
 import UIKit
 
-// present search results in either horizontal scrollview or vertical grid
-// fixed header and footer (e.g. power by Visenze logo)
-// header may include filter option
-// presentation order in vertical format: headerView - collectionView - footerView
+/// present search results in either horizontal scrollview or vertical grid
+/// The layout is vertical and as follow: headerView - collectionView - footerView
+/// footerView generally contains the Power by Visenze image
 open class ViSearchResultsView: UIView {
     
     // left padding for this view
     public var paddingLeft: CGFloat = 0.0
+    
+    /// right padding for this view
     public var paddingRight: CGFloat = 0.0
     
-    
+    /// collection view layout for search results
     public var collectionViewLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     /// container for header
@@ -30,7 +31,10 @@ open class ViSearchResultsView: UIView {
     /// container for footer
     public var footerViewContainer: UIView = UIView()
     
+    /// header height. Set to 0 to hide the header
     public var headerHeight : CGFloat = 0
+    
+    /// Footer view. Set to 0 to hide
     public var footerHeight : CGFloat = 0
     
     public override init(frame: CGRect) {
@@ -56,6 +60,7 @@ open class ViSearchResultsView: UIView {
         
     }
     
+    /// layout views vertically: header, collectionview, footer
     override open func layoutSubviews() {
         super.layoutSubviews()
         
@@ -89,6 +94,9 @@ open class ViSearchResultsView: UIView {
         
     }
     
+    /// Remove all subviews in headerViewContainer and put the new headerView inside
+    ///
+    /// - Parameter headerView: new headerView
     public func setHeader(_ headerView: UIView) {
         for view in self.headerViewContainer.subviews{
             view.removeFromSuperview()
@@ -97,6 +105,9 @@ open class ViSearchResultsView: UIView {
         self.headerViewContainer.addSubview(headerView)
     }
     
+    /// Remove all subviews in footerViewContainer and put the new footerView inside
+    ///
+    /// - Parameter footerView: new footerView
     public func setFooter(_ footerView: UIView) {
         for view in self.footerViewContainer.subviews{
             view.removeFromSuperview()

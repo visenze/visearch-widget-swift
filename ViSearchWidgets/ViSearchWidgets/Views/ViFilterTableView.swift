@@ -8,16 +8,22 @@
 
 import UIKit
 
-// add power by logo + ok button in footer
+/// Custom view which include a tableView + power by Visenze image and OK button at the footer
 open class ViFilterTableView: UIView {
 
     /// table view for filter
     public var tableView: UITableView?
+    
+    /// power by ViSenze image
     public let powerImgView = UIImageView(image: ViIcon.power_visenze)
+    
+    /// OK button at the bottom
     public let okBtn : UIButton = UIButton(type: .custom)
     
     /// container for footer
     public var footerViewContainer: UIView = UIView()
+    
+    /// footer height
     public var footerHeight : CGFloat = 76
     
     public override init(frame: CGRect) {
@@ -32,6 +38,7 @@ open class ViFilterTableView: UIView {
         setup()
     }
     
+    /// Init all views
     func setup() {
         self.autoresizingMask = [.flexibleHeight , .flexibleWidth];
         
@@ -56,6 +63,7 @@ open class ViFilterTableView: UIView {
         
     }
     
+    /// Set frame for power by visenze image
     public func setPowerByVisenzeFrame() {
         
         var width : CGFloat = 100

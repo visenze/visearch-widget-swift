@@ -9,6 +9,7 @@
 import UIKit
 import QuartzCore
 
+/// Range slider track layer. Responsible for drawing the horizontal track
 open class RangeSliderTrackLayer: CALayer {
     weak var rangeSlider: ViRangeSlider?
     
@@ -36,6 +37,7 @@ open class RangeSliderTrackLayer: CALayer {
     }
 }
 
+/// the thumb for upper , lower bounds
 open class RangeSliderThumbLayer: CALayer {
     
     var highlighted: Bool = false {
@@ -84,6 +86,8 @@ open class RangeSliderThumbLayer: CALayer {
     }
 }
 
+
+/// Range slider view with upper, lower bounds
 @IBDesignable
 open class ViRangeSlider: UIControl {
     @IBInspectable var minimumValue: Double = 0.0 {

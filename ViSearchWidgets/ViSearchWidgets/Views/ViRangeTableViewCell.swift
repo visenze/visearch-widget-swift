@@ -9,10 +9,11 @@
 import UIKit
 import Foundation
 
-
-// add price labels for slider
+/// Table view cell for range filter. This will contain the range filter title, the range slider and the upper/lower labels
+/// The upper/lower labels will be updated when the range filter upper/lower thumbs are dragged.
 open class ViRangeTableViewCell: UITableViewCell {
 
+    /// associated range filter item
     open var filterItem: ViFilterItemRange? = nil {
         didSet {
             if let filterItem = self.filterItem {
@@ -32,15 +33,21 @@ open class ViRangeTableViewCell: UITableViewCell {
         }
     }
     
+    /// left padding which need to take into account the indentation and separate inset of table view
     var paddingLeft : CGFloat  {
         return self.indentationWidth * CGFloat(self.indentationLevel) + self.separatorInset.left + self.separatorInset.right
     }
     
+    /// Range slider
     open var rangeSlider : ViRangeSlider? = nil
+    
+    /// Display title
     open var titleLabel : UILabel? = nil
     
-    // for the price ranges
+    // lower value label e.g. selected lower price
     open var lowerLabel : UILabel? = nil
+    
+    /// upper value label e.g. selected upper price
     open var upperLabel : UILabel? = nil
     
     override public init(style: UITableViewCellStyle, reuseIdentifier: String?){
@@ -62,6 +69,7 @@ open class ViRangeTableViewCell: UITableViewCell {
         
     }
     
+    /// create all views and init
     open func setup() {
         self.autoresizingMask = [.flexibleWidth];
         
@@ -89,9 +97,13 @@ open class ViRangeTableViewCell: UITableViewCell {
         
         self.rangeSlider?.addTarget(self, action: #selector(self.rangeSliderValueChanged(_:)), for: .valueChanged)
         
-        
     }
     
+    
+    /// Range slider change events. Upper / lower labels will be updated accordingly.
+    /// Selected value for filterItem will also be updated
+    ///
+    /// - Parameter rangeSlider: the changed rangeSlider
     open func rangeSliderValueChanged(_ rangeSlider: ViRangeSlider) {
         filterItem?.selectedLower = lround(rangeSlider.lowerValue)
         filterItem?.selectedUpper = lround(rangeSlider.upperValue)
@@ -104,7 +116,6 @@ open class ViRangeTableViewCell: UITableViewCell {
         self.layoutIfNeeded()
     }
     
-
     override open func layoutSubviews() {
         super.layoutSubviews()
         

@@ -9,10 +9,16 @@
 import UIKit
 
 /// image view with a custom action button at the top right corner
+/// Note: the action button is currently not in used. It has been moved to the corner of the product card instead
 open class ViImageView: UIView {
 
+    /// product image view
     public var imageView: UIImageView?
+    
+    /// action button overlay on top right of the image
     public var actionBtn: UIButton?
+    
+    /// action button size
     public var actionBtnSize: CGSize = .zero
     
     /// position the action button with respect to the top right corner

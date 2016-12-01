@@ -8,14 +8,16 @@
 
 import UIKit
 
+/// Callbacks when user tap on similar / action button on the product card cell
 public protocol ViProductCellDelegate: class {
     func similarBtnTapped(_ cell: ViProductCollectionViewCell)
     func actionBtnTapped(_ cell: ViProductCollectionViewCell)
 }
 
-/// subclass cell which wire up the buttons events and delegate
+/// Product card collection view cell
 open class ViProductCollectionViewCell: UICollectionViewCell {
    
+    /// cell delegate
     public var delegate: ViProductCellDelegate?
     
     override open func prepareForReuse() {

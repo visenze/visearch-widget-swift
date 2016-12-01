@@ -4,21 +4,17 @@ import Photos
 public typealias ImageFetcherSuccess = (PHFetchResult<PHAsset>) -> ()
 public typealias ImageFetcherFailure = (NSError) -> ()
 
-//extension PHFetchResult: Sequence {
-//    public func makeIterator() -> NSFastEnumerationIterator {
-//        return NSFastEnumerationIterator(self)
-//    }
-//}
 
+/// Fetch images from photo library
 public class ImageFetcher {
 
     private var success: ImageFetcherSuccess?
     private var failure: ImageFetcherFailure?
     
     private var authRequested = false
-    private let errorDomain = "com.zero.imageFetcher"
+    private let errorDomain = "com.visenze.imageFetcher"
     
-    let libraryQueue = DispatchQueue(label: "com.zero.ALCameraViewController.LibraryQueue");
+    let libraryQueue = DispatchQueue(label: "com.visenze.CameraViewController.LibraryQueue");
     
     public init() { }
     
@@ -32,6 +28,10 @@ public class ImageFetcher {
         return self
     }
     
+    
+    /// Fetch images from photo library. On success, most recent photos will appear
+    /// Notify if there is failure e.g. due to user denied access to photo library
+    /// - Returns: self
     public func fetch() -> Self {
         _ = PhotoLibraryAuthorizer { error in
             if error == nil {

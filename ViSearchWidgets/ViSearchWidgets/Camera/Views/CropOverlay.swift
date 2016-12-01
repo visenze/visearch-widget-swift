@@ -1,13 +1,6 @@
-//
-//  CropOverlay.swift
-//  ALCameraViewController
-//
-//  Created by Alex Littlejohn on 2015/06/30.
-//  Copyright (c) 2015 zero. All rights reserved.
-//
-
 import UIKit
 
+/// Draw the crop lines over camera. The 4 corners are draggable for resizing the box
 internal class CropOverlay: UIView {
 
     var outerLines = [UIView]()

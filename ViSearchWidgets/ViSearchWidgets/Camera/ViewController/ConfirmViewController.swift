@@ -1,6 +1,8 @@
 import UIKit
 import Photos
 
+/// For user to confirm whether to keep image after taking photo from camera, select image from photo library
+/// optional to crop photo here
 public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
     let imageView = UIImageView()
@@ -12,14 +14,27 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var centeringView: UIView!
     
+    /// enable/disable cropping
     var allowsCropping: Bool = false
+    
+    /// vertical padding
     var verticalPadding: CGFloat = 30
+    
+    /// horizontal padding
     var horizontalPadding: CGFloat = 30
     
+    /// complete call back
     public var onComplete: CameraViewCompletion?
     
+    /// photo asset
     var asset: PHAsset!
     
+    
+    /// Constructor
+    ///
+    /// - Parameters:
+    ///   - asset: recent taken/selected photo asset
+    ///   - allowsCropping: enable/disable cropping
     public init(asset: PHAsset, allowsCropping: Bool) {
         self.allowsCropping = allowsCropping
         self.asset = asset
@@ -39,29 +54,21 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    public func loadButtons() {
-        self.confirmButton.backgroundColor = UIColor.clear
-        self.cancelButton.backgroundColor = UIColor.colorWithHexString("#343434", alpha: 1.0)!
-        self.cancelButton.tintColor = UIColor.white
-        self.cancelButton.setImage(ViIcon.back, for: .normal)
-        
-        self.confirmButton.setBackgroundImage(ViIcon.big_camera_empty, for: .normal)
-        self.confirmButton.setTitle("OK", for: .normal)
-        self.confirmButton.setTitleColor(UIColor.black, for: .normal)
-        self.confirmButton.titleLabel?.font = ViFont.medium(with: 24)
-        self.confirmButton.titleEdgeInsets = UIEdgeInsetsMake(-4, -4, 0, 0)
-        
-        powerBy.image = ViIcon.power_visenze
-    }
+    // MARK: Status Bar
     
+    /// hide status bar
     public override var prefersStatusBarHidden: Bool {
         return true
     }
     
+    /// status bar animation
     public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return UIStatusBarAnimation.slide
     }
     
+    // MARK: Loading and rotation
+    
+    /// viewDidLoad
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -94,7 +101,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             }
             .fetch()
         
-        self.loadButtons()
+        self.configureButtons()
     }
     
     public override func viewWillLayoutSubviews() {
@@ -110,6 +117,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    /// Rotation handling. Rearrange buttons, images and reset crop box after rotation
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -157,6 +165,26 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         })
     }
     
+    // MARK: UI configuration
+    
+    /// Configure buttons look and feel, background images, colors
+    public func configureButtons() {
+        
+        // TODO: move this to ViTheme in later version
+        self.confirmButton.backgroundColor = UIColor.clear
+        self.cancelButton.backgroundColor = UIColor.colorWithHexString("#343434", alpha: 1.0)!
+        self.cancelButton.tintColor = UIColor.white
+        self.cancelButton.setImage(ViIcon.back, for: .normal)
+        
+        self.confirmButton.setBackgroundImage(ViIcon.big_camera_empty, for: .normal)
+        self.confirmButton.setTitle("OK", for: .normal)
+        self.confirmButton.setTitleColor(UIColor.black, for: .normal)
+        self.confirmButton.titleLabel?.font = ViFont.medium(with: 24)
+        self.confirmButton.titleEdgeInsets = UIEdgeInsetsMake(-4, -4, 0, 0)
+        
+        powerBy.image = ViIcon.power_visenze
+    }
+    
     private func configureWithImage(_ image: UIImage) {
         if allowsCropping {
             cropOverlay.isHidden = false
@@ -170,6 +198,13 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         imageView.sizeToFit()
         view.setNeedsLayout()
     }
+    
+    private func buttonActions() {
+        confirmButton.action = { [weak self] in self?.confirmPhoto() }
+        cancelButton.action = { [weak self] in self?.cancel() }
+    }
+    
+    //MARK: Helper methods
     
     private func calculateMinimumScale(_ size: CGSize) -> CGFloat {
         var _size = size
@@ -232,11 +267,40 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         imageView.frame.origin = imageOrigin
     }
     
-    private func buttonActions() {
-        confirmButton.action = { [weak self] in self?.confirmPhoto() }
-        cancelButton.action = { [weak self] in self?.cancel() }
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
     }
     
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        centerScrollViewContents()
+    }
+    
+    func showSpinner() -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView()
+        spinner.activityIndicatorViewStyle = .white
+        spinner.center = view.center
+        spinner.startAnimating()
+        
+        view.addSubview(spinner)
+        view.bringSubview(toFront: spinner)
+        
+        return spinner
+    }
+    
+    func hideSpinner(_ spinner: UIActivityIndicatorView) {
+        spinner.stopAnimating()
+        spinner.removeFromSuperview()
+    }
+    
+    func disable() {
+        confirmButton.isEnabled = false
+    }
+    
+    func enable() {
+        confirmButton.isEnabled = true
+    }
+    
+    //MARK: Actions
     internal func cancel() {
         onComplete?(nil, nil)
     }
@@ -246,6 +310,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         disable()
         
         imageView.isHidden = true
+        cropOverlay.isHidden = true
         
         let spinner = showSpinner()
 
@@ -281,40 +346,11 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
         fetcher = fetcher.fetch()
     }
     
-    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
-    }
     
-    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        centerScrollViewContents()
-    }
-    
-    func showSpinner() -> UIActivityIndicatorView {
-        let spinner = UIActivityIndicatorView()
-        spinner.activityIndicatorViewStyle = .white
-        spinner.center = view.center
-        spinner.startAnimating()
-        
-        view.addSubview(spinner)
-        view.bringSubview(toFront: spinner)
-        
-        return spinner
-    }
-    
-    func hideSpinner(_ spinner: UIActivityIndicatorView) {
-        spinner.stopAnimating()
-        spinner.removeFromSuperview()
-    }
-    
-    func disable() {
-        confirmButton.isEnabled = false
-    }
-    
-    func enable() {
-        confirmButton.isEnabled = true
-    }
-    
-    func showNoImageScreen(_ error: NSError) {
+    /// Show error if cannot fetch image e.g. user denied access
+    ///
+    /// - Parameter error: error
+    public func showNoImageScreen(_ error: NSError) {
         let permissionsView = PermissionsView(frame: view.bounds)
         
         let desc = localizedString("error.cant-fetch-photo.description")

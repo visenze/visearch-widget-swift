@@ -5,12 +5,15 @@ internal let ImageCellIdentifier = "ImageCell"
 
 internal let defaultItemSpacing: CGFloat = 1
 
+/// call back for photo selection
 public typealias PhotoLibraryViewSelectionComplete = (PHAsset?) -> Void
 
+/// Display images from photo library for selection
 public class PhotoLibraryViewController: UIViewController {
     
     internal var assets: PHFetchResult<PHAsset>? = nil
     
+    /// call back for photo selection
     public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
     
     private lazy var collectionView: UICollectionView = {
@@ -30,7 +33,7 @@ public class PhotoLibraryViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Select photo"
+        self.title = ViTheme.sharedInstance.default_select_photo_title
         
         setNeedsStatusBarAppearanceUpdate()
         
@@ -66,6 +69,8 @@ public class PhotoLibraryViewController: UIViewController {
     
     public func present(_ inViewController: UIViewController, animated: Bool) {
         let navigationController = UINavigationController(rootViewController: self)
+        
+        // TODO: move customization to ViTheme
         navigationController.navigationBar.barTintColor = UIColor.black
         navigationController.navigationBar.barStyle = UIBarStyle.black
         inViewController.present(navigationController, animated: animated, completion: nil)

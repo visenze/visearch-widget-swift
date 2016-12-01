@@ -4,8 +4,9 @@ import Photos
 public typealias SingleImageSaverSuccess = (PHAsset) -> Void
 public typealias SingleImageSaverFailure = (NSError) -> Void
 
+/// save image to photo library after taking camera photo
 public class SingleImageSaver {
-    private let errorDomain = "com.zero.singleImageSaver"
+    private let errorDomain = "com.visenze.singleImageSaver"
     
     private var success: SingleImageSaverSuccess?
     private var failure: SingleImageSaverFailure?

@@ -3,6 +3,8 @@ import MediaPlayer
 
 typealias VolumeChangeAction = (Float) -> Void
 
+/// listen for events when user click on volume buttons
+/// used for taking photos with volume buttons
 public class VolumeControl {
     
     let changeKey = "AVSystemController_SystemVolumeDidChangeNotification"

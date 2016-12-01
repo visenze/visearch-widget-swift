@@ -3,6 +3,8 @@ import AVFoundation
 
 public typealias CameraShotCompletion = (UIImage?) -> Void
 
+
+/// Take photo helper method
 public func takePhoto(_ stillImageOutput: AVCaptureStillImageOutput, videoOrientation: AVCaptureVideoOrientation, cropSize: CGSize, completion: @escaping CameraShotCompletion) {
     
     guard let videoConnection: AVCaptureConnection = stillImageOutput.connection(withMediaType: AVMediaTypeVideo) else {

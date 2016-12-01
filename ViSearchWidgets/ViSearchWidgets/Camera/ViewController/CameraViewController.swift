@@ -6,6 +6,8 @@ import Photos
 public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
 public extension CameraViewController {
+    
+    /// Open photo library to pick photo
     public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> UINavigationController {
         let imagePicker = PhotoLibraryViewController()
         let navigationController = UINavigationController(rootViewController: imagePicker)
@@ -35,16 +37,26 @@ public extension CameraViewController {
     }
 }
 
+/// Open camera to take photo. This view controller will include user guide info button, flash button and reverse camera button
 public class CameraViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
     let buttonSize : CGFloat = 52
     let spacingBtn : CGFloat = 10
     
-    public var infoTitle : String = "How to Use"
-    public var infoTxt : String = "Snap a photo of an item you'd like to find, and we'll search our store to find a match or something very similar."
-    public var infoCameraTxt : String = "Photograph the item straight-on in bright lighting for the best search results."
-    public var infoFlashTxt : String = "Use the flash if there isn't enough light"
     
+    // MARK: Default Info Text
+    
+    /// title for info popover. Default to "How to Use"
+    public var infoTitle : String = "How to Use"
+    
+    /// Default instruction on how to take photo
+    public var infoTxt : String = "Snap a photo of an item you'd like to find, and we'll search our store to find a match or something very similar."
+    
+    /// Tips for using camera button
+    public var infoCameraTxt : String = "Photograph the item straight-on in bright lighting for the best search results."
+    
+    /// Tips for using flash button
+    public var infoFlashTxt : String = "Use the flash if there isn't enough light"
     
     var didUpdateViews = false
     var allowCropping = false
@@ -91,7 +103,10 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     var cameraOverlayWidthConstraint: NSLayoutConstraint?
     var cameraOverlayCenterConstraint: NSLayoutConstraint?
     
+    
+    /// show/hide Power by ViSenze logo
     public var showPowerByViSenze : Bool = true
+    
     var powerEdgeConstraint: NSLayoutConstraint?
     var powerGravityConstraint: NSLayoutConstraint?
     var powerWidthConstraint: NSLayoutConstraint?
@@ -165,6 +180,12 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     }()
     
     
+    /// Constructor
+    ///
+    /// - Parameters:
+    ///   - croppingEnabled: enable/disable cropping after taking photo
+    ///   - allowsLibraryAccess: whether to allow user select image from photo library
+    ///   - completion: callback after taking photo / selecting photo from library
     public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: @escaping CameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)
         onCompletion = completion
@@ -216,8 +237,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     }
     
     /**
-     * Setup the constraints when the app is starting or rotating
-     * the screen.
+     * Setup the constraints when the app is starting or rotating the screen.
      * To avoid the override/conflict of stable constraint, these
      * stable constraint are one time configurable.
      * Any other dynamic constraint are configurable when the
@@ -312,7 +332,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     }
     
     /**
-     * This method will disable the rotation of the
+     * Update constraints during rotation
      */
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -684,7 +704,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         present(confirmViewController, animated: true, completion: nil)
     }
     
-    // important - this is needed so that a popover will be shown instead of fullscreen
+    /// important - this is needed so that a popover (info guide text) will be shown instead of fullscreen
     public func adaptivePresentationStyle(for controller: UIPresentationController,
                                           traitCollection: UITraitCollection) -> UIModalPresentationStyle{
         return .none

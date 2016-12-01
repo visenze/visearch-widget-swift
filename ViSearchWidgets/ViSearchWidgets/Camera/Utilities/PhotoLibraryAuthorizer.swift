@@ -3,9 +3,11 @@ import Photos
 
 public typealias PhotoLibraryAuthorizerCompletion = (NSError?) -> Void
 
+
+/// Handle authorization for photo library access
 class PhotoLibraryAuthorizer {
 
-    private let errorDomain = "com.zero.imageFetcher"
+    private let errorDomain = "com.visenze.imageFetcher"
 
     private let completion: PhotoLibraryAuthorizerCompletion
 

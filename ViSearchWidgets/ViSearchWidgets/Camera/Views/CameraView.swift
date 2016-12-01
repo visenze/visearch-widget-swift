@@ -1,14 +1,7 @@
-//
-//  CameraView.swift
-//  ALCameraViewController
-//
-//  Created by Alex Littlejohn on 2015/06/17.
-//  Copyright (c) 2015 zero. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 
+/// Camera view with optional crop overlay
 public class CameraView: UIView {
     
     var session: AVCaptureSession!
@@ -17,12 +10,13 @@ public class CameraView: UIView {
     var imageOutput: AVCaptureStillImageOutput!
     var preview: AVCaptureVideoPreviewLayer!
     
-    let cameraQueue = DispatchQueue(label: "com.zero.ALCameraViewController.Queue")
+    let cameraQueue = DispatchQueue(label: "com.visenze.CameraViewController.Queue")
     
     let focusView = CropOverlay(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
     public var currentPosition = CameraGlobals.shared.defaultCameraPosition
     
+    /// start camera capture session
     public func startSession() {
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetPhoto
@@ -31,7 +25,8 @@ public class CameraView: UIView {
         if let device = device , device.hasFlash {
             do {
                 try device.lockForConfiguration()
-                device.flashMode = .auto
+//                device.flashMode = .auto
+                device.flashMode = .off
                 device.unlockForConfiguration()
             } catch _ {}
         }
@@ -65,6 +60,7 @@ public class CameraView: UIView {
         }
     }
     
+    /// stop session
     public func stopSession() {
         cameraQueue.sync {
             self.session?.stopRunning()
@@ -187,6 +183,9 @@ public class CameraView: UIView {
         return true
     }
     
+    
+    /// moving through different flash mode. We only allow on/off modes here
+    /// auto is disabled
     public func cycleFlash() {
         guard let device = device, device.hasFlash else {
             return
@@ -208,6 +207,7 @@ public class CameraView: UIView {
         } catch _ { }
     }
 
+    /// switch between front and back camera
     public func swapCameraInput() {
         
         guard let session = session, let input = input else {

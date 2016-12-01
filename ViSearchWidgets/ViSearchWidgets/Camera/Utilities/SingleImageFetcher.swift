@@ -4,8 +4,9 @@ import Photos
 public typealias SingleImageFetcherSuccess = (UIImage) -> Void
 public typealias SingleImageFetcherFailure = (NSError) -> Void
 
+/// fetch single image from photo library for cropping
 public class SingleImageFetcher {
-    private let errorDomain = "com.zero.singleImageSaver"
+    private let errorDomain = "com.visenze.singleImageSaver"
     
     private var success: SingleImageFetcherSuccess?
     private var failure: SingleImageFetcherFailure?

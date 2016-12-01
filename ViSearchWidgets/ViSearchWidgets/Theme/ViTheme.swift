@@ -84,6 +84,9 @@ public class ViTheme: NSObject {
     /// default product card background color
     public var default_product_card_background_color = UIColor.white
     
+    /// title for select image from photo library
+    public var default_select_photo_title : String = "Select photo"
+    
     /// singleton instance. Used this to configure the global theme settings
     public static let sharedInstance : ViTheme = ViTheme()
     

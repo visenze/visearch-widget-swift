@@ -1,13 +1,6 @@
-//
-//  PermissionsView.swift
-//  ALCameraViewController
-//
-//  Created by Alex Littlejohn on 2015/06/24.
-//  Copyright (c) 2015 zero. All rights reserved.
-//
-
 import UIKit
 
+/// Display error when user denied permission to photo library / camera
 internal class PermissionsView: UIView {
    
     let iconView = UIImageView()

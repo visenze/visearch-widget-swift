@@ -5,6 +5,11 @@ internal func radians(_ degrees: Double) -> Double {
     return degrees / 180 * M_PI
 }
 
+
+/// helper to load localized string
+///
+/// - Parameter key: string key
+/// - Returns: value in localization bundle
 internal func localizedString(_ key: String) -> String {
     var bundle = Bundle(for: CameraViewController.self)
     

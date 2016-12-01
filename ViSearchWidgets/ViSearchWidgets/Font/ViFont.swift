@@ -8,10 +8,11 @@
 
 import UIKit
 
-/// Font helper class
+/// Font helper class. Load font bundle and check if the bundle is generated from Cocoa Pods
+/// Default font used in all widgets are Roboto
+/// For customization, refer to ViTheme method
 public class ViFont: NSObject {
     
-   
     /// Thin with size font. Will load custom font and fall back to system font if not available.
     ///
     /// - parameter size: font size

@@ -12,6 +12,12 @@ import ViSearchSDK
 /// extract the products info from schema mapping
 public class ViSchemaHelper: NSObject {
 
+    /// From ViSenze API response, load products information into [ViProduct] based on provided schema mapping
+    ///
+    /// - Parameters:
+    ///   - mapping: product schema mapping
+    ///   - data: API response data
+    /// - Returns: Array of products information
     public static func parseProducts(mapping: ViProductSchemaMapping, data: ViResponseData)
         -> [ViProduct]{
         var arr : [ViProduct] = []

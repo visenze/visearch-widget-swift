@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 /// Theme for ViSenze widgets
 /// quick and easy way to configure various UI settings such as font/color in all the widgets
 public class ViTheme: NSObject {
@@ -19,10 +18,13 @@ public class ViTheme: NSObject {
     /// default bold font. Used as default for 'label' in product card
     public var default_bold_font : UIFont = ViFont.medium(with: 11.0)
     
+    /// Font for a filter row title e.g. "Category" , "Brand"
     public var default_filter_row_title_font : UIFont = ViFont.medium(with: 16.0)
     
+    /// Font for a filter row description e.g. selected categories, selected brands, selected prices in range
     public var default_filter_row_desc_font : UIFont = ViFont.regular(with: 14.0)
     
+    /// Selected color for range filter i.e. the color between selected lower and upper numbers e.g lower/upper prices
     public var default_filter_track_color : UIColor = UIColor.colorWithHexString("#B66C6C", alpha: 1.0)!
     
     /// default font for widget title

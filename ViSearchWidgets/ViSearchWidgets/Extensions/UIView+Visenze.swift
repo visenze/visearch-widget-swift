@@ -8,9 +8,10 @@
 
 import UIKit
 
-/// add border and corner
+/// various helper methods for uiview
 extension UIView {
     
+    /// quick access to x
     public var x: CGFloat {
         get {
             return self.frame.origin.x
@@ -19,6 +20,7 @@ extension UIView {
         }
     }
     
+    /// quick access to y
     public var y: CGFloat {
         get {
             return self.frame.origin.y
@@ -27,7 +29,7 @@ extension UIView {
         }
     }
 
-    
+    /// shorthand for view width
     public var w: CGFloat {
         get {
             return self.frame.size.width
@@ -36,6 +38,7 @@ extension UIView {
         }
     }
     
+    /// shorthand for view height
     public var h: CGFloat {
         get {
             return self.frame.size.height
@@ -44,11 +47,16 @@ extension UIView {
         }
     }
     
+    
+    /// Set corner radius
+    ///
+    /// - Parameter radius: radius
     public func setCornerRadius(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
     }
     
+    /// add shadow for view
     public func addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float, cornerRadius: CGFloat? = nil) {
         self.layer.shadowOffset = offset
         self.layer.shadowRadius = radius
@@ -59,28 +67,61 @@ extension UIView {
         }
     }
     
+    
+    /// Add border
+    ///
+    /// - Parameters:
+    ///   - width: border thickness
+    ///   - color: border color
     public func addBorder(width: CGFloat, color: UIColor) {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
         layer.masksToBounds = true
     }
     
+    
+    /// add only top border
+    ///
+    /// - Parameters:
+    ///   - size: border thickness
+    ///   - color: border color
     public func addBorderTop(size: CGFloat, color: UIColor) {
         addBorderUtility(x: 0, y: 0, width: frame.width, height: size, color: color)
     }
     
+    /// add only top border with padding
+    ///
+    /// - Parameters:
+    ///   - size: border thickness
+    ///   - color: border color
+    ///   - padding: padding to size
     public func addBorderTopWithPadding(size: CGFloat, color: UIColor, padding: CGFloat) {
         addBorderUtility(x: padding, y: 0, width: frame.width - padding*2, height: size, color: color)
     }
     
+    /// add only bottom border
+    ///
+    /// - Parameters:
+    ///   - size: border thickness
+    ///   - color: border color
     public func addBorderBottom(size: CGFloat, color: UIColor) {
         addBorderUtility(x: 0, y: frame.height - size, width: frame.width, height: size, color: color)
     }
     
+    /// add only left border
+    ///
+    /// - Parameters:
+    ///   - size: border thickness
+    ///   - color: border color
     public func addBorderLeft(size: CGFloat, color: UIColor) {
         addBorderUtility(x: 0, y: 0, width: size, height: frame.height, color: color)
     }
     
+    /// add only right border
+    ///
+    /// - Parameters:
+    ///   - size: border thickness
+    ///   - color: border color
     public func addBorderRight(size: CGFloat, color: UIColor) {
         addBorderUtility(x: frame.width - size, y: 0, width: size, height: frame.height, color: color)
     }
@@ -92,12 +133,23 @@ extension UIView {
         layer.addSublayer(border)
     }
     
+    
+    /// remove constraint
+    ///
+    /// - Parameter constraint: existing constraint
     public func autoRemoveConstraint(_ constraint : NSLayoutConstraint?) {
         if constraint != nil {
             self.removeConstraint(constraint!)
         }
     }
     
+    
+    /// Draw circle over view
+    ///
+    /// - Parameters:
+    ///   - fillColor: fill color
+    ///   - strokeColor: stroke color
+    ///   - strokeWidth: stroke width
     public func drawCircle(fillColor: UIColor, strokeColor: UIColor, strokeWidth: CGFloat) {
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w/2)
         let shapeLayer = CAShapeLayer()
@@ -108,6 +160,12 @@ extension UIView {
         self.layer.addSublayer(shapeLayer)
     }
     
+    
+    /// Draw stroke
+    ///
+    /// - Parameters:
+    ///   - width: stroke width
+    ///   - color: stroke color
     public func drawStroke(width: CGFloat, color: UIColor) {
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w/2)
         let shapeLayer = CAShapeLayer ()

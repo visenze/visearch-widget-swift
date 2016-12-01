@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Configuration for a label e.g. heading, label, price, discount price label
 public struct ViLabelConfig {
     
     /// font for label
@@ -25,6 +26,15 @@ public struct ViLabelConfig {
     /// string format for formatting numbers such as price, discount price (Optional)
     public var numberStringFormat : String = ViTheme.sharedInstance.default_price_format
     
+    
+    /// Constructor
+    ///
+    /// - Parameters:
+    ///   - font: font to use. If not provided, will use default font in ViTheme
+    ///   - text_color: text color. If not provided, use default text color in ViTheme
+    ///   - num_of_lines: number of lines. Default to 1
+    ///   - is_strike_through: whether to strike through the text
+    ///   - numberStringFormat: number format for prices labels
     public init(font: UIFont = ViTheme.sharedInstance.default_font,
                 text_color: UIColor = ViTheme.sharedInstance.default_txt_color ,
                 num_of_lines: Int = 1,

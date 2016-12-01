@@ -10,6 +10,7 @@ import UIKit
 
 
 /// List of default tracking actions
+/// Refer to this link for more details: http://developers.visenze.com/setup/#Implement-ViSenze-analytics
 ///
 /// - CLICK: user clicks on a product after search
 /// - ADD_TO_CART: user clicks on add to cart button to add a product to shopping cart
@@ -24,8 +25,8 @@ public enum ViDefaultTrackingAction : String {
     
 }
 
-/// These actions are tracked automatically when calling various API calls
-/// Custom actions should not used these
+/// These actions are recorded automatically when calling various ViSenze API calls
+/// Please do not use these actions in your custom actions
 public enum ViReservedTrackingAction : String {
     /// trigger when calling find similar API
     case SEARCH = "search"

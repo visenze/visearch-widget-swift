@@ -8,6 +8,9 @@
 
 import UIKit
 
+/// Model to hold data for product card
+/// Based on the provided schema mapping and ViSenze API response, data will be populated in this class
+/// Represent a single product
 open class ViProduct: NSObject {
 
     // MARK: properties
@@ -43,7 +46,7 @@ open class ViProduct: NSObject {
         self.im_name = im_name
     }
     
-    public convenience init?(im_name: String, urlString: String, price: Float?){
+    public convenience init?(im_name: String, urlString: String, price: Float? = nil){
         if let url = URL(string: urlString) {
             self.init (im_name: im_name, url: url, price: price)
         }

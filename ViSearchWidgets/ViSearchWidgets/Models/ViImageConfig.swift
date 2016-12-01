@@ -8,14 +8,13 @@
 
 import UIKit
 
-
-/// Configuration for image
+/// Configuration for product image
 public struct ViImageConfig {
     
     /// image size
     public var size: CGSize
     
-    /// content mode
+    /// image view content mode
     public var contentMode: UIViewContentMode
     
     /// loading image
@@ -24,7 +23,7 @@ public struct ViImageConfig {
     /// error image if network fails or broken link
     public var errImg: UIImage?
     
-    // TODO: add configuration for loading image animation here e.g. fading
+    // TODO: add configuration for loading image animation later e.g. fading
     /// init image config
     ///
     /// - Parameters:
@@ -43,6 +42,7 @@ public struct ViImageConfig {
         self.errImg = errImg
     }
     
+    /// Default image view content mode
     public static var default_content_mode : UIViewContentMode = .scaleToFill
 }
 

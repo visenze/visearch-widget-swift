@@ -8,7 +8,8 @@
 
 import UIKit
 
-/// Mapping from schema to product fields for displaying in a single product card UI element
+/// Mapping from data feed schema to product fields for displaying in a single product card UI element
+/// Refer to http://developers.visenze.com/setup/#Configure-schema-fields for more details
 public struct ViProductSchemaMapping {
     
     /// mapping for product image url, default to im_url
@@ -32,7 +33,8 @@ public struct ViProductSchemaMapping {
     }
     
     /// construct fl meta array to be passed to search API
-    /// the meta data will then be returned in search API result
+    /// the meta data will then be returned in ViSenze search API response
+    /// Refers to this link for more details: http://developers.visenze.com/api/?shell#advanced-parameters
     public func getMetaArrForSearch() -> [String] {
         var fl : [String] = []
         

@@ -19,12 +19,12 @@ open class ViRangeTableViewCell: UITableViewCell {
                 self.titleLabel?.text = filterItem.title
                 self.rangeSlider?.maximumValue = Double(filterItem.max)
                 self.rangeSlider?.minimumValue = Double(filterItem.min)
-                self.rangeSlider?.upperValue = Double(filterItem.selectedMax)
-                self.rangeSlider?.lowerValue = Double(filterItem.selectedMin)
+                self.rangeSlider?.upperValue = Double(filterItem.selectedUpper)
+                self.rangeSlider?.lowerValue = Double(filterItem.selectedLower)
                 
                 // update frame for upper and lower
-                self.upperLabel?.text = String(format: "%d", filterItem.selectedMax)
-                self.lowerLabel?.text = String(format: "%d", filterItem.selectedMin)
+                self.upperLabel?.text = String(format: "%d", filterItem.selectedUpper)
+                self.lowerLabel?.text = String(format: "%d", filterItem.selectedLower)
                 
                 self.setNeedsLayout()
                 self.layoutIfNeeded()
@@ -93,11 +93,11 @@ open class ViRangeTableViewCell: UITableViewCell {
     }
     
     open func rangeSliderValueChanged(_ rangeSlider: ViRangeSlider) {
-        filterItem?.selectedMin = lround(rangeSlider.lowerValue)
-        filterItem?.selectedMax = lround(rangeSlider.upperValue)
+        filterItem?.selectedLower = lround(rangeSlider.lowerValue)
+        filterItem?.selectedUpper = lround(rangeSlider.upperValue)
         
-        self.upperLabel?.text = String(format: "%d", filterItem!.selectedMax)
-        self.lowerLabel?.text = String(format: "%d", filterItem!.selectedMin)
+        self.upperLabel?.text = String(format: "%d", filterItem!.selectedUpper)
+        self.lowerLabel?.text = String(format: "%d", filterItem!.selectedLower)
         
         // update frame for upper and lower label
         self.setNeedsLayout()

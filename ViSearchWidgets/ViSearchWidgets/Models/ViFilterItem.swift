@@ -54,6 +54,13 @@ open class ViFilterItem: NSObject {
     open func getFilterQueryValue() -> String {
         return ""
     }
+    
+    
+    /// to be implemented by subclass
+    /// soft clone the current object but reset all selected options
+    open func clone() -> ViFilterItem{
+        return self
+    }
 
 }
 
@@ -124,6 +131,14 @@ open class ViFilterItemCategory : ViFilterItem {
         
         return arr.joined(separator: " OR ")
     }
+    
+    open override func clone() -> ViFilterItem{
+        let item = ViFilterItemCategory(title: self.title, schemaMapping: self.schemaMapping)
+        // keep reference to old options but not selected options
+        item.options = self.options
+        
+        return item
+    }
 
 }
 
@@ -167,6 +182,11 @@ open class ViFilterItemRange : ViFilterItem {
     
     open override func getFilterQueryValue() -> String {
         return String(format: "%d,%d", self.selectedMin, self.selectedMax)
+    }
+    
+    open override func clone() -> ViFilterItem{
+        let item = ViFilterItemRange(title: self.title, schemaMapping: self.schemaMapping , min: self.min , max: self.max)
+        return item
     }
 }
 

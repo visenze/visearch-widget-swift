@@ -529,6 +529,21 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 if self is ViGridSearchViewController {
                     let gridController = self as! ViGridSearchViewController
                     similarController.rowSpacing = gridController.rowSpacing
+                    
+                    // copy the filtering parameters also
+                    similarController.filterControllerTitle = gridController.filterControllerTitle
+                    
+                    // copy the filter params
+                    if gridController.filterItems.count > 0 {
+                        var filterItems : [ViFilterItem] = []
+                        
+                        for filterItem in gridController.filterItems {
+                            filterItems.append(filterItem.clone())
+                        }
+                        
+                        similarController.filterItems = filterItems
+                    }
+                    
                 }
                 
                 similarController.productCardBorderColor = self.productCardBorderColor

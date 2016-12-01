@@ -10,23 +10,28 @@ import UIKit
 
 private let reuseIdentifier = "ViFilterCategoryViewControllerCell"
 
+/// delegate
 public protocol ViFilterCategoryViewControllerDelegate : class {
     func categoryFilterDone(filterItem: ViFilterItemCategory?)
     func categoryFilterReset(filterItem: ViFilterItemCategory?)
 }
 
+/// Filter category view controller which allows multiple selection
 open class ViFilterCategoryViewController: UIViewController , UITableViewDelegate, UITableViewDataSource  {
 
+    /// table view which shows list of category options
     public var tableView : UITableView {
         let resultsView = self.view as! ViFilterTableView
         return resultsView.tableView!
     }
     
-    // whether to enable Power by Visenze logo
+    // show/hide Power by Visenze image
     public var showPowerByViSenze : Bool = true
     
+    /// Filter item configuration and selected items
     open var filterItem : ViFilterItemCategory? = nil
     
+    /// delegate
     open var delegate : ViFilterCategoryViewControllerDelegate? = nil
     
     open override func loadView() {
@@ -50,6 +55,8 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
 //        let doneBtnItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneBtnTap(sender:)) )
 //        self.navigationItem.rightBarButtonItem = doneBtnItem
     }
+    
+    // MARK: Buttons events
     
     public func okBtnTap(sender: UIButton, forEvent event: UIEvent) {
         delegate?.categoryFilterDone(filterItem: self.filterItem)
@@ -137,6 +144,8 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
             
         }
     }
+    
+    // MARK: Helper methods
     
     // check whether this option is currently selected
     private func isSelected(_ curOption : ViFilterItemCategoryOption  , _ filterItem: ViFilterItemCategory) -> (Bool , Int) {

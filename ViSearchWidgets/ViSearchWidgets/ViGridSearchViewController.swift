@@ -9,21 +9,30 @@
 import UIKit
 import LayoutKit
 
+/// Display search results in a grid
+/// This is the base class for "Find Similar" , "Search By Color" , "Search By Image" widgets (ViFindSimilarViewController, ViColorSearchViewController, ViSearchImageViewController)
+/// The products are layouted using collectionView flow layout which will push product items to the next line based on the item size
 open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterViewControllerDelegate {
 
+    /// store the header layout height of collection view
+    /// The header includes the query product (for Find Similar), the color preview box (for color search) , image preview box (for search by image)
     public var headerLayoutHeight : CGFloat = 0
     
-    // filter will be available only if filter option is set
+    /// store the filter configuration and also selected filter options
     open var filterItems : [ViFilterItem] = []
     
+    // filter button will be shown only if the filter items are set i.e. count > 0
     open var filterBtn : UIButton? = nil
     
+    /// title for filter controller
     open var filterControllerTitle : String = "Filter by"
     
+    /// Disable the static header of parent class. This is different from headerLayoutHeight which is refering to the header within collectionView
     open var headerLayout : Layout? {
         return nil
     }
     
+    /// product card item size
     public override var itemSize: CGSize {
         didSet {
             // make sure image config width cannot exceed item width
@@ -31,11 +40,29 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         }
     }
     
+    /// spacing between rows
+    public var rowSpacing  : CGFloat = 4.0 {
+        didSet{
+            reloadLayout()
+        }
+    }
+    
+    // MARK: Item Sizing Methods
+    
+    /// calculate and set item width (for product card) constrained within view.bounds.width
+    /// The items will display nicely within the specified number of columns after setting
+    /// Note: if the view is not yet displayed and self.view.bounds.width is 0, no action will be taken
+    ///
+    /// - Parameter numOfColumns: number of columns
     public func setItemWidth(numOfColumns : Int) {
         self.setItemWidth(numOfColumns: numOfColumns, containerWidth: self.view.bounds.width)
     }
     
-    // set item width for number of columns
+    /// calculate and set item width (for product card) constrained within containerWidth
+    /// The items will display nicely within the specified number of columns after setting
+    ///
+    /// - Parameter numOfColumns: number of columns
+    /// - Parameter containerWidth: width of the container
     public func setItemWidth(numOfColumns : Int, containerWidth: CGFloat) {
         if(containerWidth > 0 ) {
             let itemWidth = self.estimateItemWidth(numOfColumns: numOfColumns, containerWidth: containerWidth )
@@ -48,22 +75,21 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         }
     }
     
+    
+    /// Refers to setItemWidth
+    ///
+    /// - Parameter numOfColumns: number of columns to fit in
     public func recalculateItemWidth(numOfColumns : Int) {
         self.setItemWidth(numOfColumns: numOfColumns)
     }
     
-    /// spacing between rows
-    public var rowSpacing  : CGFloat = 4.0 {
-        didSet{
-            reloadLayout()
-        }
-    }
-    
+   
     /// Estimate item width for given number of columns and max width of container
+    /// The items will display nicely within the specified number of columns if set to the estimated width
     ///
     /// - Parameters:
     ///   - numOfColumns: number of columns
-    ///   - containerWidth: container width e.g. self.view.bounds
+    ///   - containerWidth: container width e.g. self.view.bounds. Must be > 0.
     /// - Returns: estimated width
     open func estimateItemWidth(numOfColumns : Int , containerWidth: CGFloat ) -> CGFloat {
         
@@ -83,10 +109,23 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         return itemWidth
     }
     
+    
+    /// Refers to estimateItemWidth(numOfColumns : Int , containerWidth: CGFloat ) 
+    /// Helper method which set containerWidth to self.view.bounds.width. Note: will not work if self.view.bounds.width = 0
+    ///
+    /// - Parameter numOfColumns: number of columns
+    /// - Returns: estimated item width
     open func estimateItemWidth(numOfColumns : Int ) -> CGFloat{
         return self.estimateItemWidth(numOfColumns: numOfColumns, containerWidth: self.view.bounds.width)
     }
     
+    
+    /// Estimate item size so that it can fit within specified number of columns, constrained to containerWidth
+    ///
+    /// - Parameters:
+    ///   - numOfColumns: number of columns
+    ///   - containerWidth: container width
+    /// - Returns: item size
     open func estimateItemSize(numOfColumns: Int, containerWidth: CGFloat ) -> CGSize {
         let width = self.estimateItemWidth(numOfColumns: 2, containerWidth: containerWidth)
         let constrainWidth = min(width, self.imageConfig.size.width )
@@ -94,7 +133,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         return CGSize(width: width, height: height)
     }
     
-    /// reload layout.. configure this as a horizontal layout
+    /// Configure layout as vertical layout
     open override func reloadLayout(){
 
         super.reloadLayout()
@@ -109,6 +148,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         
     }
     
+    // MARK: collectionview datasource and delegate
     open override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
         
         if let layout = self.headerLayout {
@@ -129,6 +169,11 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
     }
     
     // MARK: layout helper methods
+    
+    
+    /// Generate layout for Power By ViSenze image
+    ///
+    /// - Returns: layout
     public func getPowerByVisenzeLayout() -> Layout {
         let scaleRatio :CGFloat = 1.1
         let powerByLayout = SizeLayout<UIImageView>(
@@ -147,6 +192,10 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         return powerByLayout
     }
     
+    
+    /// Generate gray divider
+    ///
+    /// - Returns: layout
     public func getDividerLayout() -> Layout {
         let divider = SizeLayout<UIView>(height: 0.5,
                                          alignment: .fill,
@@ -162,7 +211,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         return divider
     }
     
-    /// generate the layout for number of products and filter button
+    /// generate the layout for number of searched products and filter button at the right
     open func getLabelAndFilterLayout(emptyProductsTxt: String = "Products Found",
                                       displayStringFormat: String = "%d Products Found"   ) -> Layout{
         var displayTxt = emptyProductsTxt
@@ -221,9 +270,15 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         return labelAndFilterLayout
     }
     
+    // MARK: Filter helper methods
     
     
-    // MARK : filter methods
+    /// Action taken when user tapped on filter button
+    /// This will open the filter view controller
+    ///
+    /// - Parameters:
+    ///   - sender: filter button
+    ///   - event: button event
     open func filterBtnTap(sender: UIButton, forEvent event: UIEvent) {
         // open filter controller here
         let controller = ViFilterViewController()
@@ -254,7 +309,9 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
 
     }
     
-    // need to be implemented by subclass
+    /// need to be implemented by subclass
+    /// Triggered when user taps on "Done" button for the Filter controller
+    /// The filter parameters will be applied and a new search is triggered
     open func applyFilter(){
         // default just dismiss controller
         if(self.navigationController == nil) {
@@ -267,10 +324,13 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         self.refreshData()
     }
     
+    
+    /// call back when filter is reset
     open func resetFilter(){
         
     }
     
+    /// Set the filter query parameters before calling search API
     open func setFilterQueryParamsForSearch() {
         
         if let searchParams = self.searchParams {
@@ -294,7 +354,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
 
     }
     
-    // MARK : viewWillAppear
+    // MARK: View appear methods
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

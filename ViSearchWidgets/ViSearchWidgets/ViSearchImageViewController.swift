@@ -11,16 +11,26 @@ import ViSearchSDK
 import LayoutKit
 import Photos
 
+/// Search by Image widget. Search results will be displayed in a grid.
 open class ViSearchImageViewController: ViGridSearchViewController {
-
+    
+    /// Tag for the float view containing color picker + filter buttons
+    /// The floating view will appear when we scroll down
     let floatViewTag : Int = 999
     
-    // most recent photo asset
+    /// most recent photo asset that is loaded from photo library
     public var asset: PHAsset? = nil
+    
+    /// whether to enable cropping
     open var croppingEnabled : Bool = true
+    
+    /// whether to allow access to photo library to pick a photo
     open var allowsLibraryAccess : Bool = true
     
+    /// Preview image view after photo is taken
     var queryImageView : UIImageView? = nil
+    
+    /// Crop button
     var cropBtn : UIButton? = nil
     
     open override func setup(){
@@ -29,6 +39,8 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         // hide this as we will use the query image preview
         self.showTitleHeader = false
     }
+    
+    // MARK: Scroll methods
     
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.checkHeaderGone(scrollView)
@@ -40,8 +52,11 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         self.checkHeaderGone(scrollView)
     }
     
+    /// Create the floating view that contains Filter + Camera buttons
+    ///
+    /// - Returns: generated view
     public func getFloatingView() -> UIView {
-        var floatView = UIView()
+        let floatView = UIView()
         floatView.tag = self.floatViewTag
         floatView.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
         
@@ -89,7 +104,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         return floatView
     }
     
-    // if gone , then overlay filter + color on top
+    /// check scroll view position, if below header , then overlay filter + color buttons on top
     open func checkHeaderGone(_ scrollView: UIScrollView) {
         if self.headerLayoutHeight == 0 {
             return
@@ -112,7 +127,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
     }
 
     
-    /// layout for header that contains query product and filter
+    /// layout for header that contains query image and filter
     open override var headerLayout : Layout? {
         var allLayouts : [Layout] = []
         
@@ -242,7 +257,11 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         
     }
     
-   
+    /// Open camera to take picture
+    ///
+    /// - Parameters:
+    ///   - sender: camera button
+    ///   - event: button event
     public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
         // move cropping to the the later stage where we click on the crop button
         let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: self.allowsLibraryAccess)
@@ -270,6 +289,12 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         
     }
     
+    
+    /// Open crop image view controller
+    ///
+    /// - Parameters:
+    ///   - sender: crop button
+    ///   - event: button event
     public func cropImg(sender: UIButton, forEvent event: UIEvent) {
         
         if let curAsset = self.asset {
@@ -299,7 +324,8 @@ open class ViSearchImageViewController: ViGridSearchViewController {
     }
     
     
-    /// since we show the logo below the color preview box it is not necessary to show again
+    /// since we show the Power by ViSenze image below the query product, it is not necessary to show again in the footer
+    /// if query product is not available, then the Power by ViSenze image will appear in footer
     open override var footerSize : CGSize {
         return CGSize.zero
     }
@@ -326,9 +352,6 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                         // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
                         if let data = data {
                             if data.hasError {
-                                let errMsgs =  data.error.joined(separator: ",")
-                                print("API error: \(errMsgs)")
-                                
                                 // TODO: display system busy message here
                                 self.delegate?.searchFailed(err: nil, apiErrors: data.error)
                             }

@@ -10,6 +10,7 @@ import UIKit
 
 /// present search results in either horizontal scrollview or vertical grid
 /// The layout is vertical and as follow: headerView - collectionView - footerView
+/// headerView generally contains the widget title such as "You May Also Like"
 /// footerView generally contains the Power by Visenze image
 open class ViSearchResultsView: UIView {
     

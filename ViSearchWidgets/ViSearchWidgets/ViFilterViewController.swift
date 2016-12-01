@@ -12,7 +12,7 @@ private let reuseDefaultIdentifer = "ViFilterItemCell"
 private let reuseCategoryIdentifer = "ViFilterItemCategoryCell"
 private let reuseRangeIdentifer = "ViFilterItemRangeCell"
 
-// TODO: need to passed in the options
+/// delegate for filter actions
 public protocol ViFilterViewControllerDelegate: class {
     func applyFilter()
     func resetFilter()
@@ -24,18 +24,23 @@ public extension ViFilterViewControllerDelegate{
     func resetFilter(){}
 }
 
+
+/// Filter controller that shows list of filter items in a table view
 open class ViFilterViewController: UIViewController , UITableViewDelegate, UITableViewDataSource ,ViFilterCategoryViewControllerDelegate {
 
+    /// table view that shows list of filters
     public var tableView : UITableView {
         let resultsView = self.view as! ViFilterTableView
         return resultsView.tableView!
     }
     
-    // whether to enable Power by Visenze logo
+    // show/hide Power by Visenze image
     public var showPowerByViSenze : Bool = true
     
+    /// list of filter items
     open var filterItems : [ViFilterItem] = []
     
+    /// delegate
     public var delegate: ViFilterViewControllerDelegate? = nil
     
     open override func loadView() {
@@ -187,6 +192,9 @@ open class ViFilterViewController: UIViewController , UITableViewDelegate, UITab
         return nil
     }
     
+    
+    /// If the selected row is a category filter item, we will open up the category filter view controller
+    ///
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let item = self.filterItems[indexPath.row]
         if(item.filterType == ViFilterItemType.CATEGORY) {

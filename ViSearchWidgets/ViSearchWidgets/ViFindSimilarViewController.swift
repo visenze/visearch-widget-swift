@@ -10,16 +10,20 @@ import UIKit
 import ViSearchSDK
 import LayoutKit
 
+/// Find Similar widget. Search results are displayed in a grid
 open class ViFindSimilarViewController: ViGridSearchViewController {
 
+    /// Configuration for query image
     public var queryImageConfig = ViImageConfig()
     
-    /// whethere to show query product
+    /// show/hide query product
     open var showQueryProduct : Bool = false
 
+    /// Query product from previous screen e.g. user taps on Similar button on a product in the search results
     open var queryProduct: ViProduct? = nil
     
     /// generate the query image config from product card config, scale down by scale factor
+    /// scale should generally be less than 1. Default number is in ViTheme.default_query_product_image_scale
     open func generateQueryImageConfig(scale: CGFloat) -> ViImageConfig {
         var config = ViImageConfig()
         
@@ -31,7 +35,7 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
         return config
     }
     
-    /// layout for header that contains query product and filter
+    /// layout for header that contains query product and filter button
     open override var headerLayout : Layout? {
         var allLayouts : [Layout] = []
         
@@ -90,7 +94,8 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
         
     }
     
-    /// since we show the logo below the query product, this is not necessary to show again
+    /// since we show the Power by ViSenze image below the query product, it is not necessary to show again in the footer
+    /// if query product is not available, then the Power by ViSenze image will appear in footer
     open override var footerSize : CGSize {
         if showQueryProduct {
             return CGSize.zero
@@ -127,9 +132,6 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                         // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
                         if let data = data {
                             if data.hasError {
-                                let errMsgs =  data.error.joined(separator: ",")
-                                print("API error: \(errMsgs)")
-                                
                                 // TODO: display system busy message here
                                 self.delegate?.searchFailed(err: nil, apiErrors: data.error)
                             }

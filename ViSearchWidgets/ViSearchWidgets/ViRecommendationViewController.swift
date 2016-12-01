@@ -9,7 +9,7 @@
 import UIKit
 import ViSearchSDK
 
-/// you may also like default to horizontal scroll view
+/// You May Also Like widget. Search results are displayed in horizontal scroll view
 open class ViRecommendationViewController: ViHorizontalSearchViewController{
 
     open override func setup(){
@@ -37,7 +37,6 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                         if let data = data {
                             if data.hasError {
                                 let errMsgs =  data.error.joined(separator: ",")
-                                print("API error: \(errMsgs)")
                                 
                                 // TODO: display system busy message here
                                 self.delegate?.searchFailed(err: nil, apiErrors: data.error)

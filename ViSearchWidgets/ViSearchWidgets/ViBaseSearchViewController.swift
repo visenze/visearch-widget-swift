@@ -11,6 +11,13 @@ import ViSearchSDK
 
 private let reuseIdentifier = "ViProductCardLayoutCell"
 
+
+/// Search solutions enum
+///
+/// - FIND_SIMILAR: find similar search
+/// - YOU_MAY_ALSO_LIKE: you may also like search
+/// - SEARCH_BY_IMAGE: search by image
+/// - SEARCH_BY_COLOR: search by color
 public enum ViSearchType : Int {
     
     case FIND_SIMILAR
@@ -23,6 +30,13 @@ public enum ViSearchType : Int {
     
 }
 
+
+/// Border type enum. Used to indicate which border to add for product card
+///
+/// - TOP: add top border
+/// - BOTTOM: add bottom border
+/// - LEFT: add left border
+/// - RIGHT: add right border
 public enum ViBorderType : Int {
     case TOP
     case BOTTOM
@@ -30,6 +44,8 @@ public enum ViBorderType : Int {
     case RIGHT
 }
 
+
+/// delegate for all search controllers. All methods are optional
 public protocol ViSearchViewControllerDelegate: class {
     
     /// configure the collectionview cell before displaying
@@ -38,25 +54,37 @@ public protocol ViSearchViewControllerDelegate: class {
     /// configure the layout if necessary
     func configureLayout(sender: AnyObject, layout: UICollectionViewFlowLayout)
     
-    /// product selection notification
+    /// product selection notification i.e. user tap on a product card
     func didSelectProduct(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
-    /// action button tapped
+    /// action button tapped notification i.e. user tap on action button at the top right corner of a product card cell
     func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
     /// allow configuration of the FindSimilar controller when similar button is tapped
+    /// This is triggered before the similar controller is pushed to navigation controller/shown in modal
     func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
-    /// find similar button tapped
+    /// user tapped on similar button at the bottom right of a product card cell
     func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
     /// allow configuration of the filter controller before showing
     func willShowFilterControler(sender: AnyObject, controller: ViFilterViewController)
     
-    /// successful search
+    
+    /// Successful search after refreshData() method is called
+    ///
+    /// - Parameters:
+    ///   - searchType: the recent search type
+    ///   - reqId: recent request id
+    ///   - products: list of extract products information based on mapping
     func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct])
     
-    /// failure search handler
+    
+    /// Search failed callback
+    ///
+    /// - Parameters:
+    ///   - err: Errors when trying to call the API e.g. network related errors like offline Internet connection
+    ///   - apiErrors: errors returned to ViSenze server e.g. due to invalid/missing search parameters
     func searchFailed(err: Error?, apiErrors: [String])
     
 }
@@ -85,10 +113,10 @@ public protocol ViSearchViewControllerProtocol: class {
     // call Visearch API and refresh data
     func refreshData() -> Void
     
-    // return custom footer view if necessary
+    // return custom static footer view at bottom if necessary
     func footerView() -> UIView?
     
-    // return custom header view if necessary
+    // return custom static header view at the top if necessary
     func headerView() -> UIView?
     
 }
@@ -97,23 +125,31 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     
     public let headerCollectionViewCellReuseIdentifier = "ViHeaderReuseCellId"
     
+    /// collection view that holds the search results
     public var collectionView : UICollectionView? {
         let resultsView = self.view as! ViSearchResultsView
         return resultsView.collectionView
     }
     
+    /// associated collection view layout
     public var collectionViewLayout: UICollectionViewLayout {
         let resultsView = self.view as! ViSearchResultsView
         return resultsView.collectionViewLayout
     }
     
-    // for the title of the widget .. will be shown in header view
+    /// title label. Used for displaying the widget title in header view
+    /// Currently this is only used for "You May Also Like" widget
     public var titleLabel : UILabel?
+    
+    /// show/hide the title label in header
     public var showTitleHeader: Bool = true
     
+    // MARK: Important properties
+    
+    /// delegate for various events
     public weak var delegate: ViSearchViewControllerDelegate?
     
-    /// last known successful request Id to Visenze API
+    /// last known successful search request Id to Visenze API
     public var reqId : String? = ""
     
     /// search parameters
@@ -123,31 +159,55 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     public var schemaMapping: ViProductSchemaMapping = ViProductSchemaMapping()
     
     // MARK: UI settings
+    
     /// UI settings
+    
+    /// Configuration for product image
     public var imageConfig: ViImageConfig = ViImageConfig()
+    
+    /// Configuration for heading view e.g. for displaying product tile
     public var headingConfig: ViLabelConfig = ViLabelConfig.default_heading_config
+    
+    /// Configuring for label view e.g. displaying brand in label
     public var labelConfig: ViLabelConfig = ViLabelConfig.default_label_config
+    
+    /// Configuration for product price
     public var priceConfig: ViLabelConfig = ViLabelConfig.default_price_config
+    
+    /// Configuration for discount price
     public var discountPriceConfig: ViLabelConfig = ViLabelConfig.default_discount_price_config
     
-    // buttons
+    /// true if similar button (at bottom right) is available for a product card in search results
     public var hasSimilarBtn: Bool = true
+    
+    /// Configuration for similar button if available
     public var similarBtnConfig: ViButtonConfig = ViButtonConfig.default_similar_btn_config
     
+    /// true if action button (at top right) is available for a product card in search results
+    /// The default action button is the heart icon with add to wish list action tracked when tapped
     public var hasActionBtn: Bool = true
+    
+    /// Configuration for action button if available
     public var actionBtnConfig: ViButtonConfig = ViButtonConfig.default_action_btn_config
     
+    /// background color for a product card in the search results
     public var productCardBackgroundColor: UIColor = ViTheme.sharedInstance.default_product_card_background_color
+    
+    /// product card border color. Default to no border
     public var productCardBorderColor: UIColor? = nil
+    
+    /// product card border width. Default to 0 for no border
     public var productCardBorderWidth : CGFloat = 0
-    /// default draw all borders
+    
+    /// which border(s) to draw for the product card
+    /// by default all borders are drawn
     public var productBorderStyles : [ViBorderType] = [.LEFT , .RIGHT , .BOTTOM , .TOP]
     
     
-    // whether to enable Power by Visenze logo
+    // show/hide Power by Visenze image
     public var showPowerByViSenze : Bool = true
     
-    // actual data
+    // extract products data from ViSenze API response
     public var products: [ViProduct] = [] {
         didSet {
             // make sure that this is run on ui thread
@@ -164,22 +224,24 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         }
     }
     
-    /// spacing between items on same row.. item size may need to be re-calculated if this change
+    /// Spacing between product items on same row
     public var itemSpacing  : CGFloat = 4.0 {
         didSet{
             reloadLayout()
         }
     }
     
-    /// background color
+    /// view background color
     public var backgroundColor  : UIColor = UIColor.white
     
+    /// left padding
     public var paddingLeft: CGFloat = 0 {
         didSet{
             reloadLayout()
         }
     }
 
+    /// right padding
     public var paddingRight: CGFloat = 0 {
         didSet{
             reloadLayout()
@@ -197,7 +259,6 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         self.setup()
     }
     
-    // MARK : setup method, can be override by subclass to do init
     open func setup(){
         self.titleLabel = UILabel()
         self.titleLabel?.textAlignment = .left
@@ -225,12 +286,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         reloadLayout()
     }
     
-    override open func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: UICollectionViewDataSource
+    // MARK: UICollectionView datasource & delegate
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
         
@@ -335,15 +391,15 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         }
     }
     
-    // MARK : important methods
+    // MARK: Important methods
     
-    /// estimate product card item size based on image size in image config
-    /// override if necessary
+    /// estimate product card item size based on image width in image config
     open func estimateItemSize() -> CGSize{
         return self.estimateItemSize(constrainedToWidth: self.imageConfig.size.width)
     }
     
-    /// estimate product card item size for a max width of width
+    /// estimate product card item size for a max width of maxWidth
+    /// depend on the product configurations e.g. label is optional, the height would be dynamic and changes
     open func estimateItemSize(constrainedToWidth maxWidth: CGFloat) -> CGSize{
         
         let productCardLayout = ViProductCardLayout(
@@ -359,7 +415,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         return productCardLayout.arrangement(origin: .zero, width: maxWidth).frame.size
     }
     
-    /// to be override by subclasses. Subclass must call delegate configureLayout to allow further customatization
+    /// to be override by subclasses. Subclass must call delegate.configureLayout to allow further customatization
     open func reloadLayout(){
        
         // initial setup will skeep this
@@ -402,6 +458,9 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
           
     }
     
+    
+    /// Set the meta query parameters based on provided schema mapping
+    /// The parameters are needed to retrieve the relevant product information
     open func setMetaQueryParamsForSearch() {
         
         if let searchParams = self.searchParams {
@@ -415,12 +474,13 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         
     }
     
-    /// to be implemented by subclasses
+    /// to be implemented by subclasses to call ViSenze APIs and refresh views
     open func refreshData(){}
     
    
-    // MARK: header
+    //MARK: header
     
+    /// fixed header size
     open var headerSize : CGSize {
         if !showTitleHeader {
             return .zero
@@ -432,6 +492,11 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         return .zero
     }
     
+    
+    /// By default return a UILabel that shows the widget/view controller title
+    /// For example, return "You May Also Like" header in "You May Also Like" widget solution
+    ///
+    /// - Returns: header view at the top
     open func headerView() -> UIView? {
         if !showTitleHeader {
             return nil
@@ -448,6 +513,11 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     
     
     // MARK: footer - Power by ViSenze
+    
+    
+    /// By default, return Power By ViSenze image view and positions it at the bottom right of the footer
+    ///
+    /// - Returns: footer view
     open func footerView() -> UIView? {
         
         if !showPowerByViSenze {
@@ -473,6 +543,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         return powerImgView
     }
     
+    /// footer size
     open var footerSize : CGSize {
         
         if !showPowerByViSenze {
@@ -487,8 +558,10 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     }
 
     
-    // MARK: action buttons
+    // MARK: buttons events
     
+    /// user clicks on "Similar" button on a product card cell
+    /// Copy the revelvant parameters from current search and open the "Find Similar" view controller
     @IBAction open func similarBtnTapped(_ cell: ViProductCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
             let product = products[indexPath.row]
@@ -560,7 +633,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 similarController.showTitleHeader = false
                 similarController.queryProduct = product
                 
-                similarController.queryImageConfig = similarController.generateQueryImageConfig(scale: 0.7)
+                similarController.queryImageConfig = similarController.generateQueryImageConfig(scale: ViTheme.sharedInstance.default_query_product_image_scale)
                 similarController.showQueryProduct = true
                 
                 // set to same delegate
@@ -598,6 +671,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         }
     }
     
+    /// user tapped on action button of a product card cell
     @IBAction open func actionBtnTapped(_ cell: ViProductCollectionViewCell) {
         if let indexPath = self.collectionView?.indexPath(for: cell) {
             let product = products[indexPath.row]
@@ -606,6 +680,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 let params = ViTrackParams(reqId: reqId, action: action)
                 params?.imName = product.im_name
                 
+                // track the action
                 ViSearch.sharedInstance.track(params: params!) { (success, error) in
                     
                 }
@@ -615,6 +690,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         }
     }
     
+    /// dismiss the similar controller that is being presented when user click on "Similar" button of a product card
     open func dimissSimilarController() {
         self.dismiss(animated: true, completion: nil)
     }

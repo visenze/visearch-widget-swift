@@ -89,6 +89,9 @@ public class ViTheme: NSObject {
     /// title for select image from photo library
     public var default_select_photo_title : String = "Select photo"
     
+    /// Scale for query product image compare to the product image in search results
+    public var default_query_product_image_scale: CGFloat = 0.7
+    
     /// singleton instance. Used this to configure the global theme settings
     public static let sharedInstance : ViTheme = ViTheme()
     

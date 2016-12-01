@@ -10,11 +10,14 @@ import UIKit
 import ViSearchSDK
 import LayoutKit
 
+/// Search by Color widget. Search results will be displayed in a grid
 open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPresentationControllerDelegate, ViColorPickerDelegate {
 
+    /// Tag for the float view containing color picker + filter buttons
+    /// The floating view will appear when we scroll down
     let floatViewTag : Int = 999
     
-    // default list of colors
+    // default list of colors in the color picker in hex format e.g. e0b0ff, 2abab3
     open var colorList: [String] = [
         "000000" , "555555" , "9896a4" ,
         "034f84" , "00afec" , "98ddde" ,
@@ -124,6 +127,8 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         
     }
     
+    // MARK: Scroll methods
+    
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.checkHeaderGone(scrollView)
     }
@@ -134,8 +139,12 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         self.checkHeaderGone(scrollView)
     }
     
+    
+    /// Create the floating view that contains Filter + Color Picker buttons
+    ///
+    /// - Returns: generated view
     public func getFloatingView() -> UIView {
-        var floatView = UIView()
+        let floatView = UIView()
         floatView.tag = self.floatViewTag
         floatView.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
         
@@ -183,7 +192,7 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         return floatView
     }
     
-    // if gone , then overlay filter + color on top
+    /// check scroll view position, if below header , then overlay filter + color buttons on top
     open func checkHeaderGone(_ scrollView: UIScrollView) {
         if self.headerLayoutHeight == 0 {
             return
@@ -205,6 +214,12 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         }
     }
     
+    
+    /// Open color picker view in a popover
+    ///
+    /// - Parameters:
+    ///   - sender: color picker button
+    ///   - event: button event
     public func openColorPicker(sender: UIButton, forEvent event: UIEvent) {
         let controller = ViColorPickerModalViewController()
         controller.modalPresentationStyle = .popover
@@ -232,7 +247,7 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         self.present(controller, animated: true, completion: nil)
     }
     
-    // important - this is needed so that a popover will be shown instead of fullscreen
+    // important - this is needed so that a popover will be properly shown instead of fullscreen
     public func adaptivePresentationStyle(for controller: UIPresentationController,
                                             traitCollection: UITraitCollection) -> UIModalPresentationStyle{
         return .none
@@ -252,7 +267,8 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
     }
 
     
-    /// since we show the logo below the color preview box it is not necessary to show again
+    /// since we show the Power by ViSenze image below the query product, it is not necessary to show again in the footer
+    /// if query product is not available, then the Power by ViSenze image will appear in footer
     open override var footerSize : CGSize {
         return CGSize.zero
     }
@@ -279,8 +295,6 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                         // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
                         if let data = data {
                             if data.hasError {
-                                let errMsgs =  data.error.joined(separator: ",")
-                                print("API error: \(errMsgs)")
                                 
                                 // TODO: display system busy message here
                                 self.delegate?.searchFailed(err: nil, apiErrors: data.error)

@@ -12,7 +12,7 @@
 			<key>filterType</key>
 			<integer>1</integer>
 			<key>filterOptions</key>
-			<string>Claremont,Chic Home,Cosabella,Hillsdale Furniture,Sheridan</string>
+			<string>Bobeau,Coco Style,Etro,Marc Jacobs,Sister Jane,Volcom</string>
 		</dict>
 		<dict>
 			<key>title</key>
@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>color</key>
-	<string>5F90AF</string>
+	<string>ea148c</string>
 	<key>heading_schema_mapping</key>
 	<string>im_title</string>
 	<key>label_schema_mapping</key>
@@ -38,8 +38,8 @@
 	<key>discount_price_schema_mapping</key>
 	<string>price</string>
 	<key>find_similar_im_name</key>
-	<string>matchesfashion-WOWT4D870003BKP531</string>
+	<string>nordstrom-86054533</string>
 	<key>you_may_like_im_name</key>
-	<string>bluefly-341848601</string>
+	<string>nordstrom-87028075</string>
 </dict>
 </plist>

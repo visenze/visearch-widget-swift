@@ -10,13 +10,14 @@ import UIKit
 import LayoutKit
 import Kingfisher
 
-/// this is almost the same as product card
-/// used for displaying query products
-/// the product info are displayed on the right of the image
+/// This is almost the same as product card
+/// used for displaying the search query product i.e. the product that is being searched during "Find Similar"
+/// the product info are displayed on the right of the image (for product card in search results, the info is displayed below image)
 open class ViQueryProductLayout: StackLayout<UIView> {
     
     public static var default_spacing : CGFloat = 6.0
     
+    /// constructor helper
     public convenience init(
         imgUrl: URL?, imageConfig: ViImageConfig,
         heading: String? , headingConfig: ViLabelConfig = ViLabelConfig(),

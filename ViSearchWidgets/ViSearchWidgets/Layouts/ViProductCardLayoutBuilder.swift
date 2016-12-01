@@ -8,7 +8,8 @@
 
 import UIKit
 
-/// simplify construction of product card layout
+/// simplify construction of product card layout with builder pattern
+/// Not in used currently
 open class ViProductCardLayoutBuilder: NSObject {
 
     public var imgUrl: String

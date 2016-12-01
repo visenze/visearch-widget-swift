@@ -18,6 +18,13 @@ import Kingfisher
 /// - headingTag: tag for heading label
 /// - priceTag: tag for price
 /// - discountPriceTag: tag for discount price
+/// - findSimilarBtnTag: find similar button tag
+/// - actionBtnTag: action button tag
+/// - filterBtnTag: filter button tag
+/// - colorPickBtnTag: color picker tag
+/// - cameraBtnTag: take photo button tag
+/// - galleryBtnTag: choose from photo library button tag
+/// - cropBtnTag: crop button tag
 public enum ViProductCardTag : Int {
     
     case productImgTag = 10
@@ -34,15 +41,35 @@ public enum ViProductCardTag : Int {
     case galleryBtnTag = 20
     case cropBtnTag = 21
 
-    
 }
 
 
 /// Layout for a single product card
+/// The layout is dynamic depending on various configurations e.g. label/action button can be optional
 open class ViProductCardLayout: StackLayout<UIView> {
     
     public static var default_spacing : CGFloat = 6.0
     
+    
+    /// Constructor for layout
+    ///
+    /// - Parameters:
+    ///   - imgUrl: product image url
+    ///   - imageConfig: product image configuration
+    ///   - heading: heading e.g. product title
+    ///   - headingConfig: heading configuration
+    ///   - label: label e.g. brand
+    ///   - labelConfig: label configuration
+    ///   - price: product price
+    ///   - priceConfig: price configuration
+    ///   - discountPrice: discount price
+    ///   - discountPriceConfig: discount price configuration
+    ///   - hasSimilarBtn: availablity of similar button (at bottom right of product car)
+    ///   - similarBtnConfig: similar button configuration if hasSimilarBtn is true
+    ///   - hasActionBtn: availablity of action button
+    ///   - actionBtnConfig: action button configuration if hasActionBtn is true
+    ///   - pricesHorizontalSpacing: spacing between price and discount price labels
+    ///   - labelLeftPadding: leading padding from supper view for various labels on the left
     public convenience init(
         imgUrl: URL?, imageConfig: ViImageConfig,
         heading: String? , headingConfig: ViLabelConfig = ViLabelConfig(),
@@ -397,7 +424,8 @@ open class ViProductCardLayout: StackLayout<UIView> {
     }
     
     
-    // MARK : create layouts helpers
+    //MARK: layout helper methods
+    
     internal static func createPriceLayout(
         price: Float,
         price_font : UIFont ,

@@ -25,6 +25,9 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
             if let searchParams = searchParams {
                 
                 self.setMetaQueryParamsForSearch()
+                // set up user agent
+                ViSearch.sharedInstance.client?.userAgent = ViWidgetVersion.USER_AGENT
+                
                 
                 ViSearch.sharedInstance.recommendation(
                     params: searchParams as! ViSearchParams,

@@ -268,6 +268,9 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                 
                 // check whether filter set to apply the filter
                 self.setFilterQueryParamsForSearch()
+                
+                // set up user agent
+                ViSearch.sharedInstance.client?.userAgent = ViWidgetVersion.USER_AGENT
                                 
                 ViSearch.sharedInstance.colorSearch(
                     params: searchParams as! ViColorSearchParams,

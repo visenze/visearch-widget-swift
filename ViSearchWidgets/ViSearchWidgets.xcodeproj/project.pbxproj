@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0F72B41DEFC8430023CBF8 /* ViWidgetVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F72B31DEFC8430023CBF8 /* ViWidgetVersion.swift */; };
 		BD1181A01DE8215600139BD5 /* ViColorSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11819F1DE8215600139BD5 /* ViColorSearchViewController.swift */; };
 		BD1181A21DE8350A00139BD5 /* ViColorPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1181A11DE8350A00139BD5 /* ViColorPickerModalViewController.swift */; };
 		BD3D1D5A1DD164140053F1E8 /* ViProductCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D1D591DD164140053F1E8 /* ViProductCardLayout.swift */; };
@@ -90,6 +91,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD0F72B31DEFC8430023CBF8 /* ViWidgetVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViWidgetVersion.swift; sourceTree = "<group>"; };
 		BD11819F1DE8215600139BD5 /* ViColorSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViColorSearchViewController.swift; sourceTree = "<group>"; };
 		BD1181A11DE8350A00139BD5 /* ViColorPickerModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViColorPickerModalViewController.swift; sourceTree = "<group>"; };
 		BD3D1D591DD164140053F1E8 /* ViProductCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViProductCardLayout.swift; path = Layouts/ViProductCardLayout.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				BDA5B1911DEBE9CB0008C168 /* ViSearchImageViewController.swift */,
 				BD7E965C1DB9C19F00C497F7 /* ViSearchWidgets.h */,
 				BD7E965D1DB9C19F00C497F7 /* Info.plist */,
+				BD0F72B31DEFC8430023CBF8 /* ViWidgetVersion.swift */,
 			);
 			path = ViSearchWidgets;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */,
 				BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */,
 				BD3D1D6D1DD2D3590053F1E8 /* ViImageConfig.swift in Sources */,
+				BD0F72B41DEFC8430023CBF8 /* ViWidgetVersion.swift in Sources */,
 				BDA5B1D51DEECDDA0008C168 /* ViRangeTableViewCell.swift in Sources */,
 				BDA5B1CF1DEE80810008C168 /* ViFilterViewController.swift in Sources */,
 				BD7E96CA1DBA082E00C497F7 /* String+Visenze.swift in Sources */,

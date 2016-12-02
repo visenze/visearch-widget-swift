@@ -1,75 +1,122 @@
 # ViSearch Swift Widgets SDK
-![Swift](http://img.shields.io/badge/swift-3.0-brightgreen.svg)
-
+![Swift](http://img.shields.io/badge/swift-3.0-brightgreen.svg)&nbsp;[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)&nbsp;[![CocoaPods](https://img.shields.io/cocoapods/v/ViSearchWidgets.svg)](https://github.com/visenze/visearch-widget-swift)
 ---
 
 ## 1. Overview
 
-ViSearch is an API that provides accurate, reliable and scalable image search. ViSearch API provides two services (Data API and Search API) to let the developers prepare image database and perform image searches efficiently. ViSearch API can be easily integrated into your web and mobile applications. For more details, see [ViSearch Documentation](http://developers.visenze.com/).
+Search and monetize your product images with our effective, easy-to-use, and customizable SDK widgets.
 
-The ViSearch Swift Widgets SDK is an open source software to provide easy integration of ViSearch Search API with your iOS applications.
+We have launched four solutions that would be fit into your various use cases.
 
->Current stable version: <In development>
+- **Find Similar**: Automatically find visually similar items from your inventory with a simple click 
+- **You May Also Like**: Recommend products customers may like using visual recognition and custom rules
+- **Search by Image**: Search for matching or similar items from your database with built-­in automated object recognition 
+- **Search by Color**: Search and discover products by selecting from a vast color spectrum
 
->Supported iOS version: iOS 8.x and higher
+## 2. Requirements
 
-## 2. Setup
+- iOS 8.0+ 
+- Xcode 8.1+
+- Swift 3.0+
 
-### 2.1 Run the Demo
+## 3. Setup
 
-### 2.2 Set up Xcode project
+### 3.1 Setup your ViSenze account
+In order to use our widgets, please setup your ViSenze account. Please refer to our developer documentation for [set-up instructions](http://developers.visenze.com/setup/#Set-up-your-ViSenze-account).
 
-### 2.3 Import ViSearch Swift Widgets SDK
+To use the mobile widgets, you will need to get the API keys (access & secret key) with `search-only` permission. 
 
-#### 2.3.1 Using CocoaPods
+### 3.2 Upload your datafeed
 
-First you need to install the CocoaPods Ruby gem:
+For testing, you will need to upload your datafeed in ViSenze [dashboard](https://dashboard.visenze.com/) and [configure schema fields](http://developers.visenze.com/setup/#Configure-schema-fields) . For widgets integration, the schema fields requirements are as below:
+
+|Meta-data|Schema | Type | Required | Searchable| Description | Example|
+|---------|-------|------|-----------|-----------|-------------|--------|
+|Image Id|im_name|string|Yes|Yes|Unique identifier for the image. Generated automatically in ViSenze dashboard.|red-polka-dress.jpg, 2720f503-a0d9-4516-8803-19052fbf343c |
+|Image URL|im_url|string|Yes|No|URL for product image. Generated automatically in ViSenze dashboard.|http://somesite.com/abc.jpg|
+|Mobile Image URL| custom | string | No | No | Mobile friendly image url for faster loading in mobile app. If this is not provided, im_url will be used to display product image| http://somesite.com/small-img.png|
+|Title|custom| string | Yes | Optional | Product title which will appear below product image | Black dress |
+|Description|custom| text | No | Optional | Product description which may appear in product detail page  | Black dress |
+|Brand| custom | string | No | Yes | Optional field for displaying in the product card. Can be used for filtering. | Nike, Adidas |
+|Category| custom | string | No | Yes | Product category. Can be used for filtering. | Dress, Top, Eyewear, Watch , etc|
+|Price| custom | float/int | Yes | Yes | Product original retail price. Can be used for ranged filtering | 49.99 |
+| Discount Price | custom | float/int | No | Yes | Discount product price. Can be used for ranged filtering | 40.99 |   
+   
+## 4. Installation
+
+### 4.1 CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ sudo gem install cocoapods
+```
+
+> CocoaPods 1.1.0+ is required to build ViSearchWidgets.
+
+Go to your Xcode project directory to create an empty Podfile:
 
 ```
-# Xcode 7 + 8
-sudo gem install cocoapods --pre
-```
-
-Then go to your project directory to create an empty Podfile
-
-```
-cd /path/to/Demo
 pod init
 ```
 
-Edit the Podfile as follow:
+To integrate ViSearchWidgets into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
-```
-platform :ios, '9.0'
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'ViSearchWidgets', '~>1.0'
+    pod 'ViSearchWidgets', '~> 0.1'
 end
-...
+```
+You should change version 0.1 to the latest version of ViSearchWidgets. The version numbers can be viewed under the current Github project tags.
+
+Then, run the following command:
+
+```bash
+$ pod install
 ```
 
-Install the ViSearch SDK:
+### 4.2 Carthage
 
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
 ```
-pod install
-```
 
-The Demo.xcworkspace project should be created.
+Alternately, you can download and run the `Carthage.pkg` file for the latest [release](https://github.com/Carthage/Carthage/releases). 
 
-#### 2.3.2 Using Carthage
+To integrate ViSearchWidgets into your Xcode project using Carthage:
 
-* [TODO] Add framework search path
+1. Create a `Cartfile` :
 
-#### 2.3.3 Using Manual Approach
+ ```ogdl
+ github "visenze/visearch-widget-swift" ~> 0.1
+ ```
+ You should change version 0.1 to the latest version of ViSearchWidgets. The version numbers can be viewed under the current Github project tags.
 
-### 2.4 Add Privacy Usage Description
+2. Run `carthage update --platform iOS --no-use-binaries`. 
 
-iOS 10 now requires user permission to access camera and photo library. If your app requires these access, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in the Info.plist. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
+ This will fetch dependencies into Carthage/Checkouts folder, then build the framework. 
 
-## 3. Initialization
+3. Drag the built `ViSearchWidgets.framework` into your Xcode project.
 
-## 4. Solutions
+ * [TODO] Add framework search path
+
+
+### 4.3 App Permission
+
+- **Add Privacy Usage Description** :
+
+ iOS 10 now requires user permission to access camera and photo library. If your app requires these access, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in the Info.plist. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
+
+
 
 
 

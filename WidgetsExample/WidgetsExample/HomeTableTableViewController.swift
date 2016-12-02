@@ -187,6 +187,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     }
     
     func showColorSearchController(_ color: String) {
+        
         if let params = ViColorSearchParams(color: color){
             let controller = ViColorSearchViewController()
             params.limit = 16

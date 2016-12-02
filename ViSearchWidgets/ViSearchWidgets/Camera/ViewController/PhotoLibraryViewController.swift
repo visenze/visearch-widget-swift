@@ -1,9 +1,9 @@
 import UIKit
 import Photos
 
-internal let ImageCellIdentifier = "ImageCell"
+private let ImageCellIdentifier = "ImageCell"
 
-internal let defaultItemSpacing: CGFloat = 1
+private let defaultItemSpacing: CGFloat = 1
 
 /// call back for photo selection
 public typealias PhotoLibraryViewSelectionComplete = (PHAsset?) -> Void

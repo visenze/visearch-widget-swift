@@ -101,9 +101,9 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
  ```
  You should change version 0.1 to the latest version of ViSearchWidgets. The version numbers can be viewed under the current Github project tags.
 
-2. Run `carthage update --platform iOS --no-use-binaries`. 
+2. Run `carthage update --platform iOS --no-use-binaries` 
 
- This will fetch dependencies into Carthage/Checkouts folder, then build the framework. 
+ This will fetch dependencies (Kingfisher, LayoutKit, visearch-sdk-swift, visearch-widget-swift) into Carthage/Checkouts folder, then build the framework. 
 
 3. Drag the built `ViSearchWidgets.framework` into your Xcode project.
 

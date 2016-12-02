@@ -105,17 +105,45 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
 
  This will fetch dependencies (Kingfisher, LayoutKit, visearch-sdk-swift, visearch-widget-swift) into Carthage/Checkouts folder, then build the framework. 
 
-3. Drag the built `ViSearchWidgets.framework` into your Xcode project.
+3. On your application target's “General” settings tab, in the `Embedded Binary` section, drag and drop the following frameworks from the `Carthage/Build/iOS` folder:
 
- * [TODO] Add framework search path
+ - Kingfisher.framework
+ - LayoutKit.framework
+ - ViSearchSDK.framework
+ - ViSearchWidgets.framework  
+
+ <img src="./docs/images/add_frameworks.jpg" width="600" >
+ 
+ Click on "Build Phases" tab, verify that the "Framework Search Path" includes `$(PROJECT_DIR)/Carthage/Build/iOS`
+
+4. Add the following frameworks to "Linked Frameworks and Libraries" section: MediaPlayer, Photos, AVFoundation.
+
+5. On your application target’s “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script in which you specify your shell (ex: `bin/sh`), add the following contents to the script area below the shell:
+
+  ```sh
+  /usr/local/bin/carthage copy-frameworks
+  ```
+
+  and add the paths to the frameworks you want to use under `Input Files`, e.g.:
+
+  ```
+  $(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework
+  $(SRCROOT)/Carthage/Build/iOS/LayoutKit.framework
+  $(SRCROOT)/Carthage/Build/iOS/ViSearchSDK.framework
+  $(SRCROOT)/Carthage/Build/iOS/ViSearchWidgets.framework
+  ```
+  <img src="./docs/images/build_script.png" width="600" >
 
 
 ### 4.3 App Permission
 
 - **Add Privacy Usage Description** :
 
- iOS 10 now requires user permission to access camera and photo library. If your app requires these access, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in the Info.plist. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
+ iOS 10 now requires user permission to access camera and photo library. To use "Search by Image" solution, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in your Info.plist. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
 
+ <img src="./docs/images/privacy.png" width="600" >
+ 
+ You may also want to configure the "App Transport Security Settings" option to allow loading of product images.
 
 
 

@@ -25,6 +25,10 @@
   * [6.3 Search by Image](#63-search-by-image)
   * [6.4 Search by Color](#64-search-by-color)
 - [7. Implement ViSenze Analytics](#7-implement-visenze-analytics)
+- [8. Filtering](#8-filtering)
+- [9. Customization](#9-customization)
+  * [9.1 Widgets Theme](#91-widgets-theme)
+  * [9.2 Advanced](#92-advanced)
 
 <!-- tocstop -->
 
@@ -38,6 +42,8 @@ We have launched four solutions that would be fit into your various use cases.
 - **You May Also Like**: Recommend products customers may like using visual recognition and custom rules
 - **Search by Image**: Search for matching or similar items from your database with built-­in automated object recognition 
 - **Search by Color**: Search and discover products by selecting from a vast color spectrum
+
+API documentation: [https://visenze.github.io/visearch-widget-swift/](https://visenze.github.io/visearch-widget-swift/)
 
 ## 2. Requirements
 
@@ -208,7 +214,7 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
 
 ## 5. Initialization
 
-All of our widgets (constructed as view controllers sub-classes of [ViBaseSearchViewController](https://thehung111.github.io/visearch-widget-swift/api/Classes/ViBaseSearchViewController.html) ) require the following common initialization steps.
+All of our widgets (constructed as view controllers sub-classes of [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html) ) require the following common initialization steps.
 
 ### 5.1 ViSenze Search Keys
 
@@ -363,6 +369,13 @@ if let params = ViSearchParams(imName: "sample_im_name.jpg") {
 
 ```
 
+Important API docs:
+
+- [ViFindSimilarViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViFindSimilarViewController.html)
+- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
+
 ### 6.2 You May Also Like
 
 This solution showcases recommended products on the product detail screen. You can apply custom recommendation rules for each application based on your customer demographic or other metadata such as brand, price, color etc. Our algorithm will then create a similarity score and rank products in order of score. This solution provides an opportunity for you to promote more products based on visual similarity and other relevant recommendation rules.
@@ -515,6 +528,13 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 }
 ```
 
+Important API docs:
+
+- [ViRecommendationViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViRecommendationViewController.html)
+- [ViHorizontalSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViHorizontalSearchViewController.html)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
+
 ### 6.3 Search by Image
 
 Shoppers can snap or upload a photo of the product they are looking for, find the same or similar options across price points, brands etc., and order the product that best meets their needs. The solution provides an innovative and easy way for shoppers to find items they want without needing keywords.
@@ -523,7 +543,7 @@ Shoppers can snap or upload a photo of the product they are looking for, find th
 
 The products are displayed in a grid.
 
-Below is sample code for using "Search by Image" widget. Please read section 5 on important initialization steps.
+Below is sample code for using "Search by Image" widget. Please read section 5 on important initialization steps and section 4.3 on important app permissions.
 
 ```swift
 
@@ -601,6 +621,14 @@ let cameraViewController = CameraViewController(croppingEnabled: false, allowsLi
 present(cameraViewController, animated: true, completion: nil)
 ```
 
+Important API docs:
+
+- [ViSearchImageViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViSearchImageViewController.html)
+- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
+- [CameraViewController](https://visenze.github.io/visearch-widget-swift/Classes/CameraViewController.html)
+
 ### 6.4 Search by Color
 
 Shoppers can search your entire indexed catalogue of products for an item with a particular color and then narrow down the results by attributes or fields such as category, brand, price, etc. Our algorithm can search the catalogue by a set of pre-selected colors from a color palette or a vast spectrum of colors.
@@ -667,6 +695,13 @@ if let params = ViColorSearchParams(color: "00ff00") {
 
 ```
 
+Important API docs:
+
+- [ViColorSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViColorSearchViewController.html)
+- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
+
 ## 7. Implement ViSenze Analytics
 
 The analytics reports page is located in your ViSenze Dashboard and allows you to conveniently see a high-level view of the performance of each of the solutions through click metrics as well as usage statistics. With the analytics reporting tool, you can easily track the performance to quantify the value-add of our solutions through metrics such as click-through rate, add-to-wishlist rate, add-to-cart rate, and click rank.
@@ -687,23 +722,94 @@ The user action can be sent in this way:
 
 ```swift
 
-func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct) {
+if sender is ViBaseSearchViewController {
+    let controller = sender as! ViBaseSearchViewController
+    let recentReqId = controller.reqId
+    
+    let params = ViTrackParams(reqId: recentReqId, action: "custom_action" )
+	 params.imName = product.im_name
 
-  if sender is ViBaseSearchViewController {
-	    let controller = sender as! ViBaseSearchViewController
-	    let recentReqId = controller.reqId
-	    
-	    let params = ViTrackParams(reqId: recentReqId, action: "custom_action" )
-  		 params.imName = product.im_name
-
-  		// send tracking request to server
-  		ViSearch.sharedInstance.track(params: params!, handler: nil)
-  }
-
+	// send tracking request to server
+	ViSearch.sharedInstance.track(params: params!, handler: nil)
 }
+
+```
+## 8. Filtering
+
+You can configure the filter component for `Find Similar`, `Search by Image` and `Search by Color` widgets search results. Two types of filters are supported: 
+
+- Range filter (e.g. for price) ([ViFilterItemRange](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemRange.html))
+- Multi-selection category filter (e.g. for product category, brand) ([ViFilterItemCategory](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html))
+
+The filters can be created as below:
+
+```swift
+var items : [ViFilterItem] = []
+
+// configure a 'price' range filter item
+// Assumption: there is a int/float field named "price" in your schema data feed
+let min : Int = 0
+let max : Int = 500
+                            
+let item = ViFilterItemRange(title: "Price Range ($)", schemaMapping: "price", min: min, max: max)
+items.append(item)
+
+// configure a category filter item for 'brand' schema field
+// Assumption: there is a string field named 'brand' in your schema
+let brandString = "Bobeau,Coco Style,Etro,Marc Jacobs,Sister Jane,Volcom"
+let options = brandString.components(separatedBy: ",")                          
+var optionArr : [ViFilterItemCategoryOption] = []
+for o in options {
+    optionArr.append( ViFilterItemCategoryOption(option: o) )
+}
+                            
+let brandFilterItem = ViFilterItemCategory(title: "Brand", schemaMapping: "brand", options: optionArr)
+items.append(brandFilterItem)
+
 ```
 
+To display the filters, you just need to set the filterItems property of the widgets:
 
+```swift
+controller.filterItems = items
+```
+
+Important API docs:
+
+- [ViFilterItemRange](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemRange.html)
+- [ViFilterItemCategory](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html)
+- [ViFilterItem](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItem.html)
+
+## 9. Customization
+
+### 9.1 Widgets Theme
+
+To customize the color, styles of the widgets and button, you can look at the following classes:
+
+- [ViTheme](https://visenze.github.io/visearch-widget-swift/Classes/ViTheme.html) : default global configuration for text fonts, button colors, sizes, etc.
+
+ You can configure via the ViTheme singleton:
+ 
+ ```swift
+ // configure default font 
+ ViTheme.sharedInstance.default_font = ...
+ 
+ ``` 
+ 
+- [ViButtonConfig](https://visenze.github.io/visearch-widget-swift/Structs/ViButtonConfig.html) : default style for buttons
+- [ViLabelConfig](https://visenze.github.io/visearch-widget-swift/Structs/ViLabelConfig.html) : default style for labels (heading, label, price, discount price)
+- [ViImageConfig](https://visenze.github.io/visearch-widget-swift/Structs/ViImageConfig.html) : product image configuration
+
+For specific widget customization (e.g. show/hide buttons, change text/button colors, etc), refer to [UI Settings](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html#/UI%20settings) section of `ViBaseSearchViewController`.
+
+### 9.2 Advanced 
+
+For advanced use cases where you need to create your own widgets or want to modify/extend the product card, please hook into the [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) callbacks.
+
+- [configureCell(sender:collectionView:indexPath:cell:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_) : allow you to configure the product cell before displaying. You can retrieve various product card UI elements by tag in the cell.contentView e.g. cell.contentView.viewWithTag(ViProductCardTag.productImgTag.rawValue) and configure accordingly. The tags are defined [here](https://visenze.github.io/visearch-widget-swift/Enums/ViProductCardTag.html).
+- [configureLayout(sender:layout:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_) : if you need to have your own controller which will change the layout for the built in collectionview.
+- [willShowSimilarControler(sender:controller:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControlerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : configure similar controller before display.
+- [willShowFilterControler(sender:controller:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControlerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_) : configure filter controller before display.
 
 
 

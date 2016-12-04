@@ -169,9 +169,42 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
  
 ### 4.4 Run Demo App 
 
+The source code of the Demo application is under the `WidgetsExample` folder. Please open the WidgetsExample.xcodeproj and configure the API keys/ schema mapping to run the demo.
+
+- Configure API keys:
+
+ Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys. First, you will need to copy/drag the empty `ViApiKeys.plist` file (at the same location to this README file) to the demo project.
+ 
+ <img src="./docs/images/api_keys.png" width="600" >
+ 
+ Next, you can enter the `search-only` access and secret keys into the plist file.
+ 
+- Configure schema mapping
+
+ As mentioned in section [3.2](#32-upload-your-datafeed) , you will need to upload your datafeed and configure the schema fields. The fields which hold product's information can then be displayed in the widgets via the `Product Card` UI component. Please see the below screenshot for example.
+ 
+ <img src="./docs/images/product_card.png" width="800" >
+ 
+ You will need edit the `SampleData.plist` (the file was below ViApiKeys.plist in the `Configure API keys` section screenshot) to configure the schema mapping for your sample data feed.
+ 
+ <img src="./docs/images/schema_mapping.png" width="800" >
+    
+ - `heading_schema_mapping` : refers to the schema mapping for the `Heading` field in `Product Card` component. In the screenshot, it was used to display the product title (the schema field is `im_title` which is a custom field in the feed).
+ - `label_schema_mapping` : refers to the schema mapping for the `Label` field in `Product Card` component. In the screenshot, it was used to display the product brand. 
+ - `price_schema_mapping` : refers to the schema mapping for the `Price` field in `Product Card` component. In the screenshot, it was used to display the product original retail price. 
+ - `discount_price_schema_mapping` : refers to the schema mapping for the `Discount Price` field in `Product Card` component. In the screenshot, it was used to display the product discount price. This is optional and may not be applicable for your data feed. 
+  - `color` : sample color code used for "Search by Color" widget demo.
+  - `find_similar_im_name` : sample im_name used for "Find Similar" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
+  - `you_may_like_im_name` : sample im_name used for "You May Also Like" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
+  - `filterItems` : configure the types of fitler used in demo app. Two types of filters are supported (Category and Range filters). 
+
+- Configure scheme: At the final step, you will need to change the Running Scheme to "WidgetsExample". You are now ready to run the demo app.
+
+ <img src="./docs/images/scheme.png" width="300" >
+
 ## 5. Initialization
 
-`ViSearch` **must** be initialized with an accessKey/secretKey pair **before** it can be used. Please refer to section 3.1 on how to obtain the keys .You can do this initialization once in AppDelegate class.
+`ViSearch` **must** be initialized with an accessKey/secretKey pair **before** it can be used. Please refer to section [3.1](#31-setup-your-visenze-account) on how to obtain the keys .You can do this initialization once in AppDelegate class.
 
 ```swift
 import ViSearchSDK

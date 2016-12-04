@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>filterItems</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>Brand</string>
+			<key>schemaMapping</key>
+			<string>brand</string>
+			<key>filterType</key>
+			<integer>1</integer>
+			<key>filterOptions</key>
+			<string>Bobeau,Coco Style,Etro,Marc Jacobs,Sister Jane,Volcom</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>Price Range ($)</string>
+			<key>schemaMapping</key>
+			<string>price</string>
+			<key>filterType</key>
+			<integer>2</integer>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>500</integer>
+		</dict>
+	</array>
+	<key>color</key>
+	<string>ea148c</string>
+	<key>heading_schema_mapping</key>
+	<string>im_title</string>
+	<key>label_schema_mapping</key>
+	<string>brand</string>
+	<key>price_schema_mapping</key>
+	<string>price</string>
+	<key>discount_price_schema_mapping</key>
+	<string>price</string>
+	<key>find_similar_im_name</key>
+	<string>nordstrom-86054533</string>
+	<key>you_may_like_im_name</key>
+	<string>nordstrom-87028075</string>
+</dict>
+</plist>

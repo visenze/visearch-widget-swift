@@ -1,0 +1,10 @@
+"permissions.title" = "Camera Access Denied";
+"permissions.description" = "Please enable camera access in your privacy settings";
+
+"permissions.library.title" = "Photos Access Denied";
+"permissions.library.description" = "Please enable photo library access in your privacy settings";
+
+"permissions.settings" = "Settings";
+
+"error.cant-fetch-photo" = "Unable to fetch image";
+"error.cant-fetch-photo.description" = "Please check your network settings";

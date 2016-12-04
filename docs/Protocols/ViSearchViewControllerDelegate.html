@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ViSearchViewControllerDelegate Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/ViSearchViewControllerDelegate" class="dashAnchor"></a>
+    <a title="ViSearchViewControllerDelegate Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ViSearchWidgets Docs</a> (61% documented)</p>
+        <p class="header-right"><a href="https://github.com/visenze/visearch-widget-swift"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ViSearchWidgets Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ViSearchViewControllerDelegate Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CameraGlobals.html">CameraGlobals</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CameraView.html">CameraView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CameraViewController.html">CameraViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConfirmViewController.html">ConfirmViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageFetcher.html">ImageFetcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PhotoLibraryViewController.html">PhotoLibraryViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RangeSliderThumbLayer.html">RangeSliderThumbLayer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RangeSliderTrackLayer.html">RangeSliderTrackLayer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleImageFetcher.html">SingleImageFetcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleImageSaver.html">SingleImageSaver</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViColorPickerModalViewController.html">ViColorPickerModalViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViColorSearchViewController.html">ViColorSearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFilterCategoryViewController.html">ViFilterCategoryViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFilterItem.html">ViFilterItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFilterItemCategory.html">ViFilterItemCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFilterItemCategoryOption.html">ViFilterItemCategoryOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFilterItemRange.html">ViFilterItemRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFilterTableView.html">ViFilterTableView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFilterViewController.html">ViFilterViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFindSimilarViewController.html">ViFindSimilarViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViFont.html">ViFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViGridSearchViewController.html">ViGridSearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViHorizontalSearchViewController.html">ViHorizontalSearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViImageView.html">ViImageView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViProduct.html">ViProduct</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViProductCardLayout.html">ViProductCardLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViProductCardLayoutBuilder.html">ViProductCardLayoutBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViProductCollectionViewCell.html">ViProductCollectionViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViQueryProductLayout.html">ViQueryProductLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViRangeSlider.html">ViRangeSlider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViRangeTableViewCell.html">ViRangeTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViRecommendationViewController.html">ViRecommendationViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViSchemaHelper.html">ViSchemaHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViSearchImageViewController.html">ViSearchImageViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViSearchResultsView.html">ViSearchResultsView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViTheme.html">ViTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:C15ViSearchWidgets13VolumeControl">VolumeControl</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/ImageFormat.html">ImageFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ViBorderType.html">ViBorderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ViDefaultTrackingAction.html">ViDefaultTrackingAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ViFilterItemType.html">ViFilterItemType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ViProductCardTag.html">ViProductCardTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ViReservedTrackingAction.html">ViReservedTrackingAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ViSearchType.html">ViSearchType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIFont.html">UIFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIView.html">UIView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F15ViSearchWidgets9takePhotoFTCSo25AVCaptureStillImageOutput16videoOrientationOSC25AVCaptureVideoOrientation8cropSizeVSC6CGSize10completionFGSqCSo7UIImage_T__T_">takePhoto(_:videoOrientation:cropSize:completion:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ViColorPickerDelegate.html">ViColorPickerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ViFilterCategoryViewControllerDelegate.html">ViFilterCategoryViewControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ViFilterViewControllerDelegate.html">ViFilterViewControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ViProductCellDelegate.html">ViProductCellDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ViSearchViewControllerProtocol.html">ViSearchViewControllerProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ViButtonConfig.html">ViButtonConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ViIcon.html">ViIcon</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ViImageConfig.html">ViImageConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ViLabelConfig.html">ViLabelConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ViProductSchemaMapping.html">ViProductSchemaMapping</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:15ViSearchWidgets33PhotoLibraryViewSelectionComplete">PhotoLibraryViewSelectionComplete</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ViSearchViewControllerDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ViSearchViewControllerDelegate</span><span class="p">:</span> <span class="kd">class</span></code></pre>
+
+                </div>
+              </div>
+            <p>delegate for all search controllers. All methods are optional</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_"></a>
+                    <a name="//apple_ref/swift/Method/configureCell(sender:collectionView:indexPath:cell:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_">configureCell(sender:collectionView:indexPath:cell:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>configure the collectionview cell before displaying</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">configureCell</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span> <span class="p">,</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_"></a>
+                    <a name="//apple_ref/swift/Method/configureLayout(sender:layout:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_">configureLayout(sender:layout:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>configure the layout if necessary</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">configureLayout</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">layout</span><span class="p">:</span> <span class="kt">UICollectionViewFlowLayout</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_"></a>
+                    <a name="//apple_ref/swift/Method/didSelectProduct(sender:collectionView:indexPath:product:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">didSelectProduct(sender:collectionView:indexPath:product:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>product selection notification i.e. user tap on a product card</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">didSelectProduct</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="nv">product</span><span class="p">:</span> <span class="kt"><a href="../Classes/ViProduct.html">ViProduct</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15actionBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_"></a>
+                    <a name="//apple_ref/swift/Method/actionBtnTapped(sender:collectionView:indexPath:product:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15actionBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">actionBtnTapped(sender:collectionView:indexPath:product:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>action button tapped notification i.e. user tap on action button at the top right corner of a product card cell</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">actionBtnTapped</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="nv">product</span><span class="p">:</span> <span class="kt"><a href="../Classes/ViProduct.html">ViProduct</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControlerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_"></a>
+                    <a name="//apple_ref/swift/Method/willShowSimilarControler(sender:controller:collectionView:indexPath:product:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControlerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">willShowSimilarControler(sender:controller:collectionView:indexPath:product:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>allow configuration of the FindSimilar controller when similar button is tapped
+This is triggered before the similar controller is pushed to navigation controller/shown in modal</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">willShowSimilarControler</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt"><a href="../Classes/ViFindSimilarViewController.html">ViFindSimilarViewController</a></span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="nv">product</span><span class="p">:</span> <span class="kt"><a href="../Classes/ViProduct.html">ViProduct</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16similarBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_"></a>
+                    <a name="//apple_ref/swift/Method/similarBtnTapped(sender:collectionView:indexPath:product:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16similarBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">similarBtnTapped(sender:collectionView:indexPath:product:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>user tapped on similar button at the bottom right of a product card cell</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">similarBtnTapped</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="nv">product</span><span class="p">:</span> <span class="kt"><a href="../Classes/ViProduct.html">ViProduct</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControlerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_"></a>
+                    <a name="//apple_ref/swift/Method/willShowFilterControler(sender:controller:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControlerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_">willShowFilterControler(sender:controller:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>allow configuration of the filter controller before showing</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">willShowFilterControler</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt"><a href="../Classes/ViFilterViewController.html">ViFilterViewController</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13searchSuccessFT10searchTypeOS_12ViSearchType5reqIdGSqSS_8productsGSaCS_9ViProduct__T_"></a>
+                    <a name="//apple_ref/swift/Method/searchSuccess(searchType:reqId:products:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13searchSuccessFT10searchTypeOS_12ViSearchType5reqIdGSqSS_8productsGSaCS_9ViProduct__T_">searchSuccess(searchType:reqId:products:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Successful search after refreshData() method is called</p>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>searchType: the recent search type</li>
+<li>reqId: recent request id</li>
+<li>products: list of extract products information based on mapping</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">searchSuccess</span><span class="p">(</span> <span class="nv">searchType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ViSearchType.html">ViSearchType</a></span><span class="p">,</span> <span class="nv">reqId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">,</span> <span class="nv">products</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/ViProduct.html">ViProduct</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>searchType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the recent search type</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reqId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>recent request id</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>products</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>list of extract products information based on mapping</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_"></a>
+                    <a name="//apple_ref/swift/Method/searchFailed(err:apiErrors:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_">searchFailed(err:apiErrors:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Search failed callback</p>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>err: Errors when trying to call the API e.g. network related errors like offline Internet connection</li>
+<li>apiErrors: errors returned to ViSenze server e.g. due to invalid/missing search parameters</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">searchFailed</span><span class="p">(</span><span class="nv">err</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?,</span> <span class="nv">apiErrors</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>err</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Errors when trying to call the API e.g. network related errors like offline Internet connection</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>apiErrors</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>errors returned to ViSenze server e.g. due to invalid/missing search parameters</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-05)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,11 @@
+# Build Directory
+build/
+DerivedData/
+build.log
+
+# User Data
+*.xctimeline
+xcuserdata
+
+# mkdocs
+site/

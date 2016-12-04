@@ -15,6 +15,10 @@
   * [4.3 App Permission](#43-app-permission)
   * [4.4 Run Demo App](#44-run-demo-app)
 - [5. Initialization](#5-initialization)
+  * [5.1 ViSenze Search Keys](#51-visenze-search-keys)
+  * [5.2 Product Card Schema Mapping](#52-product-card-schema-mapping)
+  * [5.3 Product Card Display Setting](#53-product-card-display-setting)
+  * [5.4 Common Search Settings](#54-common-search-settings)
 - [6. Solutions](#6-solutions)
   * [6.1 Find Similar](#61-find-similar)
   * [6.2 You May Also Like](#62-you-may-also-like)
@@ -204,30 +208,119 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
 
 ## 5. Initialization
 
+All of our widgets (constructed as view controllers sub-classes of [ViBaseSearchViewController](https://thehung111.github.io/visearch-widget-swift/api/Classes/ViBaseSearchViewController.html) ) require the following common initialization steps.
+
+### 5.1 ViSenze Search Keys
+
 `ViSearch` **must** be initialized with an accessKey/secretKey pair **before** it can be used. Please refer to section [3.1](#31-setup-your-visenze-account) on how to obtain the keys .You can do this initialization once in AppDelegate class.
 
 ```swift
 import ViSearchSDK
 import ViSearchWidgets
 ...
-// using default ViSearch client which will connect to Visenze's server
+// using default ViSearch API client which will connect to Visenze's server
 ViSearch.sharedInstance.setup(accessKey: "YOUR_ACCESS_KEY", secret: "YOUR_SECRET_KEY")
 
 ...
-// or using customized client, which connects to your own server
+// or using customized client, which connects to your own proxy server
 client = ViSearchClient(baseUrl: yourUrl, accessKey: accessKey, secret: secret)
 ...
-``` 
+```
+
+### 5.2 Product Card Schema Mapping
+
+As mentioned in section [3.2](#32-upload-your-datafeed) , you will need to upload your datafeed and configure the schema fields. The fields which hold product's information can then be displayed in the widgets via the `Product Card` UI component. Please see the below screenshot for example.
+ 
+ <img src="./docs/images/product_card.png" width="800" >
+ 
+You can then configure the widgets (which are view controllers) as below:
+
+```swift
+   
+// create the widgets as view controller      
+...
+...
+// configure schema mapping for product card UI component in the widget             
+controller.schemaMapping.heading = ...  // mapping for heading element e.g. for displaying product title
+controller.schemaMapping.label = ...   // mapping for label element e.g. for displaying product brand
+controller.schemaMapping.price = ... // mapping for price element e.g. for displaying product original retail price
+controller.schemaMapping.discountPrice = ... // mapping for discount price element e.g. for displaying product discount price. May not be available in product feed
+controller.schemaMapping.productUrl = ... // mapping for product image URL. default to "im_url" schema field.
+
+```
+
+### 5.3 Product Card Display Setting
+
+You can also configure various setting for the product card.
+
+```swift
+
+// configure product image size and content mode
+controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+controller.imageConfig.contentMode = .scaleAspectFill
+
+// configure product card box size
+controller.itemSize = ...
+
+// add border to product card
+controller.productCardBorderColor = UIColor.lightGray
+controller.productCardBorderWidth = 0.7
+
+// add only bottom and right borders for product card
+controller.productBorderStyles = [.RIGHT , .BOTTOM]
+
+// display a strike through text through the original retail price (if discount price is available)
+controller.priceConfig.isStrikeThrough = true
+
+```
+
+### 5.4 Common Search Settings
+
+```swift
+// create search params (depending on the widget)
+// for example, in Find Similar, You May Also Like, parameters are constructed by providing im_name:
+// let params = ViSearchParams(imName: im_name) 
+
+// set various search settings
+
+// limit search to return 16 most similar results
+params.limit = 16
+
+// retrieve additional meta-data (in addition to what was mentioned in schema mapping)
+params.fl = ["category"]
+
+// set search paramters
+controller.params = params
+```
+
+For advanced configuration of search parameters refer to this [link](https://github.com/visenze/visearch-sdk-swift#6-advanced-search-parameters) .
 
 ## 6. Solutions
 
 ### 6.1 Find Similar
 
+Visually similar products can be activately searched by the user on the product listing or product detail screen. Our algorithm assigns appropriate weights to different attributes to determine a final similarity score, and product results are displayed in order of the score. This solution provides an opportunity for shoppers to discover other relevant results based on visual similarity. 
+
+<img src="./docs/images/similar.png">
+
+
 ### 6.2 You May Also Like
+
+This solution showcases recommended products on the product detail page. You can apply custom recommendation rules for each application based on your customer demographic or other metadata such as brand, price, color etc. Our algorithm will then create a similarity score and rank products in order of score. This solution provides an opportunity for you to promote more products based on visual similarity and other relevant recommendation rules.
+
+<img src="./docs/images/you_may_like.png">
 
 ### 6.3 Search by Image
 
+Shoppers can snap or upload a photo of the product they are looking for, find the same or similar options across price points, brands etc., and order the product that best meets their needs. The solution provides an innovative and easy way for shoppers to find items they want without needing keywords.
+
+<img src="./docs/images/image_search.png">
+
 ### 6.4 Search by Color
+
+Shoppers can search your entire indexed catalogue of products for an item with a particular color and then narrow down the results by attributes or fields such as category, brand, price, etc. Our algorithm can search the catalogue by a set of pre-selected colors from a color palette or a vast spectrum of colors.
+
+<img src="./docs/images/color.png">
 
 ## 7. Implement ViSenze Analytics
 

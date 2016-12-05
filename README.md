@@ -209,6 +209,10 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
   - `you_may_like_im_name` : sample im_name used for "You May Also Like" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
   - `filterItems` : configure the types of fitler used in demo app. Two types of filters are supported (Category and Range filters). 
 
+- Download and run the `Carthage.pkg` file for the latest [release](https://github.com/Carthage/Carthage/releases). The demo app is built with Carthage. After Carthage  installation, you will need to run the following command:
+
+ `carthage update --platform iOS --no-use-binaries` 
+
 - Configure scheme: At the final step, you will need to change the Running Scheme to "WidgetsExample". You are now ready to run the demo app.
 
  <img src="./docs/images/scheme.png" width="300" >

@@ -34,6 +34,7 @@
                     <navigationItem key="navigationItem" title="Widgets Demo" id="UPO-XC-esF"/>
                     <connections>
                         <segue destination="gIV-y4-4X8" kind="show" identifier="startRecSegue" id="H46-u6-qzq"/>
+                        <segue destination="vav-aj-7Hk" kind="show" identifier="showCustomSearch" id="ZrJ-Ef-FVt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7l-xI-ZB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -116,6 +117,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMs-DF-ekr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2845.5999999999999" y="136.28185907046478"/>
+        </scene>
+        <!--Custom Search-->
+        <scene sceneID="qNY-Ne-CKl">
+            <objects>
+                <viewController title="Custom Search" id="vav-aj-7Hk" customClass="CustomSearchBarViewController" customModule="WidgetsExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wLB-Mn-pGf"/>
+                        <viewControllerLayoutGuide type="bottom" id="qkw-fX-PDJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lOf-No-1uc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rCq-3u-Snq">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ZrY-pb-4Yc"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rCq-3u-Snq" firstAttribute="leading" secondItem="lOf-No-1uc" secondAttribute="leading" id="HDC-8c-U48"/>
+                            <constraint firstItem="rCq-3u-Snq" firstAttribute="top" secondItem="wLB-Mn-pGf" secondAttribute="bottom" id="pGz-R8-wJA"/>
+                            <constraint firstAttribute="trailing" secondItem="rCq-3u-Snq" secondAttribute="trailing" id="rqx-Td-mqe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Custom Search Bar" id="MCb-42-YXX"/>
+                    <connections>
+                        <outlet property="searchBar" destination="rCq-3u-Snq" id="gGZ-CM-HHV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdt-gK-7bF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2826" y="898"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Tgw-2V-6nS">

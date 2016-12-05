@@ -29,6 +29,7 @@
 - [9. Customization](#9-customization)
   * [9.1 Widgets Theme](#91-widgets-theme)
   * [9.2 Advanced](#92-advanced)
+  * [9.3 Custom Search Bar](#93-custom-search-bar)
 
 <!-- tocstop -->
 
@@ -811,5 +812,9 @@ For advanced use cases where you need to create your own widgets or want to modi
 - [willShowSimilarControler(sender:controller:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControlerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : configure similar controller before display.
 - [willShowFilterControler(sender:controller:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControlerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_) : configure filter controller before display.
 
+### 9.3 Custom Search Bar
 
+To add "Search by Image" and "Search by Color" buttons to the UISearchBar, please refer to the `WidgetsExample` project > `CustomSearchBarViewController` class.
+
+<img src="./docs/images/custom_search.png">
 

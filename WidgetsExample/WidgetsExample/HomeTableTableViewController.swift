@@ -15,8 +15,9 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     static let FIND_SIMILAR_SEARCH: String = "Find Similar"
     static let YOU_MAY_ALSO_LIKE_SEARCH: String = "You May Also Like"
     static let IMAGE_SEARCH: String = "Search by Image"
+    static let CUSTOM_SEARCH_BAR: String = "Custom Search Bar"
     
-    var demoItems : [String] = [FIND_SIMILAR_SEARCH , YOU_MAY_ALSO_LIKE_SEARCH, IMAGE_SEARCH , COLOR_SEARCH ]
+    var demoItems : [String] = [FIND_SIMILAR_SEARCH , YOU_MAY_ALSO_LIKE_SEARCH, IMAGE_SEARCH , COLOR_SEARCH, CUSTOM_SEARCH_BAR ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +85,9 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             else {
                 alert(message: "Please configure the sample color in SampleData.plist")
             }
+        }
+        else if demoItems[indexPath.row] == HomeTableTableViewController.CUSTOM_SEARCH_BAR {
+            self.performSegue(withIdentifier: "showCustomSearch", sender: tableView.cellForRow(at: indexPath) )
         }
     }
     

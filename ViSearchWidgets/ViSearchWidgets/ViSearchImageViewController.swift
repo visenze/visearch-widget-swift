@@ -71,7 +71,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         
         button.tintColor = ViTheme.sharedInstance.color_pick_btn_tint_color
         button.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
-        button.tag = ViProductCardTag.colorPickBtnTag.rawValue
+        button.tag = ViProductCardTag.cameraBtnTag.rawValue
         
         button.frame = CGRect(x: 0, y: 0, width: btnWidth, height: btnWidth)
         

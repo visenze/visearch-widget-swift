@@ -26,6 +26,7 @@
 		BDA5B1861DEBDD120008C168 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5B1851DEBDD120008C168 /* AVFoundation.framework */; };
 		BDA5B18D1DEBDD730008C168 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5B18C1DEBDD730008C168 /* Photos.framework */; };
 		BDA5B18F1DEBDD770008C168 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA5B18E1DEBDD770008C168 /* MediaPlayer.framework */; };
+		BDAA969E1DF5212500CB3BC3 /* CustomSearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAA969D1DF5212500CB3BC3 /* CustomSearchBarViewController.swift */; };
 		BDF03BFF1DD0142200861EC5 /* LayoutKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */; };
 		BDF03C001DD0142200861EC5 /* LayoutKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -99,6 +100,7 @@
 		BDA5B1851DEBDD120008C168 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BDA5B18C1DEBDD730008C168 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		BDA5B18E1DEBDD770008C168 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		BDAA969D1DF5212500CB3BC3 /* CustomSearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBarViewController.swift; sourceTree = "<group>"; };
 		BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayoutKit.framework; path = ../../Carthage/Build/iOS/LayoutKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 				BD7E96881DB9C61100C497F7 /* AppDelegate.swift */,
 				BD3D1D831DD492C60053F1E8 /* HomeTableTableViewController.swift */,
 				BD3D1D881DD56EA10053F1E8 /* YouMayLikeViewController.swift */,
+				BDAA969D1DF5212500CB3BC3 /* CustomSearchBarViewController.swift */,
 				BD7E968C1DB9C61100C497F7 /* Main.storyboard */,
 				BD7E96911DB9C61100C497F7 /* LaunchScreen.storyboard */,
 				BD7E968F1DB9C61100C497F7 /* Assets.xcassets */,
@@ -367,6 +370,7 @@
 				BD7E96891DB9C61100C497F7 /* AppDelegate.swift in Sources */,
 				BD3D1D871DD493720053F1E8 /* UIViewController+Alert.swift in Sources */,
 				BD3D1D891DD56EA10053F1E8 /* YouMayLikeViewController.swift in Sources */,
+				BDAA969E1DF5212500CB3BC3 /* CustomSearchBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

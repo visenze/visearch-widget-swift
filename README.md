@@ -170,13 +170,14 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
 
 ### 4.3 App Permission
 
+- **App Transport Security Setting** :
+  For loading of product images, you will need to configure the "App Transport Security Settings" option in `Info.plist`. Please see this [link](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33) and [suggestions](http://stackoverflow.com/questions/30731785/how-do-i-load-an-http-url-with-app-transport-security-enabled-in-ios-9/30732693#30732693) for more information. If your product images URLs come from various unknown domains, you can just set "Arbitrary Load" option to "Yes". 
+ 
 - **Add Privacy Usage Description** :
 
- iOS 10 now requires user permission to access camera and photo library. To use "Search by Image" solution, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in your Info.plist. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
+ iOS 10 now requires user permission to access camera and photo library. To use "Search by Image" solution, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription for accessing camera/photo library respectively in your `Info.plist`. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
 
  <img src="./docs/images/privacy.png" width="600" >
- 
- You may also want to configure the "App Transport Security Settings" option to allow loading of product images.
  
 ### 4.4 Run Demo App 
 

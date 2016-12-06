@@ -536,6 +536,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
             
             config: { viImageView in
                 viImageView.tag = ViProductCardTag.productImgTag.rawValue
+                viImageView.isUserInteractionEnabled = false
                 
                 if let imageView = viImageView.imageView {
                     
@@ -579,7 +580,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
                             button.tintColor = action_btn_tint_color
                             button.imageEdgeInsets = UIEdgeInsetsMake( 0, 4, 0, 4)
                             button.tag = ViProductCardTag.actionBtnTag.rawValue
-                            
+                            viImageView.isUserInteractionEnabled = true
                         }
                     }
                     else {

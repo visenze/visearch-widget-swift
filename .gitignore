@@ -59,4 +59,4 @@ fastlane/screenshots
 
 iOSInjectionProject/
 
-WidgetsExample/WidgetsExample/ViApiKeys.plist
+#WidgetsExample/WidgetsExample/ViApiKeys.plist

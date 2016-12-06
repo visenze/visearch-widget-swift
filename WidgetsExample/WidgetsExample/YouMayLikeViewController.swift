@@ -106,5 +106,16 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         
     }
     
+    func searchFailed(err: Error?, apiErrors: [String]) {
+        if let err = err {
+            // most likely network error
+            alert (message: "error: \(err.localizedDescription)")
+        }
+            
+        else if apiErrors.count > 0 {
+            alert (message: "api error: \(apiErrors.joined(separator: ",") )")
+        }
+    }
+    
 
 }

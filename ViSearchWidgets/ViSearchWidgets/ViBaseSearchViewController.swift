@@ -121,6 +121,8 @@ public protocol ViSearchViewControllerProtocol: class {
     
 }
 
+
+/// Base controller for all search widgets
 open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol, ViProductCellDelegate {
     
     public let headerCollectionViewCellReuseIdentifier = "ViHeaderReuseCellId"
@@ -204,10 +206,10 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     public var productBorderStyles : [ViBorderType] = [.LEFT , .RIGHT , .BOTTOM , .TOP]
     
     
-    // show/hide Power by Visenze image
+    /// show/hide Power by Visenze image
     public var showPowerByViSenze : Bool = true
     
-    // extract products data from ViSenze API response
+    /// extract products data from ViSenze API response
     public var products: [ViProduct] = [] {
         didSet {
             // make sure that this is run on ui thread

@@ -184,12 +184,14 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
 
 - Configure API keys:
 
- Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys. First, you will need to copy/drag the empty `ViApiKeys.plist` file (at the same location to this README file) to the demo project.
- 
+ Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys.  You can enter the `search-only` access and secret keys into the `ViApiKeys.plist` file.
+  
  <img src="./docs/images/api_keys.png" width="600" >
- 
- Next, you can enter the `search-only` access and secret keys into the plist file.
- 
+  
+- The demo app is built with Carthage. Please download and run the `Carthage.pkg` file for the latest [release](https://github.com/Carthage/Carthage/releases). After Carthage  installation, you will need to run the following command at source directory:
+
+ `carthage update --platform iOS --no-use-binaries` 
+  
 - Configure schema mapping
 
  As mentioned in section [3.2](#32-upload-your-datafeed) , you will need to upload your datafeed and configure the schema fields. The fields which hold product's information can then be displayed in the widgets via the `Product Card` UI component. Please see the below screenshot for example.
@@ -208,10 +210,6 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
   - `find_similar_im_name` : sample im_name used for "Find Similar" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
   - `you_may_like_im_name` : sample im_name used for "You May Also Like" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
   - `filterItems` : configure the types of fitler used in demo app. Two types of filters are supported (Category and Range filters). 
-
-- Download and run the `Carthage.pkg` file for the latest [release](https://github.com/Carthage/Carthage/releases). The demo app is built with Carthage. After Carthage  installation, you will need to run the following command:
-
- `carthage update --platform iOS --no-use-binaries` 
 
 - Configure scheme: At the final step, you will need to change the Running Scheme to "WidgetsExample". You are now ready to run the demo app.
 

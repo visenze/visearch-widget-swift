@@ -25,7 +25,7 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
         return resultsView.tableView!
     }
     
-    // show/hide Power by Visenze image
+    /// show/hide Power by Visenze image
     public var showPowerByViSenze : Bool = true
     
     /// Filter item configuration and selected items

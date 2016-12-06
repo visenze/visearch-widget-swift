@@ -54,7 +54,7 @@ We have launched four solutions that would be fit into your various use cases.
 
 API documentation: [https://visenze.github.io/visearch-widget-swift/](https://visenze.github.io/visearch-widget-swift/)
 
-To understand quickly what our SDKs offer out of the box, please following instructions in section 3 and then jump to section 4.3 to run the demo.
+To understand quickly what our SDKs offer out of the box, please follow instructions in section 3 and then jump to section 4.3 to run the demo.
 
 ## 2. Requirements
 

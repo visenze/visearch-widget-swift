@@ -23,21 +23,28 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
     /// current selector color.. will be indicated with a tick
     open var selectedColor : String? = nil;
     
+    /// built in collection view
     public var collectionView : UICollectionView? {
         let resultsView = self.view as! ViSearchResultsView
         return resultsView.collectionView
     }
     
+    /// collection view layout
     public var collectionViewLayout: UICollectionViewLayout {
         let resultsView = self.view as! ViSearchResultsView
         return resultsView.collectionViewLayout
     }
 
+    /// title label
     public var titleLabel : UILabel?
+    
+    /// show/hide title
     public var showTitleHeader: Bool = true
     
+    /// delegate notify when a color is picked
     public weak var delegate: ViColorPickerDelegate?
     
+    /// size for a color item. Default to 44 x 44
     public var itemSize: CGSize = CGSize(width: 44, height: 44) {
         didSet {
             reloadLayout()
@@ -54,19 +61,21 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
     /// background color
     public var backgroundColor  : UIColor = UIColor.white
     
+    /// left padding
     public var paddingLeft: CGFloat = 0 {
         didSet{
             reloadLayout()
         }
     }
     
+    /// right padding
     public var paddingRight: CGFloat = 0 {
         didSet{
             reloadLayout()
         }
     }
     
-    // whether to enable Power by Visenze logo
+    /// show/hide Power by Visenze logo
     public var showPowerByViSenze : Bool = true
     
     // MARK: init methods
@@ -111,6 +120,8 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
         
         reloadLayout()
     }
+    
+    // MARK: collectionView delegate
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
         
@@ -172,6 +183,8 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
             delegate.didPickColor(sender: self, color: color)
         }
     }
+    
+    // MARK: Reload Layout
     
     open func reloadLayout(){
         

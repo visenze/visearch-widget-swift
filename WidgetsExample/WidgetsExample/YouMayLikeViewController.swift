@@ -90,7 +90,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         
     }
 
-    func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
+    func willShowSimilarController(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
         
         // set border for find similar
 //        controller.productCardBorderWidth = 0.7

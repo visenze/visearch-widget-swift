@@ -202,6 +202,7 @@ open class ViFilterViewController: UIViewController , UITableViewDelegate, UITab
             let controller = ViFilterCategoryViewController()
             controller.showPowerByViSenze = self.showPowerByViSenze
             controller.filterItem = item as? ViFilterItemCategory
+            controller.title = "Select \(item.title)"
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }

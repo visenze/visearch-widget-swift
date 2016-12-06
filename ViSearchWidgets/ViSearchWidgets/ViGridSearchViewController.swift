@@ -293,7 +293,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
             navController.modalPresentationStyle = .fullScreen
             navController.modalTransitionStyle = .coverVertical
             
-            self.delegate?.willShowFilterControler(sender: self, controller: controller)
+            self.delegate?.willShowFilterController(sender: self, controller: controller)
             
             self.show(navController, sender: self)
         }
@@ -302,7 +302,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
             // hide back item
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style: .plain, target:nil, action:nil)
             
-            self.delegate?.willShowFilterControler(sender: self, controller: controller)
+            self.delegate?.willShowFilterController(sender: self, controller: controller)
             
             self.navigationController?.pushViewController(controller, animated: true)
         }

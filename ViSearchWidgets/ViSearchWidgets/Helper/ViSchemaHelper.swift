@@ -16,14 +16,13 @@ public class ViSchemaHelper: NSObject {
     ///
     /// - Parameters:
     ///   - mapping: product schema mapping
-    ///   - data: API response data
+    ///   - imageResults: API response imageResults
     /// - Returns: Array of products information
-    public static func parseProducts(mapping: ViProductSchemaMapping, data: ViResponseData)
-        -> [ViProduct]{
+    public static func parseProducts( mapping: ViProductSchemaMapping , imageResults: [ViImageResult]) -> [ViProduct]{
         var arr : [ViProduct] = []
         
         // construct products
-        for imageResult in data.result {
+        for imageResult in imageResults {
             var url = imageResult.im_url
             var heading: String? = nil
             var label : String? = nil
@@ -52,6 +51,15 @@ public class ViSchemaHelper: NSObject {
                             print("\(type(of: self)).\(#function)[line:\(#line)] - Unable to convert price to number: \(priceNum)")
                         }
                     }
+                    else if let priceNum = dict[key] as? Double {
+                        price = Float(priceNum)
+                    }
+                    else if let priceNum = dict[key] as? Float {
+                        price = priceNum
+                    }
+                    else if let priceNum = dict[key] as? Int {
+                        price = Float(priceNum)
+                    }
                 }
                 
                 if let key = mapping.discountPrice {
@@ -61,6 +69,15 @@ public class ViSchemaHelper: NSObject {
                         if discountPrice == nil {
                             print("\(type(of: self)).\(#function)[line:\(#line)] - Unable to convert discount price to number: \(discountPriceNum)")
                         }
+                    }
+                    else if let discountPriceNum = dict[key] as? Double {
+                        discountPrice =  Float(discountPriceNum)
+                    }
+                    else if let discountPriceNum = dict[key] as? Float {
+                        discountPrice =  discountPriceNum
+                    }
+                    else if let discountPriceNum = dict[key] as? Int {
+                        discountPrice =  Float(discountPriceNum)
                     }
                 }
             }
@@ -82,5 +99,17 @@ public class ViSchemaHelper: NSObject {
         }
         
         return arr
+    }
+    
+    /// From ViSenze API response, load products information into [ViProduct] based on provided schema mapping
+    ///
+    /// - Parameters:
+    ///   - mapping: product schema mapping
+    ///   - data: API response data
+    /// - Returns: Array of products information
+    public static func parseProducts(mapping: ViProductSchemaMapping, data: ViResponseData)
+        -> [ViProduct]{
+        
+        return self.parseProducts(mapping: mapping, imageResults: data.result)
     }
 }

@@ -13,7 +13,7 @@
     <a title="ViSearchWidgets  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">ViSearchWidgets Docs</a> (61% documented)</p>
+        <p><a href="index.html">ViSearchWidgets Docs</a> (62% documented)</p>
         <p class="header-right"><a href="https://github.com/visenze/visearch-widget-swift"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -302,10 +302,11 @@
 <li><a href="#71-filtering">7.1 Filtering</a></li>
 <li><a href="#72-widgets-theme">7.2 Widgets Theme</a></li>
 <li><a href="#73-advanced">7.3 Advanced</a></li>
-<li><a href="#74-custom-search-bar">7.4 Custom Search Bar</a></li>
-<li><a href="#741-add-camera--color-picker-buttons-to-uisearchbar">7.4.1 Add Camera &amp; Color Picker Buttons to UISearchBar</a></li>
-<li><a href="#742-color-picker">7.4.2 Color Picker</a></li>
-<li><a href="#743-camera-button">7.4.3 Camera Button</a></li>
+<li><a href="#74-errors-handling">7.4 Errors Handling</a></li>
+<li><a href="#75-custom-search-bar">7.5 Custom Search Bar</a></li>
+<li><a href="#751-add-camera--color-picker-buttons-to-uisearchbar">7.5.1 Add Camera &amp; Color Picker Buttons to UISearchBar</a></li>
+<li><a href="#752-color-picker">7.5.2 Color Picker</a></li>
+<li><a href="#753-camera-button">7.5.3 Camera Button</a></li>
 </ul></li>
 <li><a href="#8-implement-visenze-analytics">8. Implement ViSenze Analytics</a>
 
@@ -1139,14 +1140,50 @@ For loading of product images, you will need to configure the <q>App Transport S
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_">configureCell(sender:collectionView:indexPath:cell:)</a> : allow you to configure the product cell before displaying. You can retrieve various product card UI elements by tag in the cell.contentView e.g. cell.contentView.viewWithTag(ViProductCardTag.productImgTag.rawValue) and configure accordingly. The tags are defined <a href="https://visenze.github.io/visearch-widget-swift/Enums/ViProductCardTag.html">here</a>.</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_">configureLayout(sender:layout:)</a> : if you need to have your own controller which will change the layout for the built in collectionview.</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControllerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">willShowSimilarController(sender:controller:collectionView:indexPath:product:)</a> : configure similar controller before display.</li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControllerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_">willShowFilterController(sender:controller:)</a> : configure filter controller before display.</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControllerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_">willShowFilterController(sender:controller:)</a> : configure filter controller before the Filter screen is shown.</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">didSelectProduct(sender:collectionView:indexPath:product:)</a> : product selection notification i.e. user tap on a product card</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15actionBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">actionBtnTapped(sender:collectionView:indexPath:product:)</a> : action button tapped notification i.e. user tap on action button at the top right corner of a product card cell</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16similarBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">similarBtnTapped(sender:collectionView:indexPath:product:)</a> : user tapped on similar button at the bottom right of a product card cell</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13searchSuccessFT10searchTypeOS_12ViSearchType5reqIdGSqSS_8productsGSaCS_9ViProduct__T_">searchSuccess(searchType:reqId:products:)</a> : the search is successful</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_">searchFailed(err:apiErrors:)</a> : the search is failed due to either network errors or ViSenze API errors</li>
 </ul>
-<a href='#7-4-custom-search-bar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-4-custom-search-bar'>7.4 Custom Search Bar</h3>
+<a href='#7-4-errors-handling' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-4-errors-handling'>7.4 Errors Handling</h3>
+
+<p>There are 2 possible types of errors when using the widgets:</p>
+
+<ul>
+<li>Errors when trying to call the API e.g. network related errors like offline/broken/time-out Internet connection</li>
+<li>ViSenze search API-related errors e.g mis-configuration of search parameters, invalid API key, API limit exceeded, invalid im_name</li>
+</ul>
+
+<p>To display custom error messages to end users, you can hook into <code>ViSearchViewControllerDelegate</code> and take appropriate actions in <a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_">searchFailed(err:apiErrors:)</a> call back.</p>
+<pre class="highlight swift"><code><span class="o">...</span>
+
+<span class="c1">// set delegate to current view controller</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+
+<span class="o">...</span>
+
+<span class="kd">func</span> <span class="nf">searchFailed</span><span class="p">(</span><span class="nv">err</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?,</span> <span class="nv">apiErrors</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">err</span> <span class="o">=</span> <span class="n">err</span> <span class="p">{</span>
+        <span class="c1">// display network error e.g. with UIAlertController</span>
+        <span class="c1">// default network error are stored in err.localizedDescription</span>
+    <span class="p">}</span>
+
+    <span class="k">else</span> <span class="k">if</span> <span class="n">apiErrors</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+          <span class="c1">// ViSenze server will return list of error messages in an array</span>
+          <span class="k">let</span> <span class="nv">msg</span> <span class="o">=</span> <span class="n">apiErrors</span><span class="o">.</span><span class="nf">joined</span><span class="p">(</span><span class="nv">separator</span><span class="p">:</span> <span class="s">","</span><span class="p">)</span>
+          <span class="c1">// display message here if necessary</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre>
+<a href='#7-5-custom-search-bar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-5-custom-search-bar'>7.5 Custom Search Bar</h3>
 
 <p>To add <q>Search by Image</q> and <q>Search by Color</q> buttons to the UISearchBar, please refer to the <code>WidgetsExample</code> project &gt; CustomSearchBarViewController class.</p>
 
 <p><img src="./docs/images/custom_search.png"></p>
-<a href='#7-4-1-add-camera-amp-color-picker-buttons-to-uisearchbar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-4-1-add-camera-amp-color-picker-buttons-to-uisearchbar'>7.4.1 Add Camera &amp; Color Picker Buttons to UISearchBar</h4>
+<a href='#7-5-1-add-camera-amp-color-picker-buttons-to-uisearchbar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-5-1-add-camera-amp-color-picker-buttons-to-uisearchbar'>7.5.1 Add Camera &amp; Color Picker Buttons to UISearchBar</h4>
 
 <p>You can add the camera and color picker button to UISearchBar by implementing the code below within your custom UIViewController:</p>
 <pre class="highlight swift"><code>
@@ -1213,7 +1250,7 @@ For loading of product images, you will need to configure the <q>App Transport S
 
 
 </code></pre>
-<a href='#7-4-2-color-picker' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-4-2-color-picker'>7.4.2 Color Picker</h4>
+<a href='#7-5-2-color-picker' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-5-2-color-picker'>7.5.2 Color Picker</h4>
 
 <p>To implement the action for Color Picker button, you will need to implement the following code:</p>
 <pre class="highlight swift"><code>
@@ -1259,7 +1296,7 @@ For loading of product images, you will need to configure the <q>App Transport S
         <span class="k">if</span> <span class="k">let</span> <span class="nv">popoverController</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">popoverPresentationController</span> <span class="p">{</span>
             <span class="n">popoverController</span><span class="o">.</span><span class="n">sourceView</span> <span class="o">=</span> <span class="n">sender</span>
             <span class="n">popoverController</span><span class="o">.</span><span class="n">sourceRect</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">bounds</span>
-            <span class="n">popoverController</span><span class="o">.</span><span class="n">permittedArrowDirections</span> <span class="o">=</span> <span class="kt">UIPopoverArrowDirection</span><span class="o">.</span><span class="n">any</span>
+            <span class="n">popoverController</span><span class="o">.</span><span class="n">permittedArrowDirections</span> <span class="o">=</span> <span class="kt">UIPopoverArrowDirection</span><span class="o">.</span><span class="n">up</span>
             <span class="n">popoverController</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
 
         <span class="p">}</span>
@@ -1311,7 +1348,7 @@ For loading of product images, you will need to configure the <q>App Transport S
 <span class="p">}</span>
 
 </code></pre>
-<a href='#7-4-3-camera-button' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-4-3-camera-button'>7.4.3 Camera Button</h4>
+<a href='#7-5-3-camera-button' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-5-3-camera-button'>7.5.3 Camera Button</h4>
 
 <p>To implement action for Camera button, copy the code below to trigger the camera search:</p>
 <pre class="highlight swift"><code><span class="c1">// MARK: camera</span>

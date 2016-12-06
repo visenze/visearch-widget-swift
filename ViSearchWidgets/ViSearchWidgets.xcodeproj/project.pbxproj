@@ -69,6 +69,7 @@
 		BDA5B1D31DEEBD250008C168 /* ViRangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D21DEEBD250008C168 /* ViRangeSlider.swift */; };
 		BDA5B1D51DEECDDA0008C168 /* ViRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D41DEECDDA0008C168 /* ViRangeTableViewCell.swift */; };
 		BDA5B1D71DEF28370008C168 /* ViFilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5B1D61DEF28370008C168 /* ViFilterTableView.swift */; };
+		BDC09F5B1DF6D01800229E37 /* ViSearchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E96761DB9C20300C497F7 /* ViSearchSDK.framework */; };
 		BDCF61F91DE6F5E700C4168D /* UIView+Visenze.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61F81DE6F5E700C4168D /* UIView+Visenze.swift */; };
 		BDCF61FB1DE705D800C4168D /* ViQueryProductLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF61FA1DE705D800C4168D /* ViQueryProductLayout.swift */; };
 		BDCF95591DE1F34B00412FF4 /* ViProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF95581DE1F34B00412FF4 /* ViProductCollectionViewCell.swift */; };
@@ -185,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDC09F5B1DF6D01800229E37 /* ViSearchSDK.framework in Frameworks */,
 				BD7E96631DB9C19F00C497F7 /* ViSearchWidgets.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +458,7 @@
 				BD7E965E1DB9C19F00C497F7 /* Sources */,
 				BD7E965F1DB9C19F00C497F7 /* Frameworks */,
 				BD7E96601DB9C19F00C497F7 /* Resources */,
+				BDC09F5C1DF6D07600229E37 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -543,6 +546,20 @@
 				"$(SRCROOT)/../Carthage/Build/iOS/Kingfisher.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/ViSearchSDK.framework",
 				"$(SRCROOT)/../Carthage/Build/iOS/LayoutKit.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		BDC09F5C1DF6D07600229E37 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/ViSearchSDK.framework",
 			);
 			outputPaths = (
 			);
@@ -787,6 +804,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = NKN6QECX9M;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = ViSearchWidgetsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.ViSearchWidgetsTests;
@@ -800,6 +818,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = NKN6QECX9M;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = ViSearchWidgetsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.ViSearchWidgetsTests;

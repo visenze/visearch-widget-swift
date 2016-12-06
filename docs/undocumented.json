@@ -856,98 +856,77 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 124,
-      "symbol": "ViBaseSearchViewController",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 126,
+      "line": 128,
       "symbol": "ViBaseSearchViewController.headerCollectionViewCellReuseIdentifier",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 208,
-      "symbol": "ViBaseSearchViewController.showPowerByViSenze",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 211,
-      "symbol": "ViBaseSearchViewController.products",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 252,
+      "line": 254,
       "symbol": "ViBaseSearchViewController.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 257,
+      "line": 259,
       "symbol": "ViBaseSearchViewController.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 262,
+      "line": 264,
       "symbol": "ViBaseSearchViewController.setup()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 271,
+      "line": 273,
       "symbol": "ViBaseSearchViewController.loadView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 276,
+      "line": 278,
       "symbol": "ViBaseSearchViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 291,
+      "line": 293,
       "symbol": "ViBaseSearchViewController.collectionView(_:layout:referenceSizeForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 296,
+      "line": 298,
       "symbol": "ViBaseSearchViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 300,
+      "line": 302,
       "symbol": "ViBaseSearchViewController.collectionView(_:numberOfItemsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 304,
+      "line": 306,
       "symbol": "ViBaseSearchViewController.collectionView(_:cellForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 377,
+      "line": 379,
       "symbol": "ViBaseSearchViewController.collectionView(_:didSelectItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

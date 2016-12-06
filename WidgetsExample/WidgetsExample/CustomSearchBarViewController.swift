@@ -115,7 +115,7 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         if let popoverController = controller.popoverPresentationController {
             popoverController.sourceView = sender
             popoverController.sourceRect = sender.bounds
-            popoverController.permittedArrowDirections = UIPopoverArrowDirection.any
+            popoverController.permittedArrowDirections = UIPopoverArrowDirection.up
             popoverController.delegate = self
             
         }

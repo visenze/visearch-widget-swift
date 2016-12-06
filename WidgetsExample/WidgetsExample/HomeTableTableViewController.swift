@@ -31,6 +31,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             
             // remove all items
             demoItems.removeAll()
+            self.tableView.reloadData()
         }
         
         super.viewDidAppear(animated)
@@ -283,6 +284,17 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
         print("similar button tapped , product im_name: \(product.im_name)")
         
+    }
+    
+    func searchFailed(err: Error?, apiErrors: [String]) {
+        if let err = err {
+            // most likely network error
+            alert (message: "error: \(err.localizedDescription)")
+        }
+        
+        else if apiErrors.count > 0 {
+            alert (message: "api error: \(apiErrors.joined(separator: ",") )")
+        }
     }
     
 }

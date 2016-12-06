@@ -36,7 +36,7 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                         // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
                         if let data = data {
                             if data.hasError {
-                                let errMsgs =  data.error.joined(separator: ",")
+                                //let errMsgs =  data.error.joined(separator: ",")
                                 
                                 // TODO: display system busy message here
                                 self.delegate?.searchFailed(err: nil, apiErrors: data.error)

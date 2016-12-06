@@ -62,13 +62,13 @@ public protocol ViSearchViewControllerDelegate: class {
     
     /// allow configuration of the FindSimilar controller when similar button is tapped
     /// This is triggered before the similar controller is pushed to navigation controller/shown in modal
-    func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
+    func willShowSimilarController(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
     /// user tapped on similar button at the bottom right of a product card cell
     func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct)
     
     /// allow configuration of the filter controller before showing
-    func willShowFilterControler(sender: AnyObject, controller: ViFilterViewController)
+    func willShowFilterController(sender: AnyObject, controller: ViFilterViewController)
     
     
     /// Successful search after refreshData() method is called
@@ -96,9 +96,9 @@ public extension ViSearchViewControllerDelegate{
     func didSelectProduct(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
     func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
     func similarBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
-    func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
+    func willShowSimilarController(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){}
     
-    func willShowFilterControler(sender: AnyObject, controller: ViFilterViewController){}
+    func willShowFilterController(sender: AnyObject, controller: ViFilterViewController){}
     
     func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct]){}
     func searchFailed(err: Error?, apiErrors: [String]){}
@@ -648,7 +648,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                     navController.modalPresentationStyle = .fullScreen
                     navController.modalTransitionStyle = .coverVertical
                     
-                    delegate?.willShowSimilarControler(sender: self, controller: similarController, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+                    delegate?.willShowSimilarController(sender: self, controller: similarController, collectionView: self.collectionView!, indexPath: indexPath, product: product)
                     
                     // TODO: test this flow when navigation controller is not available
                     self.show(navController, sender: self)
@@ -657,7 +657,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                     
                     self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style: .plain, target:nil, action:nil)
                     
-                    delegate?.willShowSimilarControler(sender: self, controller: similarController, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+                    delegate?.willShowSimilarController(sender: self, controller: similarController, collectionView: self.collectionView!, indexPath: indexPath, product: product)
                     
                     self.navigationController?.pushViewController(similarController, animated: true)
                 }

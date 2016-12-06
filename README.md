@@ -9,27 +9,34 @@
 - [3. Setup](#3-setup)
   * [3.1 Setup your ViSenze account](#31-setup-your-visenze-account)
   * [3.2 Upload your datafeed](#32-upload-your-datafeed)
-- [4. Installation](#4-installation)
+- [4. Install the SDK](#4-install-the-sdk)
   * [4.1 CocoaPods](#41-cocoapods)
   * [4.2 Carthage](#42-carthage)
-  * [4.3 App Permission](#43-app-permission)
-  * [4.4 Run Demo App](#44-run-demo-app)
-- [5. Initialization](#5-initialization)
-  * [5.1 ViSenze Search Keys](#51-visenze-search-keys)
-  * [5.2 Product Card Schema Mapping](#52-product-card-schema-mapping)
-  * [5.3 Product Card Display Setting](#53-product-card-display-setting)
-  * [5.4 Common Search Settings](#54-common-search-settings)
-- [6. Solutions](#6-solutions)
+  * [4.3 Run Demo App](#43-run-demo-app)
+- [5. Configure the SDK](#5-configure-the-sdk)
+  * [5.1 Api Keys](#51-api-keys)
+  * [5.2 App Permission](#52-app-permission)
+- [6. Solution Widgets](#6-solution-widgets)
+  * [6.0 Common Widget Configuration](#60-common-widget-configuration)
+    + [6.0.1 Product Card Schema Mapping](#601-product-card-schema-mapping)
+    + [6.0.2 Product Card Display Setting](#602-product-card-display-setting)
+    + [6.0.3 Common Search Settings](#603-common-search-settings)
   * [6.1 Find Similar](#61-find-similar)
   * [6.2 You May Also Like](#62-you-may-also-like)
   * [6.3 Search by Image](#63-search-by-image)
   * [6.4 Search by Color](#64-search-by-color)
-- [7. Implement ViSenze Analytics](#7-implement-visenze-analytics)
-- [8. Filtering](#8-filtering)
-- [9. Customization](#9-customization)
-  * [9.1 Widgets Theme](#91-widgets-theme)
-  * [9.2 Advanced](#92-advanced)
-  * [9.3 Custom Search Bar](#93-custom-search-bar)
+- [7. Customization](#7-customization)
+  * [7.1 Filtering](#71-filtering)
+  * [7.2 Widgets Theme](#72-widgets-theme)
+  * [7.3 Advanced](#73-advanced)
+  * [7.4 Custom Search Bar](#74-custom-search-bar)
+    + [7.4.1 Add Camera & Color Picker Buttons to UISearchBar](#741-add-camera--color-picker-buttons-to-uisearchbar)
+    + [7.4.2 Color Picker](#742-color-picker)
+    + [7.4.3 Camera Button](#743-camera-button)
+- [8. Implement ViSenze Analytics](#8-implement-visenze-analytics)
+  * [8.1 Default Actions](#81-default-actions)
+    + [Custom Action Button Tracking](#custom-action-button-tracking)
+  * [8.2 Custom Actions](#82-custom-actions)
 
 <!-- tocstop -->
 
@@ -45,6 +52,8 @@ We have launched four solutions that would be fit into your various use cases.
 - **Search by Color**: Search and discover products by selecting from a vast color spectrum
 
 API documentation: [https://visenze.github.io/visearch-widget-swift/](https://visenze.github.io/visearch-widget-swift/)
+
+To understand quickly what our SDKs offer out of the box, please following instructions in section 3 and then jump to section 4.3 to run the demo.
 
 ## 2. Requirements
 
@@ -75,7 +84,7 @@ For testing, you will need to upload your datafeed in ViSenze [dashboard](https:
 |Price| custom | float/int | Yes | Yes | Product original retail price. Can be used for ranged filtering | 49.99 |
 | Discount Price | custom | float/int | No | Yes | Discount product price. Can be used for ranged filtering | 40.99 | 
    
-## 4. Installation
+## 4. Install the SDK
 
 ### 4.1 CocoaPods
 
@@ -166,30 +175,21 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
   $(SRCROOT)/Carthage/Build/iOS/ViSearchWidgets.framework
   ```
   <img src="./docs/images/build_script.png" width="600" >
-
-
-### 4.3 App Permission
-
-- **Add Privacy Usage Description** :
-
- iOS 10 now requires user permission to access camera and photo library. To use "Search by Image" solution, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in your Info.plist. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
-
- <img src="./docs/images/privacy.png" width="600" >
  
- You may also want to configure the "App Transport Security Settings" option to allow loading of product images.
- 
-### 4.4 Run Demo App 
+### 4.3 Run Demo App 
 
 The source code of the Demo application is under the `WidgetsExample` folder. Please open the WidgetsExample.xcodeproj and configure the API keys/ schema mapping to run the demo.
 
 - Configure API keys:
 
- Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys. First, you will need to copy/drag the empty `ViApiKeys.plist` file (at the same location to this README file) to the demo project.
- 
+ Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys.  You can enter the `search-only` access and secret keys into the `ViApiKeys.plist` file.
+  
  <img src="./docs/images/api_keys.png" width="600" >
- 
- Next, you can enter the `search-only` access and secret keys into the plist file.
- 
+  
+- The demo app is built with Carthage. Please download and run the `Carthage.pkg` file for the latest [release](https://github.com/Carthage/Carthage/releases). After Carthage  installation, you will need to run the following command at source directory:
+
+ `carthage update --platform iOS --no-use-binaries` 
+  
 - Configure schema mapping
 
  As mentioned in section [3.2](#32-upload-your-datafeed) , you will need to upload your datafeed and configure the schema fields. The fields which hold product's information can then be displayed in the widgets via the `Product Card` UI component. Please see the below screenshot for example.
@@ -209,19 +209,13 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
   - `you_may_like_im_name` : sample im_name used for "You May Also Like" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
   - `filterItems` : configure the types of fitler used in demo app. Two types of filters are supported (Category and Range filters). 
 
-- Download and run the `Carthage.pkg` file for the latest [release](https://github.com/Carthage/Carthage/releases). The demo app is built with Carthage. After Carthage  installation, you will need to run the following command:
-
- `carthage update --platform iOS --no-use-binaries` 
-
 - Configure scheme: At the final step, you will need to change the Running Scheme to "WidgetsExample". You are now ready to run the demo app.
 
  <img src="./docs/images/scheme.png" width="300" >
 
-## 5. Initialization
+## 5. Configure the SDK
 
-All of our widgets (constructed as view controllers sub-classes of [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html) ) require the following common initialization steps.
-
-### 5.1 ViSenze Search Keys
+### 5.1 Api Keys 
 
 `ViSearch` **must** be initialized with an accessKey/secretKey pair **before** it can be used. Please refer to section [3.1](#31-setup-your-visenze-account) on how to obtain the keys .You can do this initialization once in AppDelegate class.
 
@@ -238,7 +232,24 @@ client = ViSearchClient(baseUrl: yourUrl, accessKey: accessKey, secret: secret)
 ...
 ```
 
-### 5.2 Product Card Schema Mapping
+### 5.2 App Permission
+
+- **App Transport Security Setting** :
+  For loading of product images, you will need to configure the "App Transport Security Settings" option in your project's `Info.plist`. Please see this [link](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33) and [suggestions](http://stackoverflow.com/questions/30731785/how-do-i-load-an-http-url-with-app-transport-security-enabled-in-ios-9/30732693#30732693) for more information. If your product images URLs come from various unknown domains, you can just set "Arbitrary Load" option to "Yes". 
+ 
+- **Add Privacy Usage Description** :
+
+ iOS 10 now requires user permission to access camera and photo library. To use "Search by Image" solution, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription for accessing camera/photo library respectively in your `Info.plist`. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
+
+ <img src="./docs/images/privacy.png" width="600" >
+
+## 6. Solution Widgets
+
+### 6.0 Common Widget Configuration
+
+All of our widgets (constructed as view controller sub-classes of [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html) ) require the following common configuration steps.
+
+#### 6.0.1 Product Card Schema Mapping
 
 As mentioned in section [3.2](#32-upload-your-datafeed) , you will need to upload your datafeed and configure the schema fields. The fields which hold product's information can then be displayed in the widgets via the `Product Card` UI component. Please see the below screenshot for example.
  
@@ -260,7 +271,7 @@ controller.schemaMapping.productUrl = ... // mapping for product image URL. defa
 
 ```
 
-### 5.3 Product Card Display Setting
+#### 6.0.2 Product Card Display Setting
 
 You can also configure various setting for the product card.
 
@@ -285,7 +296,7 @@ controller.priceConfig.isStrikeThrough = true
 
 ```
 
-### 5.4 Common Search Settings
+#### 6.0.3 Common Search Settings
 
 ```swift
 // create search params (depending on the widget)
@@ -306,17 +317,15 @@ controller.params = params
 
 For advanced configuration of search parameters refer to this [link](https://github.com/visenze/visearch-sdk-swift#6-advanced-search-parameters) .
 
-## 6. Solutions
-
 ### 6.1 Find Similar
 
-Visually similar products can be activately searched by the user on the product listing or product detail screen. Our algorithm assigns appropriate weights to different attributes to determine a final similarity score, and product results are displayed in order of the score. This solution provides an opportunity for shoppers to discover other relevant results based on visual similarity. 
+Visually similar products can be actively searched by the user on the product listing or product detail screen. Our algorithm assigns appropriate weights to different attributes to determine a final similarity score, and product results are displayed in order of the score. This solution provides an opportunity for shoppers to discover other relevant results based on visual similarity. 
 
 <img src="./docs/images/similar.png">
 
 The products are displayed in a grid.
 
-Below is sample code for using "Find Similar" widget. Please read section 5 on important initialization steps.
+Below is sample code for using "Find Similar" widget. Please read section 6.0 on important configuration steps.
 
 ```swift
 
@@ -332,7 +341,7 @@ if let params = ViSearchParams(imName: "sample_im_name.jpg") {
     // 2. set search parameters
     similarController.searchParams = params
     
-    // 3. configure schema mapping (refer to section 5.2)
+    // 3. configure schema mapping (refer to section 6.0.1)
     // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
     similarController.schemaMapping.heading = "im_title"
     similarController.schemaMapping.label = "brand"
@@ -389,7 +398,7 @@ This solution showcases recommended products on the product detail screen. You c
 
 The products are displayed in a horizontal scroll view.
 
-Below is sample code for using "You May Also Like" widget. Please read section 5 on important initialization steps. The widget (`ViRecommendationViewController`) should be used in the detail screen as a [child view controller](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html). There are 2 ways to present a child view controller.
+Below is sample code for using "You May Also Like" widget. Please read section 6.0 on important configuration steps. The widget (`ViRecommendationViewController`) should be used in the detail screen as a [child view controller](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html). There are 2 ways to present a child view controller.
 
 - Present ViRecommendationViewController programatically as child view controller: 
 
@@ -407,7 +416,7 @@ if let params = ViSearchParams(imName: "sample_im_name.jpg") {
     // 2. set search parameters
     controller.searchParams = params
     
-    // 3. configure schema mapping (refer to section 5.2)
+    // 3. configure schema mapping (refer to section 6.0.1)
     // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
     controller.schemaMapping.heading = "im_title"
     controller.schemaMapping.label = "brand"
@@ -484,7 +493,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       // 2. set search parameters
       controller.searchParams = params
     
-      // 3. configure schema mapping (refer to section 5.2)
+      // 3. configure schema mapping (refer to section 6.0.1)
       // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
       controller.schemaMapping.heading = "im_title"
       controller.schemaMapping.label = "brand"
@@ -548,7 +557,7 @@ Shoppers can snap or upload a photo of the product they are looking for, find th
 
 The products are displayed in a grid.
 
-Below is sample code for using "Search by Image" widget. Please read section 5 on important initialization steps and section 4.3 on important app permissions.
+Below is sample code for using "Search by Image" widget. Please read section 6.0 on important configuration steps and section 5.2 on important app permissions.
 
 ```swift
 
@@ -582,7 +591,7 @@ let cameraViewController = CameraViewController(croppingEnabled: false, allowsLi
     controller.croppingEnabled = true
     controller.allowsLibraryAccess = true
     
-    // 3. configure schema mapping (refer to section 5.2)
+    // 3. configure schema mapping (refer to section 6.0.1)
     // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
     controller.schemaMapping.heading = "im_title"
     controller.schemaMapping.label = "brand"
@@ -642,7 +651,7 @@ Shoppers can search your entire indexed catalogue of products for an item with a
 
 The products are displayed in a grid.
 
-Below is sample code for using "Search by Color" widget. Please read section 5 on important initialization steps.
+Below is sample code for using "Search by Color" widget. Please read section 6.0 on important configuration steps.
 
 ```swift
 
@@ -658,7 +667,7 @@ if let params = ViColorSearchParams(color: "00ff00") {
     // 2. set search parameters
     controller.searchParams = params
     
-    // 3. configure schema mapping (refer to section 5.2)
+    // 3. configure schema mapping (refer to section 6.0.1)
     // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
     controller.schemaMapping.heading = "im_title"
     controller.schemaMapping.label = "brand"
@@ -707,44 +716,16 @@ Important API docs:
 - [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
 - [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
 
-## 7. Implement ViSenze Analytics
+## 7. Customization
 
-The analytics reports page is located in your ViSenze Dashboard and allows you to conveniently see a high-level view of the performance of each of the solutions through click metrics as well as usage statistics. With the analytics reporting tool, you can easily track the performance to quantify the value-add of our solutions through metrics such as click-through rate, add-to-wishlist rate, add-to-cart rate, and click rank.
-
-Here is the list of actions that our analytics reports support:
-
-|Action recorded| Description |
-|:---|:---|
-|`click`|When user click to view the detail of the product|
-|`add_to_cart`| When user click the button to add the product to cart|
-|`add_to_wishlist`| When user click the button to add the product to wishlist|
-
-By integrating with our solution widgets, the implementation of tracking `click` (click on a product on search results) and `add_to_wishlist` (click on action button default to heart icon) actions are already included.
-
-However, if you would like to track actions being performed outside of the widgets UI or you want to customize your own UI, the action tracking needs to be implemented explicitly. For each action sent, a `reqId` needs to be sent together with the action name. The `reqId` binds the action with its triggering API calls to our service. Each time an API call is made to our service, a `reqId` will be returned in the response. Any user action that is generated by the results returned from this particular API call should be bound with its `reqId`. Please refer to the code snippets below for the implementation.
-
-The user action can be sent in this way:
-
-```swift
-
-if sender is ViBaseSearchViewController {
-    let controller = sender as! ViBaseSearchViewController
-    let recentReqId = controller.reqId
-    
-    let params = ViTrackParams(reqId: recentReqId, action: "custom_action" )
-	 params.imName = product.im_name
-
-	// send tracking request to server
-	ViSearch.sharedInstance.track(params: params!, handler: nil)
-}
-
-```
-## 8. Filtering
+### 7.1 Filtering
 
 You can configure the filter component for `Find Similar`, `Search by Image` and `Search by Color` widgets search results. Two types of filters are supported: 
 
 - Range filter (e.g. for price) ([ViFilterItemRange](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemRange.html))
 - Multi-selection category filter (e.g. for product category, brand) ([ViFilterItemCategory](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html))
+
+<img src="./docs/images/filter.png" width="1000">
 
 The filters can be created as below:
 
@@ -785,9 +766,7 @@ Important API docs:
 - [ViFilterItemCategory](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html)
 - [ViFilterItem](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItem.html)
 
-## 9. Customization
-
-### 9.1 Widgets Theme
+### 7.2 Widgets Theme
 
 To customize the color, styles of the widgets and button, you can look at the following classes:
 
@@ -807,18 +786,311 @@ To customize the color, styles of the widgets and button, you can look at the fo
 
 For specific widget customization (e.g. show/hide buttons, change text/button colors, etc), refer to [UI Settings](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html#/UI%20settings) section of `ViBaseSearchViewController`.
 
-### 9.2 Advanced 
+### 7.3 Advanced 
 
 For advanced use cases where you need to create your own widgets or want to modify/extend the product card, please hook into the [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) callbacks.
 
 - [configureCell(sender:collectionView:indexPath:cell:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_) : allow you to configure the product cell before displaying. You can retrieve various product card UI elements by tag in the cell.contentView e.g. cell.contentView.viewWithTag(ViProductCardTag.productImgTag.rawValue) and configure accordingly. The tags are defined [here](https://visenze.github.io/visearch-widget-swift/Enums/ViProductCardTag.html).
 - [configureLayout(sender:layout:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_) : if you need to have your own controller which will change the layout for the built in collectionview.
-- [willShowSimilarControler(sender:controller:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControlerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : configure similar controller before display.
-- [willShowFilterControler(sender:controller:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControlerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_) : configure filter controller before display.
+- [willShowSimilarController(sender:controller:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControllerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : configure similar controller before display.
+- [willShowFilterController(sender:controller:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControllerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_) : configure filter controller before the Filter screen is shown.
+- [didSelectProduct(sender:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : product selection notification i.e. user tap on a product card
+- [actionBtnTapped(sender:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15actionBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : action button tapped notification i.e. user tap on action button at the top right corner of a product card cell
+- [similarBtnTapped(sender:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16similarBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : user tapped on similar button at the bottom right of a product card cell
+- [searchSuccess(searchType:reqId:products:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13searchSuccessFT10searchTypeOS_12ViSearchType5reqIdGSqSS_8productsGSaCS_9ViProduct__T_) : the search is successful
+- [searchFailed(err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_) : the search is failed due to either network errors or ViSenze API errors
 
-### 9.3 Custom Search Bar
+### 7.4 Custom Search Bar
 
-To add "Search by Image" and "Search by Color" buttons to the UISearchBar, please refer to the `WidgetsExample` project > `CustomSearchBarViewController` class.
+To add "Search by Image" and "Search by Color" buttons to the UISearchBar, please refer to the `WidgetsExample` project > CustomSearchBarViewController class.
 
 <img src="./docs/images/custom_search.png">
+
+#### 7.4.1 Add Camera & Color Picker Buttons to UISearchBar
+
+You can add the camera and color picker button to UISearchBar by implementing the code below within your custom UIViewController:
+
+```swift
+
+// point the searchbar to your storyboard
+@IBOutlet weak var searchBar: UISearchBar!
+
+override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+	// retrieve the text field within UISearchBar
+	if let textFieldInsideSearchBar = self.searchBar.value(forKey: "searchField") as? UITextField {
+	            
+	    // customize the right view to include our 2 buttons
+	    textFieldInsideSearchBar.rightView = self.getCameraColorSearchButtons()
+	    textFieldInsideSearchBar.rightViewMode = .always
+	}
+
+}
+
+/// Add color picker and search by image buttons to search bar
+///
+/// - Returns: custom view to be put into the UITextField of UISearchBar
+public func getCameraColorSearchButtons() -> UIView {
+    let customView = UIView()
+    customView.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
+    
+    let btnWidth = ViIcon.camera!.width + 4
+    var floatWidth = btnWidth
+    
+    let button = UIButton(type: .custom)
+    
+    button.setImage(ViIcon.camera, for: .normal)
+    button.setImage(ViIcon.camera, for: .highlighted)
+    
+    button.tintColor = UIColor.black
+    button.tag = ViProductCardTag.cameraBtnTag.rawValue
+    
+    button.frame = CGRect(x: 0, y: 0, width: btnWidth, height: btnWidth)
+    
+    
+    button.addTarget(self, action: #selector(self.openCameraView), for: .touchUpInside)
+    customView.addSubview(button)
+    
+    let colorButton = UIButton(type: .custom)
+    
+    colorButton.setImage(ViIcon.color_pick, for: .normal)
+    colorButton.setImage(ViIcon.color_pick, for: .highlighted)
+    
+    colorButton.tintColor = UIColor.black
+    //colorButton.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
+    colorButton.tag = ViProductCardTag.colorPickBtnTag.rawValue
+
+    
+    colorButton.addTarget(self, action: #selector(self.openColorPicker), for: .touchUpInside)
+    colorButton.frame = CGRect(x: btnWidth + 4, y: 0, width: btnWidth, height: btnWidth)
+    floatWidth = colorButton.frame.origin.x + btnWidth
+    
+    customView.addSubview(colorButton)
+    
+    customView.frame = CGRect(x: 0 , y: 0 , width: floatWidth , height: btnWidth )
+    
+    return customView
+}
+
+
+```
+
+#### 7.4.2 Color Picker
+
+To implement the action for Color Picker button, you will need to implement the following code:
+
+
+```swift
+
+// make sure your custom controller implements ViColorPickerDelegate , UIPopoverPresentationControllerDelegate
+// UIPopoverPresentationControllerDelegate is needed to display color picker in a popover
+class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UIPopoverPresentationControllerDelegate{
+
+...
+
+	var colorParms: ViColorSearchParams? = nil
+	    
+	// list of colors for the color picker in hex format e.g. e0b0ff, 2abab3
+	open var colorList: [String] = [
+	    "000000" , "555555" , "9896a4" ,
+	    "034f84" , "00afec" , "98ddde" ,
+	    "00ffff" , "f5977d" , "91a8d0",
+	    "ea148c" , "f53321" , "d66565" ,
+	    "ff00ff" , "a665a7" , "e0b0ff" ,
+	    "f773bd" , "f77866" , "7a2f04" ,
+	    "cc9c33" , "618fca" , "79c753" ,
+	    "228622" , "4987ec" , "2abab3" ,
+	    "ffffff"
+	]
+	
+	/// Open color picker view in a popover
+	///
+	/// - Parameters:
+	///   - sender: color picker button
+	///   - event: button event
+	public func openColorPicker(sender: UIButton, forEvent event: UIEvent) {
+	    let controller = ViColorPickerModalViewController()
+	    controller.modalPresentationStyle = .popover
+	    controller.delegate = self
+	    controller.colorList = self.colorList
+	    controller.paddingLeft = 8
+	    controller.paddingRight = 8
+	    controller.preferredContentSize = CGSize(width: self.view.bounds.width, height: 300)
+	    
+	    if let colorParams = self.colorParms {
+	        controller.selectedColor = colorParams.color
+	    }
+	    
+	    if let popoverController = controller.popoverPresentationController {
+	        popoverController.sourceView = sender
+	        popoverController.sourceRect = sender.bounds
+	        popoverController.permittedArrowDirections = UIPopoverArrowDirection.any
+	        popoverController.delegate = self
+	        
+	    }
+	    
+	    self.present(controller, animated: true, completion: nil)
+	}
+	
+	// MARK: UIPopoverPresentationControllerDelegate
+    // important - this is needed so that a popover will be properly shown instead of fullscreen
+    public func adaptivePresentationStyle(for controller: UIPresentationController,
+                                          traitCollection: UITraitCollection) -> UIModalPresentationStyle{
+        return .none
+    }
+
+
+	// MARK: ViColorPickerDelegate
+    public func didPickColor(sender: ViColorPickerModalViewController, color: String) {
+        // set the color params
+        
+        self.colorParms = ViColorSearchParams(color: color)
+        
+        sender.dismiss(animated: true, completion: nil)
+        
+        // refresh data
+        let controller = ViColorSearchViewController()
+        self.colorParms!.limit = 16
+        
+        controller.searchParams = self.colorParms
+        
+        // configure schema mapping if needed
+        controller.schemaMapping = ...
+        
+        // configure filter
+        controller.filterItems = ...
+                
+        let containerWidth = self!.view.bounds.width
+        
+        // configure product image size
+        controller.imageConfig.size = ...        		   
+        controller.itemSize = controller.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+        controller.refreshData()
+        
+    }
+    
+    
+}
+
+```
+
+#### 7.4.3 Camera Button
+
+To implement action for Camera button, copy the code below to trigger the camera search:
+
+```swift
+// MARK: camera
+/// Open camera to take picture
+///
+/// - Parameters:
+///   - sender: camera button
+///   - event: button event
+public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
+    let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
+        
+        // see the code in Search by Image solution
+        
+        self?.dismiss(animated: true, completion: nil)
+        
+        // user cancel photo taking
+        if( image == nil) {
+            return
+        }
+        
+        let controller = ViSearchImageViewController()
+        
+        // save recent photo
+        controller.asset = asset
+        
+        let params = ViUploadSearchParams(image: image!)
+        params.limit = 16
+        controller.searchParams = params
+        
+        controller.croppingEnabled = true
+        controller.allowsLibraryAccess = true
+        
+        // configure your schema mapping
+        controller.schemaMapping = ...
+        
+        // configure filter items if needed
+        controller.filterItems = ...
+        
+        // sample configuration
+        let containerWidth = self!.view.bounds.width
+        
+      
+        // configure product image size
+        controller.imageConfig.size = ...       
+        controller.imageConfig.contentMode = .scaleAspectFill
+        
+        controller.itemSize = controller.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
+        
+        // set to same delegate
+        //controller.delegate = self
+        self?.navigationController?.pushViewController(controller, animated: true)
+        
+        controller.refreshData()
+    }
+    
+    present(cameraViewController, animated: true, completion: nil)
+    
+}
+
+```
+
+
+## 8. Implement ViSenze Analytics
+
+The analytics reports page is located in your ViSenze Dashboard and allows you to conveniently see a high-level view of the performance of each of the solutions through click metrics as well as usage statistics. With the analytics reporting tool, you can easily track the performance to quantify the value-add of our solutions through metrics such as click-through rate, add-to-wishlist rate, add-to-cart rate, and click rank.
+
+### 8.1 Default Actions
+
+Here is the default list of actions that our analytics reports support:
+
+|Action recorded| Description |
+|:---|:---|
+|`click`|When user click to view the detail of the product|
+|`add_to_cart`| When user click the button to add the product to cart|
+|`add_to_wishlist`| When user click the button to add the product to wishlist|
+
+By integrating with our solution widgets, the implementation of tracking `click` (click on a product card on search results) and `add_to_wishlist` (click on action button which default to the heart icon) actions are already included.
+
+#### Custom Action Button Tracking
+
+By default, `add_to_wishlist` action will be tracked when you click on the action button (located at the top right corner of the product card). You can change this action to your custom action by configure the `actionBtnConfig`:
+
+```swift
+
+...
+controller.actionBtnConfig.actionToRecord = "your_custom_action" 
+
+```
+
+### 8.2 Custom Actions
+
+If you would like to track actions being performed outside of the widgets UI or you want to customize your own UI, the action tracking needs to be implemented explicitly. For each action sent, a `reqId` (request Id) needs to be sent together with the action name. The `reqId` binds the action with its triggering API calls to our service. Each time an API call is made to our service, a `reqId` will be returned in the response. Any user action that is generated by the results returned from this particular API call should be bound with its `reqId`. Please refer to the code snippets below for the implementation.
+
+Our widget automatically recorded the request id of the most recent API call (Find Similar, You May Also Like, Search by Color/ Image) in the view controller (`ViBaseSearchViewController`).
+
+The user action can be sent in this way with the request id:
+
+```swift
+
+if sender is ViBaseSearchViewController {
+    let controller = sender as! ViBaseSearchViewController
+    let recentReqId = controller.reqId
+    
+    let params = ViTrackParams(reqId: recentReqId, action: "custom_action" )
+	 params.imName = product.im_name
+
+	// send tracking request to server
+	ViSearch.sharedInstance.track(params: params!, handler: nil)
+}
+
+```
+
 

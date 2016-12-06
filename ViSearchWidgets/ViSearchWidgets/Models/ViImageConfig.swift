@@ -23,7 +23,6 @@ public struct ViImageConfig {
     /// error image if network fails or broken link
     public var errImg: UIImage?
     
-    // TODO: add configuration for loading image animation later e.g. fading
     /// init image config
     ///
     /// - Parameters:
@@ -36,6 +35,8 @@ public struct ViImageConfig {
                  loadingImg: UIImage? = nil,
                  errImg: UIImage? = nil){
        
+        // TODO: add configuration for loading image animation later e.g. fading
+        
         self.size = size
         self.contentMode = contentMode
         self.loadingImg = loadingImg

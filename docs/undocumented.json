@@ -1374,14 +1374,14 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViFilterViewController.swift",
-      "line": 211,
+      "line": 212,
       "symbol": "ViFilterViewController.categoryFilterDone(filterItem:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViFilterViewController.swift",
-      "line": 216,
+      "line": 217,
       "symbol": "ViFilterViewController.categoryFilterReset(filterItem:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

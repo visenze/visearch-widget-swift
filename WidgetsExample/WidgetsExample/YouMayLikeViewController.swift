@@ -90,7 +90,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         
     }
 
-    func willShowSimilarControler(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
+    func willShowSimilarController(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
         
         // set border for find similar
 //        controller.productCardBorderWidth = 0.7
@@ -104,6 +104,17 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
 //        controller.rowSpacing = 0
 //        controller.showQueryProduct = false
         
+    }
+    
+    func searchFailed(err: Error?, apiErrors: [String]) {
+        if let err = err {
+            // most likely network error
+            alert (message: "error: \(err.localizedDescription)")
+        }
+            
+        else if apiErrors.count > 0 {
+            alert (message: "api error: \(apiErrors.joined(separator: ",") )")
+        }
     }
     
 

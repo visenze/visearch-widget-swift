@@ -1,13 +1,6 @@
 {
   "warnings": [
     {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/Utilities/CameraGlobals.swift",
-      "line": 16,
-      "symbol": "CameraGlobals.shared",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/Utilities/ImageFetcher.swift",
       "line": 19,
       "symbol": "ImageFetcher.init()",
@@ -114,77 +107,21 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 116,
-      "symbol": "CameraViewController.cameraView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 128,
-      "symbol": "CameraViewController.cameraButton",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 137,
-      "symbol": "CameraViewController.closeButton",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 147,
-      "symbol": "CameraViewController.infoButton",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 154,
-      "symbol": "CameraViewController.powerView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 160,
-      "symbol": "CameraViewController.swapButton",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 167,
-      "symbol": "CameraViewController.libraryButton",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 174,
-      "symbol": "CameraViewController.flashButton",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 201,
+      "line": 216,
       "symbol": "CameraViewController.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 209,
+      "line": 228,
       "symbol": "CameraViewController.prefersStatusBarHidden",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/CameraViewController.swift",
-      "line": 213,
+      "line": 232,
       "symbol": "CameraViewController.preferredStatusBarUpdateAnimation",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -926,7 +863,7 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViBaseSearchViewController.swift",
-      "line": 379,
+      "line": 380,
       "symbol": "ViBaseSearchViewController.collectionView(_:didSelectItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -954,168 +891,105 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 26,
-      "symbol": "ViColorPickerModalViewController.collectionView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 31,
-      "symbol": "ViColorPickerModalViewController.collectionViewLayout",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 36,
-      "symbol": "ViColorPickerModalViewController.titleLabel",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 37,
-      "symbol": "ViColorPickerModalViewController.showTitleHeader",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 39,
-      "symbol": "ViColorPickerModalViewController.delegate",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 41,
-      "symbol": "ViColorPickerModalViewController.itemSize",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 57,
-      "symbol": "ViColorPickerModalViewController.paddingLeft",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 63,
-      "symbol": "ViColorPickerModalViewController.paddingRight",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 70,
-      "symbol": "ViColorPickerModalViewController.showPowerByViSenze",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 73,
+      "line": 82,
       "symbol": "ViColorPickerModalViewController.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 78,
+      "line": 87,
       "symbol": "ViColorPickerModalViewController.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 84,
+      "line": 93,
       "symbol": "ViColorPickerModalViewController.setup()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 96,
+      "line": 105,
       "symbol": "ViColorPickerModalViewController.loadView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 101,
+      "line": 110,
       "symbol": "ViColorPickerModalViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 115,
+      "line": 126,
       "symbol": "ViColorPickerModalViewController.collectionView(_:layout:referenceSizeForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 120,
+      "line": 131,
       "symbol": "ViColorPickerModalViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 124,
+      "line": 135,
       "symbol": "ViColorPickerModalViewController.collectionView(_:numberOfItemsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 128,
+      "line": 139,
       "symbol": "ViColorPickerModalViewController.collectionView(_:cellForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 168,
+      "line": 179,
       "symbol": "ViColorPickerModalViewController.collectionView(_:didSelectItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 176,
+      "line": 189,
       "symbol": "ViColorPickerModalViewController.reloadLayout()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 218,
+      "line": 231,
       "symbol": "ViColorPickerModalViewController.headerSize",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 229,
+      "line": 242,
       "symbol": "ViColorPickerModalViewController.headerView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 249,
+      "line": 262,
       "symbol": "ViColorPickerModalViewController.footerView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorPickerModalViewController.swift",
-      "line": 271,
+      "line": 284,
       "symbol": "ViColorPickerModalViewController.footerSize",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -1174,13 +1048,6 @@
       "line": 16,
       "symbol": "ViFilterCategoryViewControllerDelegate.categoryFilterReset(filterItem:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViFilterCategoryViewController.swift",
-      "line": 29,
-      "symbol": "ViFilterCategoryViewController.showPowerByViSenze",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {

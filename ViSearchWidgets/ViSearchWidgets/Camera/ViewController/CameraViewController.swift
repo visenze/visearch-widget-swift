@@ -7,6 +7,8 @@ public typealias CameraViewCompletion = (UIImage?, PHAsset?) -> Void
 
 public extension CameraViewController {
     
+    // MARK: Photo Library Picker
+    
     /// Open photo library to pick photo
     public class func imagePickerViewController(croppingEnabled: Bool, completion: @escaping CameraViewCompletion) -> UINavigationController {
         let imagePicker = PhotoLibraryViewController()
@@ -57,6 +59,8 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     
     /// Tips for using flash button
     public var infoFlashTxt : String = "Use the flash if there isn't enough light"
+    
+    // MARK: -
     
     var didUpdateViews = false
     var allowCropping = false
@@ -112,19 +116,23 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     var powerWidthConstraint: NSLayoutConstraint?
     var powerHeightConstraint: NSLayoutConstraint?
     
+    // MARK: UI elements
     
+    /// Camera view
     public let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         return cameraView
     }()
     
+    /// Crop grid overlay. This is not enabled currently. Cropping only work within ConfirmViewController
     let cameraOverlay : CropOverlay = {
         let cameraOverlay = CropOverlay()
         cameraOverlay.translatesAutoresizingMaskIntoConstraints = false
         return cameraOverlay
     }()
     
+    /// camera button for taking photo
     public let cameraButton : UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -134,6 +142,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         return button
     }()
     
+    /// close camera button. Default to back arrow icon
     public let closeButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -144,6 +153,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         return button
     }()
     
+    /// Info button. For showing user guide
     public let infoButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -151,12 +161,14 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         return button
     }()
     
+    /// Power by ViSenze
     public let powerView : UIImageView = {
         let view = UIImageView(image: ViIcon.power_visenze)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    /// swap/reverse front and back camera button
     public let swapButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -164,6 +176,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         return button
     }()
     
+    /// select photo from library button
     public let libraryButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -171,6 +184,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         return button
     }()
     
+    /// turn on/off flash button
     public let flashButton : UIButton = {
         // the frame has no effect here as it will be override by constrain
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
@@ -179,6 +193,7 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         return button
     }()
     
+    // MARK: - Constructors
     
     /// Constructor
     ///
@@ -202,9 +217,13 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: -
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    // MARK: status bar
     
     public override var prefersStatusBarHidden: Bool {
         return true
@@ -213,6 +232,8 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return UIStatusBarAnimation.slide
     }
+    
+    // MARK: -
     
     /**
      * Configure the background of the superview to black
@@ -685,6 +706,8 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         self.present(controller, animated: false, completion: nil)
     }
     
+    // MARK: -
+    
     internal func layoutCameraResult(asset: PHAsset) {
         cameraView.stopSession()
         startConfirmController(asset: asset)
@@ -704,11 +727,15 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
         present(confirmViewController, animated: true, completion: nil)
     }
     
+    // MARK: UIPopoverPresentationControllerDelegate
+    
     /// important - this is needed so that a popover (info guide text) will be shown instead of fullscreen
     public func adaptivePresentationStyle(for controller: UIPresentationController,
                                           traitCollection: UITraitCollection) -> UIModalPresentationStyle{
         return .none
     }
+    
+    // MARK: Spinner animation
     
     private func showSpinner() -> UIActivityIndicatorView {
         let spinner = UIActivityIndicatorView()

@@ -13,6 +13,7 @@ public class CameraGlobals {
     /// screen scale
     internal let scale = UIScreen.main.scale
     
+    /// singleton
     public static let shared = CameraGlobals()
     
     /// localization for error messages encounted in using camera

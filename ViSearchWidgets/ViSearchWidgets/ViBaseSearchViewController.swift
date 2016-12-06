@@ -360,6 +360,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
             }
             
             if self.hasActionBtn {
+                
                 // wire up similar button action
                 if let actionBtn = productView.viewWithTag(ViProductCardTag.actionBtnTag.rawValue) as? UIButton {
                     // add event
@@ -663,7 +664,6 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                     
                     self.navigationController?.pushViewController(similarController, animated: true)
                 }
-                
                 
                 similarController.refreshData()
                 

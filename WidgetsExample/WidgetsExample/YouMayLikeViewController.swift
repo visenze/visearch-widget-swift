@@ -100,7 +100,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
 //        controller.itemSpacing = 0
         // must recalculate item width
 //        controller.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
-        controller.hasActionBtn = false
+//        controller.hasActionBtn = false
 //        controller.rowSpacing = 0
 //        controller.showQueryProduct = false
         

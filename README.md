@@ -800,13 +800,45 @@ For advanced use cases where you need to create your own widgets or want to modi
 - [searchSuccess(searchType:reqId:products:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13searchSuccessFT10searchTypeOS_12ViSearchType5reqIdGSqSS_8productsGSaCS_9ViProduct__T_) : the search is successful
 - [searchFailed(err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_) : the search is failed due to either network errors or ViSenze API errors
 
-### 7.4 Custom Search Bar
+### 7.4 Errors Handling
+
+There are 2 possible types of errors when using the widgets:
+
+- Errors when trying to call the API e.g. network related errors like offline/broken/time-out Internet connection
+- ViSenze search API-related errors e.g mis-configuration of search parameters, invalid API key, API limit exceeded, invalid im_name
+
+To display custom error messages to end users, you can hook into `ViSearchViewControllerDelegate` and take appropriate actions in [searchFailed(err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_) call back.
+
+```swift
+...
+
+// set delegate to current view controller
+controller.delegate = self
+
+...
+
+func searchFailed(err: Error?, apiErrors: [String]) {
+    if let err = err {
+        // display network error e.g. with UIAlertController
+        // default network error are stored in err.localizedDescription
+    }
+    
+    else if apiErrors.count > 0 {
+    	  // ViSenze server will return list of error messages in an array
+    	  let msg = apiErrors.joined(separator: ",")
+    	  // display message here if necessary
+    }
+}
+
+```
+
+### 7.5 Custom Search Bar
 
 To add "Search by Image" and "Search by Color" buttons to the UISearchBar, please refer to the `WidgetsExample` project > CustomSearchBarViewController class.
 
 <img src="./docs/images/custom_search.png">
 
-#### 7.4.1 Add Camera & Color Picker Buttons to UISearchBar
+#### 7.5.1 Add Camera & Color Picker Buttons to UISearchBar
 
 You can add the camera and color picker button to UISearchBar by implementing the code below within your custom UIViewController:
 
@@ -876,7 +908,7 @@ public func getCameraColorSearchButtons() -> UIView {
 
 ```
 
-#### 7.4.2 Color Picker
+#### 7.5.2 Color Picker
 
 To implement the action for Color Picker button, you will need to implement the following code:
 
@@ -925,7 +957,7 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
 	    if let popoverController = controller.popoverPresentationController {
 	        popoverController.sourceView = sender
 	        popoverController.sourceRect = sender.bounds
-	        popoverController.permittedArrowDirections = UIPopoverArrowDirection.any
+	        popoverController.permittedArrowDirections = UIPopoverArrowDirection.up
 	        popoverController.delegate = self
 	        
 	    }
@@ -978,7 +1010,7 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
 
 ```
 
-#### 7.4.3 Camera Button
+#### 7.5.3 Camera Button
 
 To implement action for Camera button, copy the code below to trigger the camera search:
 

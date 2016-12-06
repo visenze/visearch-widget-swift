@@ -271,37 +271,48 @@
 <li><a href="#31-setup-your-visenze-account">3.1 Setup your ViSenze account</a></li>
 <li><a href="#32-upload-your-datafeed">3.2 Upload your datafeed</a></li>
 </ul></li>
-<li><a href="#4-installation">4. Installation</a>
+<li><a href="#4-install-the-sdk">4. Install the SDK</a>
 
 <ul>
 <li><a href="#41-cocoapods">4.1 CocoaPods</a></li>
 <li><a href="#42-carthage">4.2 Carthage</a></li>
-<li><a href="#43-app-permission">4.3 App Permission</a></li>
-<li><a href="#44-run-demo-app">4.4 Run Demo App</a></li>
+<li><a href="#43-run-demo-app">4.3 Run Demo App</a></li>
 </ul></li>
-<li><a href="#5-initialization">5. Initialization</a>
+<li><a href="#5-configure-the-sdk">5. Configure the SDK</a>
 
 <ul>
-<li><a href="#51-visenze-search-keys">5.1 ViSenze Search Keys</a></li>
-<li><a href="#52-product-card-schema-mapping">5.2 Product Card Schema Mapping</a></li>
-<li><a href="#53-product-card-display-setting">5.3 Product Card Display Setting</a></li>
-<li><a href="#54-common-search-settings">5.4 Common Search Settings</a></li>
+<li><a href="#51-api-keys">5.1 Api Keys</a></li>
+<li><a href="#52-app-permission">5.2 App Permission</a></li>
 </ul></li>
-<li><a href="#6-solutions">6. Solutions</a>
+<li><a href="#6-solution-widgets">6. Solution Widgets</a>
 
 <ul>
+<li><a href="#60-common-widget-configuration">6.0 Common Widget Configuration</a></li>
+<li><a href="#601-product-card-schema-mapping">6.0.1 Product Card Schema Mapping</a></li>
+<li><a href="#602-product-card-display-setting">6.0.2 Product Card Display Setting</a></li>
+<li><a href="#603-common-search-settings">6.0.3 Common Search Settings</a></li>
 <li><a href="#61-find-similar">6.1 Find Similar</a></li>
 <li><a href="#62-you-may-also-like">6.2 You May Also Like</a></li>
 <li><a href="#63-search-by-image">6.3 Search by Image</a></li>
 <li><a href="#64-search-by-color">6.4 Search by Color</a></li>
 </ul></li>
-<li><a href="#7-implement-visenze-analytics">7. Implement ViSenze Analytics</a></li>
-<li><a href="#8-filtering">8. Filtering</a></li>
-<li><a href="#9-customization">9. Customization</a>
+<li><a href="#7-customization">7. Customization</a>
 
 <ul>
-<li><a href="#91-widgets-theme">9.1 Widgets Theme</a></li>
-<li><a href="#92-advanced">9.2 Advanced</a></li>
+<li><a href="#71-filtering">7.1 Filtering</a></li>
+<li><a href="#72-widgets-theme">7.2 Widgets Theme</a></li>
+<li><a href="#73-advanced">7.3 Advanced</a></li>
+<li><a href="#74-custom-search-bar">7.4 Custom Search Bar</a></li>
+<li><a href="#741-add-camera--color-picker-buttons-to-uisearchbar">7.4.1 Add Camera &amp; Color Picker Buttons to UISearchBar</a></li>
+<li><a href="#742-color-picker">7.4.2 Color Picker</a></li>
+<li><a href="#743-camera-button">7.4.3 Camera Button</a></li>
+</ul></li>
+<li><a href="#8-implement-visenze-analytics">8. Implement ViSenze Analytics</a>
+
+<ul>
+<li><a href="#81-default-actions">8.1 Default Actions</a></li>
+<li><a href="#custom-action-button-tracking">Custom Action Button Tracking</a></li>
+<li><a href="#82-custom-actions">8.2 Custom Actions</a></li>
 </ul></li>
 </ul>
 
@@ -320,6 +331,8 @@
 </ul>
 
 <p>API documentation: <a href="https://visenze.github.io/visearch-widget-swift/">https://visenze.github.io/visearch-widget-swift/</a></p>
+
+<p>To understand quickly what our SDKs offer out of the box, please following instructions in section 3 and then jump to section 4.3 to run the demo.</p>
 <a href='#2-requirements' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='2-requirements'>2. Requirements</h2>
 
 <ul>
@@ -430,7 +443,7 @@
 <td>40.99</td>
 </tr>
 </tbody></table>
-<a href='#4-installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='4-installation'>4. Installation</h2>
+<a href='#4-install-the-sdk' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='4-install-the-sdk'>4. Install the SDK</h2>
 <a href='#4-1-cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='4-1-cocoapods'>4.1 CocoaPods</h3>
 
 <p><a href="http://cocoapods.org">CocoaPods</a> is a dependency manager for Cocoa projects. You can install it with the following command:</p>
@@ -517,18 +530,7 @@
 </code></pre>
 
 <p><img src="./docs/images/build_script.png" width="600" ></p>
-<a href='#4-3-app-permission' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='4-3-app-permission'>4.3 App Permission</h3>
-
-<ul>
-<li><strong>Add Privacy Usage Description</strong> :</li>
-</ul>
-
-<p>iOS 10 now requires user permission to access camera and photo library. To use <q>Search by Image</q> solution, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in your Info.plist. More details can be found <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24">here</a>.</p>
-
-<p><img src="./docs/images/privacy.png" width="600" ></p>
-
-<p>You may also want to configure the <q>App Transport Security Settings</q> option to allow loading of product images.</p>
-<a href='#4-4-run-demo-app' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='4-4-run-demo-app'>4.4 Run Demo App</h3>
+<a href='#4-3-run-demo-app' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='4-3-run-demo-app'>4.3 Run Demo App</h3>
 
 <p>The source code of the Demo application is under the <code>WidgetsExample</code> folder. Please open the WidgetsExample.xcodeproj and configure the API keys/ schema mapping to run the demo.</p>
 
@@ -536,11 +538,15 @@
 <li>Configure API keys:</li>
 </ul>
 
-<p>Please refer to section <a href="#31-setup-your-visenze-account">3.1</a> for instructions to get the API keys. First, you will need to copy/drag the empty <code>ViApiKeys.plist</code> file (at the same location to this README file) to the demo project.</p>
+<p>Please refer to section <a href="#31-setup-your-visenze-account">3.1</a> for instructions to get the API keys.  You can enter the <code>search-only</code> access and secret keys into the <code>ViApiKeys.plist</code> file.</p>
 
 <p><img src="./docs/images/api_keys.png" width="600" ></p>
 
-<p>Next, you can enter the <code>search-only</code> access and secret keys into the plist file.</p>
+<ul>
+<li>The demo app is built with Carthage. Please download and run the <code>Carthage.pkg</code> file for the latest <a href="https://github.com/Carthage/Carthage/releases">release</a>. After Carthage  installation, you will need to run the following command at source directory:</li>
+</ul>
+
+<p><code>carthage update --platform iOS --no-use-binaries</code> </p>
 
 <ul>
 <li>Configure schema mapping</li>
@@ -570,10 +576,8 @@
 </ul>
 
 <p><img src="./docs/images/scheme.png" width="300" ></p>
-<a href='#5-initialization' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='5-initialization'>5. Initialization</h2>
-
-<p>All of our widgets (constructed as view controllers sub-classes of <a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a> ) require the following common initialization steps.</p>
-<a href='#5-1-visenze-search-keys' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-1-visenze-search-keys'>5.1 ViSenze Search Keys</h3>
+<a href='#5-configure-the-sdk' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='5-configure-the-sdk'>5. Configure the SDK</h2>
+<a href='#5-1-api-keys' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-1-api-keys'>5.1 Api Keys</h3>
 
 <p><code>ViSearch</code> <strong>must</strong> be initialized with an accessKey/secretKey pair <strong>before</strong> it can be used. Please refer to section <a href="#31-setup-your-visenze-account">3.1</a> on how to obtain the keys .You can do this initialization once in AppDelegate class.</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">ViSearchSDK</span>
@@ -587,7 +591,22 @@
 <span class="n">client</span> <span class="o">=</span> <span class="kt">ViSearchClient</span><span class="p">(</span><span class="nv">baseUrl</span><span class="p">:</span> <span class="n">yourUrl</span><span class="p">,</span> <span class="nv">accessKey</span><span class="p">:</span> <span class="n">accessKey</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="n">secret</span><span class="p">)</span>
 <span class="o">...</span>
 </code></pre>
-<a href='#5-2-product-card-schema-mapping' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-2-product-card-schema-mapping'>5.2 Product Card Schema Mapping</h3>
+<a href='#5-2-app-permission' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-2-app-permission'>5.2 App Permission</h3>
+
+<ul>
+<li><p><strong>App Transport Security Setting</strong> :
+For loading of product images, you will need to configure the <q>App Transport Security Settings</q> option in your project&rsquo;s <code>Info.plist</code>. Please see this <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33">link</a> and <a href="http://stackoverflow.com/questions/30731785/how-do-i-load-an-http-url-with-app-transport-security-enabled-in-ios-9/30732693#30732693">suggestions</a> for more information. If your product images URLs come from various unknown domains, you can just set <q>Arbitrary Load</q> option to <q>Yes</q>. </p></li>
+<li><p><strong>Add Privacy Usage Description</strong> :</p></li>
+</ul>
+
+<p>iOS 10 now requires user permission to access camera and photo library. To use <q>Search by Image</q> solution, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription for accessing camera/photo library respectively in your <code>Info.plist</code>. More details can be found <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24">here</a>.</p>
+
+<p><img src="./docs/images/privacy.png" width="600" ></p>
+<a href='#6-solution-widgets' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='6-solution-widgets'>6. Solution Widgets</h2>
+<a href='#6-0-common-widget-configuration' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='6-0-common-widget-configuration'>6.0 Common Widget Configuration</h3>
+
+<p>All of our widgets (constructed as view controller sub-classes of <a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a> ) require the following common configuration steps.</p>
+<a href='#6-0-1-product-card-schema-mapping' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='6-0-1-product-card-schema-mapping'>6.0.1 Product Card Schema Mapping</h4>
 
 <p>As mentioned in section <a href="#32-upload-your-datafeed">3.2</a> , you will need to upload your datafeed and configure the schema fields. The fields which hold product&rsquo;s information can then be displayed in the widgets via the <code>Product Card</code> UI component. Please see the below screenshot for example.</p>
 
@@ -606,7 +625,7 @@
 <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">productUrl</span> <span class="o">=</span> <span class="o">...</span> <span class="c1">// mapping for product image URL. default to "im_url" schema field.</span>
 
 </code></pre>
-<a href='#5-3-product-card-display-setting' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-3-product-card-display-setting'>5.3 Product Card Display Setting</h3>
+<a href='#6-0-2-product-card-display-setting' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='6-0-2-product-card-display-setting'>6.0.2 Product Card Display Setting</h4>
 
 <p>You can also configure various setting for the product card.</p>
 <pre class="highlight swift"><code>
@@ -628,7 +647,7 @@
 <span class="n">controller</span><span class="o">.</span><span class="n">priceConfig</span><span class="o">.</span><span class="n">isStrikeThrough</span> <span class="o">=</span> <span class="kc">true</span>
 
 </code></pre>
-<a href='#5-4-common-search-settings' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-4-common-search-settings'>5.4 Common Search Settings</h3>
+<a href='#6-0-3-common-search-settings' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='6-0-3-common-search-settings'>6.0.3 Common Search Settings</h4>
 <pre class="highlight swift"><code><span class="c1">// create search params (depending on the widget)</span>
 <span class="c1">// for example, in Find Similar, You May Also Like, parameters are constructed by providing im_name:</span>
 <span class="c1">// let params = ViSearchParams(imName: im_name) </span>
@@ -646,16 +665,15 @@
 </code></pre>
 
 <p>For advanced configuration of search parameters refer to this <a href="https://github.com/visenze/visearch-sdk-swift#6-advanced-search-parameters">link</a> .</p>
-<a href='#6-solutions' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='6-solutions'>6. Solutions</h2>
 <a href='#6-1-find-similar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='6-1-find-similar'>6.1 Find Similar</h3>
 
-<p>Visually similar products can be activately searched by the user on the product listing or product detail screen. Our algorithm assigns appropriate weights to different attributes to determine a final similarity score, and product results are displayed in order of the score. This solution provides an opportunity for shoppers to discover other relevant results based on visual similarity. </p>
+<p>Visually similar products can be actively searched by the user on the product listing or product detail screen. Our algorithm assigns appropriate weights to different attributes to determine a final similarity score, and product results are displayed in order of the score. This solution provides an opportunity for shoppers to discover other relevant results based on visual similarity. </p>
 
 <p><img src="./docs/images/similar.png"></p>
 
 <p>The products are displayed in a grid.</p>
 
-<p>Below is sample code for using <q>Find Similar</q> widget. Please read section 5 on important initialization steps.</p>
+<p>Below is sample code for using <q>Find Similar</q> widget. Please read section 6.0 on important configuration steps.</p>
 <pre class="highlight swift"><code>
 <span class="c1">// create search parameter which will search for similar products to sample_im_name.jpg</span>
 <span class="k">if</span> <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViSearchParams</span><span class="p">(</span><span class="nv">imName</span><span class="p">:</span> <span class="s">"sample_im_name.jpg"</span><span class="p">)</span> <span class="p">{</span>
@@ -669,7 +687,7 @@
     <span class="c1">// 2. set search parameters</span>
     <span class="n">similarController</span><span class="o">.</span><span class="n">searchParams</span> <span class="o">=</span> <span class="n">params</span>
 
-    <span class="c1">// 3. configure schema mapping (refer to section 5.2)</span>
+    <span class="c1">// 3. configure schema mapping (refer to section 6.0.1)</span>
     <span class="c1">// Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price</span>
     <span class="n">similarController</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">heading</span> <span class="o">=</span> <span class="s">"im_title"</span>
     <span class="n">similarController</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">"brand"</span>
@@ -727,7 +745,7 @@
 
 <p>The products are displayed in a horizontal scroll view.</p>
 
-<p>Below is sample code for using <q>You May Also Like</q> widget. Please read section 5 on important initialization steps. The widget (<code>ViRecommendationViewController</code>) should be used in the detail screen as a <a href="https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html">child view controller</a>. There are 2 ways to present a child view controller.</p>
+<p>Below is sample code for using <q>You May Also Like</q> widget. Please read section 6.0 on important configuration steps. The widget (<code>ViRecommendationViewController</code>) should be used in the detail screen as a <a href="https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html">child view controller</a>. There are 2 ways to present a child view controller.</p>
 
 <ul>
 <li>Present ViRecommendationViewController programatically as child view controller:</li>
@@ -745,7 +763,7 @@
     <span class="c1">// 2. set search parameters</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">searchParams</span> <span class="o">=</span> <span class="n">params</span>
 
-    <span class="c1">// 3. configure schema mapping (refer to section 5.2)</span>
+    <span class="c1">// 3. configure schema mapping (refer to section 6.0.1)</span>
     <span class="c1">// Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">heading</span> <span class="o">=</span> <span class="s">"im_title"</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">"brand"</span>
@@ -822,7 +840,7 @@
       <span class="c1">// 2. set search parameters</span>
       <span class="n">controller</span><span class="o">.</span><span class="n">searchParams</span> <span class="o">=</span> <span class="n">params</span>
 
-      <span class="c1">// 3. configure schema mapping (refer to section 5.2)</span>
+      <span class="c1">// 3. configure schema mapping (refer to section 6.0.1)</span>
       <span class="c1">// Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price</span>
       <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">heading</span> <span class="o">=</span> <span class="s">"im_title"</span>
       <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">"brand"</span>
@@ -887,7 +905,7 @@
 
 <p>The products are displayed in a grid.</p>
 
-<p>Below is sample code for using <q>Search by Image</q> widget. Please read section 5 on important initialization steps and section 4.3 on important app permissions.</p>
+<p>Below is sample code for using <q>Search by Image</q> widget. Please read section 6.0 on important configuration steps and section 5.2 on important app permissions.</p>
 <pre class="highlight swift"><code>
 <span class="c1">// the entry point for Search by Image is to open a camera to take photo</span>
 <span class="c1">// 1. we use CameraViewController for photo taking / select photo</span>
@@ -919,7 +937,7 @@
     <span class="n">controller</span><span class="o">.</span><span class="n">croppingEnabled</span> <span class="o">=</span> <span class="kc">true</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">allowsLibraryAccess</span> <span class="o">=</span> <span class="kc">true</span>
 
-    <span class="c1">// 3. configure schema mapping (refer to section 5.2)</span>
+    <span class="c1">// 3. configure schema mapping (refer to section 6.0.1)</span>
     <span class="c1">// Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">heading</span> <span class="o">=</span> <span class="s">"im_title"</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">"brand"</span>
@@ -980,7 +998,7 @@
 
 <p>The products are displayed in a grid.</p>
 
-<p>Below is sample code for using <q>Search by Color</q> widget. Please read section 5 on important initialization steps.</p>
+<p>Below is sample code for using <q>Search by Color</q> widget. Please read section 6.0 on important configuration steps.</p>
 <pre class="highlight swift"><code>
 <span class="c1">// create search parameter with color code 00ff00</span>
 <span class="k">if</span> <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViColorSearchParams</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="s">"00ff00"</span><span class="p">)</span> <span class="p">{</span>
@@ -994,7 +1012,7 @@
     <span class="c1">// 2. set search parameters</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">searchParams</span> <span class="o">=</span> <span class="n">params</span>
 
-    <span class="c1">// 3. configure schema mapping (refer to section 5.2)</span>
+    <span class="c1">// 3. configure schema mapping (refer to section 6.0.1)</span>
     <span class="c1">// Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">heading</span> <span class="o">=</span> <span class="s">"im_title"</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">"brand"</span>
@@ -1044,51 +1062,8 @@
 <li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a></li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a></li>
 </ul>
-<a href='#7-implement-visenze-analytics' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='7-implement-visenze-analytics'>7. Implement ViSenze Analytics</h2>
-
-<p>The analytics reports page is located in your ViSenze Dashboard and allows you to conveniently see a high-level view of the performance of each of the solutions through click metrics as well as usage statistics. With the analytics reporting tool, you can easily track the performance to quantify the value-add of our solutions through metrics such as click-through rate, add-to-wishlist rate, add-to-cart rate, and click rank.</p>
-
-<p>Here is the list of actions that our analytics reports support:</p>
-
-<table><thead>
-<tr>
-<th style="text-align: left">Action recorded</th>
-<th style="text-align: left">Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>click</code></td>
-<td style="text-align: left">When user click to view the detail of the product</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>add_to_cart</code></td>
-<td style="text-align: left">When user click the button to add the product to cart</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>add_to_wishlist</code></td>
-<td style="text-align: left">When user click the button to add the product to wishlist</td>
-</tr>
-</tbody></table>
-
-<p>By integrating with our solution widgets, the implementation of tracking <code>click</code> (click on a product on search results) and <code>add_to_wishlist</code> (click on action button default to heart icon) actions are already included.</p>
-
-<p>However, if you would like to track actions being performed outside of the widgets UI or you want to customize your own UI, the action tracking needs to be implemented explicitly. For each action sent, a <code>reqId</code> needs to be sent together with the action name. The <code>reqId</code> binds the action with its triggering API calls to our service. Each time an API call is made to our service, a <code>reqId</code> will be returned in the response. Any user action that is generated by the results returned from this particular API call should be bound with its <code>reqId</code>. Please refer to the code snippets below for the implementation.</p>
-
-<p>The user action can be sent in this way:</p>
-<pre class="highlight swift"><code>
-<span class="k">if</span> <span class="n">sender</span> <span class="k">is</span> <span class="kt">ViBaseSearchViewController</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="nv">controller</span> <span class="o">=</span> <span class="n">sender</span> <span class="k">as!</span> <span class="kt">ViBaseSearchViewController</span>
-    <span class="k">let</span> <span class="nv">recentReqId</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">reqId</span>
-
-    <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViTrackParams</span><span class="p">(</span><span class="nv">reqId</span><span class="p">:</span> <span class="n">recentReqId</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="s">"custom_action"</span> <span class="p">)</span>
-     <span class="n">params</span><span class="o">.</span><span class="n">imName</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">im_name</span>
-
-    <span class="c1">// send tracking request to server</span>
-    <span class="kt">ViSearch</span><span class="o">.</span><span class="n">sharedInstance</span><span class="o">.</span><span class="nf">track</span><span class="p">(</span><span class="nv">params</span><span class="p">:</span> <span class="n">params</span><span class="o">!</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="p">}</span>
-
-</code></pre>
-<a href='#8-filtering' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='8-filtering'>8. Filtering</h2>
+<a href='#7-customization' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='7-customization'>7. Customization</h2>
+<a href='#7-1-filtering' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-1-filtering'>7.1 Filtering</h3>
 
 <p>You can configure the filter component for <code>Find Similar</code>, <code>Search by Image</code> and <code>Search by Color</code> widgets search results. Two types of filters are supported: </p>
 
@@ -1096,6 +1071,8 @@
 <li>Range filter (e.g. for price) (<a href="https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemRange.html">ViFilterItemRange</a>)</li>
 <li>Multi-selection category filter (e.g. for product category, brand) (<a href="https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html">ViFilterItemCategory</a>)</li>
 </ul>
+
+<p><img src="./docs/images/filter.png" width="1000"></p>
 
 <p>The filters can be created as below:</p>
 <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">items</span> <span class="p">:</span> <span class="p">[</span><span class="kt">ViFilterItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1133,8 +1110,7 @@
 <li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html">ViFilterItemCategory</a></li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItem.html">ViFilterItem</a></li>
 </ul>
-<a href='#9-customization' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='9-customization'>9. Customization</h2>
-<a href='#9-1-widgets-theme' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='9-1-widgets-theme'>9.1 Widgets Theme</h3>
+<a href='#7-2-widgets-theme' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-2-widgets-theme'>7.2 Widgets Theme</h3>
 
 <p>To customize the color, styles of the widgets and button, you can look at the following classes:</p>
 
@@ -1155,21 +1131,308 @@
 </ul>
 
 <p>For specific widget customization (e.g. show/hide buttons, change text/button colors, etc), refer to <a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html#/UI%20settings">UI Settings</a> section of <code>ViBaseSearchViewController</code>.</p>
-<a href='#9-2-advanced' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='9-2-advanced'>9.2 Advanced</h3>
+<a href='#7-3-advanced' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-3-advanced'>7.3 Advanced</h3>
 
 <p>For advanced use cases where you need to create your own widgets or want to modify/extend the product card, please hook into the <a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a> callbacks.</p>
 
 <ul>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_">configureCell(sender:collectionView:indexPath:cell:)</a> : allow you to configure the product cell before displaying. You can retrieve various product card UI elements by tag in the cell.contentView e.g. cell.contentView.viewWithTag(ViProductCardTag.productImgTag.rawValue) and configure accordingly. The tags are defined <a href="https://visenze.github.io/visearch-widget-swift/Enums/ViProductCardTag.html">here</a>.</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_">configureLayout(sender:layout:)</a> : if you need to have your own controller which will change the layout for the built in collectionview.</li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControlerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">willShowSimilarControler(sender:controller:collectionView:indexPath:product:)</a> : configure similar controller before display.</li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControlerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_">willShowFilterControler(sender:controller:)</a> : configure filter controller before display.</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControllerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">willShowSimilarController(sender:controller:collectionView:indexPath:product:)</a> : configure similar controller before display.</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControllerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_">willShowFilterController(sender:controller:)</a> : configure filter controller before display.</li>
 </ul>
+<a href='#7-4-custom-search-bar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-4-custom-search-bar'>7.4 Custom Search Bar</h3>
+
+<p>To add <q>Search by Image</q> and <q>Search by Color</q> buttons to the UISearchBar, please refer to the <code>WidgetsExample</code> project &gt; CustomSearchBarViewController class.</p>
+
+<p><img src="./docs/images/custom_search.png"></p>
+<a href='#7-4-1-add-camera-amp-color-picker-buttons-to-uisearchbar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-4-1-add-camera-amp-color-picker-buttons-to-uisearchbar'>7.4.1 Add Camera &amp; Color Picker Buttons to UISearchBar</h4>
+
+<p>You can add the camera and color picker button to UISearchBar by implementing the code below within your custom UIViewController:</p>
+<pre class="highlight swift"><code>
+<span class="c1">// point the searchbar to your storyboard</span>
+<span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">searchBar</span><span class="p">:</span> <span class="kt">UISearchBar</span><span class="o">!</span>
+
+<span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidAppear</span><span class="p">(</span><span class="n">animated</span><span class="p">)</span>
+
+    <span class="c1">// retrieve the text field within UISearchBar</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">textFieldInsideSearchBar</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">searchBar</span><span class="o">.</span><span class="nf">value</span><span class="p">(</span><span class="nv">forKey</span><span class="p">:</span> <span class="s">"searchField"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">UITextField</span> <span class="p">{</span>
+
+        <span class="c1">// customize the right view to include our 2 buttons</span>
+        <span class="n">textFieldInsideSearchBar</span><span class="o">.</span><span class="n">rightView</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="nf">getCameraColorSearchButtons</span><span class="p">()</span>
+        <span class="n">textFieldInsideSearchBar</span><span class="o">.</span><span class="n">rightViewMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">always</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="c1">/// Add color picker and search by image buttons to search bar</span>
+<span class="c1">///</span>
+<span class="c1">/// - Returns: custom view to be put into the UITextField of UISearchBar</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getCameraColorSearchButtons</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIView</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">customView</span> <span class="o">=</span> <span class="kt">UIView</span><span class="p">()</span>
+    <span class="n">customView</span><span class="o">.</span><span class="n">autoresizingMask</span> <span class="o">=</span> <span class="p">[</span> <span class="o">.</span><span class="n">flexibleLeftMargin</span> <span class="p">,</span> <span class="o">.</span><span class="n">flexibleRightMargin</span> <span class="p">]</span>
+
+    <span class="k">let</span> <span class="nv">btnWidth</span> <span class="o">=</span> <span class="kt">ViIcon</span><span class="o">.</span><span class="n">camera</span><span class="o">!.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="k">var</span> <span class="nv">floatWidth</span> <span class="o">=</span> <span class="n">btnWidth</span>
+
+    <span class="k">let</span> <span class="nv">button</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="o">.</span><span class="n">custom</span><span class="p">)</span>
+
+    <span class="n">button</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span><span class="kt">ViIcon</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">normal</span><span class="p">)</span>
+    <span class="n">button</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span><span class="kt">ViIcon</span><span class="o">.</span><span class="n">camera</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">highlighted</span><span class="p">)</span>
+
+    <span class="n">button</span><span class="o">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="n">black</span>
+    <span class="n">button</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="kt">ViProductCardTag</span><span class="o">.</span><span class="n">cameraBtnTag</span><span class="o">.</span><span class="n">rawValue</span>
+
+    <span class="n">button</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">btnWidth</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">btnWidth</span><span class="p">)</span>
+
+
+    <span class="n">button</span><span class="o">.</span><span class="nf">addTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.openCameraView</span><span class="kd">)</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">touchUpInside</span><span class="p">)</span>
+    <span class="n">customView</span><span class="o">.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+
+    <span class="k">let</span> <span class="nv">colorButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="o">.</span><span class="n">custom</span><span class="p">)</span>
+
+    <span class="n">colorButton</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span><span class="kt">ViIcon</span><span class="o">.</span><span class="n">color_pick</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">normal</span><span class="p">)</span>
+    <span class="n">colorButton</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span><span class="kt">ViIcon</span><span class="o">.</span><span class="n">color_pick</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">highlighted</span><span class="p">)</span>
+
+    <span class="n">colorButton</span><span class="o">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="n">black</span>
+    <span class="c1">//colorButton.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)</span>
+    <span class="n">colorButton</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="kt">ViProductCardTag</span><span class="o">.</span><span class="n">colorPickBtnTag</span><span class="o">.</span><span class="n">rawValue</span>
+
+
+    <span class="n">colorButton</span><span class="o">.</span><span class="nf">addTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.openColorPicker</span><span class="kd">)</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">touchUpInside</span><span class="p">)</span>
+    <span class="n">colorButton</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">btnWidth</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">btnWidth</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">btnWidth</span><span class="p">)</span>
+    <span class="n">floatWidth</span> <span class="o">=</span> <span class="n">colorButton</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">btnWidth</span>
+
+    <span class="n">customView</span><span class="o">.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">colorButton</span><span class="p">)</span>
+
+    <span class="n">customView</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">floatWidth</span> <span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">btnWidth</span> <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">customView</span>
+<span class="p">}</span>
+
+
+</code></pre>
+<a href='#7-4-2-color-picker' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-4-2-color-picker'>7.4.2 Color Picker</h4>
+
+<p>To implement the action for Color Picker button, you will need to implement the following code:</p>
+<pre class="highlight swift"><code>
+<span class="c1">// make sure your custom controller implements ViColorPickerDelegate , UIPopoverPresentationControllerDelegate</span>
+<span class="c1">// UIPopoverPresentationControllerDelegate is needed to display color picker in a popover</span>
+<span class="kd">class</span> <span class="kt">CustomSearchBarViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">ViColorPickerDelegate</span><span class="p">,</span> <span class="kt">UIPopoverPresentationControllerDelegate</span><span class="p">{</span>
+
+<span class="o">...</span>
+
+    <span class="k">var</span> <span class="nv">colorParms</span><span class="p">:</span> <span class="kt">ViColorSearchParams</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+
+    <span class="c1">// list of colors for the color picker in hex format e.g. e0b0ff, 2abab3</span>
+    <span class="n">open</span> <span class="k">var</span> <span class="nv">colorList</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">"000000"</span> <span class="p">,</span> <span class="s">"555555"</span> <span class="p">,</span> <span class="s">"9896a4"</span> <span class="p">,</span>
+        <span class="s">"034f84"</span> <span class="p">,</span> <span class="s">"00afec"</span> <span class="p">,</span> <span class="s">"98ddde"</span> <span class="p">,</span>
+        <span class="s">"00ffff"</span> <span class="p">,</span> <span class="s">"f5977d"</span> <span class="p">,</span> <span class="s">"91a8d0"</span><span class="p">,</span>
+        <span class="s">"ea148c"</span> <span class="p">,</span> <span class="s">"f53321"</span> <span class="p">,</span> <span class="s">"d66565"</span> <span class="p">,</span>
+        <span class="s">"ff00ff"</span> <span class="p">,</span> <span class="s">"a665a7"</span> <span class="p">,</span> <span class="s">"e0b0ff"</span> <span class="p">,</span>
+        <span class="s">"f773bd"</span> <span class="p">,</span> <span class="s">"f77866"</span> <span class="p">,</span> <span class="s">"7a2f04"</span> <span class="p">,</span>
+        <span class="s">"cc9c33"</span> <span class="p">,</span> <span class="s">"618fca"</span> <span class="p">,</span> <span class="s">"79c753"</span> <span class="p">,</span>
+        <span class="s">"228622"</span> <span class="p">,</span> <span class="s">"4987ec"</span> <span class="p">,</span> <span class="s">"2abab3"</span> <span class="p">,</span>
+        <span class="s">"ffffff"</span>
+    <span class="p">]</span>
+
+    <span class="c1">/// Open color picker view in a popover</span>
+    <span class="c1">///</span>
+    <span class="c1">/// - Parameters:</span>
+    <span class="c1">///   - sender: color picker button</span>
+    <span class="c1">///   - event: button event</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">openColorPicker</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">,</span> <span class="n">forEvent</span> <span class="nv">event</span><span class="p">:</span> <span class="kt">UIEvent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">controller</span> <span class="o">=</span> <span class="kt">ViColorPickerModalViewController</span><span class="p">()</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">modalPresentationStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">popover</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">colorList</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">colorList</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">paddingLeft</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">paddingRight</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">preferredContentSize</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">300</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">colorParams</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">colorParms</span> <span class="p">{</span>
+            <span class="n">controller</span><span class="o">.</span><span class="n">selectedColor</span> <span class="o">=</span> <span class="n">colorParams</span><span class="o">.</span><span class="n">color</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">popoverController</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">popoverPresentationController</span> <span class="p">{</span>
+            <span class="n">popoverController</span><span class="o">.</span><span class="n">sourceView</span> <span class="o">=</span> <span class="n">sender</span>
+            <span class="n">popoverController</span><span class="o">.</span><span class="n">sourceRect</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">bounds</span>
+            <span class="n">popoverController</span><span class="o">.</span><span class="n">permittedArrowDirections</span> <span class="o">=</span> <span class="kt">UIPopoverArrowDirection</span><span class="o">.</span><span class="n">any</span>
+            <span class="n">popoverController</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+
+        <span class="p">}</span>
+
+        <span class="k">self</span><span class="o">.</span><span class="nf">present</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// MARK: UIPopoverPresentationControllerDelegate</span>
+    <span class="c1">// important - this is needed so that a popover will be properly shown instead of fullscreen</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">adaptivePresentationStyle</span><span class="p">(</span><span class="k">for</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">UIPresentationController</span><span class="p">,</span>
+                                          <span class="nv">traitCollection</span><span class="p">:</span> <span class="kt">UITraitCollection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIModalPresentationStyle</span><span class="p">{</span>
+        <span class="k">return</span> <span class="o">.</span><span class="k">none</span>
+    <span class="p">}</span>
+
+
+    <span class="c1">// MARK: ViColorPickerDelegate</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">didPickColor</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">ViColorPickerModalViewController</span><span class="p">,</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// set the color params</span>
+
+        <span class="k">self</span><span class="o">.</span><span class="n">colorParms</span> <span class="o">=</span> <span class="kt">ViColorSearchParams</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="n">color</span><span class="p">)</span>
+
+        <span class="n">sender</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+        <span class="c1">// refresh data</span>
+        <span class="k">let</span> <span class="nv">controller</span> <span class="o">=</span> <span class="kt">ViColorSearchViewController</span><span class="p">()</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">colorParms</span><span class="o">!.</span><span class="n">limit</span> <span class="o">=</span> <span class="mi">16</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="n">searchParams</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">colorParms</span>
+
+        <span class="c1">// configure schema mapping if needed</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span> <span class="o">=</span> <span class="o">...</span>
+
+        <span class="c1">// configure filter</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">filterItems</span> <span class="o">=</span> <span class="o">...</span>
+
+        <span class="k">let</span> <span class="nv">containerWidth</span> <span class="o">=</span> <span class="k">self</span><span class="o">!.</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">width</span>
+
+        <span class="c1">// configure product image size</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">imageConfig</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="o">...</span>                  
+        <span class="n">controller</span><span class="o">.</span><span class="n">itemSize</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="nf">estimateItemSize</span><span class="p">(</span><span class="nv">numOfColumns</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">containerWidth</span><span class="p">:</span> <span class="n">containerWidth</span><span class="p">)</span>
+
+        <span class="k">self</span><span class="o">.</span><span class="n">navigationController</span><span class="p">?</span><span class="o">.</span><span class="nf">pushViewController</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="nf">refreshData</span><span class="p">()</span>
+
+    <span class="p">}</span>
+
+
+<span class="p">}</span>
+
+</code></pre>
+<a href='#7-4-3-camera-button' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='7-4-3-camera-button'>7.4.3 Camera Button</h4>
+
+<p>To implement action for Camera button, copy the code below to trigger the camera search:</p>
+<pre class="highlight swift"><code><span class="c1">// MARK: camera</span>
+<span class="c1">/// Open camera to take picture</span>
+<span class="c1">///</span>
+<span class="c1">/// - Parameters:</span>
+<span class="c1">///   - sender: camera button</span>
+<span class="c1">///   - event: button event</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">openCameraView</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">,</span> <span class="n">forEvent</span> <span class="nv">event</span><span class="p">:</span> <span class="kt">UIEvent</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">cameraViewController</span> <span class="o">=</span> <span class="kt">CameraViewController</span><span class="p">(</span><span class="nv">croppingEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">allowsLibraryAccess</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">image</span><span class="p">,</span> <span class="n">asset</span> <span class="k">in</span>
+
+        <span class="c1">// see the code in Search by Image solution</span>
+
+        <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+        <span class="c1">// user cancel photo taking</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">image</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+
+        <span class="k">let</span> <span class="nv">controller</span> <span class="o">=</span> <span class="kt">ViSearchImageViewController</span><span class="p">()</span>
+
+        <span class="c1">// save recent photo</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">asset</span> <span class="o">=</span> <span class="n">asset</span>
+
+        <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViUploadSearchParams</span><span class="p">(</span><span class="nv">image</span><span class="p">:</span> <span class="n">image</span><span class="o">!</span><span class="p">)</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">searchParams</span> <span class="o">=</span> <span class="n">params</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="n">croppingEnabled</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">allowsLibraryAccess</span> <span class="o">=</span> <span class="kc">true</span>
+
+        <span class="c1">// configure your schema mapping</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">schemaMapping</span> <span class="o">=</span> <span class="o">...</span>
+
+        <span class="c1">// configure filter items if needed</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">filterItems</span> <span class="o">=</span> <span class="o">...</span>
+
+        <span class="c1">// sample configuration</span>
+        <span class="k">let</span> <span class="nv">containerWidth</span> <span class="o">=</span> <span class="k">self</span><span class="o">!.</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">width</span>
+
+
+        <span class="c1">// configure product image size</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">imageConfig</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="o">...</span>       
+        <span class="n">controller</span><span class="o">.</span><span class="n">imageConfig</span><span class="o">.</span><span class="n">contentMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">scaleAspectFill</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="n">itemSize</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="nf">estimateItemSize</span><span class="p">(</span><span class="nv">numOfColumns</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">containerWidth</span><span class="p">:</span> <span class="n">containerWidth</span><span class="p">)</span>
+
+        <span class="c1">// set to same delegate</span>
+        <span class="c1">//controller.delegate = self</span>
+        <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">navigationController</span><span class="p">?</span><span class="o">.</span><span class="nf">pushViewController</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="nf">refreshData</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nf">present</span><span class="p">(</span><span class="n">cameraViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="p">}</span>
+
+</code></pre>
+<a href='#8-implement-visenze-analytics' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='8-implement-visenze-analytics'>8. Implement ViSenze Analytics</h2>
+
+<p>The analytics reports page is located in your ViSenze Dashboard and allows you to conveniently see a high-level view of the performance of each of the solutions through click metrics as well as usage statistics. With the analytics reporting tool, you can easily track the performance to quantify the value-add of our solutions through metrics such as click-through rate, add-to-wishlist rate, add-to-cart rate, and click rank.</p>
+<a href='#8-1-default-actions' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='8-1-default-actions'>8.1 Default Actions</h3>
+
+<p>Here is the default list of actions that our analytics reports support:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Action recorded</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>click</code></td>
+<td style="text-align: left">When user click to view the detail of the product</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>add_to_cart</code></td>
+<td style="text-align: left">When user click the button to add the product to cart</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>add_to_wishlist</code></td>
+<td style="text-align: left">When user click the button to add the product to wishlist</td>
+</tr>
+</tbody></table>
+
+<p>By integrating with our solution widgets, the implementation of tracking <code>click</code> (click on a product card on search results) and <code>add_to_wishlist</code> (click on action button which default to the heart icon) actions are already included.</p>
+<a href='#custom-action-button-tracking' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='custom-action-button-tracking'>Custom Action Button Tracking</h4>
+
+<p>By default, <code>add_to_wishlist</code> action will be tracked when you click on the action button (located at the top right corner of the product card). You can change this action to your custom action by configure the <code>actionBtnConfig</code>:</p>
+<pre class="highlight swift"><code>
+<span class="o">...</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">actionBtnConfig</span><span class="o">.</span><span class="n">actionToRecord</span> <span class="o">=</span> <span class="s">"your_custom_action"</span> 
+
+</code></pre>
+<a href='#8-2-custom-actions' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='8-2-custom-actions'>8.2 Custom Actions</h3>
+
+<p>If you would like to track actions being performed outside of the widgets UI or you want to customize your own UI, the action tracking needs to be implemented explicitly. For each action sent, a <code>reqId</code> (request Id) needs to be sent together with the action name. The <code>reqId</code> binds the action with its triggering API calls to our service. Each time an API call is made to our service, a <code>reqId</code> will be returned in the response. Any user action that is generated by the results returned from this particular API call should be bound with its <code>reqId</code>. Please refer to the code snippets below for the implementation.</p>
+
+<p>Our widget automatically recorded the request id of the most recent API call (Find Similar, You May Also Like, Search by Color/ Image) in the view controller (<code>ViBaseSearchViewController</code>).</p>
+
+<p>The user action can be sent in this way with the request id:</p>
+<pre class="highlight swift"><code>
+<span class="k">if</span> <span class="n">sender</span> <span class="k">is</span> <span class="kt">ViBaseSearchViewController</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">controller</span> <span class="o">=</span> <span class="n">sender</span> <span class="k">as!</span> <span class="kt">ViBaseSearchViewController</span>
+    <span class="k">let</span> <span class="nv">recentReqId</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">reqId</span>
+
+    <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViTrackParams</span><span class="p">(</span><span class="nv">reqId</span><span class="p">:</span> <span class="n">recentReqId</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="s">"custom_action"</span> <span class="p">)</span>
+     <span class="n">params</span><span class="o">.</span><span class="n">imName</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">im_name</span>
+
+    <span class="c1">// send tracking request to server</span>
+    <span class="kt">ViSearch</span><span class="o">.</span><span class="n">sharedInstance</span><span class="o">.</span><span class="nf">track</span><span class="p">(</span><span class="nv">params</span><span class="p">:</span> <span class="n">params</span><span class="o">!</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-05)</p>
+          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

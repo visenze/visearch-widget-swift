@@ -255,8 +255,19 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
     
     // MARK: ViColorPickerDelegate
     public func didPickColor(sender: ViColorPickerModalViewController, color: String) {
+        
         // set the color params 
         if let colorParams = self.searchParams as? ViColorSearchParams {
+            
+            let oldColor = colorParams.color
+            
+            if oldColor != color {
+                // reset the filter
+                for filterItem in self.filterItems {
+                    filterItem.reset()
+                }
+            }
+            
             colorParams.color = color
             
             sender.dismiss(animated: true, completion: nil)

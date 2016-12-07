@@ -97,11 +97,10 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         
         let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
 
-            
-            self?.dismiss(animated: true, completion: nil)
-            
             // user cancel photo taking
             if( image == nil) {
+                self?.dismiss(animated: false, completion: nil)
+                
                 return
             }
             
@@ -144,6 +143,9 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             self?.navigationController?.pushViewController(controller, animated: true)
             
             controller.refreshData()
+            
+            self?.dismiss(animated: false, completion: nil)
+            
         }
         
         present(cameraViewController, animated: true, completion: nil)

@@ -74,18 +74,9 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
 
         }
         
-        
-        // add error message if necessary
-        let searchResultsView = self.view as! ViSearchResultsView
-        if searchResultsView.showMsgView {
-            
-        }
-        else {
-            // label and filter layout
-            let labelAndFilterLayout = self.getLabelAndFilterLayout(emptyProductsTxt: "Similar Products", displayStringFormat: "%d Similar Products Found")
-            allLayouts.append(labelAndFilterLayout)
-            
-        }
+        // label and filter layout
+        let labelAndFilterLayout = self.getLabelAndFilterLayout(emptyProductsTxt: "Similar Products", displayStringFormat: "%d Similar Products Found")
+        allLayouts.append(labelAndFilterLayout)
         
         let allStackLayout = StackLayout(
             axis: .vertical,

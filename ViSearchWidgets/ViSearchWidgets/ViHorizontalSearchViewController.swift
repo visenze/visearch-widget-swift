@@ -21,6 +21,9 @@ open class ViHorizontalSearchViewController: ViBaseSearchViewController {
         if searchResultsView.showMsgView {
             s.height += searchResultsView.msgView.frame.size.height
         }
+        else {
+            return CGSize.zero
+        }
         
         return s
     }

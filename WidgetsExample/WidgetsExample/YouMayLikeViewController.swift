@@ -105,6 +105,9 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
 //        controller.rowSpacing = 0
 //        controller.showQueryProduct = false
         
+        controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
+        
+        
     }
     
     func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
@@ -118,5 +121,20 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         }
     }
     
+    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+    
+        coordinator.animate(alongsideTransition: { context in
+            
+            
+        }, completion: { context in
+            
+            // after rotate
+            
+        })
+
+        
+        
+    }
 
 }

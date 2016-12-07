@@ -699,6 +699,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 similarController.productCardBackgroundColor = self.productCardBackgroundColor
                 similarController.backgroundColor = self.backgroundColor
                 similarController.itemSpacing = self.itemSpacing
+                
                 if self is ViGridSearchViewController {
                     let gridController = self as! ViGridSearchViewController
                     similarController.rowSpacing = gridController.rowSpacing

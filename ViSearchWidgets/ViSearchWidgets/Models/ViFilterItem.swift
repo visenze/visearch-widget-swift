@@ -171,14 +171,14 @@ open class ViFilterItemCategory : ViFilterItem {
         return arr.joined(separator: " OR ")
     }
     
-    
-    /// Clone filter item options. Selected options will be ignored
+    /// Clone filter item options.
     ///
     /// - Returns: new filter item
     open override func clone() -> ViFilterItem{
         let item = ViFilterItemCategory(title: self.title, schemaMapping: self.schemaMapping)
-        // keep reference to old options but not selected options
+        
         item.options = self.options
+        item.selectedOptions = self.selectedOptions
         
         return item
     }
@@ -250,11 +250,13 @@ open class ViFilterItemRange : ViFilterItem {
         return String(format: "%d,%d", self.selectedLower, self.selectedUpper)
     }
     
-    /// Clone filter item. Selected min and max will be ignored
+    /// Clone filter item.
     ///
     /// - Returns: new filter item
     open override func clone() -> ViFilterItem{
         let item = ViFilterItemRange(title: self.title, schemaMapping: self.schemaMapping , min: self.min , max: self.max)
+        item.selectedLower = self.selectedLower
+        item.selectedUpper = self.selectedUpper
         return item
     }
 }

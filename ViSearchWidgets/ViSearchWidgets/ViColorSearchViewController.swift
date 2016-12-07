@@ -279,6 +279,8 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         if( searchParams != nil && (searchParams is ViColorSearchParams) ) {
             
             if let searchParams = searchParams {
+                // hide err message if any
+                self.hideMsgView()
                 
                 self.setMetaQueryParamsForSearch()
                 
@@ -317,10 +319,11 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                                 
                                 self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , reqId: data.reqId, products: self.products)
                                 
-                                DispatchQueue.main.async {
-                                    self.collectionView?.reloadData()
-                                }
-                                
+                               
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.collectionView?.reloadData()
                             }
                         }
                         
@@ -333,6 +336,10 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                         }
                         
                         self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
+                        
+                        DispatchQueue.main.async {
+                            self.collectionView?.reloadData()
+                        }
                         
                 })
             }

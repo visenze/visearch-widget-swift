@@ -8,6 +8,7 @@
 
 import UIKit
 import ViSearchSDK
+import LayoutKit
 
 private let reuseIdentifier = "ViProductCardLayoutCell"
 
@@ -584,7 +585,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                                               constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
         )
         
-        label.frame = CGRect(x: self.paddingLeft, y: (self.headerSize.height + 8), width: labelSize.width, height: labelSize.height)
+        label.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
         
         return label
     }
@@ -604,12 +605,12 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                               constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
         )
         
-        label.frame = CGRect(x: self.paddingLeft , y: (self.headerSize.height + 8), width: labelSize.width, height: labelSize.height)
+        label.frame = CGRect(x: 0 , y: 0, width: labelSize.width, height: labelSize.height)
         
         return label
     }
     
-    /// display default error messages. Currently it ignore all errors and just display a generic error message
+    /// display default error messages. Currently it ignore all errors and just display a generic error message "An error has occured. Please try again later."
     ///
     /// - Parameters:
     ///   - searchType: current search
@@ -619,18 +620,18 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         if showDefaultErrMsg {
             if let errView = self.genericErrSearchResultView() {
                 let searchResultsView = self.view as! ViSearchResultsView
-                searchResultsView.setMsg(errView)
+                searchResultsView.msgView = errView
                 searchResultsView.showMsgView = true
             }
         }
     }
     
-    /// display no search results message
+    /// display no search results message. Currently display "No Results Found"
     open func displayNoResultsFoundMsg() {
         if showNoSearchResultsMsg {
             if let errView = self.noSearchResultView() {
                 let searchResultsView = self.view as! ViSearchResultsView
-                searchResultsView.setMsg(errView)
+                searchResultsView.msgView = errView
                 searchResultsView.showMsgView = true
             }
         }
@@ -652,9 +653,9 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     /// Set custom message view
     ///
     /// - Parameter view: custom message view for displaying errors
-    open func setMsgView(_ view: UIView) {
+    open func setMsgView(_ msgView: UIView) {
         let searchResultsView = self.view as! ViSearchResultsView
-         searchResultsView.setMsg(view)
+         searchResultsView.msgView = msgView
     }
 
     // MARK: buttons events

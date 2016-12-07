@@ -74,9 +74,18 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
 
         }
         
-        // label and filter layout
-        let labelAndFilterLayout = self.getLabelAndFilterLayout(emptyProductsTxt: "Similar Products", displayStringFormat: "%d Similar Products Found")
-        allLayouts.append(labelAndFilterLayout)
+        
+        // add error message if necessary
+        let searchResultsView = self.view as! ViSearchResultsView
+        if searchResultsView.showMsgView {
+            
+        }
+        else {
+            // label and filter layout
+            let labelAndFilterLayout = self.getLabelAndFilterLayout(emptyProductsTxt: "Similar Products", displayStringFormat: "%d Similar Products Found")
+            allLayouts.append(labelAndFilterLayout)
+            
+        }
         
         let allStackLayout = StackLayout(
             axis: .vertical,
@@ -117,6 +126,9 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
         
             if let searchParams = searchParams {
                 
+                // hide err message if any
+                self.hideMsgView()
+                
                 self.setMetaQueryParamsForSearch()
                 
                 // check whether filter set to apply the filter
@@ -153,11 +165,12 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                                 
                                 self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.FIND_SIMILAR , reqId: data.reqId, products: self.products)
                                 
-                                DispatchQueue.main.async {
-                                    self.collectionView?.reloadData()
-                                }
-                                
                             }
+                            
+                            DispatchQueue.main.async {
+                                self.collectionView?.reloadData()
+                            }
+
                         }
                         
                 },
@@ -170,6 +183,10 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
 
                         self.delegate?.searchFailed(sender: self, searchType: ViSearchType.FIND_SIMILAR , err: err, apiErrors: [])
                         
+                        DispatchQueue.main.async {
+                            self.collectionView?.reloadData()
+                        }
+
                 })
             }
         }

@@ -24,10 +24,13 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
             
             if let searchParams = searchParams {
                 
+                // hide err message if any
+                self.hideMsgView()
+                
                 self.setMetaQueryParamsForSearch()
+                
                 // set up user agent
                 ViSearch.sharedInstance.client?.userAgent = ViWidgetVersion.USER_AGENT
-                
                 
                 ViSearch.sharedInstance.recommendation(
                     params: searchParams as! ViSearchParams,
@@ -57,10 +60,11 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                                 
                                 self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , reqId: data.reqId, products: self.products)
                                 
-                                DispatchQueue.main.async {
-                                    self.collectionView?.reloadData()
-                                }
-                                
+                               
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.collectionView?.reloadData()
                             }
                         }
 
@@ -74,6 +78,9 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                         
                         self.delegate?.searchFailed(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: err, apiErrors: [])
                         
+                        DispatchQueue.main.async {
+                            self.collectionView?.reloadData()
+                        }
                 })
             }
         }

@@ -338,6 +338,9 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             
             if let searchParams = searchParams {
                 
+                // hide err message if any
+                self.hideMsgView()
+               
                 self.setMetaQueryParamsForSearch()
                 
                 // check whether filter set to apply the filter
@@ -358,6 +361,11 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                                 }
                                 
                                 self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_IMAGE ,  err: nil, apiErrors: data.error)
+                                
+                                DispatchQueue.main.async {
+                                    self.collectionView?.reloadData()
+                                }
+
                             }
                             else {
                                 
@@ -383,7 +391,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                         }
                         
                 },
-                    failureHandler: {
+                failureHandler: {
                         (err) -> Void in
                         
                         DispatchQueue.main.async {
@@ -392,6 +400,10 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                         
                         self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_IMAGE , err: err, apiErrors: [])
                         
+                        DispatchQueue.main.async {
+                            self.collectionView?.reloadData()
+                        }
+
                 })
             }
         }

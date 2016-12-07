@@ -12,6 +12,38 @@ import UIKit
 /// This is used currently by "You May Also Like" widget i.e. ViRecommendationViewController
 open class ViHorizontalSearchViewController: ViBaseSearchViewController {
 
+    // MARK: collectionview datasource and delegate
+    open override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+        
+        var s = CGSize(width: self.view.bounds.width, height: 0)
+        
+        let searchResultsView = self.view as! ViSearchResultsView
+        if searchResultsView.showMsgView {
+            s.height += searchResultsView.msgView.frame.size.height
+        }
+        
+        return s
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let view = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier, for: indexPath)
+        
+        // add err if necessary
+        let searchResultsView = self.view as! ViSearchResultsView
+        if searchResultsView.showMsgView {
+            var oldFrame = searchResultsView.msgView.frame
+            oldFrame.origin.y = 8
+            oldFrame.origin.x = self.paddingLeft
+            searchResultsView.msgView.frame = oldFrame
+            view?.addSubview(searchResultsView.msgView)
+        }
+        
+        return view!
+    }
+    
+    // MARK: layout methods
+    
     /// Given the number of visible items (products) to appear on the containerWidth, return the estimated item width
     /// The items are displayed in a horizontal scroll view. The width of the visible rectange is containerWidth.
     /// The scroll view contain size may be much larger than containerWidth

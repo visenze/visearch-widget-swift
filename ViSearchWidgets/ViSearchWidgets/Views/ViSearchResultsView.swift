@@ -28,13 +28,13 @@ open class ViSearchResultsView: UIView {
     
     /// generic message view. This can be used to display a generic error message (e.g. due to network errors/ API errors)
     /// it can also be used to displayed a message such as "No Search Results found"
-    // the message view will cover the collection view
-    public var msgViewContainer: UIView = UIView()
+    /// the message view can be attached to collection view header to display the error
+    public var msgView: UIView = UIView()
     
     /// show/hide message view
     public var showMsgView : Bool = false {
         didSet {
-            self.msgViewContainer.isHidden = !self.showMsgView
+            self.msgView.isHidden = !self.showMsgView
         }
     }
     
@@ -67,13 +67,12 @@ open class ViSearchResultsView: UIView {
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewLayout  )
         self.addSubview(self.collectionView!)
-        self.addSubview(self.msgViewContainer)
         
         self.addSubview(self.headerViewContainer)
         self.addSubview(self.footerViewContainer)
         
         self.showMsgView = false
-        msgViewContainer.isHidden = true
+        msgView.isHidden = true
     }
     
     /// layout views vertically: header, collectionview, footer
@@ -86,7 +85,6 @@ open class ViSearchResultsView: UIView {
             self.headerViewContainer.frame = .zero
             self.collectionView?.frame = .zero
             self.footerViewContainer.frame = .zero
-            self.msgViewContainer.frame = .zero
             return
         }
         
@@ -104,8 +102,6 @@ open class ViSearchResultsView: UIView {
         )
         self.collectionView?.frame = collectionViewFrame
         
-        self.msgViewContainer.frame = collectionViewFrame
-
         self.footerViewContainer.frame = CGRect(x: self.paddingLeft,
                                                 y: self.collectionView!.frame.origin.y + self.collectionView!.frame.size.height ,
                                                 width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
@@ -136,16 +132,4 @@ open class ViSearchResultsView: UIView {
         self.footerViewContainer.addSubview(footerView)
     }
     
-    /// Remove all subviews in msgViewContainer and put the new view inside
-    ///
-    /// - Parameter msgView: new msgView
-    public func setMsg(_ msgView: UIView) {
-        for view in self.msgViewContainer.subviews{
-            view.removeFromSuperview()
-        }
-        
-        self.msgViewContainer.addSubview(msgView)
-    }
-
-
 }

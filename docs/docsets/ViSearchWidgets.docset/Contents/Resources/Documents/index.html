@@ -677,6 +677,8 @@ For loading of product images, you will need to configure the <q>App Transport S
 <p>Below is sample code for using <q>Find Similar</q> widget. Please read section 6.0 on important configuration steps.</p>
 <pre class="highlight swift"><code>
 <span class="c1">// create search parameter which will search for similar products to sample_im_name.jpg</span>
+<span class="c1">// you can trigger the search from a "Similar" button from product details screen</span>
+<span class="c1">// Alternately, the "Find Similar" search can be triggered in the search results by clicking on "Find Similar" button on a product card (located at bottom right)</span>
 <span class="k">if</span> <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViSearchParams</span><span class="p">(</span><span class="nv">imName</span><span class="p">:</span> <span class="s">"sample_im_name.jpg"</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// 1. create Find Similar widget</span>
@@ -733,10 +735,10 @@ For loading of product images, you will need to configure the <q>App Transport S
 <p>Important API docs:</p>
 
 <ul>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViFindSimilarViewController.html">ViFindSimilarViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html">ViGridSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a></li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViFindSimilarViewController.html">ViFindSimilarViewController</a> : Find Similar widget</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html">ViGridSearchViewController</a> : Present search results in a grid (collection view)</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a> : Base class for all widgets</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a> : delegate for widget customization</li>
 </ul>
 <a href='#6-2-you-may-also-like' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='6-2-you-may-also-like'>6.2 You May Also Like</h3>
 
@@ -893,16 +895,16 @@ For loading of product images, you will need to configure the <q>App Transport S
 <p>Important API docs:</p>
 
 <ul>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViRecommendationViewController.html">ViRecommendationViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViHorizontalSearchViewController.html">ViHorizontalSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a></li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViRecommendationViewController.html">ViRecommendationViewController</a> : You May Also Like widget</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViHorizontalSearchViewController.html">ViHorizontalSearchViewController</a> : Present search results in a horizontall scroll view (collection view)</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a> : Base class for all widgets</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a> : delegate for widget customization</li>
 </ul>
 <a href='#6-3-search-by-image' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='6-3-search-by-image'>6.3 Search by Image</h3>
 
 <p>Shoppers can snap or upload a photo of the product they are looking for, find the same or similar options across price points, brands etc., and order the product that best meets their needs. The solution provides an innovative and easy way for shoppers to find items they want without needing keywords.</p>
 
-<p><img src="./docs/images/image_search.png"></p>
+<p><img src="./docs/images/camera_preview.jpg" width="850"></p>
 
 <p>The products are displayed in a grid.</p>
 
@@ -982,20 +984,33 @@ For loading of product images, you will need to configure the <q>App Transport S
 <span class="nf">present</span><span class="p">(</span><span class="n">cameraViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
 </code></pre>
 
+<p>You can enable/disable cropping, photo library access by setting the following properties:</p>
+<pre class="highlight swift"><code><span class="c1">// if you want to enable cropping immediately after taking photo and before search</span>
+<span class="c1">// just set croppingEnabled to true for CameraViewController</span>
+<span class="c1">// in the widget demo, search results are displayed immediately after taking from camera. Cropping is only done later by clicking on the crop button next to the query image</span>
+<span class="k">let</span> <span class="nv">cameraViewController</span> <span class="o">=</span> <span class="kt">CameraViewController</span><span class="p">(</span><span class="nv">croppingEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">allowsLibraryAccess</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="o">...</span>
+
+<span class="c1">// enable cropping and select photo from library</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">croppingEnabled</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">allowsLibraryAccess</span> <span class="o">=</span> <span class="kc">true</span>
+
+</code></pre>
+
 <p>Important API docs:</p>
 
 <ul>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViSearchImageViewController.html">ViSearchImageViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html">ViGridSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/CameraViewController.html">CameraViewController</a></li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViSearchImageViewController.html">ViSearchImageViewController</a> : Search by Image widget</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html">ViGridSearchViewController</a> : display search results in a grid (collection view)</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a> : Base class for all widgets</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a> : delegate for widget customization</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/CameraViewController.html">CameraViewController</a> : displaying the camera view for photo taking/selection from photo library</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ConfirmViewController.html">ConfirmViewController</a> : confirm controller for keeping/discarding the taken/selected photo. Cropping is done here.</li>
 </ul>
 <a href='#6-4-search-by-color' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='6-4-search-by-color'>6.4 Search by Color</h3>
 
 <p>Shoppers can search your entire indexed catalogue of products for an item with a particular color and then narrow down the results by attributes or fields such as category, brand, price, etc. Our algorithm can search the catalogue by a set of pre-selected colors from a color palette or a vast spectrum of colors.</p>
 
-<p><img src="./docs/images/color.png"></p>
+<p><img src="./docs/images/color_search.png" width="850"></p>
 
 <p>The products are displayed in a grid.</p>
 
@@ -1058,10 +1073,11 @@ For loading of product images, you will need to configure the <q>App Transport S
 <p>Important API docs:</p>
 
 <ul>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViColorSearchViewController.html">ViColorSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html">ViGridSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a></li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a></li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViColorSearchViewController.html">ViColorSearchViewController</a> : Search by Color widget</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html">ViGridSearchViewController</a> : for displaying search results in a grid (collection view)</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html">ViBaseSearchViewController</a> : base class for all widgets</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">ViSearchViewControllerDelegate</a> : delegate for widget customization</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Classes/ViColorPickerModalViewController.html">ViColorPickerModalViewController</a> : color picker view controller. You can present this in a popover (i.e. triggered from a button click) or as a child view controller. See section 7.5.2 for example implementation.</li>
 </ul>
 <a href='#7-customization' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='7-customization'>7. Customization</h2>
 <a href='#7-1-filtering' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-1-filtering'>7.1 Filtering</h3>
@@ -1469,7 +1485,7 @@ For loading of product images, you will need to configure the <q>App Transport S
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-06)</p>
+          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-07)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

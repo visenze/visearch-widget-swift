@@ -303,7 +303,8 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                 
                 self.dismiss(animated: true, completion: nil)
                 
-                if let image = image, let asset = asset {
+                if let image = image {
+                    
                     // save image here
                     if let searchParams = self.searchParams as? ViUploadSearchParams {
                         searchParams.image = image
@@ -352,8 +353,11 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                         // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
                         if let data = data {
                             if data.hasError {
-                                // TODO: display system busy message here
-                                self.delegate?.searchFailed(err: nil, apiErrors: data.error)
+                                DispatchQueue.main.async {
+                                    self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_IMAGE , err: nil, apiErrors: data.error)
+                                }
+                                
+                                self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_IMAGE ,  err: nil, apiErrors: data.error)
                             }
                             else {
                                 
@@ -361,8 +365,13 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                                 self.reqId = data.reqId
                                 self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
                                 
+                                if(self.products.count == 0 ){
+                                    DispatchQueue.main.async {
+                                        self.displayNoResultsFoundMsg()
+                                    }
+                                }
                                 
-                                self.delegate?.searchSuccess(searchType: ViSearchType.SEARCH_BY_IMAGE , reqId: data.reqId, products: self.products)
+                                self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.SEARCH_BY_IMAGE , reqId: data.reqId, products: self.products)
                                 
                                 DispatchQueue.main.async {
                                     
@@ -376,10 +385,12 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                 },
                     failureHandler: {
                         (err) -> Void in
-                        // Do something when request fails e.g. due to network error
-                        // print ("error: \\(err.localizedDescription)")
-                        // TODO: display error message and tap to try again
-                        self.delegate?.searchFailed(err: err, apiErrors: [])
+                        
+                        DispatchQueue.main.async {
+                            self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_IMAGE , err: err, apiErrors: [])
+                        }
+                        
+                        self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_IMAGE , err: err, apiErrors: [])
                         
                 })
             }

@@ -132,8 +132,12 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                         // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
                         if let data = data {
                             if data.hasError {
-                                // TODO: display system busy message here
-                                self.delegate?.searchFailed(err: nil, apiErrors: data.error)
+                               
+                                DispatchQueue.main.async {
+                                    self.displayDefaultErrMsg(searchType: ViSearchType.FIND_SIMILAR , err: nil, apiErrors: data.error)
+                                }
+                                
+                                self.delegate?.searchFailed(sender: self, searchType: ViSearchType.FIND_SIMILAR , err: nil, apiErrors: data.error)
                             }
                             else {
                                 
@@ -141,8 +145,13 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                                 self.reqId = data.reqId
                                 self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
                                 
+                                if(self.products.count == 0 ){
+                                    DispatchQueue.main.async {
+                                        self.displayNoResultsFoundMsg()
+                                    }
+                                }
                                 
-                                self.delegate?.searchSuccess(searchType: ViSearchType.FIND_SIMILAR , reqId: data.reqId, products: self.products)
+                                self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.FIND_SIMILAR , reqId: data.reqId, products: self.products)
                                 
                                 DispatchQueue.main.async {
                                     self.collectionView?.reloadData()
@@ -154,10 +163,12 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                 },
                     failureHandler: {
                         (err) -> Void in
-                        // Do something when request fails e.g. due to network error
-                        // print ("error: \\(err.localizedDescription)")
-                        // TODO: display error message and tap to try again
-                        self.delegate?.searchFailed(err: err, apiErrors: [])
+                        
+                        DispatchQueue.main.async {
+                            self.displayDefaultErrMsg(searchType: ViSearchType.FIND_SIMILAR , err: err, apiErrors: [])
+                        }
+
+                        self.delegate?.searchFailed(sender: self, searchType: ViSearchType.FIND_SIMILAR , err: err, apiErrors: [])
                         
                 })
             }

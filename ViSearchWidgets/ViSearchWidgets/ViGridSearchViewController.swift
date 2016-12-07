@@ -368,5 +368,49 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         self.headerLayoutHeight = self.collectionView(self.collectionView!, layout: self.collectionViewLayout, referenceSizeForHeaderInSection: 0).height
         
     }
+    
+    // MARK: Default Error Messages Display
+    
+    /// Generate view to display when there is no search results
+    ///
+    /// - Returns: no search results view
+    open override func noSearchResultView() -> UIView? {
+        
+        // need to adjust frame based on header layout
+        if let v = super.noSearchResultView() {
+        
+            var oldFrame = v.frame
+            
+            self.headerLayoutHeight = self.collectionView(self.collectionView!, layout: self.collectionViewLayout, referenceSizeForHeaderInSection: 0).height
+            oldFrame.origin.y = self.headerLayoutHeight + 8
+            oldFrame.origin.x = oldFrame.origin.x + 8
+            v.frame = oldFrame
+            
+            return v
+        }
+        
+        return nil
+    }
+    
+    
+    /// Generate view to display generic error messages e.g. during network timeout or api error
+    ///
+    /// - Returns: default generic error view
+    open override func genericErrSearchResultView() -> UIView? {
+        // need to adjust frame based on header layout
+        if let v = super.genericErrSearchResultView() {
+            
+            var oldFrame = v.frame
+            
+            self.headerLayoutHeight = self.collectionView(self.collectionView!, layout: self.collectionViewLayout, referenceSizeForHeaderInSection: 0).height
+            oldFrame.origin.y = self.headerLayoutHeight + 8
+            oldFrame.origin.x = oldFrame.origin.x + 8
+            v.frame = oldFrame
+            
+            return v
+        }
+        
+        return nil
+    }
 
 }

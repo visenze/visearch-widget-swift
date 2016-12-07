@@ -41,6 +41,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 controller.imageConfig.contentMode = .scaleAspectFill
                 
                 // configure search parameter
+                
                 controller.searchParams = ViSearchParams(imName: im_name)
                 
                 // to retrieve more meta data , configure the below
@@ -106,7 +107,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         
     }
     
-    func searchFailed(err: Error?, apiErrors: [String]) {
+    func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
         if let err = err {
             // most likely network error
             alert (message: "error: \(err.localizedDescription)")

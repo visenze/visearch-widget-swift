@@ -13,7 +13,7 @@
     <a title="ViSearchWidgets  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">ViSearchWidgets Docs</a> (65% documented)</p>
+        <p><a href="index.html">ViSearchWidgets Docs</a> (66% documented)</p>
         <p class="header-right"><a href="https://github.com/visenze/visearch-widget-swift"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -1160,8 +1160,8 @@ For loading of product images, you will need to configure the <q>App Transport S
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">didSelectProduct(sender:collectionView:indexPath:product:)</a> : product selection notification i.e. user tap on a product card</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15actionBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">actionBtnTapped(sender:collectionView:indexPath:product:)</a> : action button tapped notification i.e. user tap on action button at the top right corner of a product card cell</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16similarBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">similarBtnTapped(sender:collectionView:indexPath:product:)</a> : user tapped on similar button at the bottom right of a product card cell</li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13searchSuccessFT10searchTypeOS_12ViSearchType5reqIdGSqSS_8productsGSaCS_9ViProduct__T_">searchSuccess(searchType:reqId:products:)</a> : the search is successful</li>
-<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_">searchFailed(err:apiErrors:)</a> : the search is failed due to either network errors or ViSenze API errors</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">searchSuccess(sender:searchType:reqId:products:)</a> : the search is successful</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">searchFailed(sender:searchType:err:apiErrors:)</a> : the search is failed due to either network errors or ViSenze API errors</li>
 </ul>
 <a href='#7-4-errors-handling' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-4-errors-handling'>7.4 Errors Handling</h3>
 
@@ -1172,18 +1172,29 @@ For loading of product images, you will need to configure the <q>App Transport S
 <li>ViSenze search API-related errors e.g mis-configuration of search parameters, invalid API key, API limit exceeded, invalid im_name</li>
 </ul>
 
-<p>To display custom error messages to end users, you can hook into <code>ViSearchViewControllerDelegate</code> and take appropriate actions in <a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_">searchFailed(err:apiErrors:)</a> call back.</p>
+<p>By default, the widgets will show a generic error message (i.e. <q>An error has occured. Please try again.</q> for all errors). In addition, the widgets will show a <q>No Results Found</q> for search with no results found.</p>
+
+<p>To display custom error messages to end users, you can hook into <code>ViSearchViewControllerDelegate</code> and take appropriate actions in <a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">searchFailed(sender:searchType:err:apiErrors:)</a> call back.</p>
 <pre class="highlight swift"><code><span class="o">...</span>
 
 <span class="c1">// set delegate to current view controller</span>
 <span class="n">controller</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
 
+<span class="c1">// turn off default error message display</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">showDefaultErrMsg</span> <span class="o">=</span> <span class="kc">false</span>
+
+<span class="c1">// turn off default no results message display</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">showNoSearchResultsMsg</span> <span class="o">=</span> <span class="kc">false</span>
+
 <span class="o">...</span>
 
-<span class="kd">func</span> <span class="nf">searchFailed</span><span class="p">(</span><span class="nv">err</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?,</span> <span class="nv">apiErrors</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="p">{</span>
+<span class="c1">// sender here is refering to the controller that called this search</span>
+<span class="c1">// hook into this to display your custom error view</span>
+<span class="kd">func</span> <span class="nf">searchFailed</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">searchType</span><span class="p">:</span> <span class="kt">ViSearchType</span> <span class="p">,</span> <span class="nv">err</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?,</span> <span class="nv">apiErrors</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="p">{</span>
     <span class="k">if</span> <span class="k">let</span> <span class="nv">err</span> <span class="o">=</span> <span class="n">err</span> <span class="p">{</span>
         <span class="c1">// display network error e.g. with UIAlertController</span>
         <span class="c1">// default network error are stored in err.localizedDescription</span>
+
     <span class="p">}</span>
 
     <span class="k">else</span> <span class="k">if</span> <span class="n">apiErrors</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
@@ -1191,9 +1202,35 @@ For loading of product images, you will need to configure the <q>App Transport S
           <span class="k">let</span> <span class="nv">msg</span> <span class="o">=</span> <span class="n">apiErrors</span><span class="o">.</span><span class="nf">joined</span><span class="p">(</span><span class="nv">separator</span><span class="p">:</span> <span class="s">","</span><span class="p">)</span>
           <span class="c1">// display message here if necessary</span>
     <span class="p">}</span>
+
+    <span class="c1">// you can create a custom view (UIView)</span>
+    <span class="c1">// and then call</span>
+    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="nv">your_custom_view</span> <span class="o">=</span> <span class="o">...</span>
+        <span class="n">controller</span><span class="o">.</span><span class="nf">setMsgView</span><span class="p">(</span><span class="n">your_custom_view</span><span class="p">)</span>
+
+        <span class="c1">// display</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">showMsgView</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
+<span class="c1">// hook into this to display no results found custom view</span>
+<span class="kd">func</span> <span class="nf">searchSuccess</span><span class="p">(</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">searchType</span><span class="p">:</span> <span class="kt">ViSearchType</span><span class="p">,</span> <span class="nv">reqId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">,</span> <span class="nv">products</span><span class="p">:</span> <span class="p">[</span><span class="kt">ViProduct</span><span class="p">])</span>
+<span class="p">{</span>
+     <span class="k">if</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">products</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">){</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+             <span class="k">var</span> <span class="nv">your_custom_view</span> <span class="o">=</span> <span class="o">...</span>
+                <span class="n">controller</span><span class="o">.</span><span class="nf">setMsgView</span><span class="p">(</span><span class="n">your_custom_view</span><span class="p">)</span>
+                <span class="c1">// display</span>
+                <span class="n">controller</span><span class="o">.</span><span class="n">showMsgView</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
 </code></pre>
+
+<p>Alternately, you can subclass the view controller and override <code>displayDefaultErrMsg</code>, <code>displayNoResultsFoundMsg</code> to change the messages display.</p>
 <a href='#7-5-custom-search-bar' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-5-custom-search-bar'>7.5 Custom Search Bar</h3>
 
 <p>To add <q>Search by Image</q> and <q>Search by Color</q> buttons to the UISearchBar, please refer to the <code>WidgetsExample</code> project &gt; CustomSearchBarViewController class.</p>

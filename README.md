@@ -57,6 +57,7 @@ API documentation: [https://visenze.github.io/visearch-widget-swift/](https://vi
 To understand quickly what our SDKs offer out of the box, please follow instructions in section 3 and then jump to section 4.3 to run the demo.
 
 ## 2. Requirements
+To include ViSearch Widget SDK in your project, you need to have:
 
 - iOS 8.0+ 
 - Xcode 8.1+
@@ -92,7 +93,7 @@ For testing, you will need to upload your datafeed in ViSenze [dashboard](https:
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
 ```bash
-$ sudo gem install cocoapods
+sudo gem install cocoapods
 ```
 
 > CocoaPods 1.1.0+ is required to build ViSearchWidgets.
@@ -119,7 +120,7 @@ You should change version 0.1 to the latest version of ViSearchWidgets. The vers
 Then, run the following command:
 
 ```bash
-$ pod install
+pod install
 ```
 
 ### 4.2 Carthage
@@ -129,24 +130,27 @@ $ pod install
 You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
 
 ```bash
-$ brew update
-$ brew install carthage
+brew update
+brew install carthage
 ```
 
 Alternately, you can download and run the `Carthage.pkg` file for the latest [release](https://github.com/Carthage/Carthage/releases). 
 
 To integrate ViSearchWidgets into your Xcode project using Carthage:
 
-1. Create a `Cartfile` :
+1. Create a `Cartfile`, and add contents below to it:
 
- ```ogdl
- github "visenze/visearch-widget-swift" ~> 0.1
- ```
- You should change version 0.1 to the latest version of ViSearchWidgets. The version numbers can be viewed under the current Github project tags.
+     ```ogdl
+     github "visenze/visearch-widget-swift" ~> 0.1
+     ```
+     You should change version 0.1 to the latest version of ViSearchWidgets. The version numbers can be viewed under the current Github project tags.
 
-2. Run `carthage update --platform iOS --no-use-binaries` 
 
- This will fetch dependencies (Kingfisher, LayoutKit, visearch-sdk-swift, visearch-widget-swift) into Carthage/Checkouts folder, then build the framework. 
+2.  Use the following command to fetch dependencies (Kingfisher, LayoutKit, visearch-sdk-swift, visearch-widget-swift) into Carthage/Checkouts folder, then build the framework.
+
+    ```
+    carthage update --platform iOS --no-use-binaries
+    ```
 
 3. On your application target's “General” settings tab, in the `Embedded Binary` section, drag and drop the following frameworks from the `Carthage/Build/iOS` folder:
 
@@ -326,10 +330,11 @@ Visually similar products can be actively searched by the user on the product li
 
 The products are displayed in a grid.
 
-Below is sample code for using "Find Similar" widget. Please read section 6.0 on important configuration steps.
+Below is sample code for using "Find Similar" widget. 
+
+Add this sample code into your controller and make sure your controller is embedded in a navigation controller. So when this sample code is executed, the widget `ViFindSimilarViewController` will be displayed through navigation from your controller.
 
 ```swift
-
 // create search parameter which will search for similar products to sample_im_name.jpg
 if let params = ViSearchParams(imName: "sample_im_name.jpg") {
             
@@ -381,7 +386,6 @@ if let params = ViSearchParams(imName: "sample_im_name.jpg") {
     similarController.refreshData()
     
 }
-
 ```
 
 Important API docs:
@@ -399,149 +403,152 @@ This solution showcases recommended products on the product detail screen. You c
 
 The products are displayed in a horizontal scroll view.
 
-Below is sample code for using "You May Also Like" widget. Please read section 6.0 on important configuration steps. The widget (`ViRecommendationViewController`) should be used in the detail screen as a [child view controller](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html). There are 2 ways to present a child view controller.
+Below is sample code for using "You May Also Like" widget.
+
+The widget `ViRecommendationViewController` should be used as a [child view controller](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html).
+
+There are 2 ways to present a child view controller.
 
 - Present ViRecommendationViewController programatically as child view controller: 
-
-```swift
-
-// create search parameter which will search for similar products to sample_im_name.jpg
-if let params = ViSearchParams(imName: "sample_im_name.jpg") {
-            
-    // 1. create You May Also Like widget
-    let controller = ViRecommendationViewController()
-    
-    // configure max of 10 most similar results to return
-    params.limit = 10
-    
-    // 2. set search parameters
-    controller.searchParams = params
-    
-    // 3. configure schema mapping (refer to section 6.0.1)
-    // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
-    controller.schemaMapping.heading = "im_title"
-    controller.schemaMapping.label = "brand"
-    controller.schemaMapping.price = "price"
-   
-    // 4. configure product image size and content mode
-    let containerWidth = self.view.bounds.width 
-    
-    // this will let 2.5 images appear on screen within containerWidth viewbox
-    let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
-    let imageHeight = imageWidth * 1.2
-                
-    controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
-    // configure image content mode
-    controller.imageConfig.contentMode = .scaleAspectFill
-     
-    // 5. configure product card box size
-    // IMPORTANT: this must be called last after schema mapping configuration as we calculate the item size based on whether a field is available
-    // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
-    // the product card height is dynamic and will depend on schema mapping
-    // the  product card width is set to image width            
-    controller.itemSize = controller.estimateItemSize()
-    
-    // 6. misc setting (Optional)
-    
-    // configure left spacing
-    controller.paddingLeft = 8.0
-    
-    // configure border color if necessary
-    controller.productCardBorderColor = UIColor.lightGray
-    controller.productCardBorderWidth = 0.7
-    
-     // configure spacing between product cards on the same row i.e. the column spacing
-    controller.itemSpacing = 0
-     
-    // 7. configure delegate to listen for various events such as when user clicks on Action button
-    controller.delegate = self
-        
-    
-    // 8a. if you are presenting this view programmatically i.e. not from storyboard , you will need to add the following code to present as view controller
-    
-    // set the frame and call necessary methods in current view controller
-    controller.view.frame = CGRect(x: 0, y: 320, width: self.view.bounds.width, height: controller.itemSize.height )
-    self.addChildViewController(controller)
-    self.view.addSubview(controller.view)
-    controller.didMove(toParentViewController: self)
-          
-    // 9. trigger web service to ViSenze server
-    controller.refreshData()
-    
-}
-
-```
+	
+	```swift
+	
+	// create search parameter which will search for similar products to sample_im_name.jpg
+	if let params = ViSearchParams(imName: "sample_im_name.jpg") {
+	            
+	    // 1. create You May Also Like widget
+	    let controller = ViRecommendationViewController()
+	    
+	    // configure max of 10 most similar results to return
+	    params.limit = 10
+	    
+	    // 2. set search parameters
+	    controller.searchParams = params
+	    
+	    // 3. configure schema mapping (refer to section 6.0.1)
+	    // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
+	    controller.schemaMapping.heading = "im_title"
+	    controller.schemaMapping.label = "brand"
+	    controller.schemaMapping.price = "price"
+	   
+	    // 4. configure product image size and content mode
+	    let containerWidth = self.view.bounds.width 
+	    
+	    // this will let 2.5 images appear on screen within containerWidth viewbox
+	    let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
+	    let imageHeight = imageWidth * 1.2
+	                
+	    controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+	    // configure image content mode
+	    controller.imageConfig.contentMode = .scaleAspectFill
+	     
+	    // 5. configure product card box size
+	    // IMPORTANT: this must be called last after schema mapping configuration as we calculate the item size based on whether a field is available
+	    // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
+	    // the product card height is dynamic and will depend on schema mapping
+	    // the  product card width is set to image width            
+	    controller.itemSize = controller.estimateItemSize()
+	    
+	    // 6. misc setting (Optional)
+	    
+	    // configure left spacing
+	    controller.paddingLeft = 8.0
+	    
+	    // configure border color if necessary
+	    controller.productCardBorderColor = UIColor.lightGray
+	    controller.productCardBorderWidth = 0.7
+	    
+	     // configure spacing between product cards on the same row i.e. the column spacing
+	    controller.itemSpacing = 0
+	     
+	    // 7. configure delegate to listen for various events such as when user clicks on Action button
+	    controller.delegate = self
+	        
+	    
+	    // 8a. if you are presenting this view programmatically i.e. not from storyboard , you will need to add the following code to present as view controller
+	    
+	    // set the frame and call necessary methods in current view controller
+	    controller.view.frame = CGRect(x: 0, y: 320, width: self.view.bounds.width, height: controller.itemSize.height )
+	    self.addChildViewController(controller)
+	    self.view.addSubview(controller.view)
+	    controller.didMove(toParentViewController: self)
+	          
+	    // 9. trigger web service to ViSenze server
+	    controller.refreshData()
+	    
+	}
+	```
 
 - Present child view controller from storyboard:
-
-You will need to drag in a Container view with an embedded segue within the view controller. Instructions can be found [here](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html) and also in the WidgetsExample demo.
-
-Set the child controller class as ViRecommendationViewController in Interface Builder under ViSearchWidgets module.
-
-Then you can set up the controller within the prepare method as below:
-
-```swift
-override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-  if segue.identifier == "yourEmbedSegueIdentifier" {
+	
+	You will need to drag in a Container view with an embedded segue within the view controller. Instructions can be found [here](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html) and also in the WidgetsExample demo.
+	
+	Set the child controller class as ViRecommendationViewController in Interface Builder under ViSearchWidgets module.
+	
+	Then you can set up the controller within the prepare method as below:
+	
+	```swift
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	  if segue.identifier == "yourEmbedSegueIdentifier" {
+		    
+		 let controller = segue.destination as! ViRecommendationViewController
+		   
+		 if let params = ViSearchParams(imName: "sample_im_name.jpg") {
+	            
+	      //1. configure max of 10 most similar results to return
+	      params.limit = 10
 	    
-	 let controller = segue.destination as! ViRecommendationViewController
+	      // 2. set search parameters
+	      controller.searchParams = params
+	    
+	      // 3. configure schema mapping (refer to section 6.0.1)
+	      // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
+	      controller.schemaMapping.heading = "im_title"
+	      controller.schemaMapping.label = "brand"
+	      controller.schemaMapping.price = "price"
 	   
-	 if let params = ViSearchParams(imName: "sample_im_name.jpg") {
-            
-      //1. configure max of 10 most similar results to return
-      params.limit = 10
-    
-      // 2. set search parameters
-      controller.searchParams = params
-    
-      // 3. configure schema mapping (refer to section 6.0.1)
-      // Assumption: your schema data feed include "im_title", "brand", "price" fields which store data for product title, brand and current price
-      controller.schemaMapping.heading = "im_title"
-      controller.schemaMapping.label = "brand"
-      controller.schemaMapping.price = "price"
-   
-      // 4. configure product image size and content mode
-      let containerWidth = self.view.bounds.width 
-    
-      // this will let 2.5 images appear on screen within containerWidth viewbox
-      let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
-      let imageHeight = imageWidth * 1.2
-                
-      controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
-      // configure image content mode
-      controller.imageConfig.contentMode = .scaleAspectFill
-     
-       // 5. configure product card box size
-       // IMPORTANT: this must be called last after schema mapping configuration as we calculate the item size based on whether a field is available
-       // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
-       // the product card height is dynamic and will depend on schema mapping
-       // the  product card width is set to image width            
-       controller.itemSize = controller.estimateItemSize()
-    
-       // 6. misc setting (Optional)
-    
-       // configure left spacing
-       controller.paddingLeft = 8.0
-    
-       // configure border color if necessary
-       controller.productCardBorderColor = UIColor.lightGray
-       controller.productCardBorderWidth = 0.7
-    
-        // configure spacing between product cards on the same row i.e. the column spacing
-       controller.itemSpacing = 8
-     
-        // 7. configure delegate to listen for various events such as when user clicks on Action button
-        controller.delegate = self
-        
-             
-        // 8. trigger web service to ViSenze server
-        controller.refreshData()
-    
-    }     
-	        	            
-  }      
-}
-```
+	      // 4. configure product image size and content mode
+	      let containerWidth = self.view.bounds.width 
+	    
+	      // this will let 2.5 images appear on screen within containerWidth viewbox
+	      let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
+	      let imageHeight = imageWidth * 1.2
+	                
+	      controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+	      // configure image content mode
+	      controller.imageConfig.contentMode = .scaleAspectFill
+	     
+	       // 5. configure product card box size
+	       // IMPORTANT: this must be called last after schema mapping configuration as we calculate the item size based on whether a field is available
+	       // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
+	       // the product card height is dynamic and will depend on schema mapping
+	       // the  product card width is set to image width            
+	       controller.itemSize = controller.estimateItemSize()
+	    
+	       // 6. misc setting (Optional)
+	    
+	       // configure left spacing
+	       controller.paddingLeft = 8.0
+	    
+	       // configure border color if necessary
+	       controller.productCardBorderColor = UIColor.lightGray
+	       controller.productCardBorderWidth = 0.7
+	    
+	        // configure spacing between product cards on the same row i.e. the column spacing
+	       controller.itemSpacing = 8
+	     
+	        // 7. configure delegate to listen for various events such as when user clicks on Action button
+	        controller.delegate = self
+	        
+	             
+	        // 8. trigger web service to ViSenze server
+	        controller.refreshData()
+	    
+	    }     
+		        	            
+	  }      
+	}
+	```
 
 Important API docs:
 
@@ -558,10 +565,14 @@ Shoppers can snap or upload a photo of the product they are looking for, find th
 
 The products are displayed in a grid.
 
-Below is sample code for using "Search by Image" widget. Please read section 6.0 on important configuration steps and section 5.2 on important app permissions.
+Below is sample code for using "Search by Image" widget.
+
+Add this sample code into your controller and make sure your controller is embedded in a navigation controller. So when this sample code is executed,
+
+- Firstly, a `CameraViewController` will be presented for uses to take or select a photo.
+- Then the widget `ViSearchImageViewController` will be displayed through navigation from your controller.
 
 ```swift
-
 // the entry point for Search by Image is to open a camera to take photo
 // 1. we use CameraViewController for photo taking / select photo
 let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
@@ -652,10 +663,11 @@ Shoppers can search your entire indexed catalogue of products for an item with a
 
 The products are displayed in a grid.
 
-Below is sample code for using "Search by Color" widget. Please read section 6.0 on important configuration steps.
+Below is sample code for using "Search by Color" widget.
+
+Add this sample code into your controller and make sure your controller is embedded in a navigation controller. So when this sample code is executed, the widget `ViColorSearchViewController` will be displayed through navigation from your controller.
 
 ```swift
-
 // create search parameter with color code 00ff00
 if let params = ViColorSearchParams(color: "00ff00") {
             
@@ -707,7 +719,6 @@ if let params = ViColorSearchParams(color: "00ff00") {
     controller.refreshData()
     
 }
-
 ```
 
 Important API docs:
@@ -725,6 +736,8 @@ You can configure the filter component for `Find Similar`, `Search by Image` and
 
 - Range filter (e.g. for price) ([ViFilterItemRange](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemRange.html))
 - Multi-selection category filter (e.g. for product category, brand) ([ViFilterItemCategory](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html))
+
+Screenshot below is using Search by Color as an example, however the sample code for creating filters can be applied to all widgets.
 
 <img src="./docs/images/filter.png" width="1000">
 
@@ -773,13 +786,13 @@ To customize the color, styles of the widgets and button, you can look at the fo
 
 - [ViTheme](https://visenze.github.io/visearch-widget-swift/Classes/ViTheme.html) : default global configuration for text fonts, button colors, sizes, etc.
 
- You can configure via the ViTheme singleton:
- 
- ```swift
- // configure default font 
- ViTheme.sharedInstance.default_font = ...
- 
- ``` 
+    You can configure via the ViTheme singleton:
+
+     ```swift
+     // configure default font
+     ViTheme.sharedInstance.default_font = ...
+
+     ```
  
 - [ViButtonConfig](https://visenze.github.io/visearch-widget-swift/Structs/ViButtonConfig.html) : default style for buttons
 - [ViLabelConfig](https://visenze.github.io/visearch-widget-swift/Structs/ViLabelConfig.html) : default style for labels (heading, label, price, discount price)
@@ -835,7 +848,7 @@ func searchFailed(err: Error?, apiErrors: [String]) {
 
 ### 7.5 Custom Search Bar
 
-To add "Search by Image" and "Search by Color" buttons to the UISearchBar, please refer to the `WidgetsExample` project > CustomSearchBarViewController class.
+You can add "Search by Image" and "Search by Color" buttons to the UISearchBar.
 
 <img src="./docs/images/custom_search.png">
 

@@ -151,18 +151,41 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
     // MARK: collectionview datasource and delegate
     open override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
         
+        var s = CGSize(width: self.view.bounds.width, height: 0)
+        
         if let layout = self.headerLayout {
-            return layout.arrangement( origin: .zero , width: self.view.bounds.width ).frame.size
+            let headerSize = layout.arrangement( origin: .zero , width: self.view.bounds.width ).frame.size
+            s.height += headerSize.height
         }
-        return CGSize.zero
+        
+        let searchResultsView = self.view as! ViSearchResultsView
+        if searchResultsView.showMsgView {
+            s.height += searchResultsView.msgView.frame.size.height
+        }
+        
+        return s
     }
     
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let view = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier, for: indexPath)
         
+        var errViewY : CGFloat = 0
+        
         if let layout = self.headerLayout {
-            layout.arrangement( origin: .zero , width:  self.view.bounds.width ).makeViews(in: view)
+            let arrangement = layout.arrangement( origin: .zero , width:  self.view.bounds.width )
+            errViewY = arrangement.frame.size.height
+            arrangement.makeViews(in: view)
+        }
+        
+        // add err if necessary
+        let searchResultsView = self.view as! ViSearchResultsView
+        if searchResultsView.showMsgView {
+            var oldFrame = searchResultsView.msgView.frame
+            oldFrame.origin.y = errViewY + 8
+            oldFrame.origin.x = self.paddingLeft + 8
+            searchResultsView.msgView.frame = oldFrame
+            view?.addSubview(searchResultsView.msgView)
         }
         
         return view!
@@ -368,5 +391,6 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         self.headerLayoutHeight = self.collectionView(self.collectionView!, layout: self.collectionViewLayout, referenceSizeForHeaderInSection: 0).height
         
     }
+    
 
 }

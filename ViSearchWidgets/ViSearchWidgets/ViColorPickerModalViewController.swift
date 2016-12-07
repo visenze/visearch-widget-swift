@@ -15,6 +15,9 @@ public protocol ViColorPickerDelegate: class {
     func didPickColor(sender: ViColorPickerModalViewController, color: String)
 }
 
+/// Color picker view controller
+/// Present colors in a grid (collection view). Implement ViColorPickerDelegate to receive notification for selected color
+/// List of colors are configurable
 open class ViColorPickerModalViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     /// list of color strings in hex format e.g. #123456 or 123456. The hex is optional

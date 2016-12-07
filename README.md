@@ -331,6 +331,8 @@ Below is sample code for using "Find Similar" widget. Please read section 6.0 on
 ```swift
 
 // create search parameter which will search for similar products to sample_im_name.jpg
+// you can trigger the search from a "Similar" button from product details screen
+// Alternately, the "Find Similar" search can be triggered in the search results by clicking on "Find Similar" button on a product card (located at bottom right)
 if let params = ViSearchParams(imName: "sample_im_name.jpg") {
             
     // 1. create Find Similar widget
@@ -386,10 +388,10 @@ if let params = ViSearchParams(imName: "sample_im_name.jpg") {
 
 Important API docs:
 
-- [ViFindSimilarViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViFindSimilarViewController.html)
-- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html)
-- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
-- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
+- [ViFindSimilarViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViFindSimilarViewController.html) : Find Similar widget
+- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html) : Present search results in a grid (collection view)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html) : Base class for all widgets
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : delegate for widget customization
 
 ### 6.2 You May Also Like
 
@@ -545,16 +547,16 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 Important API docs:
 
-- [ViRecommendationViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViRecommendationViewController.html)
-- [ViHorizontalSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViHorizontalSearchViewController.html)
-- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
-- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
+- [ViRecommendationViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViRecommendationViewController.html) : You May Also Like widget
+- [ViHorizontalSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViHorizontalSearchViewController.html) : Present search results in a horizontall scroll view (collection view)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html) : Base class for all widgets
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : delegate for widget customization
 
 ### 6.3 Search by Image
 
 Shoppers can snap or upload a photo of the product they are looking for, find the same or similar options across price points, brands etc., and order the product that best meets their needs. The solution provides an innovative and easy way for shoppers to find items they want without needing keywords.
 
-<img src="./docs/images/image_search.png">
+<img src="./docs/images/camera_preview.jpg" width="850">
 
 The products are displayed in a grid.
 
@@ -636,19 +638,34 @@ let cameraViewController = CameraViewController(croppingEnabled: false, allowsLi
 present(cameraViewController, animated: true, completion: nil)
 ```
 
+You can enable/disable cropping, photo library access by setting the following properties:
+
+```swift
+// if you want to enable cropping immediately after taking photo and before search
+// just set croppingEnabled to true for CameraViewController
+// in the widget demo, search results are displayed immediately after taking from camera. Cropping is only done later by clicking on the crop button next to the query image
+let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) ...
+
+// enable cropping and select photo from library
+controller.croppingEnabled = true
+controller.allowsLibraryAccess = true
+ 
+```
+
 Important API docs:
 
-- [ViSearchImageViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViSearchImageViewController.html)
-- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html)
-- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
-- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
-- [CameraViewController](https://visenze.github.io/visearch-widget-swift/Classes/CameraViewController.html)
+- [ViSearchImageViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViSearchImageViewController.html) : Search by Image widget
+- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html) : display search results in a grid (collection view)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html) : Base class for all widgets
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : delegate for widget customization
+- [CameraViewController](https://visenze.github.io/visearch-widget-swift/Classes/CameraViewController.html) : displaying the camera view for photo taking/selection from photo library
+- [ConfirmViewController](https://visenze.github.io/visearch-widget-swift/Classes/ConfirmViewController.html) : confirm controller for keeping/discarding the taken/selected photo. Cropping is done here. 
 
 ### 6.4 Search by Color
 
 Shoppers can search your entire indexed catalogue of products for an item with a particular color and then narrow down the results by attributes or fields such as category, brand, price, etc. Our algorithm can search the catalogue by a set of pre-selected colors from a color palette or a vast spectrum of colors.
 
-<img src="./docs/images/color.png">
+<img src="./docs/images/color_search.png" width="850">
 
 The products are displayed in a grid.
 
@@ -712,10 +729,11 @@ if let params = ViColorSearchParams(color: "00ff00") {
 
 Important API docs:
 
-- [ViColorSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViColorSearchViewController.html)
-- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html)
-- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html)
-- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html)
+- [ViColorSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViColorSearchViewController.html) : Search by Color widget
+- [ViGridSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViGridSearchViewController.html) : for displaying search results in a grid (collection view)
+- [ViBaseSearchViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViBaseSearchViewController.html) : base class for all widgets
+- [ViSearchViewControllerDelegate](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : delegate for widget customization
+- [ViColorPickerModalViewController](https://visenze.github.io/visearch-widget-swift/Classes/ViColorPickerModalViewController.html) : color picker view controller. You can present this in a popover (i.e. triggered from a button click) or as a child view controller. See section 7.5.2 for example implementation.
 
 ## 7. Customization
 
@@ -798,8 +816,8 @@ For advanced use cases where you need to create your own widgets or want to modi
 - [didSelectProduct(sender:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : product selection notification i.e. user tap on a product card
 - [actionBtnTapped(sender:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15actionBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : action button tapped notification i.e. user tap on action button at the top right corner of a product card cell
 - [similarBtnTapped(sender:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16similarBtnTappedFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : user tapped on similar button at the bottom right of a product card cell
-- [searchSuccess(searchType:reqId:products:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13searchSuccessFT10searchTypeOS_12ViSearchType5reqIdGSqSS_8productsGSaCS_9ViProduct__T_) : the search is successful
-- [searchFailed(err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_) : the search is failed due to either network errors or ViSenze API errors
+- [searchSuccess(sender:searchType:reqId:products:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : the search is successful
+- [searchFailed(sender:searchType:err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : the search is failed due to either network errors or ViSenze API errors
 
 ### 7.4 Errors Handling
 
@@ -808,7 +826,9 @@ There are 2 possible types of errors when using the widgets:
 - Errors when trying to call the API e.g. network related errors like offline/broken/time-out Internet connection
 - ViSenze search API-related errors e.g mis-configuration of search parameters, invalid API key, API limit exceeded, invalid im_name
 
-To display custom error messages to end users, you can hook into `ViSearchViewControllerDelegate` and take appropriate actions in [searchFailed(err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate12searchFailedFT3errGSqPs5Error__9apiErrorsGSaSS__T_) call back.
+By default, the widgets will show a generic error message (i.e. "An error has occured. Please try again." for all errors). In addition, the widgets will show a "No Results Found" for search with no results found.
+
+To display custom error messages to end users, you can hook into `ViSearchViewControllerDelegate` and take appropriate actions in [searchFailed(sender:searchType:err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) call back.
 
 ```swift
 ...
@@ -816,12 +836,21 @@ To display custom error messages to end users, you can hook into `ViSearchViewCo
 // set delegate to current view controller
 controller.delegate = self
 
+// turn off default error message display
+controller.showDefaultErrMsg = false
+
+// turn off default no results message display
+controller.showNoSearchResultsMsg = false
+
 ...
 
-func searchFailed(err: Error?, apiErrors: [String]) {
+// sender here is refering to the controller that called this search
+// hook into this to display your custom error view
+func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
     if let err = err {
         // display network error e.g. with UIAlertController
         // default network error are stored in err.localizedDescription
+        
     }
     
     else if apiErrors.count > 0 {
@@ -829,9 +858,35 @@ func searchFailed(err: Error?, apiErrors: [String]) {
     	  let msg = apiErrors.joined(separator: ",")
     	  // display message here if necessary
     }
+    
+    // you can create a custom view (UIView)
+    // and then call
+    DispatchQueue.main.async {
+	    var your_custom_view = ...
+	    controller.setMsgView(your_custom_view)
+	    
+	    // display
+	    controller.showMsgView = true
+    }
 }
 
+// hook into this to display no results found custom view
+func searchSuccess( sender: AnyObject, searchType: ViSearchType, reqId: String? , products: [ViProduct])
+{
+	 if(self.products.count == 0 ){
+        DispatchQueue.main.async {
+             var your_custom_view = ...
+	    		controller.setMsgView(your_custom_view)
+	    		// display
+	    		controller.showMsgView = true
+        }
+    }
+}
+
+
 ```
+
+Alternately, you can subclass the view controller and override `displayDefaultErrMsg`, `displayNoResultsFoundMsg` to change the messages display.
 
 ### 7.5 Custom Search Bar
 

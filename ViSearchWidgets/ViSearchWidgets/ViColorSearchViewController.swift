@@ -279,6 +279,8 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         if( searchParams != nil && (searchParams is ViColorSearchParams) ) {
             
             if let searchParams = searchParams {
+                // hide err message if any
+                self.hideMsgView()
                 
                 self.setMetaQueryParamsForSearch()
                 
@@ -296,8 +298,12 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                         if let data = data {
                             if data.hasError {
                                 
-                                // TODO: display system busy message here
-                                self.delegate?.searchFailed(err: nil, apiErrors: data.error)
+                                DispatchQueue.main.async {
+                                    self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR ,
+                                                              err: nil, apiErrors: data.error)
+                                }
+                                
+                                self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR ,err: nil, apiErrors: data.error)
                             }
                             else {
                                 
@@ -305,23 +311,35 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                                 self.reqId = data.reqId
                                 self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
                                 
-                                
-                                self.delegate?.searchSuccess(searchType: ViSearchType.SEARCH_BY_COLOR , reqId: data.reqId, products: self.products)
-                                
-                                DispatchQueue.main.async {
-                                    self.collectionView?.reloadData()
+                                if(self.products.count == 0 ){
+                                    DispatchQueue.main.async {
+                                        self.displayNoResultsFoundMsg()
+                                    }
                                 }
                                 
+                                self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , reqId: data.reqId, products: self.products)
+                                
+                               
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.collectionView?.reloadData()
                             }
                         }
                         
                 },
                     failureHandler: {
                         (err) -> Void in
-                        // Do something when request fails e.g. due to network error
-                        // print ("error: \\(err.localizedDescription)")
-                        // TODO: display error message and tap to try again
-                        self.delegate?.searchFailed(err: err, apiErrors: [])
+                       
+                        DispatchQueue.main.async {
+                            self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
+                        }
+                        
+                        self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
+                        
+                        DispatchQueue.main.async {
+                            self.collectionView?.reloadData()
+                        }
                         
                 })
             }

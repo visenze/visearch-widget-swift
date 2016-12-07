@@ -23,11 +23,23 @@ open class ViSearchResultsView: UIView {
     /// collection view layout for search results
     public var collectionViewLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
-    /// container for header
-    public var headerViewContainer: UIView = UIView()
-    
     /// collection view to contain results
     public var collectionView: UICollectionView?
+    
+    /// generic message view. This can be used to display a generic error message (e.g. due to network errors/ API errors)
+    /// it can also be used to displayed a message such as "No Search Results found"
+    /// the message view can be attached to collection view header to display the error
+    public var msgView: UIView = UIView()
+    
+    /// show/hide message view
+    public var showMsgView : Bool = false {
+        didSet {
+            self.msgView.isHidden = !self.showMsgView
+        }
+    }
+    
+    /// container for header
+    public var headerViewContainer: UIView = UIView()
     
     /// container for footer
     public var footerViewContainer: UIView = UIView()
@@ -59,6 +71,8 @@ open class ViSearchResultsView: UIView {
         self.addSubview(self.headerViewContainer)
         self.addSubview(self.footerViewContainer)
         
+        self.showMsgView = false
+        msgView.isHidden = true
     }
     
     /// layout views vertically: header, collectionview, footer
@@ -81,12 +95,13 @@ open class ViSearchResultsView: UIView {
                                         width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
                                         height: headerViewHeight  )
         
-        self.collectionView?.frame = CGRect(x: self.paddingLeft,
-                                            y: self.headerViewContainer.frame.origin.y + headerViewHeight,
-                                            width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
-                                            height: self.bounds.size.height - headerViewHeight - footerViewHeight
+        let collectionViewFrame = CGRect(x: self.paddingLeft,
+                                         y: self.headerViewContainer.frame.origin.y + headerViewHeight,
+                                         width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
+                                         height: self.bounds.size.height - headerViewHeight - footerViewHeight
         )
-
+        self.collectionView?.frame = collectionViewFrame
+        
         self.footerViewContainer.frame = CGRect(x: self.paddingLeft,
                                                 y: self.collectionView!.frame.origin.y + self.collectionView!.frame.size.height ,
                                                 width: self.bounds.size.width - self.paddingLeft - self.paddingRight,
@@ -116,6 +131,5 @@ open class ViSearchResultsView: UIView {
         
         self.footerViewContainer.addSubview(footerView)
     }
-
-
+    
 }

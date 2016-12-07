@@ -286,7 +286,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         
     }
     
-    func searchFailed(err: Error?, apiErrors: [String]) {
+    func searchFailed(sender: AnyObject, searchType: ViSearchType ,  err: Error?, apiErrors: [String]) {
         if let err = err {
             // most likely network error
             alert (message: "error: \(err.localizedDescription)")

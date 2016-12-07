@@ -8,6 +8,7 @@
 
 import UIKit
 import ViSearchSDK
+import LayoutKit
 
 private let reuseIdentifier = "ViProductCardLayoutCell"
 
@@ -74,18 +75,21 @@ public protocol ViSearchViewControllerDelegate: class {
     /// Successful search after refreshData() method is called
     ///
     /// - Parameters:
+    ///   - sender: the controller that generate this search request
     ///   - searchType: the recent search type
     ///   - reqId: recent request id
     ///   - products: list of extract products information based on mapping
-    func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct])
+    func searchSuccess( sender: AnyObject, searchType: ViSearchType, reqId: String? , products: [ViProduct])
     
     
     /// Search failed callback
     ///
     /// - Parameters:
+    ///   - sender: the controller that generate this search request
+    ///   - searchType: the recent search type
     ///   - err: Errors when trying to call the API e.g. network related errors like offline Internet connection
     ///   - apiErrors: errors returned to ViSenze server e.g. due to invalid/missing search parameters
-    func searchFailed(err: Error?, apiErrors: [String])
+    func searchFailed(sender: AnyObject, searchType: ViSearchType, err: Error?, apiErrors: [String])
     
 }
 
@@ -100,8 +104,8 @@ public extension ViSearchViewControllerDelegate{
     
     func willShowFilterController(sender: AnyObject, controller: ViFilterViewController){}
     
-    func searchSuccess( searchType: ViSearchType, reqId: String? , products: [ViProduct]){}
-    func searchFailed(err: Error?, apiErrors: [String]){}
+    func searchSuccess(sender: AnyObject, searchType: ViSearchType, reqId: String? , products: [ViProduct]){}
+    func searchFailed(sender: AnyObject, searchType: ViSearchType, err: Error?, apiErrors: [String]){}
     
 }
 
@@ -559,8 +563,101 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         }
         return CGSize(width: 100, height: 25)
     }
-
     
+    // MARK: Default Error Messages View
+    
+    /// show the generic error message when an error occurs after search e.g. network error or API error
+    open var showDefaultErrMsg : Bool = true
+    
+    /// show message when no search results is found
+    open var showNoSearchResultsMsg : Bool = true
+    
+    /// Generate view to display when there is no search results
+    ///
+    /// - Returns: no search results view
+    open func noSearchResultView() -> UIView? {
+        let label = UILabel()
+        label.text = "No Results Found"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        
+        let labelSize = label.font.stringSize(string: label.text!,
+                                              constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
+        )
+        
+        label.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
+        
+        return label
+    }
+    
+    
+    /// Generate view to display generic error messages e.g. during network timeout or api error
+    ///
+    /// - Returns: default generic error view
+    open func genericErrSearchResultView() -> UIView? {
+        let label = UILabel()
+        label.text = "An error has occured. Please try again later."
+        label.font = ViFont.regular(with: 14.0)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        
+        let labelSize = label.font.stringSize(string: label.text!,
+                              constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
+        )
+        
+        label.frame = CGRect(x: 0 , y: 0, width: labelSize.width, height: labelSize.height)
+        
+        return label
+    }
+    
+    /// display default error messages. Currently it ignore all errors and just display a generic error message "An error has occured. Please try again later."
+    ///
+    /// - Parameters:
+    ///   - searchType: current search
+    ///   - err: network related error
+    ///   - apiErrors: api Errors
+    open func displayDefaultErrMsg(searchType: ViSearchType, err: Error?, apiErrors: [String]) {
+        if showDefaultErrMsg {
+            if let errView = self.genericErrSearchResultView() {
+                let searchResultsView = self.view as! ViSearchResultsView
+                searchResultsView.msgView = errView
+                searchResultsView.showMsgView = true
+            }
+        }
+    }
+    
+    /// display no search results message. Currently display "No Results Found"
+    open func displayNoResultsFoundMsg() {
+        if showNoSearchResultsMsg {
+            if let errView = self.noSearchResultView() {
+                let searchResultsView = self.view as! ViSearchResultsView
+                searchResultsView.msgView = errView
+                searchResultsView.showMsgView = true
+            }
+        }
+    }
+    
+    /// hide the message view that display error messages such as network errors, no results found
+    open func hideMsgView() {
+        let searchResultsView = self.view as! ViSearchResultsView
+         searchResultsView.showMsgView = false
+    }
+    
+    /// show the message view that display error messages such as network errors, no results found
+    open func showMsgView() {
+        let searchResultsView = self.view as! ViSearchResultsView
+        searchResultsView.showMsgView = true
+    }
+    
+    
+    /// Set custom message view
+    ///
+    /// - Parameter view: custom message view for displaying errors
+    open func setMsgView(_ msgView: UIView) {
+        let searchResultsView = self.view as! ViSearchResultsView
+         searchResultsView.msgView = msgView
+    }
+
     // MARK: buttons events
     
     /// user clicks on "Similar" button on a product card cell

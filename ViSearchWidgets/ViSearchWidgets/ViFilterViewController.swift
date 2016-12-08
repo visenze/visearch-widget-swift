@@ -14,13 +14,13 @@ private let reuseRangeIdentifer = "ViFilterItemRangeCell"
 
 /// delegate for filter actions
 public protocol ViFilterViewControllerDelegate: class {
-    func applyFilter()
+    func applyFilter(_ filterItems : [ViFilterItem])
     func resetFilter()
 }
 
 // make the delegate optional
 public extension ViFilterViewControllerDelegate{
-    func applyFilter(){}
+    func applyFilter(_ filterItems : [ViFilterItem]){}
     func resetFilter(){}
 }
 
@@ -39,6 +39,18 @@ open class ViFilterViewController: UIViewController , UITableViewDelegate, UITab
     
     /// list of filter items
     open var filterItems : [ViFilterItem] = []
+    
+    /// list of original filter items
+    open var initFilterItems : [ViFilterItem] = [] {
+        didSet {
+            self.filterItems.removeAll()
+            
+            // clone list of filter items and put into filter items
+            for item in initFilterItems {
+                self.filterItems.append(item.clone())
+            }
+        }
+    }
     
     /// delegate
     public var delegate: ViFilterViewControllerDelegate? = nil
@@ -77,7 +89,8 @@ open class ViFilterViewController: UIViewController , UITableViewDelegate, UITab
     }
     
     public func okBtnTap(sender: UIButton, forEvent event: UIEvent) {
-        delegate?.applyFilter()
+       
+        delegate?.applyFilter(self.filterItems)
     }
     
     open func resetBtnTap(sender: UIBarButtonItem) {
@@ -92,7 +105,7 @@ open class ViFilterViewController: UIViewController , UITableViewDelegate, UITab
     }
     
     open func applyBtnTap(sender: UIBarButtonItem) {
-        delegate?.applyFilter()
+        delegate?.applyFilter(self.filterItems)
     }
     
     // MARK: - Table view data source

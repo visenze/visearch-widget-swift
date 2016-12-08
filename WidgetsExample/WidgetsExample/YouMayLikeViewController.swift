@@ -34,7 +34,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 
                 // this will let 2.5 images appear on screen
                 let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
-                let imageHeight = imageWidth * 1.2
+                let imageHeight = min(imageWidth * 1.2, 200 )
                 
                 // configure product image size
                 controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )

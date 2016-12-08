@@ -28,21 +28,16 @@ extension CameraViewController {
         })
     }
     
-    /**
-     * Add the constraints based on the device orientation,
-     * this pin the button on the bottom part of the screen
-     * when the device is portrait, when landscape, pin
-     * the button on the right part of the screen.
-     */
+  
     func configCameraButtonEdgeConstraint(_ statusBarOrientation: UIInterfaceOrientation) {
         view.autoRemoveConstraint(cameraButtonEdgeConstraint)
         
         let attribute : NSLayoutAttribute = {
             switch statusBarOrientation {
             case .portrait: return .bottom
-            case .landscapeRight: return .right
-            case .landscapeLeft: return .left
-            default: return .top
+            case .landscapeRight: return .bottom
+            case .landscapeLeft: return .bottom
+            default: return .bottom
             }
         }()
         
@@ -53,19 +48,13 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: attribute == .right || attribute == .bottom ? -8 : 8)
+            constant: -8 )
         view.addConstraint(cameraButtonEdgeConstraint!)
     }
     
-    /**
-     * Add the constraints based on the device orientation,
-     * centerX the button based on the width of screen.
-     * When the device is landscape orientation, centerY
-     * the button based on the height of screen.
-     */
     func configCameraButtonGravityConstraint(_ portrait: Bool) {
         view.autoRemoveConstraint(cameraButtonGravityConstraint)
-        let attribute : NSLayoutAttribute = portrait ? .centerX : .centerY
+        let attribute : NSLayoutAttribute =  .centerX
         cameraButtonGravityConstraint = NSLayoutConstraint(
             item: cameraButton,
             attribute: attribute,
@@ -113,42 +102,45 @@ extension CameraViewController {
         view.addConstraint(swapHeightConstraint!)
         view.addConstraint(swapWidthConstraint!)
         
-        
     }
    
     func configSwapButtonEdgeConstraint(_ statusBarOrientation : UIInterfaceOrientation) {
         
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeRight
-        let attribute : NSLayoutAttribute = constraintRight ? .top : .bottom
-        
         swapButtonEdgeConstraint = NSLayoutConstraint(
             item: swapButton,
-            attribute: attribute,
+            attribute: .top,
             relatedBy: .equal,
             toItem: view,
-            attribute: attribute,
+            attribute: .top,
             multiplier: 1.0,
-            constant: constraintRight ? spacingBtn : -spacingBtn)
+            constant: spacingBtn )
         view.addConstraint(swapButtonEdgeConstraint!)
-        
     }
     
-    /**
-     * Configure the center of SwapButton, based on the
-     * axis center of CameraButton.
-     */
+   
     func configSwapButtonGravityConstraint(_ statusBarOrientation : UIInterfaceOrientation) {
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeLeft
-        let attribute : NSLayoutAttribute = constraintRight ? .right : .left
+        switch statusBarOrientation {
+            case .portrait:
+                print("portrait")
+            case .landscapeRight:
+                print("landscapeRight")
+            case .landscapeLeft:
+                print("landscapeLeft")
+                
+                
+            default:
+                print("unsupported")
+        }
+
         
         swapButtonGravityConstraint = NSLayoutConstraint(
             item: swapButton,
-            attribute: attribute,
+            attribute: .right,
             relatedBy: .equal,
             toItem: view,
-            attribute: attribute,
+            attribute: .right,
             multiplier: 1.0,
-            constant: constraintRight ? -spacingBtn : spacingBtn)
+            constant: -spacingBtn )
         view.addConstraint(swapButtonGravityConstraint!)
     }
     
@@ -165,13 +157,8 @@ extension CameraViewController {
      */
     func configCloseButtonEdgeConstraint(_ statusBarOrientation : UIInterfaceOrientation) {
         
-        let attribute : NSLayoutAttribute = {
-            switch statusBarOrientation {
-            case .landscapeRight, .portrait: return .left
-            default: return .right
-            }
-        }()
-
+        let attribute : NSLayoutAttribute = .left
+        
         closeButtonEdgeConstraint = NSLayoutConstraint(
             item: closeButton,
             attribute: attribute,
@@ -217,8 +204,7 @@ extension CameraViewController {
      */
     func configCloseButtonGravityConstraint(_ statusBarOrientation : UIInterfaceOrientation) {
         
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeRight
-        let attribute : NSLayoutAttribute = constraintRight ? .top : .bottom
+        let attribute : NSLayoutAttribute = .top
         
         closeButtonGravityConstraint = NSLayoutConstraint(
             item: closeButton,
@@ -227,7 +213,7 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: constraintRight ? (spacingBtn + 4)  : -spacingBtn - 4 )
+            constant: (spacingBtn + 4)  )
         view.addConstraint(closeButtonGravityConstraint!)
     }
     
@@ -261,8 +247,7 @@ extension CameraViewController {
         view.addConstraint(powerWidthConstraint!)
         
         // left constraint
-        let constraintLeft = statusBarOrientation == .portrait || statusBarOrientation == .landscapeLeft
-        let attribute : NSLayoutAttribute = constraintLeft ?  .left : .right
+        let attribute : NSLayoutAttribute = .left
         
         powerGravityConstraint = NSLayoutConstraint(
             item: powerView,
@@ -271,12 +256,11 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: constraintLeft ? spacingBtn : -spacingBtn )
+            constant: spacingBtn )
         view.addConstraint(powerGravityConstraint!)
         
         // bottom contrain
-        let constraintBottom = statusBarOrientation == .portrait || statusBarOrientation == .landscapeRight
-        let botAttribute : NSLayoutAttribute = constraintBottom ?  .bottom : .top
+        let botAttribute : NSLayoutAttribute = .bottom
         
         powerEdgeConstraint = NSLayoutConstraint(
             item: powerView,
@@ -285,7 +269,7 @@ extension CameraViewController {
             toItem: view,
             attribute: botAttribute,
             multiplier: 1.0,
-            constant: constraintBottom ? -spacingBtn : spacingBtn)
+            constant: -spacingBtn )
         view.addConstraint(powerEdgeConstraint!)
 
     }
@@ -323,8 +307,7 @@ extension CameraViewController {
         view.addConstraint(infoWidthConstraint!)
         
         // right constraint
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeLeft
-        let attribute : NSLayoutAttribute = constraintRight ? .right : .left
+        let attribute : NSLayoutAttribute = .right
         
         infoButtonGravityConstraint = NSLayoutConstraint(
             item: infoButton,
@@ -333,12 +316,11 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: constraintRight ? -(  6 + buttonSize * 2) : ( 6 + buttonSize * 2) )
+            constant:  -(6 + buttonSize * 2)  )
         view.addConstraint(infoButtonGravityConstraint!)
         
-        // top contrain
-        let constraintTop = statusBarOrientation == .portrait || statusBarOrientation == .landscapeRight
-        let topAttribute : NSLayoutAttribute = constraintRight ? .top : .bottom
+        // top constraint
+        let topAttribute : NSLayoutAttribute = .top
         
         infoButtonEdgeConstraint = NSLayoutConstraint(
             item: infoButton,
@@ -347,7 +329,7 @@ extension CameraViewController {
             toItem: view,
             attribute: topAttribute,
             multiplier: 1.0,
-            constant: constraintTop ? 6 : -6)
+            constant:  6 )
         view.addConstraint(infoButtonEdgeConstraint!)
         
         
@@ -368,8 +350,7 @@ extension CameraViewController {
     
     func configLibraryEdgeButtonConstraint(_ statusBarOrientation : UIInterfaceOrientation) {
 
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeRight
-        let attribute : NSLayoutAttribute = constraintRight ? .bottom : .top
+        let attribute : NSLayoutAttribute = .bottom
         
         libraryButtonEdgeConstraint = NSLayoutConstraint(
             item: libraryButton,
@@ -378,15 +359,14 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: constraintRight ? -spacingBtn  : spacingBtn  )
+            constant: -spacingBtn )
         view.addConstraint(libraryButtonEdgeConstraint!)
         
     }
     
     
     func configLibraryGravityButtonConstraint(_ statusBarOrientation: UIInterfaceOrientation) {
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeLeft
-        let attribute : NSLayoutAttribute = constraintRight ? .right : .left
+         let attribute : NSLayoutAttribute =  .right
         
         libraryButtonGravityConstraint = NSLayoutConstraint(
             item: libraryButton,
@@ -395,7 +375,7 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: constraintRight ? -spacingBtn * 2 : spacingBtn * 2)
+            constant: -spacingBtn * 2 )
         view.addConstraint(libraryButtonGravityConstraint!)
     }
     
@@ -459,8 +439,7 @@ extension CameraViewController {
     func configFlashEdgeButtonConstraint(_ statusBarOrientation: UIInterfaceOrientation) {
         view.autoRemoveConstraint(flashButtonEdgeConstraint)
         
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeRight
-        let attribute : NSLayoutAttribute = constraintRight ? .top : .bottom
+         let attribute : NSLayoutAttribute =  .top
         
         flashButtonEdgeConstraint = NSLayoutConstraint(
             item: flashButton,
@@ -469,7 +448,7 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: constraintRight ? spacingBtn : -spacingBtn)
+            constant:  spacingBtn )
         view.addConstraint(flashButtonEdgeConstraint!)
     }
     
@@ -477,8 +456,7 @@ extension CameraViewController {
     func configFlashGravityButtonConstraint(_ statusBarOrientation: UIInterfaceOrientation) {
         view.autoRemoveConstraint(flashButtonGravityConstraint)
         
-        let constraintRight = statusBarOrientation == .portrait || statusBarOrientation == .landscapeLeft
-        let attribute : NSLayoutAttribute = constraintRight ? .right : .left
+        let attribute : NSLayoutAttribute = .right
         
         flashButtonGravityConstraint = NSLayoutConstraint(
             item: flashButton,
@@ -487,7 +465,7 @@ extension CameraViewController {
             toItem: view,
             attribute: attribute,
             multiplier: 1.0,
-            constant: constraintRight ?  -(spacingBtn + buttonSize) : (spacingBtn + buttonSize))
+            constant:  -(spacingBtn + buttonSize) )
         view.addConstraint(flashButtonGravityConstraint!)
     }
     

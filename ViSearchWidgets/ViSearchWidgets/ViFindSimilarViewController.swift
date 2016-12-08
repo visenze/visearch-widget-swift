@@ -136,6 +136,9 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                         if let data = data {
                             if data.hasError {
                                
+                                // clear products if there are errors
+                                self.products = []
+                                
                                 DispatchQueue.main.async {
                                     self.displayDefaultErrMsg(searchType: ViSearchType.FIND_SIMILAR , err: nil, apiErrors: data.error)
                                 }
@@ -167,6 +170,9 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
                 },
                     failureHandler: {
                         (err) -> Void in
+                        
+                        // clear products if there are errors
+                        self.products = []
                         
                         DispatchQueue.main.async {
                             self.displayDefaultErrMsg(searchType: ViSearchType.FIND_SIMILAR , err: err, apiErrors: [])

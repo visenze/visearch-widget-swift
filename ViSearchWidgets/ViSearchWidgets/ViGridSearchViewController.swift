@@ -306,7 +306,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         // open filter controller here
         let controller = ViFilterViewController()
         controller.title = self.filterControllerTitle
-        controller.filterItems = self.filterItems
+        controller.initFilterItems = self.filterItems
         controller.delegate = self
         
         // present this controller as modal view controller wrapped in navigation controller
@@ -335,7 +335,10 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
     /// need to be implemented by subclass
     /// Triggered when user taps on "Done" button for the Filter controller
     /// The filter parameters will be applied and a new search is triggered
-    open func applyFilter(){
+    open func applyFilter(_ filterItems : [ViFilterItem]){
+        
+        self.filterItems = filterItems
+        
         // default just dismiss controller
         if(self.navigationController == nil) {
              self.dismiss(animated: true, completion: nil)
@@ -366,9 +369,9 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
                 
                 // construct filter items items
                 for filterItem in self.filterItems {
-                    if !filterItem.isReset() {
-                        fq[filterItem.schemaMapping] = filterItem.getFilterQueryValue()
-                    }
+                    // always set filter
+                    fq[filterItem.schemaMapping] = filterItem.getFilterQueryValue()
+                    
                 }
                 
                 searchParams.fq = fq

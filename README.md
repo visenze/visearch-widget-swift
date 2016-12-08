@@ -227,10 +227,6 @@ import ViSearchWidgets
 // using default ViSearch API client which will connect to Visenze's server
 ViSearch.sharedInstance.setup(accessKey: "YOUR_ACCESS_KEY", secret: "YOUR_SECRET_KEY")
 
-...
-// or using customized client, which connects to your own proxy server
-client = ViSearchClient(baseUrl: yourUrl, accessKey: accessKey, secret: secret)
-...
 ```
 
 ### 5.2 App Permission
@@ -329,6 +325,10 @@ The products are displayed in a grid.
 Below is sample code for using "Find Similar" widget. Please read section 6.0 on important configuration steps.
 
 ```swift
+import ViSearchSDK
+import ViSearchWidgets
+...
+
 
 // create search parameter which will search for similar products to sample_im_name.jpg
 // you can trigger the search from a "Similar" button from product details screen
@@ -406,6 +406,9 @@ Below is sample code for using "You May Also Like" widget. Please read section 6
 - Present ViRecommendationViewController programatically as child view controller: 
 
 ```swift
+import ViSearchSDK
+import ViSearchWidgets
+...
 
 // create search parameter which will search for similar products to sample_im_name.jpg
 if let params = ViSearchParams(imName: "sample_im_name.jpg") {
@@ -563,6 +566,9 @@ The products are displayed in a grid.
 Below is sample code for using "Search by Image" widget. Please read section 6.0 on important configuration steps and section 5.2 on important app permissions.
 
 ```swift
+import ViSearchSDK
+import ViSearchWidgets
+...
 
 // the entry point for Search by Image is to open a camera to take photo
 // 1. we use CameraViewController for photo taking / select photo
@@ -672,6 +678,10 @@ The products are displayed in a grid.
 Below is sample code for using "Search by Color" widget. Please read section 6.0 on important configuration steps.
 
 ```swift
+import ViSearchSDK
+import ViSearchWidgets
+...
+
 
 // create search parameter with color code 00ff00
 if let params = ViColorSearchParams(color: "00ff00") {

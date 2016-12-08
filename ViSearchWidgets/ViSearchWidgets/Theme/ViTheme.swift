@@ -27,6 +27,13 @@ public class ViTheme: NSObject {
     /// Selected color for range filter i.e. the color between selected lower and upper numbers e.g lower/upper prices
     public var default_filter_track_color : UIColor = UIColor.colorWithHexString("#B66C6C", alpha: 1.0)!
     
+    /// default color for search error messages
+    public var default_err_msg_tint_color : UIColor = UIColor.colorWithHexString("#B66C6C", alpha: 1.0)!
+    
+    /// default color for image in error messages
+    public var default_err_msg_img_tint_color : UIColor = UIColor.colorWithHexString("#EB9689", alpha: 1.0)!
+    
+    
     /// default font for widget title
     public var default_widget_title_font : UIFont = ViFont.medium(with: 16.0)
     

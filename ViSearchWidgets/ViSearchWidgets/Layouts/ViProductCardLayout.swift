@@ -537,6 +537,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
             config: { viImageView in
                 viImageView.tag = ViProductCardTag.productImgTag.rawValue
                 viImageView.isUserInteractionEnabled = false
+                viImageView.clipsToBounds = true
                 
                 if let imageView = viImageView.imageView {
                     

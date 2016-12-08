@@ -755,7 +755,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 params.fq = curParams.fq
                 params.detection = curParams.detection
                 params.getAllFl = curParams.getAllFl
-                params.limit = 16
+                params.limit = curParams.limit
                 
                 similarController.searchParams = params
                 

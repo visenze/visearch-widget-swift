@@ -13,9 +13,11 @@ import ViSearchWidgets
 class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate {
 
     public var im_name : String?
-
+    var controller: ViRecommendationViewController? = nil
+    @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+       super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
@@ -27,49 +29,51 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         if segue.identifier == "embedRecSegue" {
             
             if let im_name = self.im_name {
-                let controller = segue.destination as! ViRecommendationViewController
-                
-                controller.delegate = self
-                
-                let containerWidth = self.view.bounds.width
-                
-                // this will let 2.5 images appear on screen
-                let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
-                let imageHeight = min(imageWidth * 1.2, 200 )
-                
-                // configure product image size
-                controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
-                controller.imageConfig.contentMode = .scaleAspectFill
-                
-                // configure search parameter
-                
-                controller.searchParams = ViSearchParams(imName: im_name)
-                controller.searchParams?.limit = 10
-                
-                // to retrieve more meta data , configure the below
-    //            controller.searchParams?.fl = ["category"]
-                
-                // configure schema mapping to product UI elements
-                
-//                controller.schemaMapping.heading = "im_title"
-//                controller.schemaMapping.label = "brand"
-//                controller.schemaMapping.price = "price"
-                
-                controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
+                if let controller = segue.destination as? ViRecommendationViewController {
+                    self.controller = controller
+                    controller.delegate = self
+                    
+                    let containerWidth = self.view.bounds.width
+                    
+                    // this will let 2.5 images appear on screen
+                    let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
+                    let imageHeight = min(imageWidth * 1.2, 140 )
+                    
+                    // configure product image size
+                    controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+                    controller.imageConfig.contentMode = .scaleAspectFill
+                    
+                    // configure search parameter
+                    
+                    controller.searchParams = ViSearchParams(imName: im_name)
+                    controller.searchParams?.limit = 16
+                    
+                    // to retrieve more meta data , configure the below
+        //            controller.searchParams?.fl = ["category"]
+                    
+                    // configure schema mapping to product UI elements
+                    
+    //                controller.schemaMapping.heading = "im_title"
+    //                controller.schemaMapping.label = "brand"
+    //                controller.schemaMapping.price = "price"
+                    
+                    controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
 
-                // configure discount price if necessary
-                controller.schemaMapping.discountPrice = "price"
-                controller.priceConfig.isStrikeThrough = true
-                
-    //            controller.backgroundColor = UIColor.black
-                controller.paddingLeft = 8.0
-                
-                // IMPORTANT: this must be called last after schema mapping as we calculate the item size based on whether a field is available
-                // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
-                controller.itemSize = controller.estimateItemSize()
-                
-                controller.refreshData()
-                
+                    // configure discount price if necessary
+                    controller.schemaMapping.discountPrice = "price"
+                    controller.priceConfig.isStrikeThrough = true
+                    
+        //            controller.backgroundColor = UIColor.black
+                    controller.paddingLeft = 8.0
+                    
+                    // IMPORTANT: this must be called last after schema mapping as we calculate the item size based on whether a field is available
+                    // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
+                    controller.itemSize = controller.estimateItemSize()
+                    
+                    containerHeightConstraint.constant = controller.itemSize.height + 70
+                    
+                    controller.refreshData()
+                }
             }
             else {
                 alert(message: "Please set up im_name in SampleData.plist")
@@ -115,7 +119,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
     }
     
     func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
-        if let err = err {
+        if err != nil {
             // network error.. display custom error if necessary
             //alert (message: "error: \(err.localizedDescription)")
         }
@@ -130,7 +134,12 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         super.viewWillTransition(to: size, with: coordinator)
     
         coordinator.animate(alongsideTransition: { context in
-            
+            if let controller = self.controller {
+                let curSize = controller.imageConfig.size
+                controller.imageConfig.size = CGSize(width: curSize.width, height: min(curSize.height , 150) )
+                controller.itemSize = controller.estimateItemSize()
+                self.containerHeightConstraint.constant = controller.itemSize.height + 70
+            }
             
         }, completion: { context in
             

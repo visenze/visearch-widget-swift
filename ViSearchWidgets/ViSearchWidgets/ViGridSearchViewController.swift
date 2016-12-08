@@ -369,9 +369,9 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
                 
                 // construct filter items items
                 for filterItem in self.filterItems {
-                    if !filterItem.isReset() {
-                        fq[filterItem.schemaMapping] = filterItem.getFilterQueryValue()
-                    }
+                    // always set filter
+                    fq[filterItem.schemaMapping] = filterItem.getFilterQueryValue()
+                    
                 }
                 
                 searchParams.fq = fq

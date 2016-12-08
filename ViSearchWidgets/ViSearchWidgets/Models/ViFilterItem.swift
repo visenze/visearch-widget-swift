@@ -52,7 +52,6 @@ open class ViFilterItem: NSObject {
     open func reset() {}
     
     // checking whether this filter is currently in Reset state
-    // if this is the case, it will be ignored in the search API call. Needs to be implemented and overrided by subclass
     open func isReset() -> Bool {
         return false
     }
@@ -154,7 +153,7 @@ open class ViFilterItemCategory : ViFilterItem {
         self.selectedOptions.removeAll()
     }
     
-    /// check if the filter is already reset and should be ignored for search
+    /// check if the filter is already reset
     ///
     /// - Returns: true if filter is reset
     open override func isReset() -> Bool {
@@ -166,6 +165,12 @@ open class ViFilterItemCategory : ViFilterItem {
     ///
     /// - Returns: filter query value
     open override func getFilterQueryValue() -> String {
+        if self.isReset() {
+            let allArr : [String] = self.options.map { String(format: "\"%@\"", $0.value ) }
+            
+            return allArr.joined(separator: " OR ")
+        }
+        
         let arr : [String] = self.selectedOptions.map { String(format: "\"%@\"", $0.value ) }
         
         return arr.joined(separator: " OR ")
@@ -240,7 +245,7 @@ open class ViFilterItemRange : ViFilterItem {
         self.selectedUpper = self.max
     }
     
-    /// Check if this filter is reset and should be ignored for search query
+    /// Check if this filter is reset
     ///
     /// - Returns: true if lower = min and upper = max
     open override func isReset() -> Bool {
@@ -252,6 +257,7 @@ open class ViFilterItemRange : ViFilterItem {
     ///
     /// - Returns: filter query value
     open override func getFilterQueryValue() -> String {
+        
         return String(format: "%d,%d", self.selectedLower, self.selectedUpper)
     }
     

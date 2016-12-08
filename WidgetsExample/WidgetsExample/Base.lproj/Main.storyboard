@@ -107,7 +107,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZN9-gf-KHw">
                                 <rect key="frame" x="0.0" y="305" width="375" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="21l-yk-7X5"/>
+                                    <constraint firstAttribute="height" constant="300" id="lBc-He-Coq"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="48z-y2-m7x" kind="embed" identifier="embedRecSegue" id="zV2-5b-Ris"/>
@@ -159,6 +159,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="You May Also Like Demo" id="S4E-DW-BuS"/>
+                    <connections>
+                        <outlet property="containerHeightConstraint" destination="lBc-He-Coq" id="qZV-5z-2Ox"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMs-DF-ekr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -205,7 +208,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DWU-DV-181" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gaZ-6e-QZy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gaZ-6e-QZy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

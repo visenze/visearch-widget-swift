@@ -11,6 +11,9 @@ import ViSearchSDK
 import ViSearchWidgets
 
 class HomeTableTableViewController: UITableViewController , ViSearchViewControllerDelegate{
+    
+    let limit = 16
+    
     static let COLOR_SEARCH: String = "Search by Color"
     static let FIND_SIMILAR_SEARCH: String = "Find Similar"
     static let YOU_MAY_ALSO_LIKE_SEARCH: String = "You May Also Like"
@@ -92,6 +95,8 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         }
     }
     
+    // MARK: - Navigation
+    
     func showSearchImageController() {
         
         
@@ -110,7 +115,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             controller.asset = asset
             
             let params = ViUploadSearchParams(image: image!)
-            params.limit = 16
+            params.limit = self!.limit
             controller.searchParams = params
             
             controller.croppingEnabled = true
@@ -151,13 +156,12 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         present(cameraViewController, animated: true, completion: nil)
     }
     
-    // MARK: - Navigation
     func showSimilarController(_ im_name: String) {
         if let params = ViSearchParams(imName: im_name) {
             
             let similarController = ViFindSimilarViewController()
             
-            params.limit = 16
+            params.limit = self.limit
             
             similarController.searchParams = params
             
@@ -197,7 +201,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         
         if let params = ViColorSearchParams(color: color){
             let controller = ViColorSearchViewController()
-            params.limit = 16
+            params.limit = self.limit
             
             controller.searchParams = params
             
@@ -289,7 +293,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     }
     
     func searchFailed(sender: AnyObject, searchType: ViSearchType ,  err: Error?, apiErrors: [String]) {
-        if let err = err {
+        if err != nil {
             // network-related error
             // handle error here if necessary
             

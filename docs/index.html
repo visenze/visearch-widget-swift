@@ -587,10 +587,6 @@
 <span class="c1">// using default ViSearch API client which will connect to Visenze's server</span>
 <span class="kt">ViSearch</span><span class="o">.</span><span class="n">sharedInstance</span><span class="o">.</span><span class="nf">setup</span><span class="p">(</span><span class="nv">accessKey</span><span class="p">:</span> <span class="s">"YOUR_ACCESS_KEY"</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="s">"YOUR_SECRET_KEY"</span><span class="p">)</span>
 
-<span class="o">...</span>
-<span class="c1">// or using customized client, which connects to your own proxy server</span>
-<span class="n">client</span> <span class="o">=</span> <span class="kt">ViSearchClient</span><span class="p">(</span><span class="nv">baseUrl</span><span class="p">:</span> <span class="n">yourUrl</span><span class="p">,</span> <span class="nv">accessKey</span><span class="p">:</span> <span class="n">accessKey</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="n">secret</span><span class="p">)</span>
-<span class="o">...</span>
 </code></pre>
 <a href='#5-2-app-permission' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-2-app-permission'>5.2 App Permission</h3>
 
@@ -675,7 +671,11 @@ For loading of product images, you will need to configure the <q>App Transport S
 <p>The products are displayed in a grid.</p>
 
 <p>Below is sample code for using <q>Find Similar</q> widget. Please read section 6.0 on important configuration steps.</p>
-<pre class="highlight swift"><code>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">ViSearchSDK</span>
+<span class="kd">import</span> <span class="kt">ViSearchWidgets</span>
+<span class="o">...</span>
+
+
 <span class="c1">// create search parameter which will search for similar products to sample_im_name.jpg</span>
 <span class="c1">// you can trigger the search from a "Similar" button from product details screen</span>
 <span class="c1">// Alternately, the "Find Similar" search can be triggered in the search results by clicking on "Find Similar" button on a product card (located at bottom right)</span>
@@ -753,7 +753,10 @@ For loading of product images, you will need to configure the <q>App Transport S
 <ul>
 <li>Present ViRecommendationViewController programatically as child view controller:</li>
 </ul>
-<pre class="highlight swift"><code>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">ViSearchSDK</span>
+<span class="kd">import</span> <span class="kt">ViSearchWidgets</span>
+<span class="o">...</span>
+
 <span class="c1">// create search parameter which will search for similar products to sample_im_name.jpg</span>
 <span class="k">if</span> <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViSearchParams</span><span class="p">(</span><span class="nv">imName</span><span class="p">:</span> <span class="s">"sample_im_name.jpg"</span><span class="p">)</span> <span class="p">{</span>
 
@@ -909,16 +912,17 @@ For loading of product images, you will need to configure the <q>App Transport S
 <p>The products are displayed in a grid.</p>
 
 <p>Below is sample code for using <q>Search by Image</q> widget. Please read section 6.0 on important configuration steps and section 5.2 on important app permissions.</p>
-<pre class="highlight swift"><code>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">ViSearchSDK</span>
+<span class="kd">import</span> <span class="kt">ViSearchWidgets</span>
+<span class="o">...</span>
+
 <span class="c1">// the entry point for Search by Image is to open a camera to take photo</span>
 <span class="c1">// 1. we use CameraViewController for photo taking / select photo</span>
 <span class="k">let</span> <span class="nv">cameraViewController</span> <span class="o">=</span> <span class="kt">CameraViewController</span><span class="p">(</span><span class="nv">croppingEnabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">allowsLibraryAccess</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">image</span><span class="p">,</span> <span class="n">asset</span> <span class="k">in</span>
 
-    <span class="c1">// after photo is taken or user has selected from photo library, we dismiss the modal controller</span>
-    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
-
     <span class="c1">// user cancel photo taking</span>
     <span class="k">if</span><span class="p">(</span> <span class="n">image</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="p">}</span>
 
@@ -978,6 +982,8 @@ For loading of product images, you will need to configure the <q>App Transport S
     <span class="c1">// 9. trigger web service to ViSenze server</span>
     <span class="n">controller</span><span class="o">.</span><span class="nf">refreshData</span><span class="p">()</span>
 
+    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
 <span class="p">}</span>
 
 <span class="c1">// present the camera to take photo or select from library</span>
@@ -1015,7 +1021,11 @@ For loading of product images, you will need to configure the <q>App Transport S
 <p>The products are displayed in a grid.</p>
 
 <p>Below is sample code for using <q>Search by Color</q> widget. Please read section 6.0 on important configuration steps.</p>
-<pre class="highlight swift"><code>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">ViSearchSDK</span>
+<span class="kd">import</span> <span class="kt">ViSearchWidgets</span>
+<span class="o">...</span>
+
+
 <span class="c1">// create search parameter with color code 00ff00</span>
 <span class="k">if</span> <span class="k">let</span> <span class="nv">params</span> <span class="o">=</span> <span class="kt">ViColorSearchParams</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="s">"00ff00"</span><span class="p">)</span> <span class="p">{</span>
 
@@ -1371,8 +1381,6 @@ For loading of product images, you will need to configure the <q>App Transport S
 
         <span class="k">self</span><span class="o">.</span><span class="n">colorParms</span> <span class="o">=</span> <span class="kt">ViColorSearchParams</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="n">color</span><span class="p">)</span>
 
-        <span class="n">sender</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
-
         <span class="c1">// refresh data</span>
         <span class="k">let</span> <span class="nv">controller</span> <span class="o">=</span> <span class="kt">ViColorSearchViewController</span><span class="p">()</span>
         <span class="k">self</span><span class="o">.</span><span class="n">colorParms</span><span class="o">!.</span><span class="n">limit</span> <span class="o">=</span> <span class="mi">16</span>
@@ -1395,6 +1403,9 @@ For loading of product images, you will need to configure the <q>App Transport S
 
         <span class="n">controller</span><span class="o">.</span><span class="nf">refreshData</span><span class="p">()</span>
 
+        <span class="n">sender</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+
     <span class="p">}</span>
 
 
@@ -1415,10 +1426,9 @@ For loading of product images, you will need to configure the <q>App Transport S
 
         <span class="c1">// see the code in Search by Image solution</span>
 
-        <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
-
         <span class="c1">// user cancel photo taking</span>
         <span class="k">if</span><span class="p">(</span> <span class="n">image</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="p">}</span>
 
@@ -1455,6 +1465,8 @@ For loading of product images, you will need to configure the <q>App Transport S
         <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">navigationController</span><span class="p">?</span><span class="o">.</span><span class="nf">pushViewController</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
 
         <span class="n">controller</span><span class="o">.</span><span class="nf">refreshData</span><span class="p">()</span>
+
+        <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="nf">present</span><span class="p">(</span><span class="n">cameraViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
@@ -1522,7 +1534,7 @@ For loading of product images, you will need to configure the <q>App Transport S
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-07)</p>
+          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

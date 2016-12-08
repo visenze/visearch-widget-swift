@@ -244,7 +244,7 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
 
 
     func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
-        if let err = err {
+        if err != nil {
             // network error.. handle error if necessary
             //alert (message: "error: \(err.localizedDescription)")
         }

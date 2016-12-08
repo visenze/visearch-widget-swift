@@ -63,7 +63,7 @@ open class ViFilterItem: NSObject {
     }
 
     /// to be implemented by subclass
-    /// soft clone the current object to keep filter configuration. All selected options will be reset
+    /// soft clone the current object to keep filter configuration.
     open func clone() -> ViFilterItem{
         return self
     }
@@ -178,7 +178,12 @@ open class ViFilterItemCategory : ViFilterItem {
         let item = ViFilterItemCategory(title: self.title, schemaMapping: self.schemaMapping)
         
         item.options = self.options
-        item.selectedOptions = self.selectedOptions
+        
+        var cloneOptions : [ViFilterItemCategoryOption] = []
+        for o in self.selectedOptions {
+            cloneOptions.append(o)
+        }
+        item.selectedOptions = cloneOptions
         
         return item
     }

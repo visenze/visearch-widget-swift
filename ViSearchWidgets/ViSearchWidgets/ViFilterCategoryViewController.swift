@@ -29,7 +29,25 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
     public var showPowerByViSenze : Bool = true
     
     /// Filter item configuration and selected items
-    open var filterItem : ViFilterItemCategory? = nil
+    open var filterItem : ViFilterItemCategory? = nil {
+        didSet {
+            // copy the selected options over
+            // we only want to keep the selected options once it is confirmed i.e. click on Done button
+            if let item = self.filterItem {
+                var arr : [ViFilterItemCategoryOption] = []
+                
+                for option in item.selectedOptions {
+                    arr.append(option)
+                }
+                
+                self.selectedOptions = arr
+            }
+        }
+    }
+    
+    /// store selected options
+    open var selectedOptions : [ViFilterItemCategoryOption] = []
+    
     
     /// delegate
     open var delegate : ViFilterCategoryViewControllerDelegate? = nil
@@ -59,20 +77,34 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
     // MARK: Buttons events
     
     public func okBtnTap(sender: UIButton, forEvent event: UIEvent) {
-        delegate?.categoryFilterDone(filterItem: self.filterItem)
+        self.doneTap()
     }
     
     open func resetBtnTap(sender: UIBarButtonItem) {
         // clear all selection
-        filterItem?.selectedOptions.removeAll()
+        self.selectedOptions.removeAll()
         self.tableView.reloadData()
         
         delegate?.categoryFilterReset(filterItem: self.filterItem)
     }
     
-    open func doneBtnTap(sender: UIBarButtonItem) {
+    private func doneTap(){
+        self.filterItem?.selectedOptions.removeAll()
+        
+        // set selected
+        var arr : [ViFilterItemCategoryOption] = []
+        
+        for option in self.selectedOptions {
+            arr.append(option)
+        }
+        
+        self.filterItem?.selectedOptions = arr
         
         delegate?.categoryFilterDone(filterItem: self.filterItem)
+    }
+    
+    open func doneBtnTap(sender: UIBarButtonItem) {
+        self.doneTap()
     }
 
     // MARK: - Table view data source
@@ -132,12 +164,12 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
             
             if selected {
                 // remove from option
-                if (selectedIndex >= 0 && selectedIndex < filterItem.selectedOptions.count) {
-                    filterItem.selectedOptions.remove(at: selectedIndex)
+                if (selectedIndex >= 0 && selectedIndex < self.selectedOptions.count) {
+                    self.selectedOptions.remove(at: selectedIndex)
                 }
             }
             else {
-                filterItem.selectedOptions.append(item)
+                self.selectedOptions.append(item)
             }
             
             self.tableView.reloadData()
@@ -152,7 +184,7 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
         var selected : Bool = false
         var selectedIndex : Int = -1
         
-        for (index, selectedOption) in filterItem.selectedOptions.enumerated() {
+        for (index, selectedOption) in self.selectedOptions.enumerated() {
             if selectedOption.value == curOption.value {
                 selected = true
                 selectedIndex = index

@@ -568,11 +568,9 @@ Below is sample code for using "Search by Image" widget. Please read section 6.0
 // 1. we use CameraViewController for photo taking / select photo
 let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
 
-    // after photo is taken or user has selected from photo library, we dismiss the modal controller
-    self?.dismiss(animated: true, completion: nil)
-    
     // user cancel photo taking
     if( image == nil) {
+        self?.dismiss(animated: false, completion: nil)
         return
     }
     
@@ -631,6 +629,8 @@ let cameraViewController = CameraViewController(croppingEnabled: false, allowsLi
     
     // 9. trigger web service to ViSenze server
     controller.refreshData()
+    
+    self?.dismiss(animated: false, completion: nil)
     
 }
 
@@ -1034,9 +1034,7 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         // set the color params
         
         self.colorParms = ViColorSearchParams(color: color)
-        
-        sender.dismiss(animated: true, completion: nil)
-        
+         
         // refresh data
         let controller = ViColorSearchViewController()
         self.colorParms!.limit = 16
@@ -1058,6 +1056,9 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         self.navigationController?.pushViewController(controller, animated: true)
         
         controller.refreshData()
+        
+        sender.dismiss(animated: false, completion: nil)
+       
         
     }
     
@@ -1082,10 +1083,9 @@ public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
         
         // see the code in Search by Image solution
         
-        self?.dismiss(animated: true, completion: nil)
-        
         // user cancel photo taking
         if( image == nil) {
+            self?.dismiss(animated: true, completion: nil)
             return
         }
         
@@ -1122,6 +1122,8 @@ public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
         self?.navigationController?.pushViewController(controller, animated: true)
         
         controller.refreshData()
+        
+        self?.dismiss(animated: false, completion: nil)
     }
     
     present(cameraViewController, animated: true, completion: nil)

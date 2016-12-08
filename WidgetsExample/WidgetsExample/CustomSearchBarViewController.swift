@@ -10,7 +10,7 @@ import UIKit
 import ViSearchSDK
 import ViSearchWidgets
 
-class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UIPopoverPresentationControllerDelegate {
+class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UIPopoverPresentationControllerDelegate, ViSearchViewControllerDelegate {
 
     var colorParms: ViColorSearchParams? = nil
     
@@ -138,8 +138,6 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         
         self.colorParms = ViColorSearchParams(color: color)
         
-        sender.dismiss(animated: true, completion: nil)
-        
         // refresh data
         let controller = ViColorSearchViewController()
         self.colorParms!.limit = 16
@@ -165,12 +163,16 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         controller.productCardBorderWidth = 0.7
         controller.itemSpacing = 0
         controller.rowSpacing = 0
+        controller.delegate = self
         
         controller.itemSize = controller.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
         
         self.navigationController?.pushViewController(controller, animated: true)
         
         controller.refreshData()
+        
+        sender.dismiss(animated: false, completion: nil)
+        
         
     }
 
@@ -184,10 +186,10 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
     public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
         let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
             
-            self?.dismiss(animated: true, completion: nil)
-            
             // user cancel photo taking
             if( image == nil) {
+                self?.dismiss(animated: true, completion: nil)
+                
                 return
             }
             
@@ -202,6 +204,7 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             
             controller.croppingEnabled = true
             controller.allowsLibraryAccess = true
+             controller.delegate = self
             
             // copy other settings
             controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
@@ -230,6 +233,9 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             self?.navigationController?.pushViewController(controller, animated: true)
             
             controller.refreshData()
+            
+            self?.dismiss(animated: false, completion: nil)
+            
         }
         
         present(cameraViewController, animated: true, completion: nil)
@@ -237,5 +243,15 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
     }
 
 
+    func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
+        if let err = err {
+            // most likely network error
+            alert (message: "error: \(err.localizedDescription)")
+        }
+            
+        else if apiErrors.count > 0 {
+            alert (message: "api error: \(apiErrors.joined(separator: ",") )")
+        }
+    }
 
 }

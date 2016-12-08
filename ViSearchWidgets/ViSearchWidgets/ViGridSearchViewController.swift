@@ -345,6 +345,9 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         }
        
         self.refreshData()
+        
+        // reset scroll
+        self.collectionView?.contentOffset = .zero
     }
     
     

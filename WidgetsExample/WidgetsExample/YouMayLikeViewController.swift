@@ -107,8 +107,10 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
 //        controller.rowSpacing = 0
 //        controller.showQueryProduct = false
         
-        controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
-        
+        // only do this from current controller
+        if sender is ViRecommendationViewController {
+            controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
+        }
         
     }
     

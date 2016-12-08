@@ -793,6 +793,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                         }
                         
                         similarController.filterItems = filterItems
+                        
                     }
                     
                 }

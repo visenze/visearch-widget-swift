@@ -801,14 +801,8 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 similarController.productCardBorderColor = self.productCardBorderColor
                 similarController.productCardBorderWidth = self.productCardBorderWidth
                 
-                let width = similarController.estimateItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
-                // make sure image width is less than item width
-                similarController.imageConfig.size.width = min(width, similarController.imageConfig.size.width)
-                let similarItemSize = CGSize(width: width, height: self.itemSize.height )
+                similarController.itemSize = self.itemSize
                 
-                similarController.itemSize = similarItemSize
-                
-                similarController.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
                 similarController.showTitleHeader = false
                 similarController.queryProduct = product
                 

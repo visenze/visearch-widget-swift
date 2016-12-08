@@ -192,6 +192,16 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
         return floatView
     }
     
+    /// reset scroll and move collectionView back to top
+    open func resetScroll() {
+        self.collectionView?.contentOffset = .zero
+        // hide filter btn
+        if let floatView = self.view.viewWithTag(self.floatViewTag) {
+            floatView.isHidden = true
+        }
+        
+    }
+    
     /// check scroll view position, if below header , then overlay filter + color buttons on top
     open func checkHeaderGone(_ scrollView: UIScrollView) {
         if self.headerLayoutHeight == 0 {
@@ -274,6 +284,10 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
             
             // update preview box and refresh data
             self.refreshData()
+            
+            // reset scroll
+            self.resetScroll()
+            
         }
     }
 

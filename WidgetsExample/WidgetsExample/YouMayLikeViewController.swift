@@ -99,20 +99,14 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
 
     func willShowSimilarController(sender: AnyObject, controller: ViFindSimilarViewController, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){
         
-        // set border for find similar
-//        controller.productCardBorderWidth = 0.7
-//        controller.productCardBorderColor = UIColor.lightGray
-//        controller.productBorderStyles = [.BOTTOM, .RIGHT]
-        
-//        controller.itemSpacing = 0
-        // must recalculate item width
-//        controller.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
-//        controller.hasActionBtn = false
-//        controller.rowSpacing = 0
-//        controller.showQueryProduct = false
-        
         // only do this from current controller
         if sender is ViRecommendationViewController {
+            controller.itemSpacing = 0
+            controller.rowSpacing = 0
+            controller.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
+            controller.productCardBorderWidth = 0.7
+            controller.productCardBorderColor = UIColor.lightGray
+
             controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
         }
         

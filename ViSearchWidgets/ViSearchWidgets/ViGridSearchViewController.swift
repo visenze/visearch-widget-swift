@@ -353,7 +353,6 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
         self.collectionView?.contentOffset = .zero
     }
     
-    
     /// call back when filter is reset
     open func resetFilter(){
         

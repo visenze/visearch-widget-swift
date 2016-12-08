@@ -104,6 +104,16 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         return floatView
     }
     
+    /// reset scroll and move collectionView back to top
+    open func resetScroll() {
+        self.collectionView?.contentOffset = .zero
+        // hide filter btn
+        if let floatView = self.view.viewWithTag(self.floatViewTag) {
+            floatView.isHidden = true
+        }
+        
+    }
+    
     /// check scroll view position, if below header , then overlay filter + color buttons on top
     open func checkHeaderGone(_ scrollView: UIScrollView) {
         if self.headerLayoutHeight == 0 {
@@ -280,6 +290,9 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             if let searchParams = self?.searchParams as? ViUploadSearchParams {
                 searchParams.image = image
                 self?.refreshData()
+                
+                // reset scroll
+                self?.resetScroll()
             }
             
             
@@ -309,6 +322,10 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                     if let searchParams = self.searchParams as? ViUploadSearchParams {
                         searchParams.image = image
                         self.refreshData()
+                        
+                        // reset scroll
+                        self.resetScroll()
+                        
                     }
                     
                 } else {

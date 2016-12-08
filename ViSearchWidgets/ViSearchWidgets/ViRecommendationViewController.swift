@@ -40,6 +40,9 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                         if let data = data {
                             if data.hasError {
                                 
+                                // clear products if there are errors
+                                self.products = []
+                                
                                 DispatchQueue.main.async {
                                     self.displayDefaultErrMsg(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: nil, apiErrors: data.error)
                                 }
@@ -71,6 +74,10 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                 },
                     failureHandler: {
                         (err) -> Void in
+                        
+                        // clear products if there are errors
+                        self.products = []
+                        
                         // display default error here
                         DispatchQueue.main.async {
                             self.displayDefaultErrMsg(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: err, apiErrors: [])

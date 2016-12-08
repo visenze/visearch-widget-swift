@@ -308,6 +308,8 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                         // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
                         if let data = data {
                             if data.hasError {
+                                // clear products if there are errors
+                                self.products = []
                                 
                                 DispatchQueue.main.async {
                                     self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR ,
@@ -342,6 +344,9 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                     failureHandler: {
                         (err) -> Void in
                        
+                        // clear products if there are errors
+                        self.products = []
+                        
                         DispatchQueue.main.async {
                             self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
                         }

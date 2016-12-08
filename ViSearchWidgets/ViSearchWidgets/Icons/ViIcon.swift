@@ -64,6 +64,12 @@ public struct ViIcon{
     /// Tick icon. Used in color picker to indicate current selected color
     public static let tick = ViIcon.icon("tick")
     
+    /// image for no result
+    public static let no_result = ViIcon.icon("no_result" )
+    
+    /// image for generice error
+    public static let generic_err = ViIcon.icon("generic_err" , .alwaysOriginal )
+    
     // Choose from photo library icon
     public static let gallery = ViIcon.icon("album" , .alwaysOriginal)
     

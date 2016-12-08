@@ -30,6 +30,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 let controller = segue.destination as! ViRecommendationViewController
                 
                 controller.delegate = self
+                
                 let containerWidth = self.view.bounds.width
                 
                 // this will let 2.5 images appear on screen
@@ -43,6 +44,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                 // configure search parameter
                 
                 controller.searchParams = ViSearchParams(imName: im_name)
+                controller.searchParams?.limit = 10
                 
                 // to retrieve more meta data , configure the below
     //            controller.searchParams?.fl = ["category"]
@@ -112,12 +114,13 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
     
     func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
         if let err = err {
-            // most likely network error
-            alert (message: "error: \(err.localizedDescription)")
+            // network error.. display custom error if necessary
+            //alert (message: "error: \(err.localizedDescription)")
         }
             
         else if apiErrors.count > 0 {
-            alert (message: "api error: \(apiErrors.joined(separator: ",") )")
+            // network error.. display custom error if necessary
+            //alert (message: "api error: \(apiErrors.joined(separator: ",") )")
         }
     }
     

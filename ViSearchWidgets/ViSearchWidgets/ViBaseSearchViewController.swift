@@ -576,18 +576,50 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     ///
     /// - Returns: no search results view
     open func noSearchResultView() -> UIView? {
-        let label = UILabel()
-        label.text = "No Results Found"
-        label.textAlignment = .center
-        label.numberOfLines = 0
         
-        let labelSize = label.font.stringSize(string: label.text!,
-                                              constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
+        let imgLayout = SizeLayout<UIImageView>(
+            width: 120, height: 99,
+            alignment: .topCenter ,
+            flexibility: .inflexible,
+            viewReuseId: nil,
+            config: { img in
+                img.image = ViIcon.no_result
+                img.tintColor = ViTheme.sharedInstance.default_err_msg_img_tint_color
+                img.clipsToBounds = true
+            }
         )
         
-        label.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
+        let errEl = LabelLayout(text: "No Results Found",
+                                font: UIFont.systemFont(ofSize: 16.0),
+                                numberOfLines: 0,
+                                alignment: .topCenter ,
+                                viewReuseId: nil ,
+                                config:  { (label: UILabel) in
+                                    label.textColor = ViTheme.sharedInstance.default_err_msg_tint_color
+                                    
+        }
+        )
         
-        return label
+        let allLayouts = StackLayout(
+            axis: .vertical,
+            spacing: 8,
+            sublayouts: [ imgLayout, errEl ]
+        )
+        
+        return allLayouts.arrangement( origin: .zero , width: (self.view.bounds.width  - self.paddingLeft - self.paddingRight - 8) ).makeViews()
+        
+//        let label = UILabel()
+//        label.text = "No Results Found"
+//        label.textAlignment = .center
+//        label.numberOfLines = 0
+//        
+//        let labelSize = label.font.stringSize(string: label.text!,
+//                                              constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
+//        )
+//        
+//        label.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
+//        
+//        return label
     }
     
     
@@ -595,19 +627,64 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     ///
     /// - Returns: default generic error view
     open func genericErrSearchResultView() -> UIView? {
-        let label = UILabel()
-        label.text = "An error has occured. Please try again later."
-        label.font = ViFont.regular(with: 14.0)
-        label.textAlignment = .center
-        label.numberOfLines = 0
         
-        let labelSize = label.font.stringSize(string: label.text!,
-                              constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
+        let imgLayout = SizeLayout<UIImageView>(
+            width: 194, height: 102,
+            alignment: .topCenter ,
+            flexibility: .inflexible,
+            viewReuseId: nil,
+            config: { img in
+                img.image = ViIcon.generic_err
+                img.tintColor = ViTheme.sharedInstance.default_err_msg_img_tint_color
+                img.clipsToBounds = true
+            }
         )
         
-        label.frame = CGRect(x: 0 , y: 0, width: labelSize.width, height: labelSize.height)
+        let oopsEl = LabelLayout(text: "Oops!",
+                                  font: UIFont.boldSystemFont(ofSize: 16.0),
+                                  numberOfLines: 1,
+                                  alignment: .topCenter ,
+                                  viewReuseId: nil ,
+                                  config:  { (label: UILabel) in
+                                    label.textColor = ViTheme.sharedInstance.default_err_msg_tint_color
+                
+            }
+        )
+
         
-        return label
+        let errEl = LabelLayout(text: "An error has occured. Please try again later.",
+                                 font: UIFont.systemFont(ofSize: 12.0),
+                                 numberOfLines: 0,
+                                 alignment: .topCenter ,
+                                 viewReuseId: nil ,
+                                 config:  { (label: UILabel) in
+                                    label.textColor = ViTheme.sharedInstance.default_err_msg_tint_color
+                                    
+            }
+        )
+        
+        let allLayouts = StackLayout(
+            axis: .vertical,
+            spacing: 8,
+            sublayouts: [ imgLayout, oopsEl, errEl ]
+        )
+        
+        return allLayouts.arrangement( origin: .zero , width: (self.view.bounds.width  - self.paddingLeft - self.paddingRight - 8) ).makeViews()
+    
+        // display single label
+//        let label = UILabel()
+//        label.text = "An error has occured. Please try again later."
+//        label.font = ViFont.regular(with: 14.0)
+//        label.textAlignment = .center
+//        label.numberOfLines = 0
+//        
+//        let labelSize = label.font.stringSize(string: label.text!,
+//                              constrainedToWidth: Double(self.view.bounds.size.width - self.paddingLeft - self.paddingRight - 8)
+//        )
+//        
+//        label.frame = CGRect(x: 0 , y: 0, width: labelSize.width, height: labelSize.height)
+//        
+//        return label
     }
     
     /// display default error messages. Currently it ignore all errors and just display a generic error message "An error has occured. Please try again later."

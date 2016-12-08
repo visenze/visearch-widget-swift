@@ -290,12 +290,15 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     
     func searchFailed(sender: AnyObject, searchType: ViSearchType ,  err: Error?, apiErrors: [String]) {
         if let err = err {
-            // most likely network error
-            alert (message: "error: \(err.localizedDescription)")
+            // network-related error
+            // handle error here if necessary
+            
+            //alert (message: "error: \(err.localizedDescription)")
         }
         
         else if apiErrors.count > 0 {
-            alert (message: "api error: \(apiErrors.joined(separator: ",") )")
+            // api related error
+            //alert (message: "api error: \(apiErrors.joined(separator: ",") )")
         }
     }
     

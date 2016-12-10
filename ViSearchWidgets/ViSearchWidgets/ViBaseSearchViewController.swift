@@ -129,6 +129,10 @@ public protocol ViSearchViewControllerProtocol: class {
 /// Base controller for all search widgets
 open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ViSearchViewControllerProtocol, ViProductCellDelegate {
     
+    /// search client for making API requests.
+    /// if not set, will use the default client in ViSearch.sharedInstance
+    public var searchClient: ViSearchClient? = nil
+    
     public let headerCollectionViewCellReuseIdentifier = "ViHeaderReuseCellId"
     
     /// collection view that holds the search results

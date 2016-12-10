@@ -29,66 +29,77 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                 
                 self.setMetaQueryParamsForSearch()
                 
-                // set up user agent
-                ViSearch.sharedInstance.client?.userAgent = ViWidgetVersion.USER_AGENT
+                var client = self.searchClient
+                if client == nil {
+                    client = ViSearch.sharedInstance.client
+                }
                 
-                ViSearch.sharedInstance.recommendation(
-                    params: searchParams as! ViSearchParams,
-                    successHandler: {
-                        (data : ViResponseData?) -> Void in
-                        // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
-                        if let data = data {
-                            if data.hasError {
-                                
-                                // clear products if there are errors
-                                self.products = []
+                if let client = client {
+                
+                    // set up user agent
+                    client.userAgent = ViWidgetVersion.USER_AGENT
+                    
+                    client.recommendation(
+                        params: searchParams as! ViSearchParams,
+                        successHandler: {
+                            (data : ViResponseData?) -> Void in
+                            // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
+                            if let data = data {
+                                if data.hasError {
+                                    
+                                    // clear products if there are errors
+                                    self.products = []
+                                    
+                                    DispatchQueue.main.async {
+                                        self.displayDefaultErrMsg(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: nil, apiErrors: data.error)
+                                    }
+                                    
+                                    self.delegate?.searchFailed(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: nil, apiErrors: data.error)
+                                }
+                                else {
+                                    
+                                    // display and refresh here
+                                    self.reqId = data.reqId
+                                    self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
+                                    
+                                    if(self.products.count == 0 ){
+                                        DispatchQueue.main.async {
+                                            self.displayNoResultsFoundMsg()
+                                        }
+                                    }
+                                    
+                                    self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , reqId: data.reqId, products: self.products)
+                                    
+                                   
+                                }
                                 
                                 DispatchQueue.main.async {
-                                    self.displayDefaultErrMsg(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: nil, apiErrors: data.error)
+                                    self.collectionView?.reloadData()
                                 }
-                                
-                                self.delegate?.searchFailed(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: nil, apiErrors: data.error)
                             }
-                            else {
-                                
-                                // display and refresh here
-                                self.reqId = data.reqId
-                                self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
-                                
-                                if(self.products.count == 0 ){
-                                    DispatchQueue.main.async {
-                                        self.displayNoResultsFoundMsg()
-                                    }
-                                }
-                                
-                                self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , reqId: data.reqId, products: self.products)
-                                
-                               
+
+                    },
+                        failureHandler: {
+                            (err) -> Void in
+                            
+                            // clear products if there are errors
+                            self.products = []
+                            
+                            // display default error here
+                            DispatchQueue.main.async {
+                                self.displayDefaultErrMsg(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: err, apiErrors: [])
                             }
+                            
+                            self.delegate?.searchFailed(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: err, apiErrors: [])
                             
                             DispatchQueue.main.async {
                                 self.collectionView?.reloadData()
                             }
-                        }
-
-                },
-                    failureHandler: {
-                        (err) -> Void in
-                        
-                        // clear products if there are errors
-                        self.products = []
-                        
-                        // display default error here
-                        DispatchQueue.main.async {
-                            self.displayDefaultErrMsg(searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: err, apiErrors: [])
-                        }
-                        
-                        self.delegate?.searchFailed(sender: self, searchType: ViSearchType.YOU_MAY_ALSO_LIKE , err: err, apiErrors: [])
-                        
-                        DispatchQueue.main.async {
-                            self.collectionView?.reloadData()
-                        }
-                })
+                    })
+                }
+                else {
+                    print("\(type(of: self)).\(#function)[line:\(#line)] - error: client is not initialized.")
+                }
             }
         }
         else {

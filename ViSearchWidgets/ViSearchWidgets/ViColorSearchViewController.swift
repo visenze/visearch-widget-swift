@@ -312,66 +312,78 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
                 // check whether filter set to apply the filter
                 self.setFilterQueryParamsForSearch()
                 
-                // set up user agent
-                ViSearch.sharedInstance.client?.userAgent = ViWidgetVersion.USER_AGENT
-                                
-                ViSearch.sharedInstance.colorSearch(
-                    params: searchParams as! ViColorSearchParams,
-                    successHandler: {
-                        (data : ViResponseData?) -> Void in
-                        // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
-                        if let data = data {
-                            if data.hasError {
-                                // clear products if there are errors
-                                self.products = []
+                
+                var client = self.searchClient
+                if client == nil {
+                    client = ViSearch.sharedInstance.client
+                }
+                
+                if let client = client {
+                    
+                    // set up user agent
+                    client.userAgent = ViWidgetVersion.USER_AGENT
+                                    
+                    client.colorSearch(
+                        params: searchParams as! ViColorSearchParams,
+                        successHandler: {
+                            (data : ViResponseData?) -> Void in
+                            // check ViResponseData.hasError and ViResponseData.error for any errors return by ViSenze server
+                            if let data = data {
+                                if data.hasError {
+                                    // clear products if there are errors
+                                    self.products = []
+                                    
+                                    DispatchQueue.main.async {
+                                        self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR ,
+                                                                  err: nil, apiErrors: data.error)
+                                    }
+                                    
+                                    self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR ,err: nil, apiErrors: data.error)
+                                }
+                                else {
+                                    
+                                    // display and refresh here
+                                    self.reqId = data.reqId
+                                    self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
+                                    
+                                    if(self.products.count == 0 ){
+                                        DispatchQueue.main.async {
+                                            self.displayNoResultsFoundMsg()
+                                        }
+                                    }
+                                    
+                                    self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , reqId: data.reqId, products: self.products)
+                                    
+                                   
+                                }
                                 
                                 DispatchQueue.main.async {
-                                    self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR ,
-                                                              err: nil, apiErrors: data.error)
+                                    self.collectionView?.reloadData()
                                 }
-                                
-                                self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR ,err: nil, apiErrors: data.error)
                             }
-                            else {
-                                
-                                // display and refresh here
-                                self.reqId = data.reqId
-                                self.products = ViSchemaHelper.parseProducts(mapping: self.schemaMapping, data: data)
-                                
-                                if(self.products.count == 0 ){
-                                    DispatchQueue.main.async {
-                                        self.displayNoResultsFoundMsg()
-                                    }
-                                }
-                                
-                                self.delegate?.searchSuccess(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , reqId: data.reqId, products: self.products)
-                                
-                               
+                            
+                    },
+                        failureHandler: {
+                            (err) -> Void in
+                           
+                            // clear products if there are errors
+                            self.products = []
+                            
+                            DispatchQueue.main.async {
+                                self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
                             }
+                            
+                            self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
                             
                             DispatchQueue.main.async {
                                 self.collectionView?.reloadData()
                             }
-                        }
-                        
-                },
-                    failureHandler: {
-                        (err) -> Void in
-                       
-                        // clear products if there are errors
-                        self.products = []
-                        
-                        DispatchQueue.main.async {
-                            self.displayDefaultErrMsg(searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
-                        }
-                        
-                        self.delegate?.searchFailed(sender: self, searchType: ViSearchType.SEARCH_BY_COLOR , err: err, apiErrors: [])
-                        
-                        DispatchQueue.main.async {
-                            self.collectionView?.reloadData()
-                        }
-                        
-                })
+                            
+                    })
+                }
+                else {
+                    print("\(type(of: self)).\(#function)[line:\(#line)] - error: client is not initialized.")
+                }
             }
         }
         else {

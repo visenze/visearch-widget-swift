@@ -127,7 +127,7 @@ open class ViGridSearchViewController: ViBaseSearchViewController , ViFilterView
     ///   - containerWidth: container width
     /// - Returns: item size
     open func estimateItemSize(numOfColumns: Int, containerWidth: CGFloat ) -> CGSize {
-        let width = self.estimateItemWidth(numOfColumns: 2, containerWidth: containerWidth)
+        let width = self.estimateItemWidth(numOfColumns: numOfColumns, containerWidth: containerWidth)
         let constrainWidth = min(width, self.imageConfig.size.width )
         let height = self.estimateItemSize(constrainedToWidth: constrainWidth ).height
         return CGSize(width: width, height: height)

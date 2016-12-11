@@ -91,6 +91,13 @@ public protocol ViSearchViewControllerDelegate: class {
     ///   - apiErrors: errors returned to ViSenze server e.g. due to invalid/missing search parameters
     func searchFailed(sender: AnyObject, searchType: ViSearchType, err: Error?, apiErrors: [String])
     
+    
+    /// Callback for rotation. Trigger when viewWillTransition is called
+    ///
+    /// - Parameters:
+    ///   - size: size after rotation
+    ///   - coordinator: coordinator
+    func controllerWillTransition(controller: UIViewController , to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
 }
 
 // make all method optional
@@ -106,7 +113,7 @@ public extension ViSearchViewControllerDelegate{
     
     func searchSuccess(sender: AnyObject, searchType: ViSearchType, reqId: String? , products: [ViProduct]){}
     func searchFailed(sender: AnyObject, searchType: ViSearchType, err: Error?, apiErrors: [String]){}
-    
+    func controllerWillTransition(controller: UIViewController , to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {}
 }
 
 // subclass implementation
@@ -133,6 +140,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
     /// if not set, will use the default client in ViSearch.sharedInstance
     public var searchClient: ViSearchClient? = nil
     
+    /// reuse identifer for header collection view cell
     public let headerCollectionViewCellReuseIdentifier = "ViHeaderReuseCellId"
     
     /// collection view that holds the search results
@@ -294,6 +302,13 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
         self.collectionView!.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCollectionViewCellReuseIdentifier)
         
         reloadLayout()
+    }
+    
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // add hook here for delegate
+        delegate?.controllerWillTransition(controller: self, to: size, with: coordinator)
     }
     
     // MARK: UICollectionView datasource & delegate

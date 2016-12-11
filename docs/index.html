@@ -307,6 +307,7 @@
 <li><a href="#751-add-camera--color-picker-buttons-to-uisearchbar">7.5.1 Add Camera &amp; Color Picker Buttons to UISearchBar</a></li>
 <li><a href="#752-color-picker">7.5.2 Color Picker</a></li>
 <li><a href="#753-camera-button">7.5.3 Camera Button</a></li>
+<li><a href="#76-orientation-changes">7.6 Orientation Changes</a></li>
 </ul></li>
 <li><a href="#8-implement-visenze-analytics">8. Implement ViSenze Analytics</a>
 
@@ -1165,6 +1166,7 @@ For loading of product images, you will need to configure the <q>App Transport S
 <ul>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_">configureCell(sender:collectionView:indexPath:cell:)</a> : allow you to configure the product cell before displaying. You can retrieve various product card UI elements by tag in the cell.contentView e.g. cell.contentView.viewWithTag(ViProductCardTag.productImgTag.rawValue) and configure accordingly. The tags are defined <a href="https://visenze.github.io/visearch-widget-swift/Enums/ViProductCardTag.html">here</a>.</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_">configureLayout(sender:layout:)</a> : if you need to have your own controller which will change the layout for the built in collectionview.</li>
+<li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">controllerWillTransition(controller:to size:with coordinator:) </a> : to reconfigure controllers when orientation changes</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControllerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">willShowSimilarController(sender:controller:collectionView:indexPath:product:)</a> : configure similar controller before display.</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControllerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_">willShowFilterController(sender:controller:)</a> : configure filter controller before the Filter screen is shown.</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_">didSelectProduct(sender:collectionView:indexPath:product:)</a> : product selection notification i.e. user tap on a product card</li>
@@ -1474,6 +1476,48 @@ For loading of product images, you will need to configure the <q>App Transport S
 <span class="p">}</span>
 
 </code></pre>
+<a href='#7-6-orientation-changes' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-6-orientation-changes'>7.6 Orientation Changes</h3>
+
+<p>To handle orientation changes e.g. you want to display 2 columns in portrait but 4 columns in landscape, you can hook into controllerWillTransition method of ViSearchViewControllerDelegate.</p>
+<pre class="highlight swift"><code>
+<span class="kd">func</span> <span class="nf">controllerWillTransition</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">,</span> <span class="n">to</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">,</span> <span class="n">with</span> <span class="nv">coordinator</span><span class="p">:</span> <span class="kt">UIViewControllerTransitionCoordinator</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">coordinator</span><span class="o">.</span><span class="nf">animate</span><span class="p">(</span><span class="nv">alongsideTransition</span><span class="p">:</span> <span class="p">{</span> <span class="n">context</span> <span class="k">in</span>
+          <span class="c1">// ViGridSearchViewController is the super class of Find Similar, Search By Color, Search by Image widgets</span>
+        <span class="k">if</span> <span class="n">controller</span> <span class="k">is</span> <span class="kt">ViGridSearchViewController</span> <span class="p">{</span>
+            <span class="c1">// reconfigure size</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">configureSize</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="n">controller</span> <span class="k">as!</span> <span class="kt">ViGridSearchViewController</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">controller</span> <span class="k">as?</span> <span class="kt">ViGridSearchViewController</span><span class="p">)?</span><span class="o">.</span><span class="n">collectionView</span><span class="p">?</span><span class="o">.</span><span class="nf">reloadData</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="n">context</span> <span class="k">in</span>
+
+        <span class="c1">// after rotate</span>
+
+    <span class="p">})</span>
+
+<span class="p">}</span>
+
+<span class="c1">// configure controller size during different orientation</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">configureSize</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">ViGridSearchViewController</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">isPortrait</span> <span class="o">=</span> <span class="kt">UIApplication</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">statusBarOrientation</span><span class="o">.</span><span class="n">isPortrait</span>
+    <span class="k">let</span> <span class="nv">numOfColumns</span> <span class="o">=</span> <span class="n">isPortrait</span> <span class="p">?</span> <span class="mi">2</span> <span class="p">:</span> <span class="mi">4</span>
+    <span class="k">let</span> <span class="nv">containerWidth</span> <span class="o">=</span> <span class="kt">UIScreen</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span>
+
+    <span class="k">let</span> <span class="nv">imageWidth</span> <span class="o">=</span> <span class="n">isPortrait</span> <span class="p">?</span> <span class="p">(</span><span class="kt">UIScreen</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.5</span><span class="p">)</span> <span class="p">:</span> <span class="p">(</span><span class="kt">UIScreen</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">4.5</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">imageHeight</span> <span class="o">=</span> <span class="n">imageWidth</span> <span class="o">*</span> <span class="mf">1.2</span>
+
+    <span class="n">controller</span><span class="o">.</span><span class="n">imageConfig</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="n">imageWidth</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">imageHeight</span> <span class="p">)</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">itemSpacing</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">rowSpacing</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1">// this must be called last after setting schema mapping</span>
+    <span class="c1">// the item size is dynamic and depdend on schema mapping</span>
+    <span class="c1">// For example, if label is not provided, then the estimated height would be shorter</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">itemSize</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="nf">estimateItemSize</span><span class="p">(</span><span class="nv">numOfColumns</span><span class="p">:</span> <span class="n">numOfColumns</span><span class="p">,</span> <span class="nv">containerWidth</span><span class="p">:</span> <span class="n">containerWidth</span><span class="p">)</span>
+
+<span class="p">}</span>
+
+</code></pre>
 <a href='#8-implement-visenze-analytics' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='8-implement-visenze-analytics'>8. Implement ViSenze Analytics</h2>
 
 <p>The analytics reports page is located in your ViSenze Dashboard and allows you to conveniently see a high-level view of the performance of each of the solutions through click metrics as well as usage statistics. With the analytics reporting tool, you can easily track the performance to quantify the value-add of our solutions through metrics such as click-through rate, add-to-wishlist rate, add-to-cart rate, and click rank.</p>
@@ -1534,7 +1578,7 @@ For loading of product images, you will need to configure the <q>App Transport S
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-08)</p>
+          <p>&copy; 2016 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2016-12-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

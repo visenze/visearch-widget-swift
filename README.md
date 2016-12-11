@@ -34,6 +34,7 @@
     + [7.5.1 Add Camera & Color Picker Buttons to UISearchBar](#751-add-camera--color-picker-buttons-to-uisearchbar)
     + [7.5.2 Color Picker](#752-color-picker)
     + [7.5.3 Camera Button](#753-camera-button)
+  * [7.6 Orientation Changes](#76-orientation-changes)
 - [8. Implement ViSenze Analytics](#8-implement-visenze-analytics)
   * [8.1 Default Actions](#81-default-actions)
     + [Custom Action Button Tracking](#custom-action-button-tracking)
@@ -821,6 +822,7 @@ For advanced use cases where you need to create your own widgets or want to modi
 
 - [configureCell(sender:collectionView:indexPath:cell:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate13configureCellFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath4cellCSo20UICollectionViewCell_T_) : allow you to configure the product cell before displaying. You can retrieve various product card UI elements by tag in the cell.contentView e.g. cell.contentView.viewWithTag(ViProductCardTag.productImgTag.rawValue) and configure accordingly. The tags are defined [here](https://visenze.github.io/visearch-widget-swift/Enums/ViProductCardTag.html).
 - [configureLayout(sender:layout:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate15configureLayoutFT6senderPs9AnyObject_6layoutCSo26UICollectionViewFlowLayout_T_) : if you need to have your own controller which will change the layout for the built in collectionview.
+- [controllerWillTransition(controller:to size:with coordinator:) ](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : to reconfigure controllers when orientation changes
 - [willShowSimilarController(sender:controller:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate24willShowSimilarControllerFT6senderPs9AnyObject_10controllerCS_27ViFindSimilarViewController14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : configure similar controller before display.
 - [willShowFilterController(sender:controller:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate23willShowFilterControllerFT6senderPs9AnyObject_10controllerCS_22ViFilterViewController_T_) : configure filter controller before the Filter screen is shown.
 - [didSelectProduct(sender:collectionView:indexPath:product:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html#/s:FP15ViSearchWidgets30ViSearchViewControllerDelegate16didSelectProductFT6senderPs9AnyObject_14collectionViewCSo16UICollectionView9indexPathV10Foundation9IndexPath7productCS_9ViProduct_T_) : product selection notification i.e. user tap on a product card
@@ -1142,6 +1144,50 @@ public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
 
 ```
 
+### 7.6 Orientation Changes
+
+To handle orientation changes e.g. you want to display 2 columns in portrait but 4 columns in landscape, you can hook into controllerWillTransition method of ViSearchViewControllerDelegate.
+
+```swift
+
+func controllerWillTransition(controller: UIViewController , to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+    coordinator.animate(alongsideTransition: { context in
+    	  // ViGridSearchViewController is the super class of Find Similar, Search By Color, Search by Image widgets
+        if controller is ViGridSearchViewController {
+            // reconfigure size
+            self.configureSize(controller: controller as! ViGridSearchViewController)
+            (controller as? ViGridSearchViewController)?.collectionView?.reloadData()
+        }
+    }, completion: { context in
+        
+        // after rotate
+        
+    })
+    
+}
+
+// configure controller size during different orientation
+public func configureSize(controller: ViGridSearchViewController) {
+    let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+    let numOfColumns = isPortrait ? 2 : 4
+    let containerWidth = UIScreen.main.bounds.size.width
+    
+    let imageWidth = isPortrait ? (UIScreen.main.bounds.size.width / 2.5) : (UIScreen.main.bounds.size.width / 4.5)
+    let imageHeight = imageWidth * 1.2
+    
+    controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+    controller.itemSpacing = 0
+    controller.rowSpacing = 0
+    
+    // this must be called last after setting schema mapping
+    // the item size is dynamic and depdend on schema mapping
+    // For example, if label is not provided, then the estimated height would be shorter
+    controller.itemSize = controller.estimateItemSize(numOfColumns: numOfColumns, containerWidth: containerWidth)
+    
+}
+
+```
 
 ## 8. Implement ViSenze Analytics
 

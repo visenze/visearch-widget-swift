@@ -17,14 +17,14 @@ open class ViFilterTableView: UIView {
     /// power by ViSenze image
     public let powerImgView = UIImageView(image: ViIcon.power_visenze)
     
-    /// OK button at the bottom
-    public let okBtn : UIButton = UIButton(type: .custom)
+    /// OK button at the bottom. This is hidden for now
+    private let okBtn : UIButton = UIButton(type: .custom)
     
     /// container for footer
     public var footerViewContainer: UIView = UIView()
     
     /// footer height
-    public var footerHeight : CGFloat = 76
+    public var footerHeight : CGFloat = 25
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,13 +50,13 @@ open class ViFilterTableView: UIView {
         powerImgView.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
         footerViewContainer.backgroundColor = UIColor.black
         
-        self.okBtn.setBackgroundImage(ViIcon.big_camera_empty, for: .normal)
-        self.okBtn.setTitle("OK", for: .normal)
-        self.okBtn.setTitleColor(UIColor.black, for: .normal)
-        self.okBtn.titleLabel?.font = ViFont.medium(with: 24)
-        self.okBtn.titleEdgeInsets = UIEdgeInsetsMake(-4, -4, 0, 0)
+//        self.okBtn.setBackgroundImage(ViIcon.big_camera_empty, for: .normal)
+//        self.okBtn.setTitle("OK", for: .normal)
+//        self.okBtn.setTitleColor(UIColor.black, for: .normal)
+//        self.okBtn.titleLabel?.font = ViFont.medium(with: 24)
+//        self.okBtn.titleEdgeInsets = UIEdgeInsetsMake(-4, -4, 0, 0)
         
-        footerViewContainer.addSubview(okBtn)
+//        footerViewContainer.addSubview(okBtn)
         
         self.addSubview(powerImgView)
         self.bringSubview(toFront: powerImgView)

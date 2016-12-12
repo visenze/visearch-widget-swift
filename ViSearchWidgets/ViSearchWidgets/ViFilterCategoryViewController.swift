@@ -65,13 +65,13 @@ open class ViFilterCategoryViewController: UIViewController , UITableViewDelegat
         let filterTableView = self.view as! ViFilterTableView
         filterTableView.powerImgView.isHidden = !self.showPowerByViSenze
         
-        filterTableView.okBtn.addTarget(self, action: #selector(self.okBtnTap(sender:forEvent:) ), for: .touchUpInside)
+//        filterTableView.okBtn.addTarget(self, action: #selector(self.okBtnTap(sender:forEvent:) ), for: .touchUpInside)
         
         let resetBarItem = UIBarButtonItem(title: "Clear All", style: .plain, target: self, action: #selector(resetBtnTap(sender:)))
-        self.navigationItem.rightBarButtonItem = resetBarItem
+        self.navigationItem.leftBarButtonItem = resetBarItem
         
-//        let doneBtnItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneBtnTap(sender:)) )
-//        self.navigationItem.rightBarButtonItem = doneBtnItem
+        let doneBtnItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneBtnTap(sender:)) )
+        self.navigationItem.rightBarButtonItem = doneBtnItem
     }
     
     // MARK: Buttons events

@@ -254,7 +254,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         // For example, if label is not provided, then the estimated height would be shorter
         controller.itemSize = controller.estimateItemSize(numOfColumns: numOfColumns, containerWidth: containerWidth)
         
-        print("size: \(controller.itemSize)")
+//        print("size: \(controller.itemSize)")
     }
     
     // MARK: load sample data

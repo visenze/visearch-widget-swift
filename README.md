@@ -755,7 +755,7 @@ You can configure the filter component for `Find Similar`, `Search by Image` and
 - Range filter (e.g. for price) ([ViFilterItemRange](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemRange.html))
 - Multi-selection category filter (e.g. for product category, brand) ([ViFilterItemCategory](https://visenze.github.io/visearch-widget-swift/Classes/ViFilterItemCategory.html))
 
-<img src="./docs/images/filter.png" width="1000">
+<img src="./docs/images/filter.jpg" width="1000">
 
 The filters can be created as below:
 

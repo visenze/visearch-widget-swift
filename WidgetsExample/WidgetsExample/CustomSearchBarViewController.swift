@@ -99,6 +99,10 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
     ///   - sender: color picker button
     ///   - event: button event
     public func openColorPicker(sender: UIButton, forEvent event: UIEvent) {
+        
+        // close the keyboard
+        self.searchBar.resignFirstResponder()
+        
         let controller = ViColorPickerModalViewController()
         controller.modalPresentationStyle = .popover
         controller.delegate = self

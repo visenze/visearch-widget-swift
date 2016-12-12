@@ -73,13 +73,13 @@ open class ViFilterViewController: UIViewController , UITableViewDelegate, UITab
         }
         
 
-        filterTableView.okBtn.addTarget(self, action: #selector(self.okBtnTap(sender:forEvent:) ), for: .touchUpInside)
+//        filterTableView.okBtn.addTarget(self, action: #selector(self.okBtnTap(sender:forEvent:) ), for: .touchUpInside)
         
         let resetBarItem = UIBarButtonItem(title: "Clear All", style: .plain, target: self, action: #selector(resetBtnTap(sender:)))
-        self.navigationItem.rightBarButtonItem = resetBarItem
+        self.navigationItem.leftBarButtonItem = resetBarItem
         
-//        let applyBtnItem = UIBarButtonItem(title: "Apply", style: .done, target: self, action: #selector(applyBtnTap(sender:)) )
-//        self.navigationItem.rightBarButtonItem = applyBtnItem
+        let applyBtnItem = UIBarButtonItem(title: "Apply", style: .done, target: self, action: #selector(applyBtnTap(sender:)) )
+        self.navigationItem.rightBarButtonItem = applyBtnItem
         
 //        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseDefaultIdentifer)
 //        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseCategoryIdentifer)

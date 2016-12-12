@@ -12,7 +12,7 @@ import ViSearchWidgets
 
 class HomeTableTableViewController: UITableViewController , ViSearchViewControllerDelegate{
     
-    let limit = 1000
+    let limit = 16
     
     static let COLOR_SEARCH: String = "Search by Color"
     static let FIND_SIMILAR_SEARCH: String = "Find Similar"
@@ -254,7 +254,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         // For example, if label is not provided, then the estimated height would be shorter
         controller.itemSize = controller.estimateItemSize(numOfColumns: numOfColumns, containerWidth: containerWidth)
         
-        print("size: \(controller.itemSize)")
+//        print("size: \(controller.itemSize)")
     }
     
     // MARK: load sample data

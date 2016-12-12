@@ -90,6 +90,7 @@ open class RangeSliderThumbLayer: CALayer {
 /// Range slider view with upper, lower bounds
 @IBDesignable
 open class ViRangeSlider: UIControl {
+
     @IBInspectable var minimumValue: Double = 0.0 {
         willSet(newValue) {
             assert(newValue < maximumValue, "ViRangeSlider: minimumValue should be lower than maximumValue")
@@ -131,7 +132,10 @@ open class ViRangeSlider: UIControl {
             return 0
         }
         
-        return 0.5 * Double(thumbWidth) * (maximumValue - minimumValue) / Double(bounds.width)
+        // minimum distance between lower thumb and upper thumb
+        return 2
+        
+//        return 0.5 * Double(thumbWidth) * (maximumValue - minimumValue) / Double(bounds.width)
     }
     
     @IBInspectable var trackTintColor: UIColor = UIColor(white: 0.9, alpha: 1.0) {
@@ -252,7 +256,8 @@ open class ViRangeSlider: UIControl {
         if (maximumValue == minimumValue) {
             return 0
         }
-        return Double(bounds.width - thumbWidth) * (value - minimumValue) / (maximumValue - minimumValue) + Double(thumbWidth/2.0)
+        return Double(bounds.width - thumbWidth) * (value - minimumValue) / (maximumValue - minimumValue)
+               + Double(thumbWidth/2.0)
     }
     
     open func boundValue(_ value: Double, toLowerValue lowerValue: Double, upperValue: Double) -> Double {
@@ -268,7 +273,9 @@ open class ViRangeSlider: UIControl {
         // Hit test the thumb layers
         if lowerThumbLayer.frame.contains(previouslocation) {
             lowerThumbLayer.highlighted = true
-        } else if upperThumbLayer.frame.contains(previouslocation) {
+        }
+        
+        if upperThumbLayer.frame.contains(previouslocation) {
             upperThumbLayer.highlighted = true
         }
         
@@ -287,11 +294,26 @@ open class ViRangeSlider: UIControl {
         }
         previouslocation = location
         
-        // Update the values
-        if lowerThumbLayer.highlighted {
-            lowerValue = boundValue(lowerValue + deltaValue, toLowerValue: minimumValue, upperValue: upperValue - gapBetweenThumbs)
-        } else if upperThumbLayer.highlighted {
-            upperValue = boundValue(upperValue + deltaValue, toLowerValue: lowerValue + gapBetweenThumbs, upperValue: maximumValue)
+        // if both are highlighted. we need to decide which direction to drag
+        if lowerThumbLayer.highlighted && upperThumbLayer.highlighted {
+        
+            if deltaLocation > 0 {
+                // left to right
+                upperValue = boundValue(upperValue + deltaValue, toLowerValue: lowerValue + gapBetweenThumbs, upperValue: maximumValue)
+            }
+            else {
+                // right to left
+                lowerValue = boundValue(lowerValue + deltaValue, toLowerValue: minimumValue, upperValue: upperValue - gapBetweenThumbs)
+            }
+        }
+        else {
+        
+            // Update the values
+            if lowerThumbLayer.highlighted {
+                lowerValue = boundValue(lowerValue + deltaValue, toLowerValue: minimumValue, upperValue: upperValue - gapBetweenThumbs)
+            } else if upperThumbLayer.highlighted {
+                upperValue = boundValue(upperValue + deltaValue, toLowerValue: lowerValue + gapBetweenThumbs, upperValue: maximumValue)
+            }
         }
         
         sendActions(for: .valueChanged)

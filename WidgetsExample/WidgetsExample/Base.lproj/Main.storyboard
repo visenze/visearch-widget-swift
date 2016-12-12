@@ -158,7 +158,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="You May Also Like Demo" id="S4E-DW-BuS"/>
+                    <navigationItem key="navigationItem" title="You May Also Like" id="S4E-DW-BuS"/>
                     <connections>
                         <outlet property="containerHeightConstraint" destination="lBc-He-Coq" id="qZV-5z-2Ox"/>
                     </connections>

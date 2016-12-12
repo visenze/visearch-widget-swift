@@ -144,13 +144,16 @@ open class ViRangeTableViewCell: UITableViewCell {
                                        width: commonWidth ,
                                        height: 30 )
             
-            if(rangeSlider.maximumValue != rangeSlider.minimumValue) {
-                
-                // center
-                lowerLabelX = rangeSlider.lowerThumbLayer.frame.minX + paddingLeft + 2
-                upperLabelX = rangeSlider.upperThumbLayer.frame.minX + paddingLeft + 2
-            }
-            
+//            if(rangeSlider.maximumValue != rangeSlider.minimumValue) {
+//                
+//                // center
+//                lowerLabelX = rangeSlider.lowerThumbLayer.frame.minX + paddingLeft + 2
+//                upperLabelX = rangeSlider.upperThumbLayer.frame.minX + paddingLeft + 2
+//            }
+
+            // fix lower label to left and upper label to right
+            lowerLabelX = rangeSlider.frame.origin.x + 2
+            upperLabelX = rangeSlider.frame.origin.x + rangeSlider.frame.size.width - 28
             
             lowerLabel.frame = CGRect(      x: lowerLabelX,
                                             y: priceLabelY,

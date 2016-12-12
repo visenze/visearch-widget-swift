@@ -33,18 +33,9 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                     self.controller = controller
                     controller.delegate = self
                     
-                    let containerWidth = self.view.bounds.width
-                    
-                    // this will let 2.5 images appear on screen
-                    let imageWidth = controller.estimateItemWidth(2.5, containerWidth: containerWidth)
-                    let imageHeight = min(imageWidth * 1.2, 140 )
-                    
-                    // configure product image size
-                    controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
                     controller.imageConfig.contentMode = .scaleAspectFill
                     
                     // configure search parameter
-                    
                     controller.searchParams = ViSearchParams(imName: im_name)
                     controller.searchParams?.limit = 16
                     
@@ -66,11 +57,8 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         //            controller.backgroundColor = UIColor.black
                     controller.paddingLeft = 8.0
                     
-                    // IMPORTANT: this must be called last after schema mapping as we calculate the item size based on whether a field is available
-                    // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
-                    controller.itemSize = controller.estimateItemSize()
-                    
-                    containerHeightConstraint.constant = controller.itemSize.height + 70
+                    // configure product image size and item size
+                    self.configureSize(controller: controller)
                     
                     controller.refreshData()
                 }
@@ -103,11 +91,13 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         if sender is ViRecommendationViewController {
             controller.itemSpacing = 0
             controller.rowSpacing = 0
-            controller.setItemWidth(numOfColumns: 2, containerWidth: self.view.bounds.width)
             controller.productCardBorderWidth = 0.7
             controller.productCardBorderColor = UIColor.lightGray
 
+            self.configureSimilarSize(controller: controller)
+            
             controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
+            controller.delegate = self
         }
         
     }
@@ -124,15 +114,17 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         }
     }
     
-    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-    
+    // configular the similar controller after clicking on find similar button
+    func controllerWillTransition(controller: UIViewController , to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
         coordinator.animate(alongsideTransition: { context in
-            if let controller = self.controller {
-                let curSize = controller.imageConfig.size
-                controller.imageConfig.size = CGSize(width: curSize.width, height: min(curSize.height , 150) )
-                controller.itemSize = controller.estimateItemSize()
-                self.containerHeightConstraint.constant = controller.itemSize.height + 70
+            // during rotate
+            if controller is ViGridSearchViewController {
+                self.configureSimilarSize(controller: controller as! ViGridSearchViewController)
+                (controller as? ViGridSearchViewController)?.collectionView?.reloadData()
+            }
+            else if controller is ViRecommendationViewController {
+                
             }
             
         }, completion: { context in
@@ -140,9 +132,51 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
             // after rotate
             
         })
-
-        
         
     }
+    
+    //MARK: size configuration
+    public func configureSize(controller: ViRecommendationViewController) {
+        let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+        let containerWidth = self.view.bounds.width
+        
+        // this will let 2.5 images appear on screen for portrait and 4.5 for landscape
+        let imageWidth = controller.estimateItemWidth(isPortrait ? 2.5 : 4.5, containerWidth: containerWidth)
+        let imageHeight = min(imageWidth * 1.2, 140 )
+        
+        // configure product image size
+        controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+        
+        // IMPORTANT: this must be called last after schema mapping as we calculate the item size based on whether a field is available
+        // e.g. if label is nil in the mapping, then it will not be included in the height calculation of product card
+        controller.itemSize = controller.estimateItemSize()
+        
+        self.containerHeightConstraint.constant = controller.itemSize.height + 70
+    }
+    
+    // configure similar controller size during different orientation i.e. when user clicks on Find Similar button
+    public func configureSimilarSize(controller: ViGridSearchViewController) {
+        let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+        let numOfColumns = isPortrait ? 2 : 4
+        let containerWidth = UIScreen.main.bounds.size.width
+        
+        let imageWidth = isPortrait ? (UIScreen.main.bounds.size.width / 2.5) : (UIScreen.main.bounds.size.width / 4.5)
+        let imageHeight = imageWidth * 1.2
+        
+        controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+        controller.itemSpacing = 0
+        controller.rowSpacing = 0
+        
+        // this must be called last after setting schema mapping
+        // the item size is dynamic and depdend on schema mapping
+        // For example, if label is not provided, then the estimated height would be shorter
+        controller.itemSize = controller.estimateItemSize(numOfColumns: numOfColumns, containerWidth: containerWidth)
+        
+        // print("size: \(controller.itemSize)")
+    }
+
+
+    
+    
 
 }

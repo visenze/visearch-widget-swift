@@ -132,6 +132,7 @@ open class ViRangeSlider: UIControl {
             return 0
         }
         
+        // minimum distance between lower thumb and upper thumb
         return 2
         
 //        return 0.5 * Double(thumbWidth) * (maximumValue - minimumValue) / Double(bounds.width)
@@ -292,7 +293,7 @@ open class ViRangeSlider: UIControl {
             deltaValue = (maximumValue - minimumValue) * deltaLocation / Double(bounds.width - bounds.height)
         }
         previouslocation = location
-                
+        
         // if both are highlighted. we need to decide which direction to drag
         if lowerThumbLayer.highlighted && upperThumbLayer.highlighted {
         

@@ -81,7 +81,6 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         //colorButton.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
         colorButton.tag = ViProductCardTag.colorPickBtnTag.rawValue
 
-        
         colorButton.addTarget(self, action: #selector(self.openColorPicker), for: .touchUpInside)
         colorButton.frame = CGRect(x: btnWidth + 4, y: 0, width: btnWidth, height: btnWidth)
         floatWidth = colorButton.frame.origin.x + btnWidth
@@ -149,13 +148,7 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         
         controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
         
-        let containerWidth = self.view.bounds.width
         
-        let imageWidth = containerWidth / 2.5
-        let imageHeight = imageWidth * 1.2
-        
-        // configure product image size
-        controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
         controller.imageConfig.contentMode = .scaleAspectFill
         controller.priceConfig.isStrikeThrough = true
         
@@ -165,7 +158,8 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         controller.rowSpacing = 0
         controller.delegate = self
         
-        controller.itemSize = controller.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
+        // configure product image size and product card size
+        self.configureSize(controller: controller)
         
         self.navigationController?.pushViewController(controller, animated: true)
         
@@ -204,20 +198,13 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             
             controller.croppingEnabled = true
             controller.allowsLibraryAccess = true
-             controller.delegate = self
+            controller.delegate = self
             
             // copy other settings
             controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
             controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
             
-            
-            let containerWidth = self!.view.bounds.width
-            
-            let imageWidth = containerWidth / 2.5
-            let imageHeight = imageWidth * 1.2
-            
             // configure product image size
-            controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
             controller.imageConfig.contentMode = .scaleAspectFill
             controller.priceConfig.isStrikeThrough = true
             
@@ -226,7 +213,8 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             controller.itemSpacing = 0
             controller.rowSpacing = 0
             
-            controller.itemSize = controller.estimateItemSize(numOfColumns: 2, containerWidth: containerWidth)
+            // configure product image size and product card size
+            self?.configureSize(controller: controller)
             
             // set to same delegate
             //controller.delegate = self
@@ -254,5 +242,44 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             //alert (message: "api error: \(apiErrors.joined(separator: ",") )")
         }
     }
+    
+    // update orientation
+    func controllerWillTransition(controller: UIViewController , to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        coordinator.animate(alongsideTransition: { context in
+            if controller is ViGridSearchViewController {
+                self.configureSize(controller: controller as! ViGridSearchViewController)
+                (controller as? ViGridSearchViewController)?.collectionView?.reloadData()
+            }
+        }, completion: { context in
+            
+            // after rotate
+            
+        })
+        
+    }
+    
+    // MARK: controller configuration
+    
+    // configure controller size during different orientation
+    public func configureSize(controller: ViGridSearchViewController) {
+        let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+        let numOfColumns = isPortrait ? 2 : 4
+        let containerWidth = UIScreen.main.bounds.size.width
+        
+        let imageWidth = isPortrait ? (UIScreen.main.bounds.size.width / 2.5) : (UIScreen.main.bounds.size.width / 4.5)
+        let imageHeight = imageWidth * 1.2
+        
+        controller.imageConfig.size = CGSize(width: imageWidth, height: imageHeight )
+        controller.itemSpacing = 0
+        controller.rowSpacing = 0
+        
+        // this must be called last after setting schema mapping
+        // the item size is dynamic and depdend on schema mapping
+        // For example, if label is not provided, then the estimated height would be shorter
+        controller.itemSize = controller.estimateItemSize(numOfColumns: numOfColumns, containerWidth: containerWidth)
+    }
+    
+    
 
 }

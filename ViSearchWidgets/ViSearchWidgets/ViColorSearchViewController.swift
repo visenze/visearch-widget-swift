@@ -258,8 +258,14 @@ open class ViColorSearchViewController: ViGridSearchViewController , UIPopoverPr
     }
     
     // important - this is needed so that a popover will be properly shown instead of fullscreen
+    /// return .none to display as popover (ios 8.3+)
     public func adaptivePresentationStyle(for controller: UIPresentationController,
                                             traitCollection: UITraitCollection) -> UIModalPresentationStyle{
+        return .none
+    }
+    
+    /// return .none to display as popover (ios 8.0 - 8.2)
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
     

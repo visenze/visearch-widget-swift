@@ -99,6 +99,10 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
     ///   - sender: color picker button
     ///   - event: button event
     public func openColorPicker(sender: UIButton, forEvent event: UIEvent) {
+        
+        // close the keyboard
+        self.searchBar.resignFirstResponder()
+        
         let controller = ViColorPickerModalViewController()
         controller.modalPresentationStyle = .popover
         controller.delegate = self
@@ -128,6 +132,11 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
     // important - this is needed so that a popover will be properly shown instead of fullscreen
     public func adaptivePresentationStyle(for controller: UIPresentationController,
                                           traitCollection: UITraitCollection) -> UIModalPresentationStyle{
+        return .none
+    }
+    
+    /// return .none to display as popover (ios 8.0 - 8.2)
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
 
@@ -160,13 +169,11 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         
         // configure product image size and product card size
         self.configureSize(controller: controller)
-        
-        self.navigationController?.pushViewController(controller, animated: true)
-        
-        controller.refreshData()
-        
         sender.dismiss(animated: false, completion: nil)
         
+        self.navigationController?.pushViewController(controller, animated: true)
+   
+        controller.refreshData()
         
     }
 
@@ -217,7 +224,6 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             self?.configureSize(controller: controller)
             
             // set to same delegate
-            //controller.delegate = self
             self?.navigationController?.pushViewController(controller, animated: true)
             
             controller.refreshData()

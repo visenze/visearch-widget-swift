@@ -119,20 +119,7 @@ extension CameraViewController {
     
    
     func configSwapButtonGravityConstraint(_ statusBarOrientation : UIInterfaceOrientation) {
-        switch statusBarOrientation {
-            case .portrait:
-                print("portrait")
-            case .landscapeRight:
-                print("landscapeRight")
-            case .landscapeLeft:
-                print("landscapeLeft")
                 
-                
-            default:
-                print("unsupported")
-        }
-
-        
         swapButtonGravityConstraint = NSLayoutConstraint(
             item: swapButton,
             attribute: .right,

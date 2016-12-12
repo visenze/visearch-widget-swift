@@ -12,7 +12,7 @@ import ViSearchWidgets
 
 class HomeTableTableViewController: UITableViewController , ViSearchViewControllerDelegate{
     
-    let limit = 16
+    let limit = 100
     
     static let COLOR_SEARCH: String = "Search by Color"
     static let FIND_SIMILAR_SEARCH: String = "Find Similar"

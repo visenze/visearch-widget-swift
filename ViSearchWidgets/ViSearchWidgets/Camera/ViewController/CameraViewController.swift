@@ -730,8 +730,14 @@ public class CameraViewController: UIViewController, UIPopoverPresentationContro
     // MARK: UIPopoverPresentationControllerDelegate
     
     /// important - this is needed so that a popover (info guide text) will be shown instead of fullscreen
+    /// for ios 8.3+
     public func adaptivePresentationStyle(for controller: UIPresentationController,
                                           traitCollection: UITraitCollection) -> UIModalPresentationStyle{
+        return .none
+    }
+    
+    /// return .none to display as popover (ios 8.0 - 8.2)
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
     

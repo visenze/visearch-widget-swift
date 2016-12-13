@@ -118,6 +118,9 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             // upload higher res image i.e. max 1024
             params.img_settings = ViImageSettings(setting: .highQualitySetting)
             params.limit = self!.limit
+            // for retriveing additional meta data e.g. for displaying in detail page
+            // params.fl = ["category"]
+            
             controller.searchParams = params
             
             controller.croppingEnabled = true
@@ -161,6 +164,8 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             let similarController = ViFindSimilarViewController()
             
             params.limit = self.limit
+            // for retriveing additional meta data e.g. for displaying in detail page
+//            params.fl = ["category"]
             
             similarController.searchParams = params
             
@@ -197,6 +202,8 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         if let params = ViColorSearchParams(color: color){
             let controller = ViColorSearchViewController()
             params.limit = self.limit
+            // for retriveing additional meta data e.g. for displaying in detail page
+            // params.fl = ["category"]
             
             controller.searchParams = params
             
@@ -296,6 +303,12 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     // MARK: ViSearchViewControllerDelegate
     func didSelectProduct(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct) {
         alert(message: "select product with im_name: \(product.im_name)" )
+        
+        // print out meta dict. you can use this for displaying product details
+        if let dict = product.metadataDict {
+            print("\(dict)")
+        }
+        
     }
     
     func actionBtnTapped(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath, product: ViProduct){

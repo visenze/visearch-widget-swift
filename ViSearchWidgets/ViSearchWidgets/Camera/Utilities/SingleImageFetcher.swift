@@ -82,8 +82,31 @@ public class SingleImageFetcher {
         
         PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in
             if let image = image {
-                //print("img size: \(image.size) , target: \(self.targetSize)")
-                self.success?(image)
+//                print("crop: \(self.cropRect)")
+//                print("img size: \(image.size) , target: \(self.targetSize)")
+//                print("======")
+                if let cr = self.cropRect {
+                    // cropping, fix ios 8 bug
+                    if self.targetSize.width < image.size.width || self.targetSize.height < image.size.height {
+//                        print ("self crop: ow: \(asset.pixelWidth) , h : \(asset.pixelHeight)")
+                        
+                        let targetX = floor( image.size.width  * cr.origin.x)
+                        let targetY = floor( image.size.height * cr.origin.y)
+                        let targetWidth = floor(image.size.width  * cr.width)
+                        let targetHeight = floor(image.size.height * cr.height)
+                        
+                        let newCr = CGRect(x: targetX, y: targetY, width: targetWidth, height: targetHeight)
+                        
+                        let cropedImg = image.getImageInRect(rect: newCr)
+                        self.success?(cropedImg)
+                    }
+                    else {
+                        self.success?(image)
+                    }
+                }
+                else {
+                    self.success?(image)
+                }
             } else {
                 let error = errorWithKey("error.cant-fetch-photo", domain: self.errorDomain)
                 self.failure?(error)

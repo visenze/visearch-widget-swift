@@ -149,10 +149,13 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             height: 120,
             alignment: .topLeading,
             flexibility: .inflexible,
+            viewReuseId: nil,
             config: { v in
                 
                 v.contentMode = .scaleAspectFill
                 v.clipsToBounds = true
+                
+//                v.image = ViIcon.placeholder
                 
                 if let params = self.searchParams as? ViUploadSearchParams {
                     v.image = params.image
@@ -259,6 +262,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
         
         let insetLayout =  InsetLayout(
             insets: EdgeInsets(top: 8, left: 8, bottom: 8, right: 8),
+            viewReuseId: nil,
             sublayout: allStackLayout
         )
         

@@ -39,6 +39,7 @@
   * [8.1 Default Actions](#81-default-actions)
     + [Custom Action Button Tracking](#custom-action-button-tracking)
   * [8.2 Custom Actions](#82-custom-actions)
+- [9. Known Issues](#9-known-issues)
 
 <!-- tocstop -->
 
@@ -207,8 +208,8 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
  - `price_schema_mapping` : refers to the schema mapping for the `Price` field in `Product Card` component. In the screenshot, it was used to display the product original retail price. 
  - `discount_price_schema_mapping` : refers to the schema mapping for the `Discount Price` field in `Product Card` component. In the screenshot, it was used to display the product discount price. This is optional and may not be applicable for your data feed. 
   - `color` : sample color code used for "Search by Color" widget demo.
-  - `find_similar_im_name` : sample im_name used for "Find Similar" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
-  - `you_may_like_im_name` : sample im_name used for "You May Also Like" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test.
+  - `find_similar_im_name` : sample im\_name used for "Find Similar" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test. If you use an invalid im\_name (i.e. does not exist), a default error message will be shown within the widget.
+  - `you_may_like_im_name` : sample im\_name used for "You May Also Like" widget demo. You can browse the product images in ViSenze dashboard and used any existing im_name to test. If you use an invalid im\_name (i.e. does not exist), a default error message will be shown within the widget.
   - `filterItems` : configure the types of fitler used in demo app. Two types of filters are supported (Category and Range filters). 
 
 - Configure scheme: At the final step, you will need to change the Running Scheme to "WidgetsExample". You are now ready to run the demo app.
@@ -593,6 +594,10 @@ let cameraViewController = CameraViewController(croppingEnabled: false, allowsLi
     
     // configure max of 16 most similar results to return
     params.limit = 16
+    
+    // upload higher res image if necessary i.e. max 1024
+    params.img_settings = ViImageSettings(setting: .highQualitySetting)
+            
     controller.searchParams = params
     
     // enable cropping and select photo from library
@@ -1108,6 +1113,10 @@ public func openCameraView(sender: UIButton, forEvent event: UIEvent) {
         
         let params = ViUploadSearchParams(image: image!)
         params.limit = 16
+        
+        // upload higher res image i.e. max 1024
+        params.img_settings = ViImageSettings(setting: .highQualitySetting)
+        
         controller.searchParams = params
         
         controller.croppingEnabled = true
@@ -1239,4 +1248,23 @@ if sender is ViBaseSearchViewController {
 
 ```
 
+## 9. Known Issues
+
+- Displaying a large number of images in search results may cause crash:
+
+  If you configure the search parameter to return a large number of images in an API call, it may cause crashes after extended/heavy usages. For example, you set `controller.searchParams?.limit` to 1000 (the absolute limit) and keep scrolling to the end of the widgets and trigger continous searches (e.g. by clicking on Find Similar button). Crashes may then occur. Note that this behavior is generally not observed for normal users who probably will stop after scrolling past the first 40 results. It is recommended that you set the `limit` to a small number e.g. 16-100 to save the bandwidth and faster loading. If you want to implement pagination or infinite scrolling for the widget you can increase the page number and retrigger the search:
+  
+  ```swift
+  // For example, when the server side has 60 items, the search operation will return
+  // the first 30 items with page = 1 and limit = 30. By changing the page to 2,
+  // the search will return the last 30 items.
+  ...        
+  controller.searchParams?.page = 2;
+  controller.searchParams?.limit = 30;
+  
+  // refresh data
+  controller.refreshData()
+...
+  
+  ```
 

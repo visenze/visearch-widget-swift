@@ -115,6 +115,8 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             controller.asset = asset
             
             let params = ViUploadSearchParams(image: image!)
+            // upload higher res image i.e. max 1024
+            params.img_settings = ViImageSettings(setting: .highQualitySetting)
             params.limit = self!.limit
             controller.searchParams = params
             

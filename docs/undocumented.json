@@ -128,28 +128,35 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/ConfirmViewController.swift",
-      "line": 53,
+      "line": 8,
+      "symbol": "ConfirmViewController.imageView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/ConfirmViewController.swift",
+      "line": 55,
       "symbol": "ConfirmViewController.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/ConfirmViewController.swift",
-      "line": 107,
+      "line": 109,
       "symbol": "ConfirmViewController.viewWillLayoutSubviews()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/ConfirmViewController.swift",
-      "line": 270,
+      "line": 272,
       "symbol": "ConfirmViewController.viewForZooming(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/ViewController/ConfirmViewController.swift",
-      "line": 274,
+      "line": 276,
       "symbol": "ConfirmViewController.scrollViewDidZoom(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -226,35 +233,35 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/Views/CameraView.swift",
-      "line": 77,
+      "line": 83,
       "symbol": "CameraView.layoutSubviews()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/Views/CameraView.swift",
-      "line": 82,
+      "line": 88,
       "symbol": "CameraView.configureFocus()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/Views/CameraView.swift",
-      "line": 152,
+      "line": 158,
       "symbol": "CameraView.capturePhoto(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/Views/CameraView.swift",
-      "line": 165,
+      "line": 171,
       "symbol": "CameraView.focusCamera(toPoint:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Camera/Views/CameraView.swift",
-      "line": 238,
+      "line": 244,
       "symbol": "CameraView.rotatePreview()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1017,14 +1024,7 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorSearchViewController.swift",
-      "line": 261,
-      "symbol": "ViColorSearchViewController.adaptivePresentationStyle(for:traitCollection:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViColorSearchViewController.swift",
-      "line": 267,
+      "line": 273,
       "symbol": "ViColorSearchViewController.didPickColor(sender:color:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1290,28 +1290,28 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViSearchImageViewController.swift",
-      "line": 36,
+      "line": 39,
       "symbol": "ViSearchImageViewController.setup()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViSearchImageViewController.swift",
-      "line": 45,
+      "line": 48,
       "symbol": "ViSearchImageViewController.scrollViewDidEndDecelerating(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViSearchImageViewController.swift",
-      "line": 49,
+      "line": 52,
       "symbol": "ViSearchImageViewController.scrollViewDidEndDragging(_:willDecelerate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViSearchImageViewController.swift",
-      "line": 455,
+      "line": 507,
       "symbol": "ViSearchImageViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1416,77 +1416,77 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 189,
+      "line": 193,
       "symbol": "ViRangeSlider.lowerThumbLayer",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 190,
+      "line": 194,
       "symbol": "ViRangeSlider.upperThumbLayer",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 196,
+      "line": 200,
       "symbol": "ViRangeSlider.frame",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 207,
+      "line": 211,
       "symbol": "ViRangeSlider.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 212,
+      "line": 216,
       "symbol": "ViRangeSlider.layoutSublayers(of:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 233,
+      "line": 237,
       "symbol": "ViRangeSlider.updateLayerFrames()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 251,
+      "line": 255,
       "symbol": "ViRangeSlider.positionForValue(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 258,
+      "line": 263,
       "symbol": "ViRangeSlider.boundValue(_:toLowerValue:upperValue:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 265,
+      "line": 270,
       "symbol": "ViRangeSlider.beginTracking(_:with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 278,
+      "line": 285,
       "symbol": "ViRangeSlider.continueTracking(_:with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/Views/ViRangeSlider.swift",
-      "line": 302,
+      "line": 324,
       "symbol": "ViRangeSlider.endTracking(_:with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

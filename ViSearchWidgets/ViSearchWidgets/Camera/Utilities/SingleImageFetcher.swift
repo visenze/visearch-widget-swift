@@ -86,7 +86,8 @@ public class SingleImageFetcher {
 //                print("img size: \(image.size) , target: \(self.targetSize)")
 //                print("======")
                 if let cr = self.cropRect {
-                    // cropping, fix ios 8 bug
+                    // cropping, fix ios 8 bug. in ios8, it does not return the cropped version but the scaled down version
+                    // we will implement our own cropping in this case
                     if self.targetSize.width < image.size.width || self.targetSize.height < image.size.height {
 //                        print ("self crop: ow: \(asset.pixelWidth) , h : \(asset.pixelHeight)")
                         

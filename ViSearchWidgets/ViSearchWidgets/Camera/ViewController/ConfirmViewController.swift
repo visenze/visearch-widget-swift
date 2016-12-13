@@ -5,7 +5,7 @@ import Photos
 /// optional to crop photo here
 public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     
-    let imageView = UIImageView()
+    public let imageView = UIImageView()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var powerBy: UIImageView!
@@ -29,6 +29,8 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
     /// photo asset
     var asset: PHAsset!
     
+    /// store the last cropping rect
+    var lastNormalizedCropRect: CGRect = .zero
     
     /// Constructor
     ///
@@ -339,6 +341,7 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             let normalizedHeight = cropRect.height / imageView.frame.height
             
             let rect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
+            self.lastNormalizedCropRect = rect
             fetcher = fetcher.setCropRect(rect)
         }
         

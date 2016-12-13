@@ -32,6 +32,9 @@ open class ViSearchImageViewController: ViGridSearchViewController {
     
     /// Crop button
     var cropBtn : UIButton? = nil
+
+    /// preview image
+    var previewImg: UIImage? = nil
     
     open override func setup(){
         super.setup()
@@ -155,10 +158,13 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                 v.contentMode = .scaleAspectFill
                 v.clipsToBounds = true
                 
-//                v.image = ViIcon.placeholder
-                
-                if let params = self.searchParams as? ViUploadSearchParams {
+                // take image from preview image first, if not available, then take from search parameters
+                if let previewImg = self.previewImg {
+                    v.image = previewImg
+                }
+                else if let params = self.searchParams as? ViUploadSearchParams {
                     v.image = params.image
+                    self.previewImg = params.image
                 }
                 
                 self.queryImageView = v
@@ -322,9 +328,51 @@ open class ViSearchImageViewController: ViGridSearchViewController {
                 
                 if let image = image {
                     
+                    self.previewImg = image
+                    
                     // save image here
                     if let searchParams = self.searchParams as? ViUploadSearchParams {
-                        searchParams.image = image
+                        
+                        if confirmViewController.allowsCropping {
+                            
+                            let cr = confirmViewController.lastNormalizedCropRect
+                           
+                            // we will pass the original image with the box for better search result
+                            // cropped versions result in lower quality
+                            if let img = confirmViewController.imageView.image {
+                                
+                                // verify that we crop box is valid
+                                if cr.width < 0 || cr.height < 0 {
+                                    // not valid, we use default cropped image
+                                    searchParams.image = image
+                                }
+                                else {
+                                    searchParams.image = img
+                                    
+                                    // pass in the crop box
+                                    let targetX = floor( img.size.width  * cr.origin.x)
+                                    let targetY = floor( img.size.height * cr.origin.y)
+                                    let targetWidth = floor( img.size.width * cr.width)
+                                    let targetHeight = floor(  img.size.height * cr.height)
+                                    
+                                    searchParams.box = ViBox(x1: Int(targetX),
+                                                             y1: Int(targetY),
+                                                             x2: Int(targetX + targetWidth) ,
+                                                             y2: Int(targetY + targetHeight) )
+                                    
+                                    
+                                }
+                                
+                            }
+                            else {
+                                searchParams.image = image
+                            }
+                            
+                        }
+                        else {
+                            searchParams.image = image
+                        }
+                        
                         self.refreshData()
                         
                         // reset scroll

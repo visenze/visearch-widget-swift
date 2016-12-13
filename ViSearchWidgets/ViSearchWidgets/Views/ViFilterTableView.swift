@@ -40,7 +40,7 @@ open class ViFilterTableView: UIView {
     
     /// Init all views
     func setup() {
-        self.autoresizingMask = [.flexibleHeight , .flexibleWidth];
+        self.autoresizingMask = [.flexibleHeight , .flexibleWidth]
         
         self.tableView = UITableView(frame: .zero, style: .plain)
         self.addSubview(self.tableView!)

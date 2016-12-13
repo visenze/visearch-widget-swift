@@ -339,7 +339,6 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
             let normalizedHeight = cropRect.height / imageView.frame.height
             
             let rect = normalizedRect(CGRect(x: normalizedX, y: normalizedY, width: normalizedWidth, height: normalizedHeight), orientation: imageView.image!.imageOrientation)
-            
             fetcher = fetcher.setCropRect(rect)
         }
         

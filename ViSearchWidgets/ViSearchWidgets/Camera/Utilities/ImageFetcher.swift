@@ -14,7 +14,7 @@ public class ImageFetcher {
     private var authRequested = false
     private let errorDomain = "com.visenze.imageFetcher"
     
-    let libraryQueue = DispatchQueue(label: "com.visenze.CameraViewController.LibraryQueue");
+    let libraryQueue = DispatchQueue(label: "com.visenze.CameraViewController.LibraryQueue")
     
     public init() { }
     

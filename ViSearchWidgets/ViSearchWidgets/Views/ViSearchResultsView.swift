@@ -63,7 +63,7 @@ open class ViSearchResultsView: UIView {
     }
     
     func setup() {
-        self.autoresizingMask = [.flexibleHeight , .flexibleWidth];
+        self.autoresizingMask = [.flexibleHeight , .flexibleWidth]
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewLayout  )
         self.addSubview(self.collectionView!)

@@ -51,7 +51,7 @@ open class ViProduct: NSObject {
             self.init (im_name: im_name, url: url, price: price)
         }
         else {
-            return nil;
+            return nil
         }
     }
 

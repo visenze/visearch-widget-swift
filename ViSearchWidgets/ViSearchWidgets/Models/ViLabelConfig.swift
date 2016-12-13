@@ -41,7 +41,7 @@ public struct ViLabelConfig {
                 is_strike_through: Bool = false,
                 numberStringFormat : String = ViTheme.sharedInstance.default_price_format
                 ){
-        self.font = font;
+        self.font = font
         self.textColor = text_color
         self.numOfLines = num_of_lines
         self.isStrikeThrough = is_strike_through

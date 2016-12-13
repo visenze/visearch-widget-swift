@@ -60,12 +60,12 @@ open class ViHorizontalSearchViewController: ViBaseSearchViewController {
         
         if(containerWidth <= 0) {
             print("\(type(of: self)).\(#function)[line:\(#line)] - error : containerWidth is less than or equal to 0. Container may not initialize yet.")
-            return 0;
+            return 0
         }
         
         // assumpt that will fit within 1 column
         if(itemsVisibleOnContainerCount < 2) {
-            return floor(containerWidth) ;
+            return floor(containerWidth)
         }
         
         // calculate the width based on spacing between items

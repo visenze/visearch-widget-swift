@@ -71,7 +71,7 @@ open class ViRangeTableViewCell: UITableViewCell {
     
     /// create all views and init
     open func setup() {
-        self.autoresizingMask = [.flexibleWidth];
+        self.autoresizingMask = [.flexibleWidth]
         
         self.titleLabel = UILabel(frame: .zero)
         self.titleLabel?.numberOfLines = 1

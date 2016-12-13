@@ -64,6 +64,7 @@ public class SingleImageFetcher {
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true
+        //options.isSynchronous = true
 
         if let cropRect = cropRect {
 
@@ -81,6 +82,7 @@ public class SingleImageFetcher {
         
         PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in
             if let image = image {
+                //print("img size: \(image.size) , target: \(self.targetSize)")
                 self.success?(image)
             } else {
                 let error = errorWithKey("error.cant-fetch-photo", domain: self.errorDomain)

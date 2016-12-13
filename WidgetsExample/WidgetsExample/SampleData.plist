@@ -36,7 +36,7 @@
 	<key>price_schema_mapping</key>
 	<string>price</string>
 	<key>discount_price_schema_mapping</key>
-	<string>price</string>
+	<string></string>
 	<key>find_similar_im_name</key>
 	<string>nordstrom-86054533</string>
 	<key>you_may_like_im_name</key>

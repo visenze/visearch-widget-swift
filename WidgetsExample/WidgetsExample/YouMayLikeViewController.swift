@@ -51,8 +51,11 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
                     controller.schemaMapping = AppDelegate.loadSampleSchemaMappingFromPlist()
 
                     // configure discount price if necessary
-                    controller.schemaMapping.discountPrice = "price"
-                    controller.priceConfig.isStrikeThrough = true
+                    if controller.schemaMapping.discountPrice != nil  {
+                        if controller.schemaMapping.discountPrice!.characters.count > 0 {
+                            controller.priceConfig.isStrikeThrough = true
+                        }
+                    }
                     
         //            controller.backgroundColor = UIColor.black
                     controller.paddingLeft = 8.0

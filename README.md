@@ -60,9 +60,14 @@ To understand quickly what our SDKs offer out of the box, please follow instruct
 
 ## 2. Requirements
 
-- iOS 8.0+ 
+- **Supported**: iOS 9.0+ . **Minimum**: iOS 8.0+. 
+
+  - The SDK is tested fully on iOS 9.0+ (real iPhone devices). 
+  - iOS 8.x versions are only tested on simulators. 
+  
 - Xcode 8.1+
 - Swift 3.0+
+
 
 ## 3. Setup
 

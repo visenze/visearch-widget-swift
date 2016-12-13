@@ -18,6 +18,12 @@ public class CameraView: UIView {
     
     /// start camera capture session
     public func startSession() {
+        
+        #if (arch(i386) || arch(x86_64)) && os(iOS)
+            print("simulator is running. Disable camera session")
+            return
+        #endif
+        
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetPhoto
 

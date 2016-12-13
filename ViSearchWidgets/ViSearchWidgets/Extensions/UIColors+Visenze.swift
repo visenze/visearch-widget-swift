@@ -53,7 +53,7 @@ public extension UIColor {
             return nil
         }
         
-        return UIColor.colorWithRGB(rgbValue: UInt(hexVal), alpha : alpha);
+        return UIColor.colorWithRGB(rgbValue: UInt(hexVal), alpha : alpha)
     }
     
     /// Returns a lighter color by the provided percentage
@@ -62,7 +62,7 @@ public extension UIColor {
     ///
     /// - returns: lighter UIColor
     public func lighterColor(percent : Double) -> UIColor {
-        return colorWithBrightnessFactor(factor: CGFloat(1 + percent));
+        return colorWithBrightnessFactor(factor: CGFloat(1 + percent))
     }
     
     /// Returns a darker color by the provided percentage
@@ -71,7 +71,7 @@ public extension UIColor {
     ///
     /// - returns: darker UIColor
     public func darkerColor(percent : Double) -> UIColor {
-        return colorWithBrightnessFactor(factor: CGFloat(1 - percent));
+        return colorWithBrightnessFactor(factor: CGFloat(1 - percent))
     }
     
     /// Return a modified color using the brightness factor provided
@@ -88,7 +88,7 @@ public extension UIColor {
         if getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) {
             return UIColor(hue: hue, saturation: saturation, brightness: brightness * factor, alpha: alpha)
         } else {
-            return self;
+            return self
         }
     }
     

@@ -93,7 +93,7 @@ internal class PermissionsView: UIView {
         let settingsSize = settingsButton.sizeThatFits(constrainedTextSize)
         
         let iconX = frame.width/2 - iconSize.width/2
-        let iconY: CGFloat = frame.height/2 - (iconSize.height + verticalSpacing + verticalSpacing + titleSize.height + verticalSpacing + descriptionSize.height)/2;
+        let iconY: CGFloat = frame.height/2 - (iconSize.height + verticalSpacing + verticalSpacing + titleSize.height + verticalSpacing + descriptionSize.height)/2
         
         iconView.frame = CGRect(x: iconX, y: iconY, width: iconSize.width, height: iconSize.height)
         

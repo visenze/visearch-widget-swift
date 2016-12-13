@@ -37,7 +37,7 @@ public class CameraView: UIView {
             input = try AVCaptureDeviceInput(device: device)
         } catch let error as NSError {
             input = nil
-            print("Error: \(error.localizedDescription)")
+            print("CameraView Error: \(error.localizedDescription)")
             return
         }
 

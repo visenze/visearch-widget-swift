@@ -133,6 +133,25 @@ extension UIImage {
         
         return g
     }
+    
+    func getImageInRect(rect: CGRect) -> UIImage {
+        
+        // Create the bitmap context
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        
+        // Sets the clipping path to the intersection of the current clipping path with the area defined by the specified rectangle.
+        context!.clip(to: CGRect(origin: .zero, size: rect.size))
+        
+        draw(in: CGRect(origin: CGPoint(x: -rect.origin.x, y: -rect.origin.y), size: size))
+        
+        // Returns an image based on the contents of the current bitmap-based graphics context.
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
 }
 
 extension UIImage {

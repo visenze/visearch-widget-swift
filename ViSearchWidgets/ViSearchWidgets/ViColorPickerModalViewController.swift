@@ -24,7 +24,7 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
     open var colorList: [String] = []
     
     /// current selector color.. will be indicated with a tick
-    open var selectedColor : String? = nil;
+    open var selectedColor : String? = nil
     
     /// built in collection view
     public var collectionView : UICollectionView? {
@@ -145,7 +145,7 @@ open class ViColorPickerModalViewController: UIViewController, UICollectionViewD
         let color = colorList[indexPath.row]
         cell.contentView.backgroundColor = UIColor.colorWithHexString(color, alpha: 1.0)
         
-        var tickView = cell.contentView.viewWithTag(99) as? UIImageView;
+        var tickView = cell.contentView.viewWithTag(99) as? UIImageView
         
         if(tickView == nil){
             // create

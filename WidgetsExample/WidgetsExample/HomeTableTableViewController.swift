@@ -128,7 +128,12 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
             
             controller.imageConfig.contentMode = .scaleAspectFill
-            controller.priceConfig.isStrikeThrough = true
+            
+            if controller.schemaMapping.discountPrice != nil  {
+                if controller.schemaMapping.discountPrice!.characters.count > 0 {
+                    controller.priceConfig.isStrikeThrough = true
+                }
+            }
             
             controller.productCardBorderColor = UIColor.lightGray
             controller.productCardBorderWidth = 0.7
@@ -164,8 +169,13 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             similarController.filterItems = AppDelegate.loadFilterItemsFromPlist()
             
             similarController.imageConfig.contentMode = .scaleAspectFill
-            similarController.priceConfig.isStrikeThrough = true
             
+            if similarController.schemaMapping.discountPrice != nil  {
+                if similarController.schemaMapping.discountPrice!.characters.count > 0 {
+                    similarController.priceConfig.isStrikeThrough = true
+                }
+            }
+
             similarController.productCardBorderColor = UIColor.lightGray
             similarController.productCardBorderWidth = 0.7
             
@@ -196,8 +206,13 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             controller.filterItems = AppDelegate.loadFilterItemsFromPlist()
             
             controller.imageConfig.contentMode = .scaleAspectFill
-            controller.priceConfig.isStrikeThrough = true
             
+            if controller.schemaMapping.discountPrice != nil  {
+                if controller.schemaMapping.discountPrice!.characters.count > 0 {
+                    controller.priceConfig.isStrikeThrough = true
+                }
+            }
+
             controller.productCardBorderColor = UIColor.lightGray
             controller.productCardBorderWidth = 0.7
            

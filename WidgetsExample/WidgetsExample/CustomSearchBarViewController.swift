@@ -159,7 +159,12 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
         
         
         controller.imageConfig.contentMode = .scaleAspectFill
-        controller.priceConfig.isStrikeThrough = true
+        
+        if controller.schemaMapping.discountPrice != nil  {
+            if controller.schemaMapping.discountPrice!.characters.count > 0 {
+                controller.priceConfig.isStrikeThrough = true
+            }
+        }
         
         controller.productCardBorderColor = UIColor.lightGray
         controller.productCardBorderWidth = 0.7
@@ -216,7 +221,12 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             
             // configure product image size
             controller.imageConfig.contentMode = .scaleAspectFill
-            controller.priceConfig.isStrikeThrough = true
+            
+            if controller.schemaMapping.discountPrice != nil  {
+                if controller.schemaMapping.discountPrice!.characters.count > 0 {
+                    controller.priceConfig.isStrikeThrough = true
+                }
+            }
             
             controller.productCardBorderColor = UIColor.lightGray
             controller.productCardBorderWidth = 0.7

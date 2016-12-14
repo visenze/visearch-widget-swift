@@ -37,7 +37,7 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
     public var timeoutInterval : TimeInterval = 10 // how long to timeout request
     public var requestSerialization: ViRequestSerialization
     
-    public var userAgent : String = "ViSenze-Swift-SDK/1.0.1"
+    public var userAgent : String = "visearch-swift-sdk/1.0.2"
     private static let userAgentHeader : String = "X-Requested-With"
     
  

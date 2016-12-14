@@ -13,6 +13,10 @@ import LayoutKit
 /// Find Similar widget. Search results are displayed in a grid
 open class ViFindSimilarViewController: ViGridSearchViewController {
 
+    /// Tag for the float view containing the filter button
+    /// The floating view will appear when we scroll down
+    let floatViewTag : Int = 999
+    
     /// Configuration for query image
     public var queryImageConfig = ViImageConfig()
     
@@ -206,7 +210,86 @@ open class ViFindSimilarViewController: ViGridSearchViewController {
         }
     }
 
-   
-
+    // MARK: Scroll methods
+    
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.checkHeaderGone(scrollView)
+    }
+    
+    open func scrollViewDidEndDragging(_ scrollView: UIScrollView,
+                                       willDecelerate decelerate: Bool)
+    {
+        self.checkHeaderGone(scrollView)
+    }
+    
+    
+    /// Create the floating view that contains Filter + Color Picker buttons
+    ///
+    /// - Returns: generated view
+    public func getFloatingView() -> UIView {
+        let floatView = UIView()
+        floatView.tag = self.floatViewTag
+        floatView.autoresizingMask = [ .flexibleLeftMargin , .flexibleRightMargin ]
+        
+        let btnWidth = ViIcon.color_pick!.width + 12
+        var floatWidth = btnWidth
+        
+        if false == self.filterBtn?.isHidden {
+            // filter
+            let filterButton = UIButton(type: .custom)
+            
+            filterButton.backgroundColor = ViTheme.sharedInstance.filter_btn_floating_background_color
+            
+            filterButton.setImage(ViIcon.filter, for: .normal)
+            filterButton.setImage(ViIcon.filter, for: .highlighted)
+            
+            filterButton.tintColor = ViTheme.sharedInstance.filter_btn_tint_color
+            filterButton.imageEdgeInsets = UIEdgeInsetsMake( 4, 4, 4, 4)
+            filterButton.tag = ViProductCardTag.filterBtnTag.rawValue
+            
+            filterButton.addTarget(self, action: #selector(self.filterBtnTap), for: .touchUpInside)
+            filterButton.frame = CGRect(x: 8, y: 0, width: btnWidth, height: btnWidth)
+            floatWidth = filterButton.frame.origin.x + btnWidth
+            
+            floatView.addSubview(filterButton)
+        }
+        
+        floatView.frame = CGRect(x: self.view.bounds.width - floatWidth - 8 , y: 0 , width: floatWidth , height: btnWidth )
+        
+        return floatView
+    }
+    
+    /// reset scroll and move collectionView back to top
+    open func resetScroll() {
+        self.collectionView?.contentOffset = .zero
+        // hide filter btn
+        if let floatView = self.view.viewWithTag(self.floatViewTag) {
+            floatView.isHidden = true
+        }
+        
+    }
+    
+    /// check scroll view position, if below header , then overlay filter + color buttons on top
+    open func checkHeaderGone(_ scrollView: UIScrollView) {
+        if self.headerLayoutHeight == 0 {
+            return
+        }
+        
+        var floatView : UIView? = self.view.viewWithTag(self.floatViewTag)
+        if  floatView == nil {
+            floatView = self.getFloatingView()
+            floatView?.isHidden = true
+            self.view.addSubview(floatView!)
+            self.view.bringSubview(toFront: floatView!)
+        }
+        
+        if scrollView.contentOffset.y > self.headerLayoutHeight {
+            floatView?.isHidden = false
+        }
+        else {
+            floatView?.isHidden = true
+        }
+    }
+    
    
 }

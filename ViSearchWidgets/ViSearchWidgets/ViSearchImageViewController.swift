@@ -299,6 +299,7 @@ open class ViSearchImageViewController: ViGridSearchViewController {
             
             if let searchParams = self?.searchParams as? ViUploadSearchParams {
                 searchParams.image = image
+                self?.previewImg = image
                 self?.refreshData()
                 
                 // reset scroll

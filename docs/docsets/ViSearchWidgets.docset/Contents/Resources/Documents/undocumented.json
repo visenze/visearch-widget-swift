@@ -1227,8 +1227,22 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViFindSimilarViewController.swift",
-      "line": 107,
+      "line": 111,
       "symbol": "ViFindSimilarViewController.setup()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViFindSimilarViewController.swift",
+      "line": 215,
+      "symbol": "ViFindSimilarViewController.scrollViewDidEndDecelerating(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViFindSimilarViewController.swift",
+      "line": 219,
+      "symbol": "ViFindSimilarViewController.scrollViewDidEndDragging(_:willDecelerate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1311,7 +1325,7 @@
     },
     {
       "file": "/Users/visenze/Desktop/visenze/code/visearch-widget-swift/ViSearchWidgets/ViSearchWidgets/ViSearchImageViewController.swift",
-      "line": 507,
+      "line": 508,
       "symbol": "ViSearchImageViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

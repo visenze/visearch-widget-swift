@@ -84,8 +84,11 @@ public class ViTheme: NSObject {
     /// action button tint color
     public var default_action_btn_tint_color: UIColor = UIColor.red
     
-    /// default button size e.g. Find Similar button size with icon on the left and text at the right
-    public var default_btn_size: CGSize = CGSize(width: 30, height: 30)
+    /// default button size 
+    public var default_btn_size: CGSize = CGSize(width: 34, height: 34)
+    
+    /// default similar button size e.g. Find Similar button size with icon on the left and text at the right
+    public var default_similar_btn_size: CGSize = CGSize(width: 34, height: 44)
     
     /// default action button size
     public var default_action_btn_size: CGSize = CGSize(width: 40, height: 40)

@@ -167,8 +167,8 @@ extension UIView {
     ///   - width: stroke width
     ///   - color: stroke color
     public func drawStroke(width: CGFloat, color: UIColor) {
-        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w/2)
-        let shapeLayer = CAShapeLayer ()
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: 0)
+        let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = color.cgColor
@@ -176,5 +176,6 @@ extension UIView {
         self.layer.addSublayer(shapeLayer)
         
     }
-   
+
+
 }

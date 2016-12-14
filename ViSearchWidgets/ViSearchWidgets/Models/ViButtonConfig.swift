@@ -66,7 +66,7 @@ public struct ViButtonConfig {
     public static var default_btn_config = ViButtonConfig()
     
     /// default configuration for "Find Similar" button
-    public static var default_similar_btn_config = ViButtonConfig(icon: ViIcon.find_similar)
+    public static var default_similar_btn_config = ViButtonConfig(size: ViTheme.sharedInstance.default_similar_btn_size, icon: ViIcon.find_similar)
     
     /// default configuration for action button. Default to heart icon with tracked action set to add to wish list
     public static var default_action_btn_config = ViButtonConfig(

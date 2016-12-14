@@ -345,7 +345,7 @@ open class ViProductCardLayout: StackLayout<UIView> {
                     // prevent recycling of buttons , will cause problem if set when scrolling in collectionview
                     viewReuseId: nil,
                     config: { button in
-                        button.backgroundColor = similar_btn_background_color
+//                        button.backgroundColor = similar_btn_background_color
                         
                         button.setTitle(similar_btn_txt, for: .normal)
                         button.setTitle(similar_btn_txt, for: .highlighted)
@@ -359,9 +359,25 @@ open class ViProductCardLayout: StackLayout<UIView> {
                         button.setImage(similar_btn_icon, for: .highlighted)
                         
                         button.tintColor = similar_btn_tint_color
-                        button.imageEdgeInsets = UIEdgeInsetsMake( 0, 4, 0, 4)
                         button.tag = ViProductCardTag.findSimilarBtnTag.rawValue
                         
+                        // draw rect background . we keep the invisible tap space
+                        if similar_btn_icon == ViIcon.find_similar && similar_btn_size.height > 20 &&  similar_btn_size.width > 10{
+                            
+                            button.imageEdgeInsets = UIEdgeInsetsMake( 0, 6, 14, 6)
+                            
+                            let buttonLayer = CALayer()
+                            buttonLayer.masksToBounds = true
+                            let buttonLayerBound = CGRect(x: 4, y: 0, width: similar_btn_size.width - 8, height: similar_btn_size.height - 14)
+                            
+                            buttonLayer.frame = buttonLayerBound
+                            buttonLayer.backgroundColor = similar_btn_background_color.cgColor
+                            
+                            button.layer.insertSublayer(buttonLayer, below: button.imageView?.layer)
+                        }
+                        else {
+                            button.backgroundColor = similar_btn_background_color
+                        }
                     }
                 )
             labelAndSimilarBtnLayouts.append(findSimilarBtnLayout)
@@ -370,12 +386,12 @@ open class ViProductCardLayout: StackLayout<UIView> {
         if(labelAndSimilarBtnLayouts.count > 0) {
             let labelAndSimilarBtnLayoutsContainer = StackLayout(
                 axis: .horizontal,
-                spacing: 4,
+                spacing: 2,
                 sublayouts: labelAndSimilarBtnLayouts
             )
             
             let insetLayout =  InsetLayout(
-                insets: EdgeInsets(top: 2, left: label_left_padding, bottom: 4, right: label_left_padding),
+                insets: EdgeInsets(top: 2, left: label_left_padding, bottom: 4, right: 2),
                 sublayout: labelAndSimilarBtnLayoutsContainer
             )
             layouts.append(insetLayout)

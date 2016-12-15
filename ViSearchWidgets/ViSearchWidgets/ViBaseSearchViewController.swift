@@ -858,7 +858,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 
             }
             
-            delegate?.similarBtnTapped(sender: self, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+            delegate?.similarBtnTapped(sender: cell, collectionView: self.collectionView!, indexPath: indexPath, product: product)
         }
     }
     
@@ -877,7 +877,7 @@ open class ViBaseSearchViewController: UIViewController , UICollectionViewDataSo
                 }
             }
             
-            delegate?.actionBtnTapped(sender: self, collectionView: self.collectionView!, indexPath: indexPath, product: product)
+            delegate?.actionBtnTapped(sender: cell, collectionView: self.collectionView!, indexPath: indexPath, product: product)
         }
     }
     

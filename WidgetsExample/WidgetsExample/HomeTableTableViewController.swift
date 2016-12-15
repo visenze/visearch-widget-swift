@@ -22,6 +22,19 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     
     var demoItems : [String] = [FIND_SIMILAR_SEARCH , YOU_MAY_ALSO_LIKE_SEARCH, IMAGE_SEARCH , COLOR_SEARCH, CUSTOM_SEARCH_BAR ]
     
+    // record the time for some basic performance tests
+    let findSimilarStopWatch = StopWatch(name: "findSimilar")
+    let imageSearchStopWatch = StopWatch(name: "imageSearch")
+    let colorSearchStopWatch = StopWatch(name: "colorSearch")
+    
+    // number of cell to display when we stop the timer i.e. after 4 cells display, we stop the timer
+    var numOfCellsToTrack : Int = 4
+    var curNumOfDisplayedCell: Int = 0
+    
+    // only record for first search
+    var firstSearch : Bool = true
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -99,6 +112,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     
     func showSearchImageController() {
         
+        self.firstSearch = true
         
         let cameraViewController = CameraViewController(croppingEnabled: false, allowsLibraryAccess: true) { [weak self] image, asset in
 
@@ -108,6 +122,12 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
                 
                 return
             }
+            
+            print("======= Start Image Search =================")
+            
+            self?.curNumOfDisplayedCell = 0
+            self?.imageSearchStopWatch.reset()
+            self?.imageSearchStopWatch.resume()
             
             let controller = ViSearchImageViewController()
             
@@ -144,7 +164,6 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             // configure product image size and product card size
             self?.configureSize(controller: controller)
             
-            
             // set to same delegate
             controller.delegate = self
             self?.navigationController?.pushViewController(controller, animated: true)
@@ -159,7 +178,14 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     }
     
     func showSimilarController(_ im_name: String) {
+        
+        self.firstSearch = true
+    
         if let params = ViSearchParams(imName: im_name) {
+            self.curNumOfDisplayedCell = 0
+            print("======= Start Similar Search =================")
+            findSimilarStopWatch.reset()
+            findSimilarStopWatch.resume()
             
             let similarController = ViFindSimilarViewController()
             
@@ -199,7 +225,15 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     
     func showColorSearchController(_ color: String) {
         
+        self.firstSearch = true
+        
         if let params = ViColorSearchParams(color: color){
+            print("======= Start Color Search =================")
+            
+            self.curNumOfDisplayedCell = 0
+            colorSearchStopWatch.reset()
+            colorSearchStopWatch.resume()
+            
             let controller = ViColorSearchViewController()
             params.limit = self.limit
             // for retriveing additional meta data e.g. for displaying in detail page
@@ -349,5 +383,80 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
         })
         
     }
+    
+    func configureCell(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell) {
+        
+        if self.firstSearch {
+            self.curNumOfDisplayedCell += 1
+            
+            if self.curNumOfDisplayedCell == self.numOfCellsToTrack {
+                if sender is ViFindSimilarViewController {
+                    
+                    self.findSimilarStopWatch.pause()
+                    print("Time taken for findSimilar display (in second): \(self.findSimilarStopWatch.elapsedTimeStep) , number of displayed cell: \(self.curNumOfDisplayedCell) ")
+                    
+                    print("Total time taken (in second): \(self.findSimilarStopWatch.elapsedTime) ")
+                    
+                    print("===== End Similar Search ============")
+                }
+                else if sender is ViColorSearchViewController {
+                    
+                    self.colorSearchStopWatch.pause()
+                    print("Time taken for colorSearch display (in second): \(self.colorSearchStopWatch.elapsedTimeStep) , number of displayed cell: \(self.curNumOfDisplayedCell) ")
+                    
+                    print("Total time taken (in second): \(self.colorSearchStopWatch.elapsedTime) ")
+                    
+                    print("===== End Color Search ============")
+                }
+                else if sender is ViSearchImageViewController {
+                    
+                    self.imageSearchStopWatch.pause()
+                    print("Time taken for imageSearch display (in second): \(self.imageSearchStopWatch.elapsedTimeStep) , number of displayed cell: \(self.curNumOfDisplayedCell) ")
+                    
+                    print("Total time taken (in second): \(self.imageSearchStopWatch.elapsedTime) ")
+                    
+                    print("===== End Image Search ============")
+                }
+                self.firstSearch = false
+                
+            }
+        }
+        
+        
+    }
+    
+    func searchSuccess( sender: AnyObject, searchType: ViSearchType, reqId: String? , products: [ViProduct])
+    {
+        if !self.firstSearch {
+            return
+        }
+        
+        if sender is ViFindSimilarViewController {
+            
+            // show elasped time
+            self.findSimilarStopWatch.pause()
+            print("Time taken for findSimilar API search (in second): \(self.findSimilarStopWatch.elapsedTime)")
+            self.findSimilarStopWatch.resume()
+        }
+        else if sender is ViColorSearchViewController {
+            
+            // show elasped time
+            self.colorSearchStopWatch.pause()
+            print("Time taken for colorSearch API search (in second): \(self.colorSearchStopWatch.elapsedTime)")
+            self.colorSearchStopWatch.resume()
+            
+        }
+        else if sender is ViSearchImageViewController {
+            
+            // show elasped time
+            self.imageSearchStopWatch.pause()
+            print("Time taken for imageSearch API search (in second): \(self.imageSearchStopWatch.elapsedTime)")
+            self.imageSearchStopWatch.resume()
+            
+        }
+        
+    }
+    
+   
     
 }

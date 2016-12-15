@@ -29,6 +29,8 @@
 		BDAA969E1DF5212500CB3BC3 /* CustomSearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAA969D1DF5212500CB3BC3 /* CustomSearchBarViewController.swift */; };
 		BDF03BFF1DD0142200861EC5 /* LayoutKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */; };
 		BDF03C001DD0142200861EC5 /* LayoutKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BDF855701E028DC4006AF4C4 /* WidgetsExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF8556F1E028DC4006AF4C4 /* WidgetsExampleUITests.swift */; };
+		BDF8557B1E02941F006AF4C4 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF8557A1E02941F006AF4C4 /* StopWatch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = BD7E96581DB9C19F00C497F7;
 			remoteInfo = ViSearchWidgets;
+		};
+		BDF855721E028DC4006AF4C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD7E967D1DB9C61100C497F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD7E96841DB9C61100C497F7;
+			remoteInfo = WidgetsExample;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -102,6 +111,10 @@
 		BDA5B18E1DEBDD770008C168 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BDAA969D1DF5212500CB3BC3 /* CustomSearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBarViewController.swift; sourceTree = "<group>"; };
 		BDF03BFE1DD0142200861EC5 /* LayoutKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayoutKit.framework; path = ../../Carthage/Build/iOS/LayoutKit.framework; sourceTree = "<group>"; };
+		BDF8556D1E028DC4006AF4C4 /* WidgetsExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WidgetsExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDF8556F1E028DC4006AF4C4 /* WidgetsExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsExampleUITests.swift; sourceTree = "<group>"; };
+		BDF855711E028DC4006AF4C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDF8557A1E02941F006AF4C4 /* StopWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +139,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDF8556A1E028DC4006AF4C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -133,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				BD3D1D861DD493720053F1E8 /* UIViewController+Alert.swift */,
+				BDF8557A1E02941F006AF4C4 /* StopWatch.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -143,6 +164,7 @@
 				BD7E96A81DB9C62700C497F7 /* ViSearchWidgets.xcodeproj */,
 				BD7E96871DB9C61100C497F7 /* WidgetsExample */,
 				BD7E969C1DB9C61200C497F7 /* WidgetsExampleTests */,
+				BDF8556E1E028DC4006AF4C4 /* WidgetsExampleUITests */,
 				BD7E96861DB9C61100C497F7 /* Products */,
 				BDA5B1841DEBDD120008C168 /* Frameworks */,
 			);
@@ -153,6 +175,7 @@
 			children = (
 				BD7E96851DB9C61100C497F7 /* WidgetsExample.app */,
 				BD7E96991DB9C61200C497F7 /* WidgetsExampleTests.xctest */,
+				BDF8556D1E028DC4006AF4C4 /* WidgetsExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,6 +237,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BDF8556E1E028DC4006AF4C4 /* WidgetsExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BDF8556F1E028DC4006AF4C4 /* WidgetsExampleUITests.swift */,
+				BDF855711E028DC4006AF4C4 /* Info.plist */,
+			);
+			path = WidgetsExampleUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,13 +287,31 @@
 			productReference = BD7E96991DB9C61200C497F7 /* WidgetsExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		BDF8556C1E028DC4006AF4C4 /* WidgetsExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDF855771E028DC4006AF4C4 /* Build configuration list for PBXNativeTarget "WidgetsExampleUITests" */;
+			buildPhases = (
+				BDF855691E028DC4006AF4C4 /* Sources */,
+				BDF8556A1E028DC4006AF4C4 /* Frameworks */,
+				BDF8556B1E028DC4006AF4C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BDF855731E028DC4006AF4C4 /* PBXTargetDependency */,
+			);
+			name = WidgetsExampleUITests;
+			productName = WidgetsExampleUITests;
+			productReference = BDF8556D1E028DC4006AF4C4 /* WidgetsExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		BD7E967D1DB9C61100C497F7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Visenze;
 				TargetAttributes = {
@@ -274,6 +324,12 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = NKN6QECX9M;
 						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BD7E96841DB9C61100C497F7;
+					};
+					BDF8556C1E028DC4006AF4C4 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = NKN6QECX9M;
 						ProvisioningStyle = Automatic;
 						TestTargetID = BD7E96841DB9C61100C497F7;
 					};
@@ -300,6 +356,7 @@
 			targets = (
 				BD7E96841DB9C61100C497F7 /* WidgetsExample */,
 				BD7E96981DB9C61200C497F7 /* WidgetsExampleTests */,
+				BDF8556C1E028DC4006AF4C4 /* WidgetsExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -341,6 +398,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDF8556B1E028DC4006AF4C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -370,6 +434,7 @@
 				BD3D1D841DD492C60053F1E8 /* HomeTableTableViewController.swift in Sources */,
 				BD7E96891DB9C61100C497F7 /* AppDelegate.swift in Sources */,
 				BD3D1D871DD493720053F1E8 /* UIViewController+Alert.swift in Sources */,
+				BDF8557B1E02941F006AF4C4 /* StopWatch.swift in Sources */,
 				BD3D1D891DD56EA10053F1E8 /* YouMayLikeViewController.swift in Sources */,
 				BDAA969E1DF5212500CB3BC3 /* CustomSearchBarViewController.swift in Sources */,
 			);
@@ -380,6 +445,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD7E969E1DB9C61200C497F7 /* WidgetsExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDF855691E028DC4006AF4C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDF855701E028DC4006AF4C4 /* WidgetsExampleUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +468,11 @@
 			isa = PBXTargetDependency;
 			name = ViSearchWidgets;
 			targetProxy = BD7E96B31DB9C63700C497F7 /* PBXContainerItemProxy */;
+		};
+		BDF855731E028DC4006AF4C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD7E96841DB9C61100C497F7 /* WidgetsExample */;
+			targetProxy = BDF855721E028DC4006AF4C4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -575,6 +653,34 @@
 			};
 			name = Release;
 		};
+		BDF855741E028DC4006AF4C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NKN6QECX9M;
+				INFOPLIST_FILE = WidgetsExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.widget.WidgetsExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = WidgetsExample;
+			};
+			name = Debug;
+		};
+		BDF855751E028DC4006AF4C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NKN6QECX9M;
+				INFOPLIST_FILE = WidgetsExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.visenze.widget.WidgetsExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = WidgetsExample;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -604,6 +710,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		BDF855771E028DC4006AF4C4 /* Build configuration list for PBXNativeTarget "WidgetsExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDF855741E028DC4006AF4C4 /* Debug */,
+				BDF855751E028DC4006AF4C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

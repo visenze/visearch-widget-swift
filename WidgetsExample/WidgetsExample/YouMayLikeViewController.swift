@@ -12,6 +12,15 @@ import ViSearchWidgets
 
 class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate {
 
+    // for some basic time tracking
+    let recStopWatch = StopWatch(name: "Recommendation")
+    // only record for first search
+    var firstSearch : Bool = true
+    
+    // number of cell to display when we stop the timer i.e. after 4 cells display, we stop the timer
+    var numOfCellsToTrack : Int = 3
+    var curNumOfDisplayedCell: Int = 0
+    
     public var im_name : String?
     var controller: ViRecommendationViewController? = nil
     @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
@@ -30,6 +39,13 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
             
             if let im_name = self.im_name {
                 if let controller = segue.destination as? ViRecommendationViewController {
+                    
+                    self.firstSearch = true
+                    self.curNumOfDisplayedCell = 0
+                    print("======= Start You May Also Like Search =================")
+                    recStopWatch.reset()
+                    recStopWatch.resume()
+                    
                     self.controller = controller
                     controller.delegate = self
                     
@@ -137,6 +153,48 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
         })
         
     }
+    
+    func searchSuccess( sender: AnyObject, searchType: ViSearchType, reqId: String? , products: [ViProduct])
+    {
+        if !self.firstSearch {
+            return
+        }
+        
+        if sender is ViRecommendationViewController {
+            
+            // show elasped time
+            self.recStopWatch.pause()
+            print("Time taken for recommendation API search (in second): \(self.recStopWatch.elapsedTime)")
+            self.recStopWatch.resume()
+        }
+       
+    }
+    
+    func configureCell(sender: AnyObject, collectionView: UICollectionView, indexPath: IndexPath , cell: UICollectionViewCell) {
+        
+        if self.firstSearch {
+            self.curNumOfDisplayedCell += 1
+            
+            if self.curNumOfDisplayedCell == self.numOfCellsToTrack {
+                if sender is ViRecommendationViewController {
+                    
+                    self.recStopWatch.pause()
+                    print("Time taken for recommendation display (in second): \(self.recStopWatch.elapsedTimeStep) , number of displayed cell: \(self.curNumOfDisplayedCell) ")
+                    
+                    print("Total time taken (in second): \(self.recStopWatch.elapsedTime) ")
+                    
+                    print("===== End You May Also Like Search ============")
+                }
+            
+                self.firstSearch = false
+                
+            }
+        }
+        
+        
+    }
+
+    
     
     //MARK: size configuration
     public func configureSize(controller: ViRecommendationViewController) {

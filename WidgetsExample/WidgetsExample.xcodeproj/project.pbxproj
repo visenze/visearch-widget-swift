@@ -718,6 +718,7 @@
 				BDF855751E028DC4006AF4C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

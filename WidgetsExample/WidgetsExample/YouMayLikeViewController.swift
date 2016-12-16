@@ -124,7 +124,7 @@ class YouMayLikeViewController: UIViewController, ViSearchViewControllerDelegate
     func searchFailed(sender: AnyObject, searchType: ViSearchType , err: Error?, apiErrors: [String]) {
         if err != nil {
             // network error.. display custom error if necessary
-            //alert (message: "error: \(err.localizedDescription)")
+            //alert (message: "error: \(err!.localizedDescription)")
         }
             
         else if apiErrors.count > 0 {

@@ -9,6 +9,7 @@
 import UIKit
 import ViSearchSDK
 import ViSearchWidgets
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,6 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // set up our search client
             ViSearch.sharedInstance.setup(accessKey: accessKey, secret: secret)
             
+            // configure timeout example. default to 10s.
+            ViSearch.sharedInstance.client?.timeoutInterval = 30
+            ViSearch.sharedInstance.client?.sessionConfig.timeoutIntervalForRequest = 30
+            ViSearch.sharedInstance.client?.sessionConfig.timeoutIntervalForResource = 30
+            ViSearch.sharedInstance.client?.session = URLSession(configuration: (ViSearch.sharedInstance.client?.sessionConfig)!)
+            
+            // configure timeout for downloading if necessary, default is 15s
+            KingfisherManager.shared.downloader.downloadTimeout = 30
         }
         else {
             print("Unable to load API keys plist. Please copy/add ViApiKeys.plist to the project and configure the API keys ")

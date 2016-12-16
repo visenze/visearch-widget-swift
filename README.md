@@ -35,6 +35,7 @@
     + [7.5.2 Color Picker](#752-color-picker)
     + [7.5.3 Camera Button](#753-camera-button)
   * [7.6 Orientation Changes](#76-orientation-changes)
+  * [7.7 Timeout Settings](#77-timeout-settings)
 - [8. Implement ViSenze Analytics](#8-implement-visenze-analytics)
   * [8.1 Default Actions](#81-default-actions)
     + [Custom Action Button Tracking](#custom-action-button-tracking)
@@ -1201,6 +1202,24 @@ public func configureSize(controller: ViGridSearchViewController) {
     
 }
 
+```
+
+### 7.7 Timeout Settings
+
+By default, API search requests will timeout after 10s. To change the timeout, you can implement the following code in AppDelegate didFinishLaunchingWithOptions method:
+
+```swift
+// setup search client
+ViSearch.sharedInstance.setup(accessKey: yourAccessKey, secret: yourSecret)
+            
+// configure timeout to 30s example. By default timeout is set 10s.
+ViSearch.sharedInstance.client?.timeoutInterval = 30
+ViSearch.sharedInstance.client?.sessionConfig.timeoutIntervalForRequest = 30
+ViSearch.sharedInstance.client?.sessionConfig.timeoutIntervalForResource = 30
+ViSearch.sharedInstance.client?.session = URLSession(configuration: (ViSearch.sharedInstance.client?.sessionConfig)!)
+    
+// configure timeout for downloading an image, default is 15s
+KingfisherManager.shared.downloader.downloadTimeout = 30
 ```
 
 ## 8. Implement ViSenze Analytics

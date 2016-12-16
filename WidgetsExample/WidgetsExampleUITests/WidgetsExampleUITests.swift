@@ -59,4 +59,11 @@ class WidgetsExampleUITests: XCTestCase {
         
     }
     
+    func testEx(){
+        XCUIDevice.shared().orientation = .faceUp
+        XCUIDevice.shared().orientation = .faceUp
+        XCUIApplication().tables.staticTexts["Find Similar"].tap()
+        
+    }
+    
 }

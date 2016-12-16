@@ -359,7 +359,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             // network-related error
             // handle error here if necessary
             
-            //alert (message: "error: \(err.localizedDescription)")
+            //alert (message: "error: \(err!.localizedDescription)")
         }
         
         else if apiErrors.count > 0 {

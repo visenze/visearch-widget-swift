@@ -75,7 +75,7 @@ To understand quickly what our SDKs offer out of the box, please follow instruct
 ### 3.1 Setup your ViSenze account
 In order to use our widgets, please setup your ViSenze account. Please refer to our developer documentation for [set-up instructions](http://developers.visenze.com/setup/#Set-up-your-ViSenze-account).
 
-To use the mobile widgets, you will need to get the API keys (access & secret key) with `search-only` permission. 
+To use the mobile widgets, you will need to get the API keys (widget app key or access & secret key pair) with `search-only` permission. 
 
 ### 3.2 Upload your datafeed
 
@@ -191,7 +191,7 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
 
 - Configure API keys:
 
- Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys.  You can enter the `search-only` access and secret keys into the `ViApiKeys.plist` file.
+ Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys.  You can enter the `search-only` app key or (access/secret key pairs) into the `ViApiKeys.plist` file. If you only have the app key, please enter it in accessKey field of `ViApiKeys.plist` .
   
  <img src="./docs/images/api_keys.png" width="600" >
   
@@ -232,8 +232,13 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
 import ViSearchSDK
 import ViSearchWidgets
 ...
-// using default ViSearch API client which will connect to Visenze's server
+
+// recommended way of init ViSearch client with app key
+ViSearch.sharedInstance.setup(appKey: "YOUR_APP_KEY")
+
+// old way of init ViSearch client with access and secret key pair
 ViSearch.sharedInstance.setup(accessKey: "YOUR_ACCESS_KEY", secret: "YOUR_SECRET_KEY")
+
 
 ```
 

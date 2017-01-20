@@ -33,7 +33,23 @@ open class ViSearch: NSObject {
         
         client?.accessKey = accessKey
         client?.secret = secret
+        client?.isAppKeyEnabled = false
     }
+    
+    /// Setup API client. Must be called first before various API calls
+    ///
+    /// - parameter appKey: application app key
+    public func setup(appKey: String) -> Void {
+        if client == nil {
+            client = ViSearchClient(appKey: appKey)
+        }
+        
+        client?.accessKey = appKey
+        client?.isAppKeyEnabled = true
+
+    }
+    
+    
     
     // MARK: API calls
     

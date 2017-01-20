@@ -43,7 +43,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
     override func viewDidAppear(_ animated: Bool) {
         // check if client setup properly
         if !ViSearch.sharedInstance.isClientSetup() {
-            alert(message: "Please setup the API client with access and secret key", title: "Error")
+            alert(message: "Please setup the API client with app key or access/secret key", title: "Error")
             
             // remove all items
             demoItems.removeAll()

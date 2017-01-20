@@ -25,13 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let path = Bundle.main.path(forResource: "ViApiKeys", ofType: "plist") {
             let dict = NSDictionary(contentsOfFile: path)
         
-            let accessKey = dict!["accessKey"] as! String
-            let secret = dict!["secret"] as! String
+            let appKey = dict!["accessKey"] as! String
+            //let secret = dict!["secret"] as! String
             
 //            print( "access key: \(accessKey), secret:\(secret)")
             
             // set up our search client
-            ViSearch.sharedInstance.setup(accessKey: accessKey, secret: secret)
+            
+            // new & recommended way to setup ViSearch client with widget app key
+            ViSearch.sharedInstance.setup(appKey: appKey)
+            
+            // old way of set up search client with access key and secret
+//            ViSearch.sharedInstance.setup(accessKey: accessKey, secret: secret)
             
             // configure timeout example. default to 10s.
             ViSearch.sharedInstance.client?.timeoutInterval = 30

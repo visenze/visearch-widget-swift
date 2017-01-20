@@ -9,7 +9,7 @@
  2. [Setup](#2-setup)
       - 2.1 [Run the Demo](#21-run-the-demo)
       - 2.2 [Set up Xcode Project](#22-set-up-xcode-project)
-      - 2.3 [Import ViSearch SDK](#23-import-visearch-sdk)
+      - 2.3 [Import ViSearch Swift SDK](##23-import-visearch-swift-sdk)
       - 2.4 [Add Privacy Usage Description](#24-add-privacy-usage-description)
  3. [Initialization](#3-initialization)
  4. [Solutions](#4-solutions)
@@ -36,7 +36,7 @@ ViSearch is an API that provides accurate, reliable and scalable image search. V
 
 The ViSearch iOS SDK is an open source software to provide easy integration of ViSearch Search API with your iOS applications. It provides four search methods based on the ViSearch Solution APIs - Find Similar, You May Also Like, Search By Image and Search By Color. For source code and references, please visit the [Github Repository](https://github.com/visenze/visearch-sdk-swift).
 
->Current stable version: 1.0
+>Current stable version: 1.1.0
 
 >Supported iOS version: iOS 8.x and higher
 
@@ -49,10 +49,14 @@ The source code of a demo application is provided together with the SDK ([demo](
 
 <img src="./doc/xcode_1_1.png" alt="screenshot" height="200">
 
-You should change the access key and secret key in AppDelegate file to your own key pair before running.
+You should initialize the ViSearch client in AppDelegate file by using your app key or access/secret key pair.
 
 ```swift
 
+// recommended way of init ViSearch client with app key
+ViSearch.sharedInstance.setup(appKey: "YOUR_APP_KEY")
+
+// old way of init ViSearch client with access and secret key pair
 ViSearch.sharedInstance.setup(accessKey: "YOUR_ACCESS_KEY", secret: "YOUR_SECRET_KEY")
        
 ```
@@ -94,7 +98,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'ViSearchSDK', '~>1.0'
+    pod 'ViSearchSDK', '~>1.1.0'
 end
 ...
 ```
@@ -133,12 +137,17 @@ You are done!
 iOS 10 now requires user permission to access camera and photo library. If your app requires these access, please add description for NSCameraUsageDescription, NSPhotoLibraryUsageDescription in the Info.plist. More details can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW24).
 
 ## 3. Initialization
-`ViSearch` **must** be initialized with an accessKey/secretKey pair **before** it can be used.
+`ViSearch` **must** be initialized with an `appKey` or `accessKey`/`secretKey` pair **before** it can be used.
 
 ```swift
 import ViSearchSDK
 ...
 // using default ViSearch client. The client, by default, will connect to Visenze's server
+
+// recommended way of init ViSearch client with app key
+ViSearch.sharedInstance.setup(appKey: "YOUR_APP_KEY")
+
+// old way of init ViSearch client with access and secret key pair
 ViSearch.sharedInstance.setup(accessKey: "YOUR_ACCESS_KEY", secret: "YOUR_SECRET_KEY")
 
 ...
@@ -146,6 +155,19 @@ ViSearch.sharedInstance.setup(accessKey: "YOUR_ACCESS_KEY", secret: "YOUR_SECRET
 client = ViSearchClient(baseUrl: yourUrl, accessKey: accessKey, secret: secret)
 ...
 ```
+
+By default, API search requests will timeout after 10s. To change the timeout, you can configure the client as below:
+
+```swift
+            
+// configure timeout to 30s example. By default timeout is set 10s.
+ViSearch.sharedInstance.client?.timeoutInterval = 30
+ViSearch.sharedInstance.client?.sessionConfig.timeoutIntervalForRequest = 30
+ViSearch.sharedInstance.client?.sessionConfig.timeoutIntervalForResource = 30
+ViSearch.sharedInstance.client?.session = URLSession(configuration: (ViSearch.sharedInstance.client?.sessionConfig)!)
+    
+```
+
 
 ## 4. Solutions
 

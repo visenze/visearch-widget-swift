@@ -75,7 +75,7 @@ To understand quickly what our SDKs offer out of the box, please follow instruct
 ### 3.1 Setup your ViSenze account
 In order to use our widgets, please setup your ViSenze account. Please refer to our developer documentation for [set-up instructions](http://developers.visenze.com/setup/#Set-up-your-ViSenze-account).
 
-To use the mobile widgets, you will need to get the API keys (widget app key or access & secret key pair) with `search-only` permission. 
+To use the mobile widgets, you will need to get the App Key. 
 
 ### 3.2 Upload your datafeed
 
@@ -189,9 +189,9 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
 
 The source code of the Demo application is under the `WidgetsExample` folder. Please open the WidgetsExample.xcodeproj and configure the API keys/ schema mapping to run the demo.
 
-- Configure API keys:
+- Configure App Key:
 
- Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the API keys.  You can enter the `search-only` app key or (access/secret key pairs) into the `ViApiKeys.plist` file. If you only have the app key, please enter it in accessKey field of `ViApiKeys.plist` .
+ Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the App Key.  You can enter the app key in accessKey field of `ViApiKeys.plist` .
   
  <img src="./docs/images/api_keys.png" width="600" >
   
@@ -1211,7 +1211,7 @@ By default, API search requests will timeout after 10s. To change the timeout, y
 
 ```swift
 // setup search client
-ViSearch.sharedInstance.setup(accessKey: yourAccessKey, secret: yourSecret)
+ViSearch.sharedInstance.setup(accessKey: yourAppKey)
             
 // configure timeout to 30s example. By default timeout is set 10s.
 ViSearch.sharedInstance.client?.timeoutInterval = 30

@@ -119,7 +119,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'ViSearchWidgets', '~> 0.1'
+    pod 'ViSearchWidgets', '~> 0.2'
 end
 ```
 You should change version 0.1 to the latest version of ViSearchWidgets. The version numbers can be viewed under the current Github project tags.
@@ -148,7 +148,7 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
 1. Create a `Cartfile` :
 
  ```ogdl
- github "visenze/visearch-widget-swift" ~> 0.1
+ github "visenze/visearch-widget-swift" ~> 0.2
  ```
  You should change version 0.1 to the latest version of ViSearchWidgets. The version numbers can be viewed under the current Github project tags.
 
@@ -224,9 +224,9 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
 
 ## 5. Configure the SDK
 
-### 5.1 Api Keys 
+### 5.1 App Key 
 
-`ViSearch` **must** be initialized with an accessKey/secretKey pair **before** it can be used. Please refer to section [3.1](#31-setup-your-visenze-account) on how to obtain the keys .You can do this initialization once in AppDelegate class.
+`ViSearch` **must** be initialized with an App Key **before** it can be used. Please refer to section [3.1](#31-setup-your-visenze-account) on how to obtain the key. You can do this initialization once in AppDelegate class.
 
 ```swift
 import ViSearchSDK
@@ -235,10 +235,6 @@ import ViSearchWidgets
 
 // recommended way of init ViSearch client with app key
 ViSearch.sharedInstance.setup(appKey: "YOUR_APP_KEY")
-
-// old way of init ViSearch client with access and secret key pair
-ViSearch.sharedInstance.setup(accessKey: "YOUR_ACCESS_KEY", secret: "YOUR_SECRET_KEY")
-
 
 ```
 

@@ -1211,7 +1211,7 @@ By default, API search requests will timeout after 10s. To change the timeout, y
 
 ```swift
 // setup search client
-ViSearch.sharedInstance.setup(accessKey: yourAppKey)
+ViSearch.sharedInstance.setup(appKey: yourAppKey)
             
 // configure timeout to 30s example. By default timeout is set 10s.
 ViSearch.sharedInstance.client?.timeoutInterval = 30

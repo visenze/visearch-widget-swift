@@ -14,7 +14,7 @@
   * [4.2 Carthage](#42-carthage)
   * [4.3 Run Demo App](#43-run-demo-app)
 - [5. Configure the SDK](#5-configure-the-sdk)
-  * [5.1 Api Keys](#51-api-keys)
+  * [5.1 App Keys](#51-app-keys)
   * [5.2 App Permission](#52-app-permission)
 - [6. Solution Widgets](#6-solution-widgets)
   * [6.0 Common Widget Configuration](#60-common-widget-configuration)
@@ -29,7 +29,7 @@
   * [7.1 Filtering](#71-filtering)
   * [7.2 Widgets Theme](#72-widgets-theme)
   * [7.3 Advanced](#73-advanced)
-  * [7.4 Errors Handling](#74-errors-handling)
+  * [7.4 Error Handling](#74-error-handling)
   * [7.5 Custom Search Bar](#75-custom-search-bar)
     + [7.5.1 Add Camera & Color Picker Buttons to UISearchBar](#751-add-camera--color-picker-buttons-to-uisearchbar)
     + [7.5.2 Color Picker](#752-color-picker)
@@ -75,7 +75,7 @@ To understand quickly what our SDKs offer out of the box, please follow instruct
 ### 3.1 Setup your ViSenze account
 In order to use our widgets, please setup your ViSenze account. Please refer to our developer documentation for [set-up instructions](http://developers.visenze.com/setup/#Set-up-your-ViSenze-account).
 
-To use the mobile widgets, you will need to get the App Key. 
+To use the mobile widgets, you will need to get the widget app key. 
 
 ### 3.2 Upload your datafeed
 
@@ -187,11 +187,11 @@ To integrate ViSearchWidgets into your Xcode project using Carthage:
  
 ### 4.3 Run Demo App 
 
-The source code of the Demo application is under the `WidgetsExample` folder. Please open the WidgetsExample.xcodeproj and configure the API keys/ schema mapping to run the demo.
+The source code of the Demo application is under the `WidgetsExample` folder. Please open the WidgetsExample.xcodeproj and configure the app keys/ schema mapping to run the demo.
 
-- Configure App Key:
+- Configure App keys:
 
- Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the App Key.  You can enter the app key in accessKey field of `ViApiKeys.plist` .
+ Please refer to section [3.1](#31-setup-your-visenze-account) for instructions to get the app keys.  You can enter the app key in accessKey field of `ViApiKeys.plist` file.
   
  <img src="./docs/images/api_keys.png" width="600" >
   
@@ -205,7 +205,7 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
  
  <img src="./docs/images/product_card.png" width="800" >
  
- You will need edit the `SampleData.plist` (the file was below ViApiKeys.plist in the `Configure API keys` section screenshot) to configure the schema mapping for your sample data feed.
+ You will need edit the `SampleData.plist` (the file was below ViApiKeys.plist in the `Configure App keys` section screenshot) to configure the schema mapping for your sample data feed.
  
  <img src="./docs/images/schema_mapping.png" width="800" >
     
@@ -224,16 +224,16 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
 
 ## 5. Configure the SDK
 
-### 5.1 App Key 
+### 5.1 App Keys 
 
-`ViSearch` **must** be initialized with an App Key **before** it can be used. Please refer to section [3.1](#31-setup-your-visenze-account) on how to obtain the key. You can do this initialization once in AppDelegate class.
+`ViSearch` **must** be initialized with an app key **before** it can be used. Please refer to section [3.1](#31-setup-your-visenze-account) on how to obtain the keys .You can do this initialization once in AppDelegate class.
 
 ```swift
 import ViSearchSDK
 import ViSearchWidgets
 ...
 
-// recommended way of init ViSearch client with app key
+// init ViSearch client with app key
 ViSearch.sharedInstance.setup(appKey: "YOUR_APP_KEY")
 
 ```
@@ -843,12 +843,12 @@ For advanced use cases where you need to create your own widgets or want to modi
 - [searchSuccess(sender:searchType:reqId:products:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : the search is successful
 - [searchFailed(sender:searchType:err:apiErrors:)](https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html) : the search is failed due to either network errors or ViSenze API errors
 
-### 7.4 Errors Handling
+### 7.4 Error Handling
 
 There are 2 possible types of errors when using the widgets:
 
 - Errors when trying to call the API e.g. network related errors like offline/broken/time-out Internet connection
-- ViSenze search API-related errors e.g mis-configuration of search parameters, invalid API key, API limit exceeded, invalid im_name
+- ViSenze search API-related errors e.g mis-configuration of search parameters, invalid app key, API limit exceeded, invalid im_name
 
 By default, the widgets will show a generic error message (i.e. "An error has occured. Please try again." for all errors). In addition, the widgets will show a "No Results Found" for search with no results found.
 

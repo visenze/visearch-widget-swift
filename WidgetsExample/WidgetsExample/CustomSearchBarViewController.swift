@@ -244,7 +244,6 @@ class CustomSearchBarViewController: UIViewController, ViColorPickerDelegate, UI
             self?.dismiss(animated: false, completion: nil)
             
         }
-        
         present(cameraViewController, animated: true, completion: nil)
         
     }

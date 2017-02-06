@@ -205,7 +205,7 @@ The source code of the Demo application is under the `WidgetsExample` folder. Pl
  
  <img src="./docs/images/product_card.png" width="800" >
  
- You will need edit the `SampleData.plist` (the file was below ViApiKeys.plist in the `Configure API keys` section screenshot) to configure the schema mapping for your sample data feed.
+ You will need edit the `SampleData.plist` (the file was below ViApiKeys.plist in the `Configure App keys` section screenshot) to configure the schema mapping for your sample data feed.
  
  <img src="./docs/images/schema_mapping.png" width="800" >
     

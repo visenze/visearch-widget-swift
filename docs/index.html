@@ -281,7 +281,7 @@
 <li><a href="#5-configure-the-sdk">5. Configure the SDK</a>
 
 <ul>
-<li><a href="#51-api-keys">5.1 Api Keys</a></li>
+<li><a href="#51-app-keys">5.1 App Keys</a></li>
 <li><a href="#52-app-permission">5.2 App Permission</a></li>
 </ul></li>
 <li><a href="#6-solution-widgets">6. Solution Widgets</a>
@@ -302,7 +302,7 @@
 <li><a href="#71-filtering">7.1 Filtering</a></li>
 <li><a href="#72-widgets-theme">7.2 Widgets Theme</a></li>
 <li><a href="#73-advanced">7.3 Advanced</a></li>
-<li><a href="#74-errors-handling">7.4 Errors Handling</a></li>
+<li><a href="#74-error-handling">7.4 Error Handling</a></li>
 <li><a href="#75-custom-search-bar">7.5 Custom Search Bar</a></li>
 <li><a href="#751-add-camera--color-picker-buttons-to-uisearchbar">7.5.1 Add Camera &amp; Color Picker Buttons to UISearchBar</a></li>
 <li><a href="#752-color-picker">7.5.2 Color Picker</a></li>
@@ -354,7 +354,7 @@
 
 <p>In order to use our widgets, please setup your ViSenze account. Please refer to our developer documentation for <a href="http://developers.visenze.com/setup/#Set-up-your-ViSenze-account">set-up instructions</a>.</p>
 
-<p>To use the mobile widgets, you will need to get the API keys (widget app key or access &amp; secret key pair) with <code>search-only</code> permission. </p>
+<p>To use the mobile widgets, you will need to get the widget app key. </p>
 <a href='#3-2-upload-your-datafeed' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='3-2-upload-your-datafeed'>3.2 Upload your datafeed</h3>
 
 <p>For testing, you will need to upload your datafeed in ViSenze <a href="https://dashboard.visenze.com/">dashboard</a> and <a href="http://developers.visenze.com/setup/#Configure-schema-fields">configure schema fields</a> . For widgets integration, the schema fields requirements are as below:</p>
@@ -541,13 +541,13 @@
 <p><img src="./docs/images/build_script.png" width="600" ></p>
 <a href='#4-3-run-demo-app' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='4-3-run-demo-app'>4.3 Run Demo App</h3>
 
-<p>The source code of the Demo application is under the <code>WidgetsExample</code> folder. Please open the WidgetsExample.xcodeproj and configure the API keys/ schema mapping to run the demo.</p>
+<p>The source code of the Demo application is under the <code>WidgetsExample</code> folder. Please open the WidgetsExample.xcodeproj and configure the app keys/ schema mapping to run the demo.</p>
 
 <ul>
-<li>Configure API keys:</li>
+<li>Configure App keys:</li>
 </ul>
 
-<p>Please refer to section <a href="#31-setup-your-visenze-account">3.1</a> for instructions to get the API keys.  You can enter the <code>search-only</code> app key or (access/secret key pairs) into the <code>ViApiKeys.plist</code> file. If you only have the app key, please enter it in accessKey field of <code>ViApiKeys.plist</code> .</p>
+<p>Please refer to section <a href="#31-setup-your-visenze-account">3.1</a> for instructions to get the app keys.  You can enter the app key in accessKey field of <code>ViApiKeys.plist</code> file.</p>
 
 <p><img src="./docs/images/api_keys.png" width="600" ></p>
 
@@ -565,7 +565,7 @@
 
 <p><img src="./docs/images/product_card.png" width="800" ></p>
 
-<p>You will need edit the <code>SampleData.plist</code> (the file was below ViApiKeys.plist in the <code>Configure API keys</code> section screenshot) to configure the schema mapping for your sample data feed.</p>
+<p>You will need edit the <code>SampleData.plist</code> (the file was below ViApiKeys.plist in the <code>Configure App keys</code> section screenshot) to configure the schema mapping for your sample data feed.</p>
 
 <p><img src="./docs/images/schema_mapping.png" width="800" ></p>
 
@@ -586,18 +586,15 @@
 
 <p><img src="./docs/images/scheme.png" width="300" ></p>
 <a href='#5-configure-the-sdk' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='5-configure-the-sdk'>5. Configure the SDK</h2>
-<a href='#5-1-api-keys' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-1-api-keys'>5.1 Api Keys</h3>
+<a href='#5-1-app-keys' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='5-1-app-keys'>5.1 App Keys</h3>
 
-<p><code>ViSearch</code> <strong>must</strong> be initialized with an accessKey/secretKey pair <strong>before</strong> it can be used. Please refer to section <a href="#31-setup-your-visenze-account">3.1</a> on how to obtain the keys .You can do this initialization once in AppDelegate class.</p>
+<p><code>ViSearch</code> <strong>must</strong> be initialized with an app key <strong>before</strong> it can be used. Please refer to section <a href="#31-setup-your-visenze-account">3.1</a> on how to obtain the keys .You can do this initialization once in AppDelegate class.</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">ViSearchSDK</span>
 <span class="kd">import</span> <span class="kt">ViSearchWidgets</span>
 <span class="o">...</span>
 
-<span class="c1">// recommended way of init ViSearch client with app key</span>
+<span class="c1">// init ViSearch client with app key</span>
 <span class="kt">ViSearch</span><span class="o">.</span><span class="n">sharedInstance</span><span class="o">.</span><span class="nf">setup</span><span class="p">(</span><span class="nv">appKey</span><span class="p">:</span> <span class="s">"YOUR_APP_KEY"</span><span class="p">)</span>
-
-<span class="c1">// old way of init ViSearch client with access and secret key pair</span>
-<span class="kt">ViSearch</span><span class="o">.</span><span class="n">sharedInstance</span><span class="o">.</span><span class="nf">setup</span><span class="p">(</span><span class="nv">accessKey</span><span class="p">:</span> <span class="s">"YOUR_ACCESS_KEY"</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="s">"YOUR_SECRET_KEY"</span><span class="p">)</span>
 
 
 </code></pre>
@@ -1191,13 +1188,13 @@ For loading of product images, you will need to configure the <q>App Transport S
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">searchSuccess(sender:searchType:reqId:products:)</a> : the search is successful</li>
 <li><a href="https://visenze.github.io/visearch-widget-swift/Protocols/ViSearchViewControllerDelegate.html">searchFailed(sender:searchType:err:apiErrors:)</a> : the search is failed due to either network errors or ViSenze API errors</li>
 </ul>
-<a href='#7-4-errors-handling' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-4-errors-handling'>7.4 Errors Handling</h3>
+<a href='#7-4-error-handling' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='7-4-error-handling'>7.4 Error Handling</h3>
 
 <p>There are 2 possible types of errors when using the widgets:</p>
 
 <ul>
 <li>Errors when trying to call the API e.g. network related errors like offline/broken/time-out Internet connection</li>
-<li>ViSenze search API-related errors e.g mis-configuration of search parameters, invalid API key, API limit exceeded, invalid im_name</li>
+<li>ViSenze search API-related errors e.g mis-configuration of search parameters, invalid app key, API limit exceeded, invalid im_name</li>
 </ul>
 
 <p>By default, the widgets will show a generic error message (i.e. <q>An error has occured. Please try again.</q> for all errors). In addition, the widgets will show a <q>No Results Found</q> for search with no results found.</p>
@@ -1632,7 +1629,7 @@ For loading of product images, you will need to configure the <q>App Transport S
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2017-01-21)</p>
+          <p>&copy; 2017 <a class="link" href="https://github.com/visenze/visearch-widget-swift" target="_blank" rel="external">ViSenze</a>. All rights reserved. (Last updated: 2017-02-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

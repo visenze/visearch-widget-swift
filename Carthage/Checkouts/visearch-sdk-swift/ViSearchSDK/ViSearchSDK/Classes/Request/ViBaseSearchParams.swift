@@ -57,6 +57,15 @@ open class ViBaseSearchParams : ViSearchParamsProtocol {
     /// Used for automatic object recognition
     public var detection : String? = nil
     
+    /// List of fields to enable faceting
+    public var facets    : [String] = []
+    
+    /// Limit of the number of facet values to be returned. Only for non-numerical fields
+    public var facetsLimit : Int = 10
+    
+    /// whether to show the facets count in the response.
+    public var facetShowCount : Bool = false
+    
     // MARK: search protocol
     public func toDict() -> [String: Any] {
         var dict : [String:Any] = [:]
@@ -96,6 +105,12 @@ open class ViBaseSearchParams : ViSearchParamsProtocol {
         
         if fl.count > 0 {
             dict["fl"] = fl
+        }
+        
+        if facets.count > 0 {
+            dict["facets"] = self.facets
+            dict["facets_limit"] = self.facetsLimit
+            dict["facets_show_count"] = self.facetShowCount ? "true" : "false"
         }
         
         return dict ;

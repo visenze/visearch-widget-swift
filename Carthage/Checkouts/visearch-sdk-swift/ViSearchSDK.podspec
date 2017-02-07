@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint ViSearchSwiftDev.podspec' to ensure this is a
+#  Be sure to run `pod spec lint ViSearchSwift.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   
   s.name         = "ViSearchSDK"
-  s.version      = "1.1.0"
+  s.version      = "1.2.0"
   s.summary      = "A Visual Search API solution (Swift SDK)"
 
   s.description  = <<-DESC

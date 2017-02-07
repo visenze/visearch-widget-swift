@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   
   s.name         = "ViSearchWidgets"
-  s.version      = "0.2.0"
+  s.version      = "0.3.0"
   s.summary      = "ViSenze mobile widgets"
 
   s.description  = <<-DESC
@@ -66,7 +66,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "ViSearchSDK", "~> 1.1.0"
+  s.dependency "ViSearchSDK", "~> 1.2.0"
   s.dependency "Kingfisher", "~> 3.2.1"
   #s.dependency "SnapKit", "~> 3.0.2"
   s.dependency "LayoutKit", "~> 4.0.0"

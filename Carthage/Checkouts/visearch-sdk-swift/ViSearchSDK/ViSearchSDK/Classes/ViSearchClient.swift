@@ -41,7 +41,7 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
     public var timeoutInterval : TimeInterval = 10 // how long to timeout request
     public var requestSerialization: ViRequestSerialization
     
-    public var userAgent : String = "visearch-swift-sdk/1.1.0"
+    public var userAgent : String = "visearch-swift-sdk/1.2.0"
     private static let userAgentHeader : String = "X-Requested-With"
     
     // whether to authenticate by appkey or by access/secret key point

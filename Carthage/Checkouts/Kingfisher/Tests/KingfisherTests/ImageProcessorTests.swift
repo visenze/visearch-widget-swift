@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 2016/08/30.
 //
-//  Copyright (c) 2016 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -71,6 +71,16 @@ class ImageProcessorTests: XCTestCase {
         let p = ResizingImageProcessor(targetSize: CGSize(width: 120, height: 120))
         XCTAssertEqual(p.identifier, "com.onevcat.Kingfisher.ResizingImageProcessor((120.0, 120.0))")
         checkProcessor(p, with: "resize-120")
+    }
+    
+    func testResizingProcessorWithContentMode() {
+        let p1 = ResizingImageProcessor(targetSize: CGSize(width: 240, height: 60), contentMode: .aspectFill)
+        XCTAssertEqual(p1.identifier, "com.onevcat.Kingfisher.ResizingImageProcessor((240.0, 60.0), aspectFill)")
+        checkProcessor(p1, with: "resize-240-60-aspectFill")
+        
+        let p2 = ResizingImageProcessor(targetSize: CGSize(width: 240, height: 60), contentMode: .aspectFit)
+        XCTAssertEqual(p2.identifier, "com.onevcat.Kingfisher.ResizingImageProcessor((240.0, 60.0), aspectFit)")
+        checkProcessor(p2, with: "resize-240-60-aspectFit")
     }
     
     func testBlurProcessor() {

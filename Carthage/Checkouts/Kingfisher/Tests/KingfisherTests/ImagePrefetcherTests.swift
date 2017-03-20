@@ -4,7 +4,7 @@
 //
 //  Created by Claire Knight <claire.knight@moggytech.co.uk> on 24/02/2016
 //
-//  Copyright (c) 2016 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -188,6 +188,61 @@ class ImagePrefetcherTests: XCTestCase {
         }
         
         prefetcher.start()
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func testFetchWithProcessor() {
+        let expectation = self.expectation(description: "wait for prefetching images")
+        
+        var urls = [URL]()
+        for URLString in testKeys {
+            _ = stubRequest("GET", URLString).andReturn(200)?.withBody(testImageData)
+            urls.append(URL(string: URLString)!)
+        }
+        
+        let p = RoundCornerImageProcessor(cornerRadius: 20)
+        
+        func prefetchAgain() {
+            var progressCalledCount = 0
+            let prefetcher = ImagePrefetcher(urls: urls, options: [.processor(p)],
+                                             progressBlock: { (skippedResources, failedResources, completedResources) -> () in
+                                                progressCalledCount += 1
+            },
+                                             completionHandler: {(skippedResources, failedResources, completedResources) -> () in
+                                                
+                                                XCTAssertEqual(skippedResources.count, urls.count, "There should be one item skipped since it is just prefetched.")
+                                                XCTAssertEqual(failedResources.count, 0, "There should be no failed downloading.")
+                                                XCTAssertEqual(completedResources.count, 0, "No need to prefetch anymore")
+                                                XCTAssertEqual(progressCalledCount, urls.count, "Progress should be called the same time of download count.")
+                                                for url in urls {
+                                                    XCTAssertTrue(KingfisherManager.shared.cache.isImageCached(forKey: url.absoluteString, processorIdentifier: p.identifier).cached)
+                                                }
+                                                expectation.fulfill()
+
+            })
+            prefetcher.start()
+        }
+        
+        
+        var progressCalledCount = 0
+        let prefetcher = ImagePrefetcher(urls: urls, options: [.processor(p)],
+                                         progressBlock: { (skippedResources, failedResources, completedResources) -> () in
+                                            progressCalledCount += 1
+        },
+                                         completionHandler: {(skippedResources, failedResources, completedResources) -> () in
+                                            
+                                            XCTAssertEqual(skippedResources.count, 0, "There should be no items skipped.")
+                                            XCTAssertEqual(failedResources.count, 0, "There should be no failed downloading.")
+                                            XCTAssertEqual(completedResources.count, urls.count, "All resources prefetching should be completed.")
+                                            XCTAssertEqual(progressCalledCount, urls.count, "Progress should be called the same time of download count.")
+                                            for url in urls {
+                                                XCTAssertTrue(KingfisherManager.shared.cache.isImageCached(forKey: url.absoluteString, processorIdentifier: p.identifier).cached)
+                                            }
+                                            
+                                            prefetchAgain()
+        })
+        prefetcher.start()
+        
         waitForExpectations(timeout: 5, handler: nil)
     }
 }

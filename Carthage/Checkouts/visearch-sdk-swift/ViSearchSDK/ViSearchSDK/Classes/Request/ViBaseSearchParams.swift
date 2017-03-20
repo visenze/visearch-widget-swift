@@ -66,6 +66,10 @@ open class ViBaseSearchParams : ViSearchParamsProtocol {
     /// whether to show the facets count in the response.
     public var facetShowCount : Bool = false
     
+    /// add dedup parameter
+    public var dedup : Bool? = nil
+    
+    
     // MARK: search protocol
     public func toDict() -> [String: Any] {
         var dict : [String:Any] = [:]
@@ -91,6 +95,10 @@ open class ViBaseSearchParams : ViSearchParamsProtocol {
         
         if queryInfo {
             dict["qinfo"] = "true"
+        }
+        
+        if let dedup = dedup {
+            dict["dedup"] = dedup ? "true" : "false"
         }
         
         if fq.count > 0 {

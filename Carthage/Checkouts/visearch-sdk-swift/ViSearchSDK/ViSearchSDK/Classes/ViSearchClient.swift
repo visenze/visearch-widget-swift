@@ -41,7 +41,7 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
     public var timeoutInterval : TimeInterval = 10 // how long to timeout request
     public var requestSerialization: ViRequestSerialization
     
-    public var userAgent : String = "visearch-swift-sdk/1.2.0"
+    public var userAgent : String = "visearch-swift-sdk/1.2.1"
     private static let userAgentHeader : String = "X-Requested-With"
     
     // whether to authenticate by appkey or by access/secret key point
@@ -150,6 +150,10 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
     {
         var url : String? = nil
         
+        // NOTE: image must be first line before generating of url
+        // url box parameters depend on whether the compress image is generated
+        let imageData: Data? = params.generateCompressImageForUpload()
+        
         if self.isAppKeyEnabled {
             url = requestSerialization.generateRequestUrl(baseUrl: baseUrl, apiEndPoint: .UPLOAD_SEARCH , searchParams: params, appKey: self.accessKey)
         }
@@ -158,9 +162,6 @@ open class ViSearchClient: NSObject, URLSessionDelegate {
             
         }
         
-        // NOTE: image must be first line before generating of url
-        // url box parameters depend on whether the compress image is generated
-        let imageData: Data? = params.generateCompressImageForUpload()
         let request = NSMutableURLRequest(url: URL(string: url!)! , cachePolicy: .useProtocolCachePolicy , timeoutInterval: timeoutInterval)
         
         let boundary = ViMultipartFormData.randomBoundary()

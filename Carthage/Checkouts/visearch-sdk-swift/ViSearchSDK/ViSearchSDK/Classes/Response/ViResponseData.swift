@@ -40,6 +40,9 @@ open class ViResponseData: NSObject {
     ///  for automatic object detection. See http://developers.visenze.com/api/?shell#automatic-object-recognition-beta for details
     public var productTypeList : [ViProductTypeList] = []
     
+    /// facet results. Refer to http://developers.visenze.com/api/index.php#facet-and-filtering for details
+    public var facets : [ViFacet] = []
+    
     /// store list of error messages if request is not successful
     public var error: [String] = []
     
@@ -98,6 +101,10 @@ open class ViResponseData: NSObject {
             if let pTypeListJson = json["product_types_list"] as? [Any] {
                 self.productTypeList = ViResponseData.parseProductTypeList(pTypeListJson)
             }
+            
+            if let facetListJson = json["facets"] as? [Any] {
+                self.facets = ViResponseData.parseFacets(facetListJson)
+            }
 
         }
         catch {
@@ -132,6 +139,42 @@ open class ViResponseData: NSObject {
                 let type = dict["type"] as! String
                 let item = ViProductTypeList(type: type)
                 item.attributes_list = dict["attributes_list"] as! [String: Any]
+                results.append(item)
+            }
+        }
+        
+        return results
+    }
+    
+    public static func parseFacets(_ arr: [Any]) -> [ViFacet]{
+        var results = [ViFacet]()
+        for jsonItem in arr {
+            if let dict = jsonItem as? [String:Any] {
+                let key = dict["key"] as! String
+                let item = ViFacet(key: key)
+                
+                // string facet
+                if let itemArr = dict["items"] as? [Any] {
+                    var facetItems : [ViFacetItem] = []
+                    for itemDict in itemArr {
+                        
+                        if let itemDict = itemDict as? [String:Any] {
+                            let val = itemDict["value"] as! String
+                            let count = itemDict["count"] as? Int
+                            let facetItem = ViFacetItem(value: val, count: count)
+                            facetItems.append(facetItem)
+                        }
+                    }
+                    item.items = facetItems
+                }
+                
+                // numeric facet
+                if let range = dict["range"] as? [String: String] {
+                    // extract min and max
+                    item.min = Int(range["min"]!)
+                    item.max = Int(range["max"]!)
+                }
+                
                 results.append(item)
             }
         }

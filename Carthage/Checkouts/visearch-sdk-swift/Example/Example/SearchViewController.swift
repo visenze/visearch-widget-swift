@@ -146,6 +146,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, SwiftHUEColor
         params!.fl = ["im_url"] // retrieve image url. By default the API only return im_name if does not specify fl parameter
         params!.limit = 15 // display 15 results per page
         
+//        params?.facets = ["price", "brand"]
+//        params?.facetsLimit = 10
+//        params?.facetShowCount = true
+        
         ViSearch.sharedInstance.colorSearch( params: params!,
                                              successHandler: {
                                                 (data : ViResponseData?) -> Void in
@@ -162,7 +166,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, SwiftHUEColor
                                                     }
                                                     else {
                                                         // perform segue here
-                                                        //dump(data)
+//                                                        dump(data)
                                                         self.recentResponseData = data
                                                         
                                                         DispatchQueue.main.async {

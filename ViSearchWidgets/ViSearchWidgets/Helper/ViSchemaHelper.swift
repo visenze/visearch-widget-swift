@@ -44,14 +44,8 @@ public class ViSchemaHelper: NSObject {
                 }
                 
                 if let key = mapping.price {
-                    if let priceNum = dict[key] as? String {
-                        price = Float(priceNum)
-                        
-                        if price == nil {
-                            print("\(type(of: self)).\(#function)[line:\(#line)] - Unable to convert price to number: \(priceNum)")
-                        }
-                    }
-                    else if let priceNum = dict[key] as? Double {
+                    
+                    if let priceNum = dict[key] as? Double {
                         price = Float(priceNum)
                     }
                     else if let priceNum = dict[key] as? Float {
@@ -60,17 +54,18 @@ public class ViSchemaHelper: NSObject {
                     else if let priceNum = dict[key] as? Int {
                         price = Float(priceNum)
                     }
+                    else if let priceNum = dict[key] as? String {
+                        price = Float(priceNum)
+                        
+                        if price == nil {
+                            print("\(type(of: self)).\(#function)[line:\(#line)] - Unable to convert price to number: \(priceNum)")
+                        }
+                    }
                 }
                 
                 if let key = mapping.discountPrice {
-                    if let discountPriceNum = dict[key] as? String {
-                        discountPrice =  Float(discountPriceNum)
-                        
-                        if discountPrice == nil {
-                            print("\(type(of: self)).\(#function)[line:\(#line)] - Unable to convert discount price to number: \(discountPriceNum)")
-                        }
-                    }
-                    else if let discountPriceNum = dict[key] as? Double {
+                    
+                    if let discountPriceNum = dict[key] as? Double {
                         discountPrice =  Float(discountPriceNum)
                     }
                     else if let discountPriceNum = dict[key] as? Float {
@@ -78,6 +73,13 @@ public class ViSchemaHelper: NSObject {
                     }
                     else if let discountPriceNum = dict[key] as? Int {
                         discountPrice =  Float(discountPriceNum)
+                    }
+                    else if let discountPriceNum = dict[key] as? String {
+                        discountPrice =  Float(discountPriceNum)
+                        
+                        if discountPrice == nil {
+                            print("\(type(of: self)).\(#function)[line:\(#line)] - Unable to convert discount price to number: \(discountPriceNum)")
+                        }
                     }
                 }
             }

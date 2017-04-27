@@ -219,6 +219,7 @@ class HomeTableTableViewController: UITableViewController , ViSearchViewControll
             
             similarController.refreshData()
             
+            
         }
 
     }

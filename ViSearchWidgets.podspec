@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   
   s.name         = "ViSearchWidgets"
-  s.version      = "0.3.1"
+  s.version      = "0.4.0"
   s.summary      = "ViSenze mobile widgets"
 
   s.description  = <<-DESC

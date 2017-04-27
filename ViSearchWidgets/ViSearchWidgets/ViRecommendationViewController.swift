@@ -39,7 +39,7 @@ open class ViRecommendationViewController: ViHorizontalSearchViewController{
                     // set up user agent
                     client.userAgent = ViWidgetVersion.USER_AGENT
                     
-                    client.recommendation(
+                    client.findSimilar(
                         params: searchParams as! ViSearchParams,
                         successHandler: {
                             (data : ViResponseData?) -> Void in
